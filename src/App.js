@@ -1,15 +1,10 @@
-import './App.scss';
-
+import './App.scss'
+import Home from './components/home/Home'
 function App() {
   return (
     <div className="App">
-      <button className='btn btn-primary'>Bootstrap</button>
-      <button className='btn btn-primary'>Bootstrap</button>
-      <button className='btn btn-primary'>Bootstrap</button>
-      <button className='btn btn-primary'>Bootstrap</button>
-      <button className='btn btn-primary'>Bootstrap</button>
+      <Home />
     </div>
-  );
+  )
 }
-
-export default App;
+export default App
