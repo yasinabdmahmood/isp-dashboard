@@ -3,13 +3,28 @@ import styles from './template.module.scss'
 import parking from '../../assets/images/parking.png'
 import logo from '../../assets/images/parking-area.png'
 import { Sidebar, Menu, MenuItem, SubMenu } from 'react-pro-sidebar'
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import { Outlet, Link  } from 'react-router-dom';
 
 function Template() {
+  const navigate = useNavigate();
+  const handleLogout = () => {
+    axios.delete('http://localhost:3000/employees/sign_out', { withCredentials: true })
+      .then(response => {
+        console.log(response);
+        navigate('/');
+        // Redirect the user to the login page or do any other necessary action
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }
     return (
         <div className={styles["container"]}>
         <div className={styles["scssClass"]}>
           <h3>React Js SASS / SCSS Example</h3>
+          <button onClick={handleLogout}>Logout</button>
         </div>
         <div className={styles.body} style={{
           display: 'flex',
