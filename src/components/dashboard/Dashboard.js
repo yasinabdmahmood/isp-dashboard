@@ -13,8 +13,8 @@ function Dashboard() {
   }, []);
 
   return (
-    <div className="container mt-5">
-      <table className="table">
+    <div className="container d-flex justify-content-center mt-5">
+      <table className="table table-striped w-75">
         <thead class="thead-dark" >
           <tr>
             <th scope="col">ID</th>
