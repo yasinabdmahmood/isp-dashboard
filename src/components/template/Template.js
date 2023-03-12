@@ -31,7 +31,9 @@ function Template() {
           alignItems: 'stretch',
         }}>
           <Sidebar breakPoint='sm' image={parking} >
+            
             <Menu>
+              <MenuItem component={<Link to="/home/employees" />} > Employees </MenuItem>
               <MenuItem component={<Link to="/home" />}>Dashboard</MenuItem>
               <SubMenu label="Vehicle Catagory">
                 <MenuItem component={<Link to="/home/add_category" />}>Add Category</MenuItem>
