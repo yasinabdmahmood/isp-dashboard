@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Container, Form, FormGroup, Label, Input, Button } from 'reactstrap';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
@@ -26,18 +27,23 @@ const LoginForm = () => {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <label>
-        Username:
-        <input type="text" value={email} onChange={(e) => setEmail(e.target.value)} />
-      </label>
-      <label>
-        Password:
-        <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
-      </label>
-      <button type="submit">Login</button>
-    </form>
+    <Container className="d-flex justify-content-center align-items-center vh-100">
+    <div className="col-md-6">
+      <Form onSubmit={handleSubmit}>
+        <FormGroup>
+          <Label for="email">Username:</Label>
+          <Input type="text" id="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+        </FormGroup>
+        <FormGroup>
+          <Label for="password">Password:</Label>
+          <Input type="password" id="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+        </FormGroup>
+        <Button type="submit" color="primary">Login</Button>
+      </Form>
+    </div>
+  </Container>
   );
+
 };
 
 export default LoginForm;
