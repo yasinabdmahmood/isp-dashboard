@@ -12,6 +12,7 @@ import ManageCategory from '../manage_category/ManageCategory'
 import BetweenDatesReport from '../between_dates_report/BetweenDatesReport'
 import SearchVehicle from '../search_vehicle/SearchVehicle';
 import RegUser from '../reg_user/RegUser';
+import Employees from '../employees/Employees';
 function Home() {
   return (
     <>
@@ -20,6 +21,7 @@ function Home() {
           <Route path="/signup" element={<Signup />} />
           <Route path="/home" element={<Template />}>
             <Route index element={<Dashboard/>} />
+            <Route path="employees" element={<Employees/>} />
             <Route path="add_vehicle" element={<AddVehicle/>} />
             <Route path="manage_in_vehicle" element={<ManageInVehicle/>} />
             <Route path="manage_out_vehicle" element={<ManageOutVehicle/>} />
