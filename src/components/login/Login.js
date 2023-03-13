@@ -1,29 +1,41 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { getLoggedInCredentials } from '../../redux/login/loginReducer';
 import { Container, Form, FormGroup, Label, Input, Button } from 'reactstrap';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+// import axios from 'axios';
 
 const LoginForm = () => {
+  const loggedInEmployee = useSelector(state => state.login);
+  const dispatch = useDispatch();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
+  useEffect(() => {
+    if (loggedInEmployee) {
+      navigate('/home');
+    }
+  }, [loggedInEmployee, navigate]);
+
   const handleSubmit = async (event) => {
     event.preventDefault();
-    try {
-      const response = await axios.post('http://localhost:3000/employees/sign_in', {
-        employee: {
-          email: email,
-          password: password
-        }
-      },{
-        withCredentials: true
-      });
-      console.log(response.data);
-      navigate('/home');
-    } catch (error) {
-      console.error(error);
-    }
+    const payloadData = {email,password}
+    dispatch(getLoggedInCredentials(payloadData))
+    // try {
+    //   const response = await axios.post('http://localhost:3000/employees/sign_in', {
+    //     employee: {
+    //       email: email,
+    //       password: password
+    //     }
+    //   },{
+    //     withCredentials: true
+    //   });
+    //   console.log(response.data);
+    //   navigate('/home');
+    // } catch (error) {
+    //   console.error(error);
+    // }
   }
 
   return (
