@@ -37,8 +37,9 @@ export const LoginSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(getLoggedInCredentials.fulfilled, (state, action) => {
-      const loggedInEmployee = action.payload.data;
-      return loggedInEmployee;
+      let loggedInEmployee = JSON.stringify(action.payload.data);
+      sessionStorage.setItem('user', loggedInEmployee);
+      return true;
     });
   },
 });

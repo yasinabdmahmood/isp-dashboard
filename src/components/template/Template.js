@@ -9,17 +9,21 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { Outlet, Link  } from 'react-router-dom';
 
+const getUserName = () => {
+  let loggedInEmployee = sessionStorage.getItem('user');
+  let retrievedData = JSON.parse(loggedInEmployee);
+  return retrievedData.name
+}
+
 function Template() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const loggedInUserName = useSelector(state => state.login.name)
   const handleLogout = () => {
     axios.delete('http://localhost:3000/employees/sign_out', { withCredentials: true })
       .then(response => {
         console.log(response);
         dispatch(clearSession());
         navigate('/');
-        // Redirect the user to the login page or do any other necessary action
       })
       .catch(error => {
         console.log(error);
@@ -28,7 +32,7 @@ function Template() {
     return (
         <div className={styles["container"]}>
         <div className={styles["scssClass"]}>
-          <h3>{`Welcome ${loggedInUserName}`}</h3>
+          <h3>{`Welcome ${getUserName()}`}</h3>
           <button onClick={handleLogout}>Logout</button>
         </div>
         <div className={styles.body} style={{
