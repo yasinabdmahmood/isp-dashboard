@@ -3,16 +3,21 @@ import styles from './template.module.scss'
 import parking from '../../assets/images/parking.png'
 import logo from '../../assets/images/parking-area.png'
 import { Sidebar, Menu, MenuItem, SubMenu } from 'react-pro-sidebar'
+import { useDispatch, useSelector } from 'react-redux';
+import { clearSession } from '../../redux/login/loginReducer';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { Outlet, Link  } from 'react-router-dom';
 
 function Template() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const loggedInUserName = useSelector(state => state.login.name)
   const handleLogout = () => {
     axios.delete('http://localhost:3000/employees/sign_out', { withCredentials: true })
       .then(response => {
         console.log(response);
+        dispatch(clearSession());
         navigate('/');
         // Redirect the user to the login page or do any other necessary action
       })
@@ -23,7 +28,7 @@ function Template() {
     return (
         <div className={styles["container"]}>
         <div className={styles["scssClass"]}>
-          <h3>React Js SASS / SCSS Example</h3>
+          <h3>{`Welcome ${loggedInUserName}`}</h3>
           <button onClick={handleLogout}>Logout</button>
         </div>
         <div className={styles.body} style={{
