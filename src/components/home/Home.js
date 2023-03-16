@@ -14,6 +14,7 @@ import SearchVehicle from '../search_vehicle/SearchVehicle';
 import RegUser from '../reg_user/RegUser';
 import Employees from '../employees/Employees';
 import SubscriptionTypes from '../sunbscription_types/SubscriptionTypes';
+import Clients from '../clients/Clients';
 function Home() {
   return (
     <>
@@ -24,6 +25,7 @@ function Home() {
             <Route index element={<Dashboard/>} />
             <Route path="employees" element={<Employees/>} />
             <Route path="subscriptionTypes" element={<SubscriptionTypes />} />
+            <Route path="clients" element={<Clients/>} />
             <Route path="add_vehicle" element={<AddVehicle/>} />
             <Route path="manage_in_vehicle" element={<ManageInVehicle/>} />
             <Route path="manage_out_vehicle" element={<ManageOutVehicle/>} />

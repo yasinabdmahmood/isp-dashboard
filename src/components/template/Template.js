@@ -58,6 +58,7 @@ function Template() {
             <Menu>
               <MenuItem component={<Link to="/home/employees" />} > Employees </MenuItem>
               <MenuItem component={<Link to="/home/subscriptionTypes" />} > Subscription Types </MenuItem>
+              <MenuItem component={<Link to="/home/clients" />} > Cleints </MenuItem>
               <MenuItem component={<Link to="/home" />}>Dashboard</MenuItem>
               <SubMenu label="Vehicle Catagory">
                 <MenuItem component={<Link to="/home/add_category" />}>Add Category</MenuItem>
