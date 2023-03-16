@@ -16,6 +16,7 @@ import Employees from '../employees/Employees';
 import SubscriptionTypes from '../sunbscription_types/SubscriptionTypes';
 import Clients from '../clients/Clients';
 import SubsCriptionRecord from '../subscription_records/SubsCriptionRecords';
+import PaymentRecords from '../payment_records/PaymentRecords';
 function Home() {
   return (
     <>
@@ -28,7 +29,7 @@ function Home() {
             <Route path="subscriptionTypes" element={<SubscriptionTypes />} />
             <Route path="clients" element={<Clients/>} />
             <Route path="subscriptionRecords" element={<SubsCriptionRecord/>} />
-            <Route path="add_vehicle" element={<AddVehicle/>} />
+            <Route path="paymentRecords" element={<PaymentRecords/>} />
             <Route path="manage_in_vehicle" element={<ManageInVehicle/>} />
             <Route path="manage_out_vehicle" element={<ManageOutVehicle/>} />
             <Route path="add_category" element={<AddCategory/>} />
