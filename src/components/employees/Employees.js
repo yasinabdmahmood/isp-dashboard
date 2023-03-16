@@ -27,7 +27,7 @@ function Employees() {
         </thead>
         <tbody>
           {employees?.map(employee => (
-            <tr key={employee.id} scope="row">
+            <tr key={employee.id}>
               <td>{employee.id}</td>
               <td>{employee.name}</td>
               <td>{employee.email}</td>
