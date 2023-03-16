@@ -14,6 +14,7 @@ import NewSubscriptionType from '../new_subscription_type/NewSubscriptionType';
 import EditSubscriptionType from '../edit_subscription_type/EditSubscriptionType';
 import NewClient from '../new_client/NewClient';
 import EditClient from '../edit_client/EditClient';
+import ShowClient from '../show_client/ShowClient';
 function Home() {
   return (
     <>
@@ -27,6 +28,7 @@ function Home() {
             <Route path="subscriptionTypes/new" element={<NewSubscriptionType />} />
             <Route path="subscriptionTypes/edit/:id" element={<EditSubscriptionType />} />
             <Route path="clients" element={<Clients/>} />
+            <Route path="clients/:id" element={<ShowClient/>} />
             <Route path="clients/new" element={<NewClient/>} />
             <Route path="clients/edit/:id" element={<EditClient/>} />
             <Route path="subscriptionRecords" element={<SubscriptionRecords/>} />
