@@ -30,6 +30,20 @@ export const getSubscriptionTypes = createAsyncThunk(
   },
 );
 
+export const getSubscriptionRecords = createAsyncThunk(
+  'getSubscriptionRecords/',
+  async () => {
+    try {
+      return axios.get(baseUrl + '/subscription_records',{
+        withCredentials: true
+      });
+    } catch (error) {
+      return error;
+    }
+  },
+);
+
+
 export const getClients = createAsyncThunk(
   'getClients/',
   async () => {
@@ -47,6 +61,7 @@ const initialState = {
   employees: null,
   subscriptionTypes: [],
   clients: [],
+  subscriptionRecords: [],
 };
 
 export const dataBaseSlice = createSlice({
@@ -70,6 +85,11 @@ export const dataBaseSlice = createSlice({
     builder.addCase(getSubscriptionTypes.fulfilled, (state, action) => {
       const subscriptionTypes = action.payload.data
       return {...state,subscriptionTypes};
+    });
+
+    builder.addCase(getSubscriptionRecords.fulfilled, (state, action) => {
+      const subscriptionRecords = action.payload.data
+      return {...state,subscriptionRecords};
     });
 
     builder.addCase(getClients.fulfilled, (state, action) => {
