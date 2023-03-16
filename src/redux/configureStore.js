@@ -1,10 +1,10 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import logger from 'redux-logger';
-import rocketReducer from './rockets/rocketReducer';
 import loginReducer from './login/loginReducer';
+import databaseReducer from './database/databaseReducer';
 
 const rootReducer = combineReducers({
-  rockets: rocketReducer,
+  database: databaseReducer,
   login: loginReducer,
 
 });

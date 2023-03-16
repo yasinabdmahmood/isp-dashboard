@@ -1,16 +1,17 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { getEmployees } from '../../redux/database/databaseReducer';
+
 
 function Employees() {
-    const [employees, setEmployees] = useState([]);
+  const employees = useSelector( state => state.database.employees);
+  const dispatch = useDispatch();
   useEffect(() => {
-    axios.get('http://localhost:3000',{
-        withCredentials: true
-      })
-      .then(response => {setEmployees(response.data);
-    console.log(response.data)})
-      .catch(error => console.log(error));
-  }, []);
+    // if the employees list has not been fetched from server before
+    // then fetch the list
+    if(!employees)
+    {dispatch(getEmployees())}
+  },[]);
 
   return (
     <div className="container d-flex justify-content-center mt-5">
@@ -25,7 +26,7 @@ function Employees() {
           </tr>
         </thead>
         <tbody>
-          {employees.map(employee => (
+          {employees?.map(employee => (
             <tr key={employee.id} scope="row">
               <td>{employee.id}</td>
               <td>{employee.name}</td>
