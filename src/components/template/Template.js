@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styles from './template.module.scss'
-import logo from '../../assets/images/parking-area.png'
+import logo from '../../assets/images/ispicon.png'
 import { Sidebar, Menu, MenuItem, SubMenu } from 'react-pro-sidebar'
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -44,7 +44,7 @@ function Template() {
         <div className={styles["container"]}>
         <div className={styles["scssClass"]}>
           <div className={styles["hamberger-icon"]}>
-            <img src={list} onClick={() => collapseSidebar()} />
+            <img src={list} alt="icon" onClick={() => collapseSidebar()} />
           </div>
 
           <h3>{`Welcome ${getUserName()}`}</h3>
@@ -74,7 +74,7 @@ function Template() {
               <MenuItem component={<Link to="/home/reg_user" />}> Reg Users </MenuItem>
             </Menu>
             <div className={styles['logo-container']}>
-              <img src={logo}/>
+              <img src={logo} alt="icon"/>
             </div>
           </Sidebar>
           <div style={{flexGrow: '1'}}>
