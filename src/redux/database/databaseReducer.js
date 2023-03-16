@@ -17,8 +17,22 @@ export const getEmployees = createAsyncThunk(
   },
 );
 
+export const getSubscriptionTypes = createAsyncThunk(
+  'getSubscriptionTypes/',
+  async () => {
+    try {
+      return axios.get(baseUrl + '/subscription_types',{
+        withCredentials: true
+      });
+    } catch (error) {
+      return error;
+    }
+  },
+);
+
 const initialState = {
   employees: null,
+  subscriptionTypes: [],
 };
 
 export const dataBaseSlice = createSlice({
@@ -38,7 +52,12 @@ export const dataBaseSlice = createSlice({
       const employees = action.payload.data
       return {...state,employees};
     });
-  },
+
+    builder.addCase(getSubscriptionTypes.fulfilled, (state, action) => {
+      const subscriptionTypes = action.payload.data
+      return {...state,subscriptionTypes};
+    });
+  }, 
 });
 // export const { toggleReservation } = rockestSlice.actions;
 export default dataBaseSlice.reducer;
