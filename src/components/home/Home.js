@@ -4,7 +4,6 @@ import Template from '../template/Template';
 import Login from '../login/Login';
 import Signup from '../signup/Signup';
 import Dashboard from '../dashboard/Dashboard';
-import AddVehicle from '../add_vehicle/AddVehicle';
 import ManageInVehicle from '../manage_in_vehicle/ManageInVehicle'
 import ManageOutVehicle from '../manage_out_vehicle/ManageOutVehicle'
 import AddCategory from '../add_category/AddCategory'
@@ -15,7 +14,7 @@ import RegUser from '../reg_user/RegUser';
 import Employees from '../employees/Employees';
 import SubscriptionTypes from '../sunbscription_types/SubscriptionTypes';
 import Clients from '../clients/Clients';
-import SubsCriptionRecord from '../subscription_records/SubsCriptionRecords';
+import SubscriptionRecords from '../subscription_records/SubscriptionRecords';
 import PaymentRecords from '../payment_records/PaymentRecords';
 function Home() {
   return (
@@ -28,7 +27,7 @@ function Home() {
             <Route path="employees" element={<Employees/>} />
             <Route path="subscriptionTypes" element={<SubscriptionTypes />} />
             <Route path="clients" element={<Clients/>} />
-            <Route path="subscriptionRecords" element={<SubsCriptionRecord/>} />
+            <Route path="subscriptionRecords" element={<SubscriptionRecords/>} />
             <Route path="paymentRecords" element={<PaymentRecords/>} />
             <Route path="manage_in_vehicle" element={<ManageInVehicle/>} />
             <Route path="manage_out_vehicle" element={<ManageOutVehicle/>} />

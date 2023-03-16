@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { getSubscriptionRecords } from '../../redux/database/databaseReducer';
 
 
-function SubsCriptionRecords() {
+function SubscriptionRecords() {
     const subscriptionRecords = useSelector(state => state.database.subscriptionRecords);
     const dispatch = useDispatch();
     useEffect(()=>{
@@ -42,4 +42,4 @@ function SubsCriptionRecords() {
     );
 }
 
-export default SubsCriptionRecords;
+export default SubscriptionRecords;
