@@ -16,6 +16,8 @@ import SubscriptionTypes from '../sunbscription_types/SubscriptionTypes';
 import Clients from '../clients/Clients';
 import SubscriptionRecords from '../subscription_records/SubscriptionRecords';
 import PaymentRecords from '../payment_records/PaymentRecords';
+import NewSubscriptionType from '../new_subscription_type/NewSubscriptionType';
+import EditSubscriptionType from '../edit_subscription_type/EditSubscriptionType';
 function Home() {
   return (
     <>
@@ -25,7 +27,9 @@ function Home() {
           <Route path="/home" element={<Template />}>
             <Route index element={<Dashboard/>} />
             <Route path="employees" element={<Employees/>} />
-            <Route path="subscriptionTypes" element={<SubscriptionTypes />} />
+            <Route path="subscriptionTypes" element={<SubscriptionTypes />}/>
+            <Route path="subscriptionTypes/new" element={<NewSubscriptionType />} />
+            <Route path="subscriptionTypes/edit/:id" element={<EditSubscriptionType />} />
             <Route path="clients" element={<Clients/>} />
             <Route path="subscriptionRecords" element={<SubscriptionRecords/>} />
             <Route path="paymentRecords" element={<PaymentRecords/>} />
