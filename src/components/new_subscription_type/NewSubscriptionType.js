@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Form, FormGroup, Label, Input, Button } from 'reactstrap';
 import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { createSubscriptionType } from '../../redux/database/databaseReducer';
 
 function NewSubscriptionType() {
@@ -8,6 +9,7 @@ function NewSubscriptionType() {
   const [cost, setCost] = useState('');
   const [profit, setProfit] = useState('');
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -15,6 +17,7 @@ function NewSubscriptionType() {
         category,cost,profit
     }
     dispatch(createSubscriptionType(payloadData))
+    navigate('/home/subscriptionTypes')
   };
 
 
