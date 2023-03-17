@@ -71,6 +71,25 @@ export const getClients = createAsyncThunk(
   },
 );
 
+export const createSubscriptionType = createAsyncThunk(
+  'createSubscriptionType/',
+  async (payloadData) => {
+    try {
+      return  axios.post(baseUrl + '/subscription_types', {
+        new_subscription_type: {
+          category: payloadData.category,
+          cost: payloadData.cost,
+          profit: payloadData.profit,
+        },
+      },{
+        withCredentials: true
+      });
+    } catch (error) {
+      return error;
+    }
+  },
+);
+
 const initialState = {
   employees: null,
   subscriptionTypes: [],
@@ -101,6 +120,15 @@ export const dataBaseSlice = createSlice({
       const subscriptionTypes = action.payload.data
       return {...state,subscriptionTypes};
     });
+
+    builder.addCase(createSubscriptionType.fulfilled, (state, action) => {
+      const subscriptionType = action.payload.data.subscription_type
+      return {
+        ...state,
+        subscriptionTypes: [...state.subscriptionTypes, subscriptionType]
+      };
+    });
+
 
     builder.addCase(getSubscriptionRecords.fulfilled, (state, action) => {
       const subscriptionRecords = action.payload.data
