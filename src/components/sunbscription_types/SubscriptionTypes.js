@@ -35,8 +35,16 @@ function SubscriptionTypes() {
               <td>{subscriptionType.profit}</td>
               <td>
                 <button 
-                className='btn btn-danger'
-                onClick={() => handleDeletion(subscriptionType.id)}>Delete</button>
+                className='btn btn-sm btn-danger m-1'
+                onClick={() => handleDeletion(subscriptionType.id)}>
+                  Delete
+                </button>
+                <button 
+                className='btn btn-sm btn-secondary m-1'
+                onClick={() => navigate(`/home/subscriptionTypes/edit/${subscriptionType.id}`)}
+                >
+                  Edit
+                </button>
               </td>
             </tr>
           ))}
