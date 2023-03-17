@@ -1,15 +1,12 @@
 import React, { useState } from 'react';
 import { Form, FormGroup, Label, Input, Button } from 'reactstrap';
-import axios from 'axios';
 import { useDispatch } from 'react-redux';
-import baseUrl from '../../redux/baseUrl';
 import { createSubscriptionType } from '../../redux/database/databaseReducer';
 
 function NewSubscriptionType() {
   const [category, setCategory] = useState('');
   const [cost, setCost] = useState('');
   const [profit, setProfit] = useState('');
-  const [message, setMessage] = useState('');
   const dispatch = useDispatch();
 
   const handleSubmit = async (event) => {
@@ -18,24 +15,6 @@ function NewSubscriptionType() {
         category,cost,profit
     }
     dispatch(createSubscriptionType(payloadData))
-    // try {
-    //   const response = await axios.post(baseUrl + '/subscription_types', {
-    //     new_subscription_type: {
-    //       category: category,
-    //       cost: cost,
-    //       profit: profit,
-    //     },
-    //   },{
-    //     withCredentials: true
-    //   });
-    //   if (response.status === 200) {
-    //     setMessage('Subscription type created successfully!');
-    //   } else {
-    //     setMessage('Failed to create subscription type.');
-    //   }
-    // } catch (error) {
-    //   setMessage('Failed to create subscription type.');
-    // }
   };
 
 
@@ -54,7 +33,6 @@ function NewSubscriptionType() {
         <Input type="number" name="profit" className='bg-white' id="profit" required value={profit} onChange={(e) => setProfit(e.target.value)} />
       </FormGroup>
       <Button color="primary" type="submit">Create Subscription Type</Button>
-      {message && <p>{message}</p>}
     </Form>
   );
 }
