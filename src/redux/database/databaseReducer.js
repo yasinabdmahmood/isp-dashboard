@@ -90,6 +90,20 @@ export const createSubscriptionType = createAsyncThunk(
   },
 );
 
+export const deleteSubscriptionType = createAsyncThunk(
+  'deleteSubscriptionType/',
+  async (payloadData) => {
+    try {
+      return  axios.delete(baseUrl + '/subscription_types/' + payloadData,
+      {
+        withCredentials: true
+      });
+    } catch (error) {
+      return error;
+    }
+  },
+);
+
 const initialState = {
   employees: null,
   subscriptionTypes: [],
@@ -127,6 +141,14 @@ export const dataBaseSlice = createSlice({
         ...state,
         subscriptionTypes: [...state.subscriptionTypes, subscriptionType]
       };
+    });
+
+    builder.addCase(deleteSubscriptionType.fulfilled, (state, action) => {
+      const id = action.payload.data.subscription_type_id;
+      return {
+        ...state,
+        subscriptionTypes: state.subscriptionTypes.filter( subscriptionType => subscriptionType.id !== parseInt(id))
+      }
     });
 
 
