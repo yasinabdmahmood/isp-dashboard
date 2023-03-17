@@ -1,12 +1,15 @@
 import React, {useEffect} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { getSubscriptionTypes } from '../../redux/database/databaseReducer';
+import { getSubscriptionTypes, deleteSubscriptionType } from '../../redux/database/databaseReducer';
 
 function SubscriptionTypes() {
   const subscriptionTypes = useSelector(state => state.database.subscriptionTypes);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const handleDeletion = (id) => {
+    dispatch(deleteSubscriptionType(id))
+  }
   useEffect(()=>{
     if(subscriptionTypes.length === 0){
         dispatch(getSubscriptionTypes())
@@ -21,6 +24,7 @@ function SubscriptionTypes() {
             <th scope="col">Category</th>
             <th scope="col">Cost</th>
             <th scope="col">Profit</th>
+            <th scope="col">Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -29,6 +33,11 @@ function SubscriptionTypes() {
               <td>{subscriptionType.category}</td>
               <td>{subscriptionType.cost}</td>
               <td>{subscriptionType.profit}</td>
+              <td>
+                <button 
+                className='btn btn-danger'
+                onClick={() => handleDeletion(subscriptionType.id)}>Delete</button>
+              </td>
             </tr>
           ))}
         </tbody>
