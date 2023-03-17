@@ -90,6 +90,25 @@ export const createSubscriptionType = createAsyncThunk(
   },
 );
 
+export const editSubscriptionType = createAsyncThunk(
+  'editSubscriptionType/',
+  async (payloadData) => {
+    try {
+      return  axios.post(baseUrl + '/subscription_types/update/' + payloadData.id, {
+        new_subscription_type: {
+          category: payloadData.category,
+          cost: payloadData.cost,
+          profit: payloadData.profit,
+        },
+      },{
+        withCredentials: true
+      });
+    } catch (error) {
+      return error;
+    }
+  },
+);
+
 export const deleteSubscriptionType = createAsyncThunk(
   'deleteSubscriptionType/',
   async (payloadData) => {
@@ -140,6 +159,23 @@ export const dataBaseSlice = createSlice({
       return {
         ...state,
         subscriptionTypes: [...state.subscriptionTypes, subscriptionType]
+      };
+    });
+
+    builder.addCase(editSubscriptionType.fulfilled, (state, action) => {
+      const subscriptionType = action.payload.data.subscription_type
+      console.log('subscriptionType')
+      console.log(action.payload.data)
+      return {
+        ...state,
+        subscriptionTypes: state.subscriptionTypes.map( el => {
+          if(el.id === parseInt(subscriptionType.id)){
+            return subscriptionType
+          }
+          else{
+            return el
+          }
+        })
       };
     });
 
