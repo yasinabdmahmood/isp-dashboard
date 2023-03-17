@@ -1,10 +1,12 @@
 import React, {useEffect} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { getSubscriptionTypes } from '../../redux/database/databaseReducer';
 
 function SubscriptionTypes() {
   const subscriptionTypes = useSelector(state => state.database.subscriptionTypes);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   useEffect(()=>{
     if(subscriptionTypes.length === 0){
         dispatch(getSubscriptionTypes())
@@ -12,7 +14,7 @@ function SubscriptionTypes() {
   })
 
   return (
-        <div className="container d-flex justify-content-center mt-5">
+        <div className="container d-flex flex-column justify-content-center mt-5">
         <table className="table table-striped w-75">
         <thead className="thead-dark" >
           <tr>
@@ -31,6 +33,11 @@ function SubscriptionTypes() {
           ))}
         </tbody>
       </table>
+      <div>
+        <button className='btn btn-primary'
+        onClick={() => navigate('/home/subscriptionTypes/new')}>Create new Subscription type</button>
+      </div>
+      
     </div>
   );
 }
