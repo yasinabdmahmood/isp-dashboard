@@ -104,6 +104,25 @@ export const deleteClient = createAsyncThunk(
   },
 );
 
+export const editClient = createAsyncThunk(
+  'editClient/',
+  async (payloadData) => {
+    try {
+      return  axios.post(baseUrl + '/client/update/' + payloadData.id, {
+        updated_client: {
+          name: payloadData.name,
+          username: payloadData.username,
+          contact_info: payloadData.contact_info,
+        },
+      },{
+        withCredentials: true
+      });
+    } catch (error) {
+      return error;
+    }
+  },
+);
+
 export const createSubscriptionType = createAsyncThunk(
   'createSubscriptionType/',
   async (payloadData) => {
@@ -238,8 +257,6 @@ export const dataBaseSlice = createSlice({
 
     builder.addCase(createClient.fulfilled, (state, action) => {
       let {client, contact_info} = action.payload.data;
-      console.log('{client, contact_info }')
-      console.log(action.payload.data)
       client = {...client,client_contact_informations: [{contact_info: [contact_info]}]}
       return {
         ...state,
@@ -254,7 +271,23 @@ export const dataBaseSlice = createSlice({
         clients: state.clients.filter( client => client.id !== parseInt(id))
       }
     })
+
+    builder.addCase(editClient.fulfilled, (state, action) => {
+      const {client, contact_info} = action.payload.data.client
+      return {
+        ...state,
+        clients: state.clients.map( el => {
+          if(el.id === parseInt(client.id)){
+            return {...client,client_contact_informations: [{contact_info: [contact_info]}]}
+          }
+          else{
+            return el
+          }
+        })
+      };
+    });
   }, 
+  
 });
 
 // export const { toggleReservation } = rockestSlice.actions;
