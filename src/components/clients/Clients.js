@@ -34,9 +34,17 @@ function Clients() {
                         <td>{client.client_contact_informations[0]?.contact_info || 'No contact information'}</td>
                         <td>
                             <button
-                            className='btn btn-sm btn-danger'
+                            className='btn btn-sm btn-danger m-1'
                             onClick={()=>{dispatch(deleteClient(client.id))}}
-                            >Delete</button>
+                            >
+                             Delete
+                            </button>
+                            <button
+                            className='btn btn-sm btn-secondary m-1'
+                            onClick={()=>{navigate(`/home/clients/edit/${client.id}`)}}
+                            >
+                             Edit
+                            </button>
                         </td>
                         </tr>
                     ))}
