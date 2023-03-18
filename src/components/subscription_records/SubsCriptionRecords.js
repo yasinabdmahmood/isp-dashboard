@@ -1,11 +1,13 @@
 import React, {useEffect} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { getSubscriptionRecords } from '../../redux/database/databaseReducer';
 
 
 function SubscriptionRecords() {
     const subscriptionRecords = useSelector(state => state.database.subscriptionRecords);
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     useEffect(()=>{
         if(subscriptionRecords.length === 0){
             dispatch(getSubscriptionRecords())
@@ -37,6 +39,9 @@ function SubscriptionRecords() {
                 ))}
                 </tbody>
               </table>
+            </div>
+            <div>
+                <button onClick={() => navigate('/home/subscriptionRecords/new')} className='btn btn-primary'>Create</button>
             </div>
         </div>
     );
