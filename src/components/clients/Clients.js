@@ -1,8 +1,10 @@
 import React, {useEffect} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { getClients } from '../../redux/database/databaseReducer';
 
 function Clients() {
+    const navigate = useNavigate();
     const clients = useSelector( state => state.database.clients);
     const dispatch = useDispatch();
     useEffect(() => {
@@ -34,6 +36,9 @@ function Clients() {
                 </tbody>
       </table>
     </div>
+        <div>
+         <button onClick={()=> navigate('/home/clients/new')} className='btn btn-primary'>Create new client</button>
+        </div>
         </div>
     );
 }
