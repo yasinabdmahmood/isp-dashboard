@@ -91,6 +91,19 @@ export const createClient = createAsyncThunk(
   },
 );
 
+export const deleteClient = createAsyncThunk(
+  'deleteClient/',
+  async (payloadData) => {
+    try {
+      return  axios.get(baseUrl + '/client/delete/' + payloadData,{
+        withCredentials: true
+      });
+    } catch (error) {
+      return error;
+    }
+  },
+);
+
 export const createSubscriptionType = createAsyncThunk(
   'createSubscriptionType/',
   async (payloadData) => {
@@ -230,7 +243,16 @@ export const dataBaseSlice = createSlice({
         clients: [...state.clients, client],
       };
     });
+
+    builder.addCase(deleteClient.fulfilled, (state, action) => {
+      const id = action.payload.data.client_id;
+      return {
+        ...state,
+        clients: state.clients.filter( client => client.id !== parseInt(id))
+      }
+    })
   }, 
 });
+
 // export const { toggleReservation } = rockestSlice.actions;
 export default dataBaseSlice.reducer;
