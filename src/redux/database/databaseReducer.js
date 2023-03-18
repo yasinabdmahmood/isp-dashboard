@@ -71,6 +71,26 @@ export const getClients = createAsyncThunk(
   },
 );
 
+
+export const createClient = createAsyncThunk(
+  'createClient/',
+  async (payloadData) => {
+    try {
+      return  axios.post(baseUrl + '/client/create', {
+        new_client: {
+          name: payloadData.name,
+          username: payloadData.username,
+          contact_info: payloadData.contact_info,
+        },
+      },{
+        withCredentials: true
+      });
+    } catch (error) {
+      return error;
+    }
+  },
+);
+
 export const createSubscriptionType = createAsyncThunk(
   'createSubscriptionType/',
   async (payloadData) => {
@@ -201,6 +221,14 @@ export const dataBaseSlice = createSlice({
     builder.addCase(getClients.fulfilled, (state, action) => {
       const clients = action.payload.data
       return {...state,clients};
+    });
+
+    builder.addCase(createClient.fulfilled, (state, action) => {
+      const client = action.payload.data
+      return {
+        ...state,
+        clients: [...state.clients, client],
+      };
     });
   }, 
 });
