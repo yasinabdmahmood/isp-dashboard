@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { getClients } from '../../redux/database/databaseReducer';
+import { getClients, deleteClient } from '../../redux/database/databaseReducer';
 
 function Clients() {
     const navigate = useNavigate();
@@ -23,6 +23,7 @@ function Clients() {
                         <th scope="col">Name</th>
                         <th scope="col">User name</th>
                         <th scope="col">Contact Info</th>
+                        <th scope="col">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -31,6 +32,12 @@ function Clients() {
                         <td>{client.name}</td>
                         <td>{client.username}</td>
                         <td>{client.client_contact_informations[0]?.contact_info || 'No contact information'}</td>
+                        <td>
+                            <button
+                            className='btn btn-sm btn-danger'
+                            onClick={()=>{dispatch(deleteClient(client.id))}}
+                            >Delete</button>
+                        </td>
                         </tr>
                     ))}
                 </tbody>
