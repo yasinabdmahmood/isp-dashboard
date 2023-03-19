@@ -1,13 +1,18 @@
 import React, {useEffect} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { getSubscriptionRecords } from '../../redux/database/databaseReducer';
+import { getSubscriptionRecords, deleteSubscriptionRecord, getPaymentRecords } from '../../redux/database/databaseReducer';
 
 
 function SubscriptionRecords() {
     const subscriptionRecords = useSelector(state => state.database.subscriptionRecords);
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const handleDeletion = async (id) => {
+        const payload = {id};
+        await dispatch(deleteSubscriptionRecord(payload));
+        dispatch(getPaymentRecords());
+    }
     useEffect(()=>{
         if(subscriptionRecords.length === 0){
             dispatch(getSubscriptionRecords())
@@ -25,6 +30,7 @@ function SubscriptionRecords() {
                     <th scope="col">Subscription Type</th>
                     <th scope="col">Paid Amount</th>
                     <th scope="col">Remaining Amount</th>
+                    <th scope="col">Actions</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -35,6 +41,14 @@ function SubscriptionRecords() {
                     <td>{subscriptionRecord.subscription_type.category}</td>
                     <td>{subscriptionRecord.pay}</td>
                     <td>{subscriptionRecord.subscription_type.cost - subscriptionRecord.pay}</td>
+                    <td>
+                        <button 
+                        className='btn btn-sm btn-danger'
+                        onClick={() => handleDeletion(subscriptionRecord.id)}
+                        >
+                            Delete
+                        </button>
+                    </td>
                     </tr>
                 ))}
                 </tbody>
