@@ -20,6 +20,8 @@ function Template() {
   const [sidebarStyle, setSidebarStyle] = useState({
     minWidth: 'unset',
     width: '250px',
+    maxHeight:  'calc(100vh - 58px)',
+    minHeight:  'calc(100vh - 58px)',
     transition: 'width 0.3s ease-in-out',
   });
   
@@ -51,10 +53,8 @@ function Template() {
           <h3>{`Welcome ${getUserName()}`}</h3>
           <button onClick={handleLogout} className="btn btn-secondary">Logout</button>
         </div>
-        <div className={styles.body} style={{
-          display: 'flex',
-          alignItems: 'stretch',
-        }}>
+        <div className={styles.body}>
+          <div className={styles['sidebar-container']}>
           <Sidebar  backgroundColor= 'rgb(255, 255, 255)' rootStyles={sidebarStyle}>
             <Menu>
               <MenuItem component={<Link to="/home" />}>Dashboard</MenuItem>
@@ -71,7 +71,9 @@ function Template() {
               <img src={logo} alt="icon"/>
             </div>
           </Sidebar>
-          <div style={{flexGrow: '1'}}>
+          </div>
+          
+          <div className={styles['main-container']} style={{flexGrow: '1'}}>
              <Outlet />
           </div>   
         </div>
