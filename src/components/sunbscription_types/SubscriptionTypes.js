@@ -1,6 +1,7 @@
 import React, {useEffect} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import isAdmin from '../../helpers/isAdmin';
 import { getSubscriptionTypes, deleteSubscriptionType } from '../../redux/database/databaseReducer';
 
 function SubscriptionTypes() {
@@ -23,8 +24,8 @@ function SubscriptionTypes() {
           <tr>
             <th scope="col">Category</th>
             <th scope="col">Cost</th>
-            <th scope="col">Profit</th>
-            <th scope="col">Actions</th>
+           { isAdmin() && <th scope="col">Profit</th> }
+           { isAdmin() && <th scope="col">Actions</th> }
           </tr>
         </thead>
         <tbody>
@@ -32,8 +33,8 @@ function SubscriptionTypes() {
             <tr key={subscriptionType.id}>
               <td>{subscriptionType.category}</td>
               <td>{subscriptionType.cost}</td>
-              <td>{subscriptionType.profit}</td>
-              <td>
+              { isAdmin() && <td>{subscriptionType.profit}</td> }
+              { isAdmin() && <td>
                 <button 
                 className='btn btn-sm btn-danger m-1'
                 onClick={() => handleDeletion(subscriptionType.id)}>
@@ -45,7 +46,7 @@ function SubscriptionTypes() {
                 >
                   Edit
                 </button>
-              </td>
+              </td> }
             </tr>
           ))}
         </tbody>

@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { loggout } from '../../redux/login/loginReducer';
 import { Outlet, Link  } from 'react-router-dom';
 import list from '../../assets/images/list.svg'
+import isAdmin from '../../helpers/isAdmin';
 
 const getUserName = () => {
   let loggedInEmployee = sessionStorage.getItem('user');
@@ -57,14 +58,14 @@ function Template() {
           <Sidebar  backgroundColor= 'rgb(255, 255, 255)' rootStyles={sidebarStyle}>
             <Menu>
               <MenuItem component={<Link to="/home" />}>Dashboard</MenuItem>
-              <MenuItem component={<Link to="/home/employees" />} > Employees </MenuItem>
+              { isAdmin() && <MenuItem component={<Link to="/home/employees" />} > Employees </MenuItem>}
               <MenuItem component={<Link to="/home/subscriptionTypes" />} > Subscription Types </MenuItem>
               <MenuItem component={<Link to="/home/clients" />} > Cleints </MenuItem>
               <SubMenu label="Records">
                 <MenuItem component={<Link to="/home/subscriptionRecords" />} > Subscription Records </MenuItem>
                 <MenuItem component={<Link to="/home/paymentRecords" />} > Payment Records </MenuItem>
               </SubMenu>
-              <MenuItem component={<Link to="/home/reg_user" />}> Reg Users </MenuItem>
+              { isAdmin() && <MenuItem component={<Link to="/home/reg_user" />}> Reg Users </MenuItem>}
             </Menu>
             <div className={styles['logo-container']}>
               <img src={logo} alt="icon"/>
