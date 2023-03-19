@@ -63,6 +63,19 @@ export const createSubscriptionRecord = createAsyncThunk(
   },
 );
 
+export const deleteSubscriptionRecord = createAsyncThunk(
+  'deleteSubscriptionRecord/',
+  async (payloadData) => {
+    try {
+      return  axios.get(baseUrl + '/subscription_record/delete/' + payloadData.id,{
+        withCredentials: true
+      });
+    } catch (error) {
+      return error;
+    }
+  },
+);
+
 export const getPaymentRecords = createAsyncThunk(
   'getPaymentRecords/',
   async () => {
@@ -278,6 +291,17 @@ export const dataBaseSlice = createSlice({
         subscriptionRecords: [...state.subscriptionRecords, subscriptionRecord]
       };
     });
+
+    builder.addCase(deleteSubscriptionRecord.fulfilled, (state, action) => {
+      const {id} = action.payload.data
+      console.log('id')
+      console.log(action.payload.data)
+      return {
+        ...state,
+        subscriptionRecords: state.subscriptionRecords.filter( el => el.id !== parseInt(id))
+      }
+    });
+
 
     builder.addCase(getPaymentRecords.fulfilled, (state, action) => {
       const paymentRecords = action.payload.data
