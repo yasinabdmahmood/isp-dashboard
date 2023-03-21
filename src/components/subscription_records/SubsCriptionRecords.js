@@ -51,10 +51,16 @@ function SubscriptionRecords() {
                     <td>{subscriptionRecord.subscription_type.cost - subscriptionRecord.pay}</td>
                     <td>
                         <button 
-                        className='btn btn-sm btn-danger'
+                        className='btn btn-sm btn-danger m-1'
                         onClick={() => handleDeletion(subscriptionRecord.id)}
                         >
                             Delete
+                        </button>
+                        <button 
+                        className='btn btn-sm btn-secondary m-1'
+                        onClick={()=>navigate(`/home/paymentRecords/new/${subscriptionRecord.id}`)}
+                        >
+                            Add payment
                         </button>
                     </td>
                     </tr>
