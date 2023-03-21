@@ -9,7 +9,13 @@ function SubscriptionTypes() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const handleDeletion = (id) => {
-    dispatch(deleteSubscriptionType(id))
+    const confirm = window.confirm('Are you sure you want to delete this subscruption type');
+    if(confirm){
+      dispatch(deleteSubscriptionType(id));
+    }else{
+      return;
+    }
+    
   }
   useEffect(()=>{
     if(subscriptionTypes.length === 0){
