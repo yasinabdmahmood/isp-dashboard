@@ -9,10 +9,18 @@ function SubscriptionRecords() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const handleDeletion = async (id) => {
-        const payload = {id};
-        await dispatch(deleteSubscriptionRecord(payload));
-        dispatch(getPaymentRecords());
-    }
+        // Display alert message and prompt user to continue or cancel
+        const confirmed = window.confirm('Are you sure you want to delete this item?');
+        
+        if (confirmed) {
+          const payload = {id};
+          await dispatch(deleteSubscriptionRecord(payload));
+          dispatch(getPaymentRecords());
+        } else {
+          // User clicked Cancel, do nothing
+          return;
+        }
+      }
     useEffect(()=>{
         if(subscriptionRecords.length === 0){
             dispatch(getSubscriptionRecords())
