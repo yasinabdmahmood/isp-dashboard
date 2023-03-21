@@ -7,6 +7,16 @@ function Clients() {
     const navigate = useNavigate();
     const clients = useSelector( state => state.database.clients);
     const dispatch = useDispatch();
+    const handleClientDeletion = (id) => {
+        const confirm = window.confirm('Are you sure you want to delete this client')
+        if(confirm){
+            dispatch(deleteClient(id));
+        }
+        else{
+            return;
+        }
+        
+    }
     useEffect(() => {
         // if the employees list has not been fetched from server before
         // then fetch the list
@@ -35,7 +45,7 @@ function Clients() {
                         <td>
                             <button
                             className='btn btn-sm btn-danger m-1'
-                            onClick={()=>{dispatch(deleteClient(client.id))}}
+                            onClick={()=>{handleClientDeletion(client.id)}}
                             >
                              Delete
                             </button>
