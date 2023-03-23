@@ -84,6 +84,12 @@ function Clients() {
                             >
                              Edit
                             </button>
+                            <button
+                            className='btn btn-sm btn-info m-1'
+                            onClick={()=>{navigate(`/home/clients/${client.id}`)}}
+                            >
+                             View
+                            </button>
                         </td>
                         </tr>
                     ))}
