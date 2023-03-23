@@ -66,6 +66,7 @@ function Template() {
                 <MenuItem component={<Link to="/home/paymentRecords" />} > Payment Records </MenuItem>
               </SubMenu>
               { isAdmin() && <MenuItem component={<Link to="/home/reg_user" />}> Reg Users </MenuItem>}
+              <MenuItem component={<Link to={`/home/profile/${JSON.parse(sessionStorage.getItem('user')).id}`} />} > Profile </MenuItem>
             </Menu>
             <div className={styles['logo-container']}>
               <img src={logo} alt="icon"/>
