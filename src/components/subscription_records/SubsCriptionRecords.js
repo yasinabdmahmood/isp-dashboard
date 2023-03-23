@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { getSubscriptionRecords, deleteSubscriptionRecord, getPaymentRecords } from '../../redux/database/databaseReducer';
@@ -6,6 +6,8 @@ import { getSubscriptionRecords, deleteSubscriptionRecord, getPaymentRecords } f
 
 function SubscriptionRecords() {
     const subscriptionRecords = useSelector(state => state.database.subscriptionRecords);
+    const [search, setSearch] = useState('');
+    const [searchType, setSearchType] = useState('Client name');
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const handleDeletion = async (id) => {
@@ -21,6 +23,19 @@ function SubscriptionRecords() {
           return;
         }
       }
+
+      const filterItems = (item) => {
+        if (searchType === 'Client name' && item.client.name.toLowerCase().includes(search.toLowerCase())) {
+          return true;
+        }
+        if (searchType === 'Employee name' && item.employee.name.toLowerCase().includes(search.toLowerCase())) {
+          return true;
+        }
+        if (searchType === 'Subscription type' && item.subscription_type.category?.toLowerCase().includes(search.toLowerCase())) {
+          return true;
+        }
+        return false;
+      };
     useEffect(()=>{
         if(subscriptionRecords.length === 0){
             dispatch(getSubscriptionRecords())
@@ -29,6 +44,22 @@ function SubscriptionRecords() {
     return (
         <div>
            <h1>SubsCriptionRecord</h1> 
+
+           <div className='d-flex flex-column justify-content-center align-items-center m-3'>
+            <div className='m-1'>
+            <span>Search by</span>
+                <select value={searchType} onChange={(e) => setSearchType(e.target.value)}>
+                    <option value="Client name">Client name</option>
+                    <option value="Employee name">Employee name</option>
+                    <option value="Subscription type">Subscription type</option>
+                </select>
+            </div>
+            <div className='m-1'>
+                <span>Search</span>
+            <input type="text" value={search} onChange={(e) => setSearch(e.target.value)} />
+            </div>  
+
+           </div>
            <div className="container d-flex justify-content-center mt-5">
              <table className="table table-striped w-75">
                 <thead className="thead-dark" >
@@ -42,7 +73,7 @@ function SubscriptionRecords() {
                 </tr>
                 </thead>
                 <tbody>
-                {subscriptionRecords?.map(subscriptionRecord => (
+                {subscriptionRecords?.filter( item => filterItems(item))?.map(subscriptionRecord => (
                     <tr key={subscriptionRecord.id}>
                     <td>{subscriptionRecord.client.name}</td>
                     <td>{subscriptionRecord.employee.name}</td>
