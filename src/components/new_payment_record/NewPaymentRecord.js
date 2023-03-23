@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Form, FormGroup, Label, Input, Button } from 'reactstrap';
 import { useDispatch } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
-import { createPaymentRecord } from '../../redux/database/databaseReducer';
+import { createPaymentRecord, getPaymentRecords } from '../../redux/database/databaseReducer';
 
 function NewPaymentRecord() {
   const {id} = useParams();
@@ -16,7 +16,8 @@ function NewPaymentRecord() {
         amount: amount,
         subscription_record_id: id,
     }
-    dispatch(createPaymentRecord(payloadData))
+    await dispatch(createPaymentRecord(payloadData))
+    dispatch(getPaymentRecords());
     navigate('/home/subscriptionRecords')
   };
 
