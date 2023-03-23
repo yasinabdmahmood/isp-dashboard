@@ -7,10 +7,10 @@ import { useParams } from 'react-router';
 
 function EditClient() {
     const {id} = useParams();
-    const client = useSelector( state => state.database.clients.find( client => client.id === parseInt(id)))
-    const [name, setName] = useState(client.name);
-    const [useName, setUserName] = useState(client.username);
-    const [contactInfo, setContactInfo] = useState(client.client_contact_informations[0].contact_info);
+    const client = useSelector( state => state.database?.clients?.find( client => client.id === parseInt(id)))
+    const [name, setName] = useState(client?.name);
+    const [useName, setUserName] = useState(client?.username);
+    const [contactInfo, setContactInfo] = useState(client?.client_contact_informations[0].contact_info);
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
