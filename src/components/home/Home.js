@@ -17,6 +17,7 @@ import EditClient from '../edit_client/EditClient';
 import ShowClient from '../show_client/ShowClient';
 import NewSubscriptionRecord from '../new_subscription_record/NewSubscriptionRecord';
 import NewPaymentRecord from '../new_payment_record/NewPaymentRecord';
+import Profile from '../profile/Profile';
 function Home() {
   return (
     <>
@@ -38,6 +39,7 @@ function Home() {
             <Route path="paymentRecords" element={<PaymentRecords/>} />
             <Route path="paymentRecords/new/:id" element={<NewPaymentRecord/>} />
             <Route path="reg_user" element={<RegUser/>} />
+            <Route path="profile/:id" element={<Profile/>} />
           </Route>
         </Routes>
     </>
