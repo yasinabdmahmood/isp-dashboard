@@ -1,6 +1,7 @@
 import React, {useEffect} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getPaymentRecords } from '../../redux/database/databaseReducer';
+import formatDate from '../../helpers/formatDate';
 
 function PaymentRecords() {
     const paymentRecords = useSelector(state => state.database.paymentRecords);
@@ -29,7 +30,7 @@ function PaymentRecords() {
                     <td>{paymentRecord.subscription_record.client.name}</td>
                     <td>{paymentRecord.employee.name}</td>
                     <td>{paymentRecord.amount}</td>
-                    <td>{paymentRecord.created_at}</td>
+                    <td>{formatDate(paymentRecord.created_at)}</td>
                     </tr>
                 ))}
                 </tbody>
