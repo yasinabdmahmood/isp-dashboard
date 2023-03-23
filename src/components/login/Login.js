@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getLoggedInCredentials } from '../../redux/login/loginReducer';
 import { Container, Form, FormGroup, Label, Input, Button } from 'reactstrap';
 import { useNavigate } from 'react-router-dom';
+import styles from './styles.module.scss'
 // import axios from 'axios';
 
 const LoginForm = () => {
@@ -39,21 +40,24 @@ const LoginForm = () => {
   }
 
   return (
-    <Container className="d-flex justify-content-center align-items-center vh-100">
+    <div className={styles.container}>
+      <Container className="d-flex justify-content-center align-items-center vh-100">
     <div className="col-md-6">
       <Form onSubmit={handleSubmit}>
         <FormGroup>
-          <Label for="email">Username:</Label>
+          <Label for="email" className='text-white'>Username:</Label>
           <Input type="text" id="email" value={email} onChange={(e) => setEmail(e.target.value)} />
         </FormGroup>
         <FormGroup>
-          <Label for="password">Password:</Label>
+          <Label for="password" className='text-white'>Password:</Label>
           <Input type="password" id="password" value={password} onChange={(e) => setPassword(e.target.value)} />
         </FormGroup>
         <Button type="submit" color="primary">Login</Button>
       </Form>
     </div>
   </Container>
+    </div>
+    
   );
 
 };
