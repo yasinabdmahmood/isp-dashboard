@@ -61,6 +61,7 @@ function Template() {
               { isAdmin() && <MenuItem component={<Link to="/home/employees" />} > Employees </MenuItem>}
               <MenuItem component={<Link to="/home/subscriptionTypes" />} > Subscription Types </MenuItem>
               <MenuItem component={<Link to="/home/clients" />} > Cleints </MenuItem>
+              <MenuItem component={<Link to="/home/subscriptionRecords/new" />} > New subscription Record </MenuItem>
               <SubMenu label="Records">
                 <MenuItem component={<Link to="/home/subscriptionRecords" />} > Subscription Records </MenuItem>
                 <MenuItem component={<Link to="/home/paymentRecords" />} > Payment Records </MenuItem>
