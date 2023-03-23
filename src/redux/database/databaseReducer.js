@@ -17,6 +17,38 @@ export const getEmployees = createAsyncThunk(
   },
 );
 
+export const createEmployeeContactInfo = createAsyncThunk(
+  'createEmployeeContactInfo/',
+  async (payloadData) => {
+    try {
+      return  axios.post(baseUrl + '/employee_contact_information/create', {
+        new_employee_contact_information: {
+          contact_info: payloadData.contact_info,
+          employee_id: payloadData.employee_id,
+        },
+      },{
+        withCredentials: true
+      });
+    } catch (error) {
+      return error;
+    }
+  },
+);
+
+export const deleteEmployeeContactInfo = createAsyncThunk(
+  'deleteEmployeeContactInfo/',
+  async (payloadData) => {
+    try {
+      return  axios.get(baseUrl + `/employee_contact_information/destroy/${payloadData.id}`
+      ,{
+        withCredentials: true
+      });
+    } catch (error) {
+      return error;
+    }
+  },
+);
+
 export const getSubscriptionTypes = createAsyncThunk(
   'getSubscriptionTypes/',
   async () => {
@@ -251,6 +283,7 @@ export const dataBaseSlice = createSlice({
       const employees = action.payload.data
       return {...state,employees};
     });
+
 
     builder.addCase(getSubscriptionTypes.fulfilled, (state, action) => {
       const subscriptionTypes = action.payload.data
