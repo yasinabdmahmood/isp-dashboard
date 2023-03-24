@@ -1,19 +1,41 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { Form, FormGroup, Label, Input, Button } from 'reactstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { createSubscriptionRecord, getPaymentRecords } from '../../redux/database/databaseReducer';
+import { createSubscriptionRecord, getClients, getPaymentRecords, getSubscriptionTypes } from '../../redux/database/databaseReducer';
 
 
 
 function NewSubscriptionRecord() {
     const subscriptionTypes = useSelector( state => state.database.subscriptionTypes);
     const clients = useSelector( state => state.database.clients);
-    const [client, setClient] = useState('')
-    const [pay, setPay] = useState('');
-    const [subscriptionType, setSubscriptionType] = useState(subscriptionTypes[0].id)
+  
+    const [client, setClient] = useState(null)
+    const [pay, setPay] = useState(null);
+    const [subscriptionType, setSubscriptionType] = useState(null)
+    
     const dispatch = useDispatch();
     const navigate = useNavigate();
+
+    useEffect(() => {
+      async function fetchData() {
+        if(subscriptionTypes.length === 0){
+          await dispatch(getClients());
+        }
+        if(clients.length === 0){
+          await dispatch(getSubscriptionTypes());
+        }
+      }
+      fetchData();
+    }, [dispatch]);
+
+    useEffect(() => {
+      if (subscriptionTypes) {
+        setSubscriptionType(subscriptionTypes[0]?.id);
+        setClient('');
+        setPay('');
+      }
+    }, [subscriptionTypes]);
   
     const handleSubmit = async (event) => {
       event.preventDefault();
@@ -27,6 +49,10 @@ function NewSubscriptionRecord() {
       dispatch(getPaymentRecords());
       navigate('/home/subscriptionRecords')
     };
+
+    if (!subscriptionType) {
+      return <div>Loading...</div>;
+    }
   
   
     return (
