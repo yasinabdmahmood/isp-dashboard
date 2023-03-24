@@ -1,31 +1,53 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Form, FormGroup, Label, Input, Button } from 'reactstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { createClient } from '../../redux/database/databaseReducer';
+import { createClient, getClients } from '../../redux/database/databaseReducer';
 import { useParams } from 'react-router';
 
 function EditClient() {
     const {id} = useParams();
     const client = useSelector( state => state.database?.clients?.find( client => client.id === parseInt(id)))
-    const [name, setName] = useState(client?.name);
-    const [useName, setUserName] = useState(client?.username);
-    const [contactInfo, setContactInfo] = useState(client?.client_contact_informations[0].contact_info);
+    const [name, setName] = useState(null);
+    const [userName, setUserName] = useState(null);
+    const [contactInfo, setContactInfo] = useState(null);
+    
     const dispatch = useDispatch();
     const navigate = useNavigate();
+
+    useEffect(() => {
+      async function fetchData() {
+        if(client.length === 0){
+          await dispatch(getClients());
+        }
+      }
+      fetchData();
+    }, [dispatch]);
+
+    useEffect(() => {
+      if (client) {
+        setName(client?.name);
+        setUserName(client?.username);
+        setContactInfo(client?.client_contact_informations[0].contact_info);
+      }
+    }, [client]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     const payloadData = {
         id: id,
         name: name,
-        username: useName,
+        username: userName,
         contact_info: contactInfo,
     }
     dispatch(createClient(payloadData))
     navigate('/home/clients')
   };
 
+  if (!name || !userName || !contactInfo) {
+    return <div>Loading...</div>;
+  }
+  
 
   return (
     <Form onSubmit={handleSubmit} className='d-flex flex-column align-items-center' >
@@ -35,7 +57,7 @@ function EditClient() {
       </FormGroup>
       <FormGroup>
         <Label for="username">User name</Label>
-        <Input type="text" name="username" className='bg-white' id="cost" required value={useName} onChange={(e) => setUserName(e.target.value)} />
+        <Input type="text" name="username" className='bg-white' id="cost" required value={userName} onChange={(e) => setUserName(e.target.value)} />
       </FormGroup>
       <FormGroup>
         <Label for="contact_info">contact info</Label>
