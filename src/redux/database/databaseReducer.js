@@ -259,7 +259,7 @@ export const deleteSubscriptionType = createAsyncThunk(
 );
 
 const initialState = {
-  employees: null,
+  employees: [],
   subscriptionTypes: [],
   clients: [],
   subscriptionRecords: [],

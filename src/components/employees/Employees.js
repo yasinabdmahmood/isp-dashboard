@@ -11,9 +11,9 @@ function Employees() {
   useEffect(() => {
     // if the employees list has not been fetched from server before
     // then fetch the list
-    if(!employees)
+    if(employees.length === 0)
     {dispatch(getEmployees())}
-  },[]);
+  },[dispatch]);
 
   return (
     <div className="container d-flex justify-content-center mt-5">
