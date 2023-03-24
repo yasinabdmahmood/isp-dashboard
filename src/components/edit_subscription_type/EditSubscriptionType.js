@@ -1,18 +1,36 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Form, FormGroup, Label, Input, Button } from 'reactstrap';
 import { useSelector,useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { editSubscriptionType } from '../../redux/database/databaseReducer';
+import { editSubscriptionType, getClients, getSubscriptionTypes} from '../../redux/database/databaseReducer';
 import { useParams } from "react-router-dom";
 
 function EditSubscriptionType() {
     const { id } = useParams();
-    const subscriptionType = useSelector( state => state.database.subscriptionTypes.find( subscriptionType => subscriptionType.id === parseInt(id)))
-    const [category, setCategory] = useState(subscriptionType.category);
-    const [cost, setCost] = useState(subscriptionType.cost);
-    const [profit, setProfit] = useState(subscriptionType.profit);
+    const subscriptionType = useSelector(state => state.database.subscriptionTypes.find(subscriptionType => subscriptionType.id === parseInt(id)));
+    const [category, setCategory] = useState(null);
+    const [cost, setCost] = useState(null);
+    const [profit, setProfit] = useState(null);
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    useEffect(() => {
+      async function fetchData() {
+        if(subscriptionType.length === 0){
+          await dispatch(getClients());
+          await dispatch(getSubscriptionTypes());
+        }
+      }
+      fetchData();
+    }, [dispatch]);
+  
+    useEffect(() => {
+      if (subscriptionType) {
+        setCategory(subscriptionType.category);
+        setCost(subscriptionType.cost);
+        setProfit(subscriptionType.profit);
+      }
+    }, [subscriptionType]);
+  
   
     const handleSubmit = async (event) => {
       event.preventDefault();
@@ -22,7 +40,10 @@ function EditSubscriptionType() {
       dispatch(editSubscriptionType(payloadData))
       navigate('/home/subscriptionTypes')
     };
-  
+    
+    if (!category || !cost || !profit) {
+      return <div>Loading...</div>;
+    }
   
     return (
       <Form onSubmit={handleSubmit} className='d-flex flex-column align-items-center' >
