@@ -2,6 +2,9 @@ import React, {useEffect, useState} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { getClients, deleteClient } from '../../redux/database/databaseReducer';
+import styles from './styles.module.scss'
+import plusSign from '../../assets/images/plus-circle.svg'
+
 
 function Clients() {
     const [search, setSearch] = useState('');
@@ -39,24 +42,28 @@ function Clients() {
         }
     },[]);
     return (
-        <div>
-           <div className='d-flex flex-column justify-content-center align-items-center m-3'>
-            <div className='m-1'>
-            <span>Search by</span>
-                <select value={searchType} onChange={(e) => setSearchType(e.target.value)}>
-                    <option value="name">Name</option>
-                    <option value="username">Username</option>
-                    <option value="phone">Phone Number</option>
-                </select>
-            </div>
-                <div className='m-1'>
-                    <span>Search</span>
-                <input type="text" value={search} onChange={(e) => setSearch(e.target.value)} />
+        <div className={styles.container}>
+            <div className='d-flex justify-content-between align-items-center'>
+                <h3 className='mx-3'>Clients</h3>
+                <div className='d-flex  justify-content-center align-items-center mx-5'>
+                    <div className='m-1'>
+                    <span>Search by</span>
+                        <select value={searchType} onChange={(e) => setSearchType(e.target.value)}>
+                            <option value="name">Name</option>
+                            <option value="username">Username</option>
+                            <option value="phone">Phone Number</option>
+                        </select>
+                    </div>
+                    <div className='m-1'>
+                        <span>Search</span>
+                    <input type="text" value={search} onChange={(e) => setSearch(e.target.value)} />
+                    </div>
+                        
                 </div>
-                
-           </div>
+            </div>
+           
            <div className="container d-flex justify-content-center mt-5">
-             <table className="table table-striped w-75">
+             <table className="table table-striped">
                <thead className="thead-dark" >
                     <tr>
                         <th scope="col">Name</th>
@@ -96,9 +103,11 @@ function Clients() {
                 </tbody>
       </table>
     </div>
-        <div>
-         <button onClick={()=> navigate('/home/clients/new')} className='btn btn-primary'>Create new client</button>
-        </div>
+        <div className={styles['plus-sign']}>
+                <button onClick={()=> navigate('/home/clients/new')} >
+                  <img src={plusSign} alt='Add sign' />
+                </button>
+            </div>
         </div>
     );
 }
