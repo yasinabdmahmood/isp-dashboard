@@ -18,7 +18,7 @@ function NewClient() {
         username: useName,
         contact_info: contactInfo,
     }
-    dispatch(createClient(payloadData))
+    await dispatch(createClient(payloadData))
     navigate('/home/clients')
   };
 
