@@ -15,9 +15,12 @@ function RegUser() {
         withCredentials: false
       });
       
-      console.log('response.data')
       console.log(response.data); // successful registration message
       // redirect or perform other action upon successful registration
+      window.alert('Employee succesfully registered');
+      setName('');
+      setEmail('');
+      setPassword('');
     } catch (error) {
       console.log(error.response.data); // error message from server
     }
@@ -32,15 +35,15 @@ function RegUser() {
       <FormGroup>
           <Label for="name">N
           ame:</Label>
-          <Input type="text" id="name" value={name} onChange={(e) => setName(e.target.value)} />
+          <Input type="text" className='bg-white' id="name" value={name} onChange={(e) => setName(e.target.value)} />
         </FormGroup>
         <FormGroup>
           <Label for="email">Email:</Label>
-          <Input type="text" id="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+          <Input type="text" className='bg-white' id="email" value={email} onChange={(e) => setEmail(e.target.value)} />
         </FormGroup>
         <FormGroup>
           <Label for="password">Password:</Label>
-          <Input type="password" id="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+          <Input type="password" className='bg-white' id="password" value={password} onChange={(e) => setPassword(e.target.value)} />
         </FormGroup>
         <Button type="submit" color="primary">Sign Up</Button>
       </Form>

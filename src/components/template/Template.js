@@ -57,17 +57,16 @@ function Template() {
           <div className={styles['sidebar-container']}>
           <Sidebar  backgroundColor= 'rgb(255, 255, 255)' rootStyles={sidebarStyle}>
             <Menu>
-              <MenuItem component={<Link to="/home" />}>Dashboard</MenuItem>
-              { isAdmin() && <MenuItem component={<Link to="/home/employees" />} > Employees </MenuItem>}
+              { isAdmin() && <MenuItem component={<Link to="/home" />}>Dashboard</MenuItem>}
+              <MenuItem component={<Link to="/home/paymentRecords" />} > Payment History </MenuItem>
               <MenuItem component={<Link to="/home/subscriptionTypes" />} > Subscription Types </MenuItem>
               <MenuItem component={<Link to="/home/clients" />} > Cleints </MenuItem>
-              <MenuItem component={<Link to="/home/subscriptionRecords/new" />} > New subscription Record </MenuItem>
               <SubMenu label="Records">
                 <MenuItem component={<Link to="/home/subscriptionRecords" />} > Subscription Records </MenuItem>
-                <MenuItem component={<Link to="/home/paymentRecords" />} > Payment Records </MenuItem>
               </SubMenu>
               { isAdmin() && <MenuItem component={<Link to="/home/reg_user" />}> Reg Users </MenuItem>}
               <MenuItem component={<Link to={`/home/profile/${JSON.parse(sessionStorage.getItem('user')).id}`} />} > Profile </MenuItem>
+              { isAdmin() && <MenuItem component={<Link to="/home/employees" />} > Employees </MenuItem>}
             </Menu>
             <div className={styles['logo-container']}>
               <img src={logo} alt="icon"/>

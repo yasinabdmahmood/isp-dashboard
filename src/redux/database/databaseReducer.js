@@ -339,7 +339,7 @@ export const dataBaseSlice = createSlice({
       
       return {
         ...state,
-        subscriptionRecords: [...state.subscriptionRecords, subscriptionRecord]
+        subscriptionRecords: [subscriptionRecord, ...state.subscriptionRecords]
       };
     });
 

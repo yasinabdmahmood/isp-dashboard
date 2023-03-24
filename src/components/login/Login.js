@@ -46,11 +46,11 @@ const LoginForm = () => {
       <Form onSubmit={handleSubmit}>
         <FormGroup>
           <Label for="email" className='text-white'>Username:</Label>
-          <Input type="text" id="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+          <Input type="text" className='bg-white' id="email" value={email} onChange={(e) => setEmail(e.target.value)} />
         </FormGroup>
         <FormGroup>
           <Label for="password" className='text-white'>Password:</Label>
-          <Input type="password" id="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+          <Input type="password" className='bg-white' id="password" value={password} onChange={(e) => setPassword(e.target.value)} />
         </FormGroup>
         <Button type="submit" color="primary">Login</Button>
       </Form>

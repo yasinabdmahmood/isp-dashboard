@@ -1,6 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import formatDate from '../../helpers/formatDate';
+import styles from './styles.module.scss'
+import plusSign from '../../assets/images/plus-circle.svg'
 import { getSubscriptionRecords, deleteSubscriptionRecord, getPaymentRecords } from '../../redux/database/databaseReducer';
 
 
@@ -42,10 +45,11 @@ function SubscriptionRecords() {
         }
     })
     return (
-        <div>
-           <h1>SubsCriptionRecord</h1> 
+        <div className={styles.container}>
+          <div className='d-flex justify-content-between align-items-center'>
+          <h3 className='text-center'>Subscription Records</h3> 
 
-           <div className='d-flex flex-column justify-content-center align-items-center m-3'>
+            <div className='d-flex  justify-content-center align-items-center mx-5'>
             <div className='m-1'>
             <span>Search by</span>
                 <select value={searchType} onChange={(e) => setSearchType(e.target.value)}>
@@ -59,9 +63,11 @@ function SubscriptionRecords() {
             <input type="text" value={search} onChange={(e) => setSearch(e.target.value)} />
             </div>  
 
-           </div>
-           <div className="container d-flex justify-content-center mt-5">
-             <table className="table table-striped w-75">
+            </div>
+          </div>
+           
+           <div className="container d-flex justify-content-center mt-5 pb-5">
+             <table className="table table-striped">
                 <thead className="thead-dark" >
                 <tr>
                     <th scope="col">Client</th>
@@ -69,6 +75,7 @@ function SubscriptionRecords() {
                     <th scope="col">Subscription Type</th>
                     <th scope="col">Paid Amount</th>
                     <th scope="col">Remaining Amount</th>
+                    <th scope="col">Date</th>
                     <th scope="col">Actions</th>
                 </tr>
                 </thead>
@@ -80,6 +87,7 @@ function SubscriptionRecords() {
                     <td>{subscriptionRecord.subscription_type.category}</td>
                     <td>{subscriptionRecord.pay}</td>
                     <td>{subscriptionRecord.subscription_type.cost - subscriptionRecord.pay}</td>
+                    <td>{formatDate(subscriptionRecord.created_at)}</td>
                     <td>
                         <button 
                         className='btn btn-sm btn-danger m-1'
@@ -99,8 +107,10 @@ function SubscriptionRecords() {
                 </tbody>
               </table>
             </div>
-            <div>
-                <button onClick={() => navigate('/home/subscriptionRecords/new')} className='btn btn-primary'>Create</button>
+            <div className={styles['plus-sign']}>
+                <button onClick={() => navigate('/home/subscriptionRecords/new')} >
+                  <img src={plusSign} alt='Add sign' />
+                </button>
             </div>
         </div>
     );
