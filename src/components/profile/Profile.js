@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { createEmployeeContactInfo, deleteEmployeeContactInfo, getEmployees } from '../../redux/database/databaseReducer';
@@ -6,9 +6,23 @@ import styles from './styles.module.scss'
 
 function Profile() {
     const [inputValue, setInputValue] = useState('');
+
     const dispatch = useDispatch()
+
     const {id} = useParams();
+
     const user = useSelector(state => state.database.employees.find( employee => employee.id === parseInt(id)));
+
+    useEffect(()=>{
+        const fetchData = async() => {
+            if(user.length === 0){
+               await dispatch(getEmployees());
+            }
+        }
+        fetchData();
+    });
+
+
     const handleSubmit = async (event) => {
         const payloadData = {
             employee_id: id,
@@ -18,19 +32,25 @@ function Profile() {
         await dispatch(createEmployeeContactInfo(payloadData));
         await dispatch(getEmployees());
         setInputValue('');
+    }
+
+    const handleDletion = async (id) => {
+    const payloadData = {id}
+    const confirm = window.confirm('Are you sure you want to delete this item')
+    if(confirm){
+    await dispatch(deleteEmployeeContactInfo(payloadData));
+    }
+    else{
+        return;
+    }
+    dispatch(getEmployees());
+    }
+
+    if (!user) {
+        return <div>Loading...</div>;
       }
 
-      const handleDletion = async (id) => {
-        const payloadData = {id}
-        const confirm = window.confirm('Are you sure you want to delete this item')
-        if(confirm){
-        await dispatch(deleteEmployeeContactInfo(payloadData));
-        }
-        else{
-            return;
-        }
-        dispatch(getEmployees());
-      }
+
     return (
         <div className={styles.container}>
             <h1>Profile {id} </h1>
