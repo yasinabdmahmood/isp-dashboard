@@ -66,7 +66,7 @@ export const getSubscriptionRecords = createAsyncThunk(
   'getSubscriptionRecords/',
   async (_, { getState }) => {
     const state = getState();
-    const offset = state.subscriptionRecordIndex;
+    const offset = state.database.subscriptionRecordIndex;
     try {
       return axios.get(baseUrl + '/subscription_records', {
         params: {
