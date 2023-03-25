@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useRef} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import formatDate from '../../helpers/formatDate';
@@ -10,9 +10,11 @@ import { getSubscriptionRecords, deleteSubscriptionRecord, getPaymentRecords } f
 function SubscriptionRecords() {
     const subscriptionRecords = useSelector(state => state.database.subscriptionRecords);
     const [search, setSearch] = useState('');
+    const [loading, setLoading] = useState(false);
     const [searchType, setSearchType] = useState('Client name');
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const elementRef = useRef(null);
     const handleDeletion = async (id) => {
         // Display alert message and prompt user to continue or cancel
         const confirmed = window.confirm('Are you sure you want to delete this item?');
@@ -49,13 +51,32 @@ function SubscriptionRecords() {
       fetchData();
     }, []);
 
+      function  handleScroll() {
+      const element = elementRef.current;
+
+      if (element.scrollTop + element.clientHeight === element.scrollHeight) {
+        dispatch(getSubscriptionRecords());
+      }
+    }
+
+    useEffect(() => {
+      
+  
+      const element = elementRef.current;
+      element.addEventListener('scroll', handleScroll);
+  
+      return () => {
+        element.removeEventListener('scroll', handleScroll);
+      };
+    }, []);
+
     if (subscriptionRecords.length === 0) {
-      return <div>Loading...</div>;
+      return <div ref={elementRef}>Loading...</div>;
     }
     
 
     return (
-        <div className={styles.container}>
+        <div className={styles.container} ref={elementRef} style={{ height: '900px', overflow: 'auto' }}>
           <div className='d-flex justify-content-between align-items-center'>
           <h3 className='text-center'>Subscription Records</h3> 
 
@@ -76,7 +97,7 @@ function SubscriptionRecords() {
             </div>
           </div>
            
-           <div className="container d-flex justify-content-center mt-5 pb-5">
+           <div className="container d-flex justify-content-center mt-5 pb-5" >
              <table className="table table-striped">
                 <thead className="thead-dark" >
                 <tr>
