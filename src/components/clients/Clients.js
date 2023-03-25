@@ -62,7 +62,7 @@ function Clients() {
                 </div>
             </div>
            
-           <div className="container d-flex justify-content-center mt-5">
+           <div className="container d-flex justify-content-center mt-2">
              <table className="table table-striped">
                <thead className="thead-dark" >
                     <tr>
