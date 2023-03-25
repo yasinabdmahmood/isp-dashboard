@@ -39,11 +39,21 @@ function SubscriptionRecords() {
         }
         return false;
       };
-    useEffect(()=>{
+
+    useEffect(() => {
+      async function fetchData() {
         if(subscriptionRecords.length === 0){
-            dispatch(getSubscriptionRecords())
-        }
-    })
+          await dispatch(getSubscriptionRecords())
+      }
+      }
+      fetchData();
+    }, []);
+
+    if (subscriptionRecords.length === 0) {
+      return <div>Loading...</div>;
+    }
+    
+
     return (
         <div className={styles.container}>
           <div className='d-flex justify-content-between align-items-center'>
