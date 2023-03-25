@@ -6,12 +6,14 @@ import { getEmployees, getClients, getPaymentRecords, getSubscriptionRecords, ge
 function App() {
   const dispatch = useDispatch();
   useEffect(()=> {
-    dispatch(getEmployees());
-    dispatch(getClients());
-    dispatch(getPaymentRecords());
-    dispatch(getSubscriptionRecords());
-    dispatch(getSubscriptionTypes());
-  },[dispatch])
+    console.log('MyComponent rendered');
+    const fetchData = async() => {
+    await dispatch(getEmployees());
+    await dispatch(getClients());
+    await dispatch(getSubscriptionTypes());
+    }
+    fetchData()
+  },[])
   return (
     <div className="App">
       <Home />
