@@ -113,11 +113,17 @@ export const deleteSubscriptionRecord = createAsyncThunk(
   },
 );
 
+
 export const getPaymentRecords = createAsyncThunk(
   'getPaymentRecords/',
-  async () => {
+  async (_, { getState }) => {
+    const state = getState();
+    const offset = state.database.paymentRecordIndex;
     try {
       return axios.get(baseUrl + '/payment_records/index',{
+        params: {
+          offset: offset,
+        },
         withCredentials: true
       });
     } catch (error) {
@@ -269,7 +275,8 @@ const initialState = {
   clients: [],
   subscriptionRecords: [],
   paymentRecords: [],
-  subscriptionRecordIndex: 0
+  subscriptionRecordIndex: 0,
+  paymentRecordIndex: 0,
 };
 
 export const dataBaseSlice = createSlice({
@@ -341,16 +348,12 @@ export const dataBaseSlice = createSlice({
     });
 
     builder.addCase(createSubscriptionRecord.fulfilled, (state, action) => {
-      let {subscriptionRecord, client, employee, subscriptionType} = action.payload.data;
-      console.log('subscriptionRecord')
-      console.log(action.payload.data.subscriptionRecord)
-      subscriptionRecord.client = client;
-      subscriptionRecord.employee = employee;
-      subscriptionRecord.subscription_type = subscriptionType;
-      
+      const subscriptionRecord= action.payload.data.subscriptionRecord;
+      const paymentRecord= action.payload.data.paymentRecord;
       return {
         ...state,
-        subscriptionRecords: [subscriptionRecord, ...state.subscriptionRecords]
+        subscriptionRecords: [subscriptionRecord, ...state.subscriptionRecords],
+        paymentRecords: [paymentRecord, ...state.paymentRecords],
       };
     });
 
@@ -364,14 +367,34 @@ export const dataBaseSlice = createSlice({
       }
     });
 
-
     builder.addCase(getPaymentRecords.fulfilled, (state, action) => {
-      const paymentRecords = action.payload.data
-      return {...state,paymentRecords};
+      const paymentRecords = action.payload.data;
+      const newPaymentRecordIndex = paymentRecords.length === 0? state.paymentRecordIndex:state.paymentRecordIndex+1;
+      return {
+        ...state,
+        paymentRecords: [...state.paymentRecords,...paymentRecords],
+        paymentRecordIndex: newPaymentRecordIndex,
+      };
     });
 
     builder.addCase(createPaymentRecord.fulfilled, (state, action) => {
-      return state;
+      const paymentRecord = action.payload.data;
+      const updatedSubscriptionRecords = state.subscriptionRecords.map((el)=>{
+        if(el.id === paymentRecord.subscription_record.id){
+          return {
+            ...el,
+            pay: parseInt(el.pay) + parseInt(paymentRecord.amount),
+          }
+        }
+        else {
+          return el
+        }
+      })
+      return {
+        ...state,
+        paymentRecords: [paymentRecord,...state.paymentRecords],
+        subscriptionRecords: updatedSubscriptionRecords,
+      };
     });
 
     builder.addCase(getClients.fulfilled, (state, action) => {
