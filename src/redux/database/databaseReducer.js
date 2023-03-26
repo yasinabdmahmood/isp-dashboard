@@ -341,12 +341,25 @@ export const dataBaseSlice = createSlice({
         clientHistory: null,
       }
     },
+    filterClientHistory(state,action) {
+      return {
+        ...state,
+        clientHistory: state.clientHistory.filter( el => parseInt(el.id) !== parseInt(action.payload.id) )
+      }
+    },
     clearPaymentHistory(state,action) {
       return {
         ...state,
         paymentHistory: null,
       }
     },
+    filterPaymentHistory(state,action) {
+      return {
+        ...state,
+        paymentHistory: state.paymentHistory.filter( el => parseInt(el.id) !== parseInt(action.payload.id) )
+      }
+    },
+    
     // toggleReservation(state, action) {
     //   const newState = state.map((el) => (
     //     el.id === action.payload
@@ -489,6 +502,11 @@ export const dataBaseSlice = createSlice({
       };
     });
 
+    builder.addCase(createPaymentRecord.rejected, (state, action) => {
+      // Code to run if the login fails, e.g. show an error message
+      alert('The payment can not be grater than the cost');
+    });
+
     builder.addCase(getClients.fulfilled, (state, action) => {
       const clients = action.payload.data
       return {...state,clients};
@@ -537,5 +555,5 @@ export const dataBaseSlice = createSlice({
   
 });
 
-export const { clearClientHistory, clearPaymentHistory } = dataBaseSlice.actions;
+export const { clearClientHistory, clearPaymentHistory, filterClientHistory, filterPaymentHistory } = dataBaseSlice.actions;
 export default dataBaseSlice.reducer;
