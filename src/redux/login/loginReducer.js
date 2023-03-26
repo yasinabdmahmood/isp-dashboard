@@ -53,6 +53,10 @@ export const LoginSlice = createSlice({
       sessionStorage.setItem('user', loggedInEmployee);
       return true;
     });
+    builder.addCase(getLoggedInCredentials.rejected, (state, action) => {
+      // Code to run if the login fails, e.g. show an error message
+      alert('Login failed. Please try again.');
+    });
     builder.addCase(loggout.fulfilled, (state, action) => {
       sessionStorage.removeItem("user")
       return null;
