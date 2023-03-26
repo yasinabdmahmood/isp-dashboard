@@ -9,7 +9,7 @@ function PaymentRecords() {
     const elementRef = useRef(null);
     useEffect(()=>{
         async function fetchData() {
-            if(paymentRecords.length === 0){
+            if(paymentRecords.length < 20){
                await dispatch(getPaymentRecords())
             }
         }
