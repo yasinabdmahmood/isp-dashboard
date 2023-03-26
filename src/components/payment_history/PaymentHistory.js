@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import formatDate from '../../helpers/formatDate';
-import { getPaymentHistory } from '../../redux/database/databaseReducer';
+import { clearPaymentHistory, getPaymentHistory } from '../../redux/database/databaseReducer';
 
 function PaymentHistory() {
     const {id} = useParams()
@@ -14,10 +14,13 @@ function PaymentHistory() {
         const fetchData = async() => {
             await dispatch(getPaymentHistory({id}))
         }
-        fetchData()
+        fetchData();
+        return () => {
+            dispatch(clearPaymentHistory());
+        }
     },[]);
 
-    if( (paymentRecords === null || paymentRecords[0]?.subscription_record_id !== parseInt(id)) && paymentRecords?.length !== 0){
+    if( paymentRecords === null ){
         return <div>Loading ...</div>
     }
     return (
