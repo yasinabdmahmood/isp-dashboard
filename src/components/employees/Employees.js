@@ -16,8 +16,12 @@ function Employees() {
   },[dispatch]);
 
   return (
-    <div className="container d-flex justify-content-center mt-5">
-      <table className="table table-striped w-75">
+    <div className='d-flex flex-column align-items-center'>
+      <div>
+        <h1>Employees</h1>
+      </div>
+      <div className="container d-flex justify-content-center mt-5">
+      <table className="table table-striped">
         <thead class="thead-dark" >
           <tr>
             <th scope="col">ID</th>
@@ -47,6 +51,7 @@ function Employees() {
           ))}
         </tbody>
       </table>
+    </div>
     </div>
   );
 }

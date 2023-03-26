@@ -24,8 +24,12 @@ function SubscriptionTypes() {
   })
 
   return (
-        <div className="container d-flex flex-column justify-content-center mt-5">
-        <table className="table table-striped w-75">
+  <div className='d-flex flex-column justify-content-between align-items-center'>
+    <div>
+      <h1>Subscription Types</h1>
+    </div>
+    <div className="container d-flex flex-column justify-content-center mt-5">
+        <table className="table table-striped">
         <thead className="thead-dark" >
           <tr>
             <th scope="col">Category</th>
@@ -63,6 +67,8 @@ function SubscriptionTypes() {
       </div>
       
     </div>
+  </div>
+        
   );
 }
 

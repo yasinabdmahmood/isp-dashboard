@@ -55,9 +55,9 @@ function PaymentRecords() {
 
     return (
         <div ref={elementRef} style={{ height: '900px', overflow: 'auto' }}>
-           <h1>Payment Records</h1> 
+           <h1 className='text-center'>Payment History</h1> 
            <div className="container d-flex justify-content-center mt-5">
-             <table className="table table-striped w-75">
+             <table className="table table-striped">
                 <thead className="thead-dark" >
                 <tr>
                     <th scope="col">Client</th>
