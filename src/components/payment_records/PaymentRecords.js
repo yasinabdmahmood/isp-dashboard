@@ -1,6 +1,6 @@
 import React, {useEffect, useRef} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { getPaymentRecords } from '../../redux/database/databaseReducer';
+import { deletePaymentRecord, getPaymentRecords } from '../../redux/database/databaseReducer';
 import formatDate from '../../helpers/formatDate';
 
 function PaymentRecords() {
@@ -15,6 +15,19 @@ function PaymentRecords() {
         }
         fetchData();
     },[]);
+
+    const handleDeletion = async (id) => {
+      // Display alert message and prompt user to continue or cancel
+      const confirmed = window.confirm('Are you sure you want to delete this item?');
+      
+      if (confirmed) {
+        const payload = {id};
+        await dispatch(deletePaymentRecord(payload));
+      } else {
+        // User clicked Cancel, do nothing
+        return;
+      }
+    }
 
     function  handleScroll() {
         const element = elementRef.current;
@@ -51,6 +64,7 @@ function PaymentRecords() {
                     <th scope="col">Employee</th>
                     <th scope="col">Amount</th>
                     <th scope="col">Date</th>
+                    <th scope="col">Actions</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -60,6 +74,13 @@ function PaymentRecords() {
                     <td>{paymentRecord.employee.name}</td>
                     <td>{paymentRecord.amount}</td>
                     <td>{formatDate(paymentRecord.created_at)}</td>
+                    <td>
+                      <button
+                      className='btn btn-sm btn-danger'
+                      onClick={()=>handleDeletion(paymentRecord.id)}>
+                        Delete
+                      </button>
+                    </td>
                     </tr>
                 ))}
                 </tbody>
