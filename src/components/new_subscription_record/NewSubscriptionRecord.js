@@ -80,7 +80,7 @@ function NewSubscriptionRecord() {
           <Label for="paid-amount">Paid amount</Label>
           <Input type="number" name="paid-amount" className='bg-white' id="pay" required value={pay} onChange={(e) => setPay(e.target.value)} />
         </FormGroup>
-        <Button color="primary" type="submit">Create Subscription Type</Button>
+        <Button color="primary" type="submit">Create Subscription Record</Button>
       </Form>
     );
 }

@@ -39,7 +39,7 @@ function PaymentHistory() {
     }
     return (
         <div>
-            <h1>history {id}</h1>
+            <h1>Payment history</h1>
             <div className="container d-flex justify-content-center mt-5">
              <table className="table table-striped">
                 <thead className="thead-dark" >
