@@ -1,15 +1,24 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { deleteClient, deleteSubscriptionRecord, getPaymentRecords } from '../../redux/database/databaseReducer';
+import { deleteClient, deleteSubscriptionRecord, getClientHistory, getPaymentRecords } from '../../redux/database/databaseReducer';
 import { useNavigate } from 'react-router';
 import { useParams } from 'react-router';
+import { useEffect } from 'react';
 
 function ShowClient() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const {id} = useParams();
+    
+    useEffect(() => {
+        const fetchData = async() => {
+            await dispatch(getClientHistory({id}))
+        }
+        fetchData()
+    },[])
+
     const client = useSelector(state => state.database?.clients?.find( cl => cl.id === parseInt(id)));
-    const subscriptionRecords = useSelector(state => state.database?.subscriptionRecords?.filter( el => el.client_id === parseInt(id)));
+    const subscriptionRecords = useSelector(state => state.database?.clientHistory);
     const handleClientDeletion = (id) => {
         const confirm = window.confirm('Are you sure you want to delete this client')
         if(confirm){
@@ -34,6 +43,10 @@ function ShowClient() {
           return;
         }
       }
+
+    if(subscriptionRecords.length === 0){
+        return <div>Loading...</div>
+    }
     return (
         <div>
            <h1>Show client {id}</h1>
