@@ -44,7 +44,7 @@ function ShowClient() {
         }
       }
 
-    if(subscriptionRecords.length === 0){
+    if(subscriptionRecords.length === 0 || subscriptionRecords[0].client_id !== parseInt(id)){
         return <div>Loading...</div>
     }
     return (
@@ -84,7 +84,7 @@ function ShowClient() {
       </table>
     </div> 
     <div className="container d-flex justify-content-center mt-5">
-             <table className="table table-striped w-75">
+             <table className="table table-striped ">
                 <thead className="thead-dark" >
                 <tr>
                     <th scope="col">Client</th>
@@ -115,6 +115,12 @@ function ShowClient() {
                         onClick={()=>navigate(`/home/paymentRecords/new/${subscriptionRecord.id}`)}
                         >
                             Add payment
+                        </button>
+                        <button 
+                        className='btn btn-sm btn-info m-1'
+                        onClick={()=>navigate(`/home/subscriptionRecords/history/${subscriptionRecord.id}`)}
+                        >
+                            view
                         </button>
                     </td>
                     </tr>

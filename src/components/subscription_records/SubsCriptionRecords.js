@@ -131,6 +131,12 @@ function SubscriptionRecords() {
                         >
                             Add payment
                         </button>
+                        <button 
+                        className='btn btn-sm btn-info m-1'
+                        onClick={()=>navigate(`/home/subscriptionRecords/history/${subscriptionRecord.id}`)}
+                        >
+                            view
+                        </button>
                     </td>
                     </tr>
                 ))}
