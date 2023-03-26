@@ -21,22 +21,9 @@ const LoginForm = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const payloadData = {email,password}
-    dispatch(getLoggedInCredentials(payloadData))
-    // try {
-    //   const response = await axios.post('http://localhost:3000/employees/sign_in', {
-    //     employee: {
-    //       email: email,
-    //       password: password
-    //     }
-    //   },{
-    //     withCredentials: true
-    //   });
-    //   console.log(response.data);
-    //   navigate('/home');
-    // } catch (error) {
-    //   console.error(error);
-    // }
+    const payloadData = {email, password};
+      await dispatch(getLoggedInCredentials(payloadData));
+   
   }
 
   return (
