@@ -10,7 +10,6 @@ import { getSubscriptionRecords, deleteSubscriptionRecord, getPaymentRecords } f
 function SubscriptionRecords() {
     const subscriptionRecords = useSelector(state => state.database.subscriptionRecords);
     const [search, setSearch] = useState('');
-    const [loading, setLoading] = useState(false);
     const [searchType, setSearchType] = useState('Client name');
     const dispatch = useDispatch();
     const navigate = useNavigate();

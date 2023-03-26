@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useRef} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getPaymentRecords } from '../../redux/database/databaseReducer';
 import formatDate from '../../helpers/formatDate';
@@ -6,13 +6,42 @@ import formatDate from '../../helpers/formatDate';
 function PaymentRecords() {
     const paymentRecords = useSelector(state => state.database.paymentRecords);
     const dispatch = useDispatch();
+    const elementRef = useRef(null);
     useEffect(()=>{
-        if(paymentRecords.length === 0){
-            dispatch(getPaymentRecords())
+        async function fetchData() {
+            if(paymentRecords.length === 0){
+               await dispatch(getPaymentRecords())
+            }
         }
-    })
+        fetchData();
+    },[]);
+
+    function  handleScroll() {
+        const element = elementRef.current;
+  
+        if (element.scrollTop + element.clientHeight === element.scrollHeight) {
+          dispatch(getPaymentRecords());
+        }
+      }
+  
+      useEffect(() => {
+        
+    
+        const element = elementRef.current;
+        element.addEventListener('scroll', handleScroll);
+    
+        return () => {
+          element.removeEventListener('scroll', handleScroll);
+        };
+      }, []);
+  
+      if (paymentRecords.length === 0) {
+        return <div ref={elementRef}>Loading...</div>;
+      }
+
+
     return (
-        <div>
+        <div ref={elementRef} style={{ height: '900px', overflow: 'auto' }}>
            <h1>Payment Records</h1> 
            <div className="container d-flex justify-content-center mt-5">
              <table className="table table-striped w-75">
