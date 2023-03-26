@@ -17,7 +17,7 @@ function NewPaymentRecord() {
         subscription_record_id: id,
     }
     await dispatch(createPaymentRecord(payloadData))
-    navigate('/home/subscriptionRecords');
+    navigate(-1);
   };
 
 
