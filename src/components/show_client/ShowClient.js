@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { deleteClient, deleteSubscriptionRecord, getClientHistory, getPaymentRecords } from '../../redux/database/databaseReducer';
+import { clearClientHistory, deleteClient, deleteSubscriptionRecord, getClientHistory, getPaymentRecords } from '../../redux/database/databaseReducer';
 import { useNavigate } from 'react-router';
 import { useParams } from 'react-router';
 import { useEffect } from 'react';
@@ -14,7 +14,10 @@ function ShowClient() {
         const fetchData = async() => {
             await dispatch(getClientHistory({id}))
         }
-        fetchData()
+        fetchData();
+        return () => {
+            dispatch(clearClientHistory());
+        }
     },[])
 
     const client = useSelector(state => state.database?.clients?.find( cl => cl.id === parseInt(id)));
@@ -44,7 +47,7 @@ function ShowClient() {
         }
       }
 
-    if(subscriptionRecords.length === 0 || subscriptionRecords[0].client_id !== parseInt(id)){
+    if(subscriptionRecords === null ){
         return <div>Loading...</div>
     }
     return (
