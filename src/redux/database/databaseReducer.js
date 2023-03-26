@@ -167,6 +167,22 @@ export const createPaymentRecord = createAsyncThunk(
   },
 );
 
+export const deletePaymentRecord = createAsyncThunk(
+  'deletePaymentRecord/',
+  async (payloadData) => {
+    try {
+      return  axios.get(baseUrl + '/payment_record/destroy',
+      { params: {
+        id: payloadData.id,
+      },
+        withCredentials: true
+      });
+    } catch (error) {
+      return error;
+    }
+  },
+);
+
 
 
 export const getClients = createAsyncThunk(
@@ -311,14 +327,26 @@ const initialState = {
   paymentRecords: [],
   subscriptionRecordIndex: 0,
   paymentRecordIndex: 0,
-  clientHistory: [],
-  paymentHistory: [],
+  clientHistory: null,
+  paymentHistory: null,
 };
 
 export const dataBaseSlice = createSlice({
   name: 'database',
   initialState,
   reducers: {
+    clearClientHistory(state,action) {
+      return {
+        ...state,
+        clientHistory: null,
+      }
+    },
+    clearPaymentHistory(state,action) {
+      return {
+        ...state,
+        paymentHistory: null,
+      }
+    },
     // toggleReservation(state, action) {
     //   const newState = state.map((el) => (
     //     el.id === action.payload
@@ -413,6 +441,26 @@ export const dataBaseSlice = createSlice({
       };
     });
 
+    builder.addCase(deletePaymentRecord.fulfilled, (state, action) => {
+      const {updated_subscription_record, payment_id} = action.payload.data;
+      const paymentRecords = state.paymentRecords.filter( paymentRecord => paymentRecord.id !== parseInt(payment_id) );
+
+      const subscriptionRecords = state.subscriptionRecords.map( subscriptionRecord => {
+        if(subscriptionRecord.id === updated_subscription_record.id){
+          return updated_subscription_record
+        }
+        else{
+          return subscriptionRecord
+        }
+      })
+
+      return {
+        ...state,
+        paymentRecords,
+        subscriptionRecords,
+      };
+    });
+
     builder.addCase(getPaymentHistory.fulfilled, (state, action) => {
       const paymentHistory = action.payload.data;
       return {
@@ -489,5 +537,5 @@ export const dataBaseSlice = createSlice({
   
 });
 
-// export const { toggleReservation } = rockestSlice.actions;
+export const { clearClientHistory, clearPaymentHistory } = dataBaseSlice.actions;
 export default dataBaseSlice.reducer;
