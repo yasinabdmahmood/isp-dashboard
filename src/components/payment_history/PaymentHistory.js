@@ -17,7 +17,7 @@ function PaymentHistory() {
         fetchData()
     },[]);
 
-    if(paymentRecords.length === 0 || paymentRecords[0].subscription_record_id !== parseInt(id)){
+    if( (paymentRecords === null || paymentRecords[0]?.subscription_record_id !== parseInt(id)) && paymentRecords?.length !== 0){
         return <div>Loading ...</div>
     }
     return (
