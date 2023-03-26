@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { clearClientHistory, deleteClient, deleteSubscriptionRecord, getClientHistory, getPaymentRecords } from '../../redux/database/databaseReducer';
+import { clearClientHistory, deleteClient, deleteSubscriptionRecord, filterClientHistory, getClientHistory, getPaymentRecords } from '../../redux/database/databaseReducer';
 import { useNavigate } from 'react-router';
 import { useParams } from 'react-router';
 import { useEffect } from 'react';
@@ -39,7 +39,8 @@ function ShowClient() {
         
         if (confirmed) {
           const payload = {id};
-          await dispatch(deleteSubscriptionRecord(payload));
+          dispatch(deleteSubscriptionRecord(payload));
+          dispatch(filterClientHistory({id}));
           dispatch(getPaymentRecords());
         } else {
           // User clicked Cancel, do nothing
