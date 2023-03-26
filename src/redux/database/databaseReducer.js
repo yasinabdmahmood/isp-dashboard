@@ -165,6 +165,23 @@ export const getClients = createAsyncThunk(
   },
 );
 
+export const getClientHistory = createAsyncThunk(
+  'getClientHistory/',
+  async (payloadData) => {
+    try {
+      return  axios.get(baseUrl + '/client_history',
+      { 
+        params: {
+          id: payloadData.id,
+        },
+        withCredentials: true
+      });
+    } catch (error) {
+      return error;
+    }
+  },
+);
+
 
 export const createClient = createAsyncThunk(
   'createClient/',
@@ -277,6 +294,7 @@ const initialState = {
   paymentRecords: [],
   subscriptionRecordIndex: 0,
   paymentRecordIndex: 0,
+  clientHistory: [],
 };
 
 export const dataBaseSlice = createSlice({
@@ -400,6 +418,14 @@ export const dataBaseSlice = createSlice({
     builder.addCase(getClients.fulfilled, (state, action) => {
       const clients = action.payload.data
       return {...state,clients};
+    });
+
+    builder.addCase(getClientHistory.fulfilled, (state, action) => {
+      const subscriptionRecords = action.payload.data
+      return {
+        ...state,
+        clientHistory: subscriptionRecords,
+      }
     });
 
     builder.addCase(createClient.fulfilled, (state, action) => {
