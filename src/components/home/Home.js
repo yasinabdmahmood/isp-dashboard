@@ -18,6 +18,7 @@ import NewSubscriptionRecord from '../new_subscription_record/NewSubscriptionRec
 import NewPaymentRecord from '../new_payment_record/NewPaymentRecord';
 import Profile from '../profile/Profile';
 import PaymentHistory from '../payment_history/PaymentHistory';
+import SubscriptionRecord from '../subscription_records/SubscriptionRecord';
 function Home() {
   return (
     <>
@@ -34,6 +35,7 @@ function Home() {
             <Route path="clients/:id" element={<ShowClient/>} />
             <Route path="clients/new" element={<NewClient/>} />
             <Route path="clients/edit/:id" element={<EditClient/>} />
+            <Route path="subscriptionRecords" element={<SubscriptionRecord/>} />
             <Route path="subscriptionRecords/history/:id" element={<PaymentHistory/>} />
             <Route path="subscriptionRecords/new" element={<NewSubscriptionRecord/>} />
             <Route path="paymentRecords" element={<PaymentRecords/>} />
