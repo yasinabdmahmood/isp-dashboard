@@ -8,7 +8,6 @@ import RegUser from '../reg_user/RegUser';
 import Employees from '../employees/Employees';
 import SubscriptionTypes from '../sunbscription_types/SubscriptionTypes';
 import Clients from '../clients/Clients';
-import SubscriptionRecords from '../subscription_records/SubscriptionRecords.js';
 import PaymentRecords from '../payment_records/PaymentRecords';
 import NewSubscriptionType from '../new_subscription_type/NewSubscriptionType';
 import EditSubscriptionType from '../edit_subscription_type/EditSubscriptionType';
@@ -35,7 +34,6 @@ function Home() {
             <Route path="clients/:id" element={<ShowClient/>} />
             <Route path="clients/new" element={<NewClient/>} />
             <Route path="clients/edit/:id" element={<EditClient/>} />
-            <Route path="subscriptionRecords" element={<SubscriptionRecords/>} />
             <Route path="subscriptionRecords/history/:id" element={<PaymentHistory/>} />
             <Route path="subscriptionRecords/new" element={<NewSubscriptionRecord/>} />
             <Route path="paymentRecords" element={<PaymentRecords/>} />
