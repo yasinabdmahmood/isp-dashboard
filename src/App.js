@@ -8,9 +8,9 @@ function App() {
   useEffect(()=> {
     console.log('MyComponent rendered');
     const fetchData = async() => {
-    await dispatch(getEmployees());
-    await dispatch(getClients());
-    await dispatch(getSubscriptionTypes());
+    // await dispatch(getEmployees());
+    // await dispatch(getClients());
+    // await dispatch(getSubscriptionTypes());
     }
     fetchData()
   },[dispatch])
