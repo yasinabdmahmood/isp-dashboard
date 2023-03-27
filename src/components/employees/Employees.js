@@ -13,7 +13,7 @@ function Employees() {
     // then fetch the list
     if(employees.length === 0)
     {dispatch(getEmployees())}
-  },[dispatch]);
+  },[employees.length]);
 
   return (
     <div className='d-flex flex-column align-items-center'>

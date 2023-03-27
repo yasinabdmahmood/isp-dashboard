@@ -27,7 +27,7 @@ function NewSubscriptionRecord() {
         }
       }
       fetchData();
-    }, [dispatch]);
+    }, [clients.length, subscriptionTypes.length]);
 
     useEffect(() => {
       if (subscriptionTypes) {

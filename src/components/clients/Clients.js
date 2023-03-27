@@ -40,7 +40,7 @@ function Clients() {
         if(clients.length === 0){
             dispatch(getClients())
         }
-    },[]);
+    },[dispatch]);
     return (
         <div className={styles.container}>
             <div className='d-flex justify-content-between align-items-center'>

@@ -18,7 +18,7 @@ function ShowClient() {
         return () => {
             dispatch(clearClientHistory());
         }
-    },[])
+    },[id])
 
     const client = useSelector(state => state.database?.clients?.find( cl => cl.id === parseInt(id)));
     const subscriptionRecords = useSelector(state => state.database?.clientHistory);

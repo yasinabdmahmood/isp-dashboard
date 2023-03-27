@@ -22,7 +22,7 @@ function EditClient() {
         }
       }
       fetchData();
-    }, [dispatch]);
+    }, [client.length]);
 
     useEffect(() => {
       if (client) {

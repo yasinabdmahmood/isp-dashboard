@@ -21,7 +21,7 @@ function EditSubscriptionType() {
         }
       }
       fetchData();
-    }, [dispatch]);
+    }, [subscriptionType.length]);
   
     useEffect(() => {
       if (subscriptionType) {

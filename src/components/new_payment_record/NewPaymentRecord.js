@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Form, FormGroup, Label, Input, Button } from 'reactstrap';
 import { useDispatch } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
-import { createPaymentRecord, getPaymentRecords, getSubscriptionRecords } from '../../redux/database/databaseReducer';
+import { createPaymentRecord } from '../../redux/database/databaseReducer';
 
 function NewPaymentRecord() {
   const {id} = useParams();

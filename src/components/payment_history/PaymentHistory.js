@@ -32,7 +32,7 @@ function PaymentHistory() {
         return () => {
             dispatch(clearPaymentHistory());
         }
-    },[]);
+    },[id]);
 
     if( paymentRecords === null ){
         return <div>Loading ...</div>

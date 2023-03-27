@@ -14,7 +14,7 @@ function PaymentRecords() {
             }
         }
         fetchData();
-    },[]);
+    },[paymentRecords.length]);
 
     const handleDeletion = async (id) => {
       // Display alert message and prompt user to continue or cancel
@@ -46,7 +46,7 @@ function PaymentRecords() {
         return () => {
           element.removeEventListener('scroll', handleScroll);
         };
-      }, []);
+      }, [handleScroll]);
   
       if (paymentRecords.length === 0) {
         return <div ref={elementRef}>Loading...</div>;
