@@ -8,7 +8,7 @@ import RegUser from '../reg_user/RegUser';
 import Employees from '../employees/Employees';
 import SubscriptionTypes from '../sunbscription_types/SubscriptionTypes';
 import Clients from '../clients/Clients';
-import SubscriptionRecords from '../subscription_records/SubscriptionRecords';
+import SubscriptionRecords from '../subscription_records/SubscriptionRecords.js';
 import PaymentRecords from '../payment_records/PaymentRecords';
 import NewSubscriptionType from '../new_subscription_type/NewSubscriptionType';
 import EditSubscriptionType from '../edit_subscription_type/EditSubscriptionType';
