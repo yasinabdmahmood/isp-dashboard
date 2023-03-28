@@ -4,13 +4,13 @@ import './App.scss'
 import Home from './components/home/Home'
 
 function App() {
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   useEffect(()=> {
     axios.get('https://isp-system.onrender.com/employees/sign_in'
       ,{
         withCredentials: true
       }).then((response) => {
-        setLoading(true)
+        setLoading(false)
       console.log('Got Cookie')
     });
     
