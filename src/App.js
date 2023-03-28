@@ -11,7 +11,8 @@ function App() {
         withCredentials: true
       }).then((response) => {
         setLoading(false)
-      console.log('Got Cookie')
+      console.log('Got Cookie');
+      console.log(response);
     });
     
   },[])
