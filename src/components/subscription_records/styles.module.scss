@@ -1,5 +1,6 @@
 .container {
     position: relative;
+    overflow-x: scroll;
     .plus-sign {
         position: fixed;
         bottom: 25px;
