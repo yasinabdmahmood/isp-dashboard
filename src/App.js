@@ -7,14 +7,11 @@ import baseUrl from './redux/baseUrl'
 function App() {
   const [loading, setLoading] = useState(true);
   useEffect(()=> {
-    const fetchCookie = async() => {
-        await axios.get(baseUrl,{
+        axios.get(baseUrl,{
           withCredentials: true
         }).then(()=>{
           setLoading(false)
         })
-    }
-    fetchCookie();
   },[])
   if(loading){
     return <div>Loading...</div>
