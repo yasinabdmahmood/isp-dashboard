@@ -15,7 +15,11 @@ function App() {
         // }).then(()=>{
         //   setLoading(false)
         // })
-        dispatch(loggout());
+        const fetchCookies = async() => {
+          await dispatch(loggout());
+          setLoading(false);
+        }
+        fetchCookies();
   },[])
   if(loading){
     return <div>Loading...</div>
