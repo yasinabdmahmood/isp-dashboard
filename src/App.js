@@ -2,19 +2,19 @@ import { useEffect, useState } from 'react'
 import axios from 'axios'
 import './App.scss'
 import Home from './components/home/Home'
+import baseUrl from './redux/baseUrl'
 
 function App() {
   const [loading, setLoading] = useState(true);
   useEffect(()=> {
-    axios.get('https://isp-system.onrender.com/employees/sign_in'
-      ,{
-        withCredentials: true
-      }).then((response) => {
-        setLoading(false)
-      console.log('Got Cookie');
-      console.log(response);
-    });
-    
+    const fetchCookie = async() => {
+        await axios.get(baseUrl,{
+          withCredentials: true
+        }).then(()=>{
+          setLoading(false)
+        })
+    }
+    fetchCookie();
   },[])
   if(loading){
     return <div>Loading...</div>
