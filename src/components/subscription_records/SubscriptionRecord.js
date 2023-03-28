@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import formatDate from '../../helpers/formatDate';
 import styles from './styles.module.scss'
 import plusSign from '../../assets/images/plus-circle.svg'
+import Table from 'react-bootstrap/Table';
 import { getSubscriptionRecords, deleteSubscriptionRecord, getPaymentRecords } from '../../redux/database/databaseReducer';
 
 function SubscriptionRecord(props) {
@@ -96,7 +97,7 @@ function SubscriptionRecord(props) {
           </div>
            
            <div className="container d-flex justify-content-center mt-5 pb-5" >
-             <table className="table table-striped">
+              <Table responsive>
                 <thead className="thead-dark" >
                 <tr>
                     <th scope="col">Client</th>
@@ -140,7 +141,7 @@ function SubscriptionRecord(props) {
                     </tr>
                 ))}
                 </tbody>
-              </table>
+                </Table>
             </div>
             <div className={styles['plus-sign']}>
                 <button onClick={() => navigate('/home/subscriptionRecords/new')} >
