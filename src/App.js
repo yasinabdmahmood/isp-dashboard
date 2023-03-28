@@ -10,7 +10,7 @@ function App() {
     const fetchData = async() => {
     // await dispatch(getEmployees());
     // await dispatch(getClients());
-    // await dispatch(getSubscriptionTypes());
+    await dispatch(getSubscriptionTypes());
     }
     fetchData()
   },[dispatch])
