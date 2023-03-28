@@ -14,10 +14,10 @@ function Profile() {
     const user = useSelector(state => state.database.employees.find( employee => employee.id === parseInt(id)));
 
     useEffect(()=>{
-            if(user.length === 0){
+            if(!user){
                 dispatch(getEmployees());
             }
-    });
+    },[]);
 
 
     const handleSubmit = async (event) => {
