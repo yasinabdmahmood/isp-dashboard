@@ -61,10 +61,12 @@ function SubscriptionTypes() {
           ))}
         </tbody>
       </table>
-      <div>
+      { isAdmin() && <div>
         <button className='btn btn-primary'
         onClick={() => navigate('/home/subscriptionTypes/new')}>Create new Subscription type</button>
       </div>
+      }
+      
       
     </div>
   </div>

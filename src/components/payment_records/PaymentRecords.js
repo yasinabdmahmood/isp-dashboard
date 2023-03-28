@@ -75,11 +75,13 @@ function PaymentRecords() {
                     <td>{paymentRecord.amount}</td>
                     <td>{formatDate(paymentRecord.created_at)}</td>
                     <td>
-                      <button
+
+                    { isAdmin() && <button
                       className='btn btn-sm btn-danger'
                       onClick={()=>handleDeletion(paymentRecord.id)}>
                         Delete
                       </button>
+                    }
                     </td>
                     </tr>
                 ))}
