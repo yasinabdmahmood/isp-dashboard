@@ -2,6 +2,7 @@ import React, {useEffect, useRef} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { deletePaymentRecord, getPaymentRecords } from '../../redux/database/databaseReducer';
 import formatDate from '../../helpers/formatDate';
+import isAdmin from '../../helpers/isAdmin';
 
 function PaymentRecords() {
     const paymentRecords = useSelector(state => state.database.paymentRecords);

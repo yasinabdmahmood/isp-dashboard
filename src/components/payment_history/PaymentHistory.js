@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import formatDate from '../../helpers/formatDate';
+import isAdmin from '../../helpers/isAdmin';
 import { clearPaymentHistory, getPaymentHistory, deletePaymentRecord, filterPaymentHistory } from '../../redux/database/databaseReducer';
 
 function PaymentHistory() {
