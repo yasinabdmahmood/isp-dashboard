@@ -14,12 +14,9 @@ function Profile() {
     const user = useSelector(state => state.database.employees.find( employee => employee.id === parseInt(id)));
 
     useEffect(()=>{
-        const fetchData = async() => {
             if(user.length === 0){
-               await dispatch(getEmployees());
+                dispatch(getEmployees());
             }
-        }
-        fetchData();
     });
 
 
