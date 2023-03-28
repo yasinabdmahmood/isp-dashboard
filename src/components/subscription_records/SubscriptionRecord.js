@@ -97,7 +97,7 @@ function SubscriptionRecord(props) {
           </div>
            
            <div className="container d-flex justify-content-center mt-5 pb-5" >
-              <Table responsive>
+              <Table responsive="sm">
                 <thead className="thead-dark" >
                 <tr>
                     <th scope="col">Client</th>
