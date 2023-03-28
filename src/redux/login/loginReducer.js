@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import baseUrl from '../baseUrl';
 import axios from 'axios';
 
-const loginUrl = baseUrl + '/employees/sign_in';
+const loginUrl = '/employees/sign_in';
 const logoutUrl = baseUrl + '/employees/sign_out';
 
 export const getLoggedInCredentials = createAsyncThunk(
