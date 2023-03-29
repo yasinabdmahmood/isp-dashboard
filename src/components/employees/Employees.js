@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 
 
 function Employees() {
-  const employees = useSelector( state => state.database.employees);
+  const employees = useSelector(state => state.database.employees);
   const dispatch = useDispatch();
   const navigate = useNavigate()
   useEffect(() => {
@@ -16,7 +16,7 @@ function Employees() {
   },[]);
 
   return (
-    <div className='d-flex flex-column align-items-center'>
+    <div className='d-flex flex-column align-items-start'>
       <div>
         <h1>Employees</h1>
       </div>
@@ -52,6 +52,9 @@ function Employees() {
         </tbody>
       </table>
     </div>
+    <button 
+    className='btn btn-primary'
+    onClick={()=>navigate("/home/reg_user")}>Create new employee</button>
     </div>
   );
 }

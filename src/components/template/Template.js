@@ -66,7 +66,6 @@ function Template() {
               <SubMenu label="Records">
                 <MenuItem component={<Link to="/home/subscriptionRecords" />} > Subscription Records </MenuItem>
               </SubMenu>
-              { isAdmin() && <MenuItem component={<Link to="/home/reg_user" />}> Reg Users </MenuItem>}
               <MenuItem component={<Link to={`/home/profile/${JSON.parse(sessionStorage.getItem('user')).id}`} />} > Profile </MenuItem>
               { isAdmin() && <MenuItem component={<Link to="/home/employees" />} > Employees </MenuItem>}
             </Menu>
