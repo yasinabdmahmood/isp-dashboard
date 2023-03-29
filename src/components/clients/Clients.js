@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { getClients, deleteClient } from '../../redux/database/databaseReducer';
+import isAdmin from '../../helpers/isAdmin';
 import styles from './styles.module.scss'
 import plusSign from '../../assets/images/plus-circle.svg'
 
@@ -79,18 +80,22 @@ function Clients() {
                         <td>{client.username}</td>
                         <td>{client.client_contact_informations[0]?.contact_info || 'No contact information'}</td>
                         <td>
-                            <button
-                            className='btn btn-sm btn-danger m-1'
-                            onClick={()=>{handleClientDeletion(client.id)}}
-                            >
-                             Delete
-                            </button>
-                            <button
-                            className='btn btn-sm btn-secondary m-1'
-                            onClick={()=>{navigate(`/home/clients/edit/${client.id}`)}}
-                            >
-                             Edit
-                            </button>
+                        { isAdmin() &&
+                            <>
+                                <button
+                                    className='btn btn-sm btn-danger m-1'
+                                    onClick={()=>{handleClientDeletion(client.id)}}
+                                    >
+                                    Delete
+                                    </button>
+                                    <button
+                                    className='btn btn-sm btn-secondary m-1'
+                                    onClick={()=>{navigate(`/home/clients/edit/${client.id}`)}}
+                                    >
+                                    Edit
+                                    </button>
+                                </>
+                        }
                             <button
                             className='btn btn-sm btn-info m-1'
                             onClick={()=>{navigate(`/home/clients/${client.id}`)}}
@@ -103,12 +108,13 @@ function Clients() {
                 </tbody>
       </table>
     </div>
-        <div className={styles['plus-sign']}>
-                <button onClick={()=> navigate('/home/clients/new')} >
-                  <img src={plusSign} alt='Add sign' />
-                </button>
-            </div>
+    { isAdmin() && <div className={styles['plus-sign']}>
+            <button onClick={()=> navigate('/home/clients/new')} >
+                <img src={plusSign} alt='Add sign' />
+            </button>
         </div>
+    }
+    </div>
     );
 }
 
