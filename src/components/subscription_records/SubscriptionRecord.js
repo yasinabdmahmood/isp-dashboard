@@ -101,7 +101,7 @@ function SubscriptionRecord(props) {
               <Table responsive="sm">
                 <thead className="thead-dark" >
                 <tr>
-                    <th scope="col">Client</th>
+                    <th scope="col">User</th>
                     <th scope="col">Employee</th>
                     <th scope="col">Subscription Type</th>
                     <th scope="col">Paid Amount</th>

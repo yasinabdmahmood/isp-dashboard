@@ -32,7 +32,7 @@ const LoginForm = () => {
     <div className="col-md-6">
       <Form onSubmit={handleSubmit}>
         <FormGroup>
-          <Label for="email" className='text-white'>Username:</Label>
+          <Label for="email" className='text-white'>Email:</Label>
           <Input type="text" className='bg-white' id="email" value={email} onChange={(e) => setEmail(e.target.value)} />
         </FormGroup>
         <FormGroup>

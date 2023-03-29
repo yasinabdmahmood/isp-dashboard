@@ -54,7 +54,7 @@ function ShowClient() {
     }
     return (
         <div>
-           <h1>Show client {id}</h1>
+           <h1>Show User {id}</h1>
            <div className="container d-flex justify-content-center mt-5">
              <table className="table table-striped w-75">
                <thead className="thead-dark" >
@@ -96,7 +96,7 @@ function ShowClient() {
              <table className="table table-striped ">
                 <thead className="thead-dark" >
                 <tr>
-                    <th scope="col">Client</th>
+                    <th scope="col">User</th>
                     <th scope="col">Employee</th>
                     <th scope="col">Subscription Type</th>
                     <th scope="col">Paid Amount</th>

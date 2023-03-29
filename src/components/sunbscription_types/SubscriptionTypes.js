@@ -32,8 +32,8 @@ function SubscriptionTypes() {
         <table className="table table-striped">
         <thead className="thead-dark" >
           <tr>
-            <th scope="col">Category</th>
-            <th scope="col">Cost</th>
+            <th scope="col">Type</th>
+            <th scope="col">Price</th>
            { isAdmin() && <th scope="col">Profit</th> }
            { isAdmin() && <th scope="col">Actions</th> }
           </tr>

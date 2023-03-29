@@ -33,8 +33,7 @@ function RegUser() {
       <div className="col-md-6">
       <Form onSubmit={handleSubmit}>
       <FormGroup>
-          <Label for="name">N
-          ame:</Label>
+          <Label for="name">Name:</Label>
           <Input type="text" className='bg-white' id="name" value={name} onChange={(e) => setName(e.target.value)} />
         </FormGroup>
         <FormGroup>

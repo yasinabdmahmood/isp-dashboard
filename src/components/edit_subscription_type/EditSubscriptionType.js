@@ -48,11 +48,11 @@ function EditSubscriptionType() {
     return (
       <Form onSubmit={handleSubmit} className='d-flex flex-column align-items-center' >
         <FormGroup>
-          <Label for="category">Category</Label>
+          <Label for="category">Type</Label>
           <Input type="text" name="category" className='bg-white' id="category" required value={category} onChange={(e) => setCategory(e.target.value)} />
         </FormGroup>
         <FormGroup>
-          <Label for="cost">Cost</Label>
+          <Label for="cost">Price</Label>
           <Input type="number" name="cost" className='bg-white' id="cost" required value={cost} onChange={(e) => setCost(e.target.value)} />
         </FormGroup>
         <FormGroup>

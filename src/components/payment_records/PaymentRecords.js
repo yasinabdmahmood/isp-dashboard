@@ -61,11 +61,11 @@ function PaymentRecords() {
              <table className="table table-striped">
                 <thead className="thead-dark" >
                 <tr>
-                    <th scope="col">Client</th>
+                    <th scope="col">User</th>
                     <th scope="col">Employee</th>
                     <th scope="col">Amount</th>
                     <th scope="col">Date</th>
-                    <th scope="col">Actions</th>
+                    { isAdmin() && <th scope="col">Actions</th> }
                 </tr>
                 </thead>
                 <tbody>
@@ -75,15 +75,15 @@ function PaymentRecords() {
                     <td>{paymentRecord.employee.name}</td>
                     <td>{paymentRecord.amount}</td>
                     <td>{formatDate(paymentRecord.created_at)}</td>
+                    { isAdmin() && 
                     <td>
-
-                    { isAdmin() && <button
-                      className='btn btn-sm btn-danger'
+                      <button className='btn btn-sm btn-danger'
                       onClick={()=>handleDeletion(paymentRecord.id)}>
                         Delete
                       </button>
-                    }
+                  
                     </td>
+                    }
                     </tr>
                 ))}
                 </tbody>
