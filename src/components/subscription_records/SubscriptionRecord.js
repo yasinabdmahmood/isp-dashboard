@@ -6,6 +6,7 @@ import styles from './styles.module.scss'
 import plusSign from '../../assets/images/plus-circle.svg'
 import Table from 'react-bootstrap/Table';
 import { getSubscriptionRecords, deleteSubscriptionRecord, getPaymentRecords } from '../../redux/database/databaseReducer';
+import isAdmin from '../../helpers/isAdmin';
 
 function SubscriptionRecord(props) {
     const subscriptionRecords = useSelector(state => state.database.subscriptionRecords);
@@ -119,12 +120,13 @@ function SubscriptionRecord(props) {
                     <td>{subscriptionRecord.subscription_type.cost - subscriptionRecord.pay}</td>
                     <td>{formatDate(subscriptionRecord.created_at)}</td>
                     <td>
-                        <button 
+                        { isAdmin() && <button 
                         className='btn btn-sm btn-danger m-1'
                         onClick={() => handleDeletion(subscriptionRecord.id)}
                         >
                             Delete
                         </button>
+                        }
                         <button 
                         className='btn btn-sm btn-secondary m-1'
                         onClick={()=>navigate(`/home/paymentRecords/new/${subscriptionRecord.id}`)}

@@ -4,6 +4,7 @@ import { clearClientHistory, deleteClient, deleteSubscriptionRecord, filterClien
 import { useNavigate } from 'react-router';
 import { useParams } from 'react-router';
 import { useEffect } from 'react';
+import isAdmin from '../../helpers/isAdmin';
 
 function ShowClient() {
     const navigate = useNavigate();
@@ -70,18 +71,22 @@ function ShowClient() {
                         <td>{client?.username}</td>
                         <td>{client?.client_contact_informations[0]?.contact_info || 'No contact information'}</td>
                         <td>
+                            { isAdmin() && <>
                             <button
                             className='btn btn-sm btn-danger m-1'
                             onClick={()=>{handleClientDeletion(client?.id)}}
                             >
                              Delete
                             </button>
+                            
                             <button
                             className='btn btn-sm btn-secondary m-1'
                             onClick={()=>{navigate(`/home/clients/edit/${client?.id}`)}}
                             >
                              Edit
                             </button>
+                            </> 
+                            }
                         </td>
                         </tr>       
                 </tbody>
@@ -108,12 +113,13 @@ function ShowClient() {
                     <td>{subscriptionRecord.pay}</td>
                     <td>{subscriptionRecord.subscription_type.cost - subscriptionRecord.pay}</td>
                     <td>
-                        <button 
+                        { isAdmin() &&<button 
                         className='btn btn-sm btn-danger m-1'
                         onClick={() => handleSubscriptionRecordDeletion(subscriptionRecord.id)}
                         >
                             Delete
                         </button>
+                        }
                         <button 
                         className='btn btn-sm btn-secondary m-1'
                         onClick={()=>navigate(`/home/paymentRecords/new/${subscriptionRecord.id}`)}
