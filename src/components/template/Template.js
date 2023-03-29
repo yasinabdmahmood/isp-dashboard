@@ -9,14 +9,17 @@ import { Outlet, Link  } from 'react-router-dom';
 import list from '../../assets/images/list.svg'
 import isAdmin from '../../helpers/isAdmin';
 
-const getUserName = () => {
-  let loggedInEmployee = sessionStorage.getItem('user');
-  let retrievedData = JSON.parse(loggedInEmployee);
-  return retrievedData.name
-}
+
+
 
 function Template() {
-  // const { collapseSidebar } = useProSidebar();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const getUserName = () => {
+    let loggedInEmployee = sessionStorage.getItem('user');
+    let retrievedData = JSON.parse(loggedInEmployee);
+    return retrievedData.name
+  }
   const [sidebarStyle, setSidebarStyle] = useState({
     minWidth: 'unset',
     width: '250px',
@@ -32,8 +35,7 @@ function Template() {
     }));
   };
   
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
+  
   const handleLogout = async () => {
     try {
       await dispatch(loggout());
