@@ -267,6 +267,38 @@ export const editClient = createAsyncThunk(
   },
 );
 
+export const createClientContactInfo = createAsyncThunk(
+  'createClientContactInfo/',
+  async (payloadData) => {
+    try {
+      return  axios.post(baseUrl + '/client_contact_information/create', {
+        new_client_contact_information: {
+          contact_info: payloadData.contact_info,
+          client_id: payloadData.client_id,
+        },
+      },{
+        withCredentials: true
+      });
+    } catch (error) {
+      return error;
+    }
+  },
+);
+
+export const deleteClientContactInfo = createAsyncThunk(
+  'deleteClientContactInfo/',
+  async (payloadData) => {
+    try {
+      return  axios.get(baseUrl + `/client_contact_information/destroy/${payloadData.id}`
+      ,{
+        withCredentials: true
+      });
+    } catch (error) {
+      return error;
+    }
+  },
+);
+
 export const createSubscriptionType = createAsyncThunk(
   'createSubscriptionType/',
   async (payloadData) => {

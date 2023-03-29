@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { clearClientHistory, deleteClient, deleteSubscriptionRecord, filterClientHistory, getClientHistory, getPaymentRecords } from '../../redux/database/databaseReducer';
+import { clearClientHistory, createClientContactInfo, deleteClient, deleteClientContactInfo, deleteSubscriptionRecord, filterClientHistory, getClientHistory, getClients, getPaymentRecords } from '../../redux/database/databaseReducer';
 import { useNavigate } from 'react-router';
 import { useParams } from 'react-router';
 import { useEffect } from 'react';
@@ -10,6 +10,34 @@ function ShowClient() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const {id} = useParams();
+    const [inputValue, setInputValue] = useState('');
+
+    const addContactInfo = async (event) => {
+        event.preventDefault();
+        const payloadData = {
+            client_id: id,
+            contact_info: inputValue,
+        }
+        await dispatch(createClientContactInfo(payloadData));
+        await dispatch(getClients());
+        await dispatch(getClientHistory({id}));
+        setInputValue('');
+    }
+
+    const removeContactInfo = async (id) => {
+        const payloadData = {id}
+        const confirm = window.confirm('Are you sure you want to delete this item')
+        if(confirm){
+        await dispatch(deleteClientContactInfo(payloadData));
+        }
+        else{
+            return;
+        }
+        dispatch(getClients());
+        
+    }
+
+    
     
     useEffect(() => {
         const fetchData = async() => {
@@ -55,7 +83,68 @@ function ShowClient() {
     return (
         <div>
            <h1>Show User {id}</h1>
-           <div className="container d-flex justify-content-center mt-5">
+           <div>
+                <ul>
+                    <li>
+                        <span className='h5' >Name: </span>
+                        <span className='h5'>{client.name}</span>
+                    </li>
+                    <li>
+                        <span className='h5'>Username: </span>
+                        <span className='h5'>{client.username}</span>
+                    </li>
+                    <li>
+                        <span className='h5'>Contact info: </span>
+                        <ul>
+                            {client.client_contact_informations.map( cl => {
+                                return (
+                                    <li key={cl.id} className='my-2'>
+                                        <span >{cl.contact_info}</span>
+                                        <button 
+                                        onClick={()=>removeContactInfo(cl.id)}
+                                        className='btn btn-sm btn-danger mx-2'
+                                        >Remove
+                                        </button>
+                                    </li>
+                                )
+                            }
+                                
+                            )}
+                        </ul>
+                    </li>
+                    <li>
+                    <form className="form-inline d-flex flex-md-row flex-column" onSubmit={addContactInfo}>
+                    <div className="">
+                        <label htmlFor="inputField" className="h5 m-1">Add contact info</label>
+                        <input type="text" className="" id="inputField" placeholder="Enter text" value={inputValue} onChange={(e) => setInputValue(e.target.value)} />
+                    </div>
+                    <button type="submit" className="btn btn-sm btn-primary mx-1">Add</button>
+                    </form>
+                    </li>
+                    { isAdmin() && <li className='d-flex my-3'>
+                         
+                        <div>
+                        <span className='h5'>Actions</span>
+                        <button
+                            className='btn btn-sm btn-danger m-1'
+                            onClick={()=>{handleClientDeletion(client?.id)}}
+                            >
+                             Delete
+                            </button>
+                            
+                            <button
+                            className='btn btn-sm btn-secondary m-1'
+                            onClick={()=>{navigate(`/home/clients/edit/${client?.id}`)}}
+                            >
+                             Edit
+                            </button>
+
+                        </div>
+                    </li>
+                    }
+                </ul>
+        </div>
+           {/* <div className="container d-flex justify-content-center mt-5">
              <table className="table table-striped w-75">
                <thead className="thead-dark" >
                     <tr>
@@ -91,7 +180,7 @@ function ShowClient() {
                         </tr>       
                 </tbody>
       </table>
-    </div> 
+    </div>  */}
     <div className="container d-flex justify-content-center mt-5">
              <table className="table table-striped ">
                 <thead className="thead-dark" >

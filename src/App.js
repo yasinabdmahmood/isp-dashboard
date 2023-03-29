@@ -3,6 +3,7 @@ import './App.scss'
 import Home from './components/home/Home'
 import { useDispatch } from 'react-redux';
 import { loggout } from './redux/login/loginReducer';
+import { getClients, getEmployees, getSubscriptionTypes } from './redux/database/databaseReducer';
 
 
 
@@ -16,7 +17,12 @@ function App() {
           // so that the backend send cookie to front-end
           if(!sessionStorage.getItem('user')){
             await dispatch(loggout());
-          } 
+          }
+          else{
+            await dispatch(getEmployees());
+            await dispatch(getClients());
+            await dispatch(getSubscriptionTypes());
+          }
           setLoading(false);
         }
         fetchCookies();
