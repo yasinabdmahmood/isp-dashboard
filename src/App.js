@@ -1,22 +1,22 @@
 import { useEffect, useState } from 'react'
-import axios from 'axios'
 import './App.scss'
 import Home from './components/home/Home'
 import { useDispatch } from 'react-redux';
 import { loggout } from './redux/login/loginReducer';
 
 
+
+
 function App() {
   const [loading, setLoading] = useState(true);
   const dispatch = useDispatch()
   useEffect(()=> {
-        // axios.get('https://isp-system.onrender.com/employees/sign_in',{
-        //   withCredentials: true
-        // }).then(()=>{
-        //   setLoading(false)
-        // })
         const fetchCookies = async() => {
-          await dispatch(loggout());
+          // if user is not logged in then make logout request 
+          // so that the backend send cookie to front-end
+          if(!sessionStorage.getItem('user')){
+            await dispatch(loggout());
+          } 
           setLoading(false);
         }
         fetchCookies();
