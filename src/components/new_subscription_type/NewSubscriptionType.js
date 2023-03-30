@@ -22,6 +22,8 @@ function NewSubscriptionType() {
 
 
   return (
+    <>
+    <h1 className='text-center text-primary h2 m-4'>Create Subscription Type</h1>
     <Form onSubmit={handleSubmit} className='d-flex flex-column align-items-center' >
       <FormGroup>
         <Label for="category">Category</Label>
@@ -37,6 +39,7 @@ function NewSubscriptionType() {
       </FormGroup>
       <Button color="primary" type="submit">Create Subscription Type</Button>
     </Form>
+    </> 
   );
 }
 
