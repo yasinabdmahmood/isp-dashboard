@@ -1,6 +1,7 @@
 import React, {useEffect, useRef} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { deletePaymentRecord, getPaymentRecords } from '../../redux/database/databaseReducer';
+import Table from 'react-bootstrap/Table';
 import formatDate from '../../helpers/formatDate';
 import isAdmin from '../../helpers/isAdmin';
 
@@ -56,9 +57,9 @@ function PaymentRecords() {
 
     return (
         <div ref={elementRef} style={{ height: '900px', overflow: 'auto' }}>
-           <h1 className='text-center'>Payment History</h1> 
-           <div className="container d-flex justify-content-center mt-5">
-             <table className="table table-striped">
+           <h1 className='text-center text-primary h2 m-4'>Payment History</h1> 
+           <div className="container d-flex flex-column align-items-stretch mt-5">
+           <Table striped bordered hover responsive>
                 <thead className="thead-dark" >
                 <tr>
                     <th scope="col">User</th>
@@ -87,7 +88,7 @@ function PaymentRecords() {
                     </tr>
                 ))}
                 </tbody>
-              </table>
+              </Table>
             </div>
         </div>
     );
