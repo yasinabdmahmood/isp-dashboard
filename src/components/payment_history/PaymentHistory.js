@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import formatDate from '../../helpers/formatDate';
 import isAdmin from '../../helpers/isAdmin';
+import Table from 'react-bootstrap/Table';
 import { clearPaymentHistory, getPaymentHistory, deletePaymentRecord, filterPaymentHistory } from '../../redux/database/databaseReducer';
 
 function PaymentHistory() {
@@ -40,9 +41,9 @@ function PaymentHistory() {
     }
     return (
         <div>
-            <h1>Payment history</h1>
-            <div className="container d-flex justify-content-center mt-5">
-             <table className="table table-striped">
+            <h1 className='text-center text-primary h2 m-4'>Subscription Payment history</h1>
+            <div className="container d-flex flex-column justify-content-stretch mt-5">
+            <Table striped bordered hover responsive>
                 <thead className="thead-dark" >
                 <tr>
                     <th scope="col">User</th>
@@ -72,7 +73,7 @@ function PaymentHistory() {
                     </tr>
                 ))}
                 </tbody>
-              </table>
+            </Table>
             </div>
         </div>
     );
