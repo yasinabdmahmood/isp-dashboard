@@ -28,8 +28,8 @@ function RegUser() {
 
   return (
     <div>
-      <h1>Register User</h1>
-      <Container className="d-flex justify-content-center align-items-center vh-100">
+      <h1 className='text-center text-primary h2 m-4'>Register User</h1>
+      <Container className="d-flex justify-content-center align-items-start vh-100">
       <div className="col-md-6">
       <Form onSubmit={handleSubmit}>
       <FormGroup>
