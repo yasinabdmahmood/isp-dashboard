@@ -56,7 +56,7 @@ function EditEmployee() {
   
     return (
       <div>
-        <h2 className='text-center m-4'>Edit Employee</h2>
+        <h2 className='text-center text-primary m-4'>Edit Employee</h2>
         <Form onSubmit={handleSubmit} className='d-flex flex-column align-items-center' >
         <FormGroup>
           <Label for="name">Name</Label>

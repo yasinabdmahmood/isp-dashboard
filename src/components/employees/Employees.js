@@ -16,9 +16,9 @@ function Employees() {
   },[]);
 
   return (
-    <div className='d-flex flex-column align-items-start'>
-      <div>
-        <h1>Employees</h1>
+    <div className='d-flex flex-column '>
+      <div className='d-flex justify-content-center align-items-center'>
+        <h1 className='text-center text-primary' >Employees</h1>
       </div>
       <div className="container d-flex justify-content-center mt-5">
       <table className="table table-striped">
@@ -52,9 +52,11 @@ function Employees() {
         </tbody>
       </table>
     </div>
+    <div>
     <button 
     className='btn btn-primary'
     onClick={()=>navigate("/home/reg_user")}>Create new employee</button>
+    </div>
     </div>
   );
 }

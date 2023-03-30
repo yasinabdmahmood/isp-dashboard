@@ -46,7 +46,7 @@ function Clients() {
     return (
         <div className={styles.container}>
             <div className='d-flex flex-column flex-sm-row justify-content-between align-items-center'>
-                <h3 className='mx-3'>Users</h3>
+                <h3 className='text-primary mx-3'>Users</h3>
                 <div className='d-flex  justify-content-center align-items-center mx-5'>
                     <div className='m-1'>
                     <span>Search by</span>
