@@ -17,6 +17,28 @@ export const getEmployees = createAsyncThunk(
   },
 );
 
+export const editEmployee = createAsyncThunk(
+  'editEmployee/',
+  async (payloadData) => {
+    try {
+      return axios.post(baseUrl + `/employee/update/${payloadData.id}`,
+      {
+        employee: {
+          name: payloadData.name,
+          email: payloadData.email,
+          password: payloadData.password,
+          password_confirmation: payloadData.password_confirmation,
+        }
+      },
+      {
+        withCredentials: true
+      });
+    } catch (error) {
+      return error;
+    }
+  },
+);
+
 export const createEmployeeContactInfo = createAsyncThunk(
   'createEmployeeContactInfo/',
   async (payloadData) => {
