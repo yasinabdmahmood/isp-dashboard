@@ -9,10 +9,15 @@ function SubscriptionTypes() {
   const subscriptionTypes = useSelector(state => state.database.subscriptionTypes);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const handleDeletion = (id) => {
+  const handleDeletion = async(id) => {
     const confirm = window.confirm('Are you sure you want to delete this subscruption type');
     if(confirm){
-      dispatch(deleteSubscriptionType(id));
+      const response =  await dispatch(deleteSubscriptionType(id));
+      if(response.type.includes('fulfilled')){
+        window.alert('The item was deleted successfully')
+      }else{
+        window.alert('Failed to delete the item')
+      }
     }else{
       return;
     }
