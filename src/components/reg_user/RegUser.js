@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
 import { Container, Form, FormGroup, Label, Input, Button } from 'reactstrap';
 import axios from 'axios';
+import { useDispatch } from 'react-redux';
+import { getEmployees } from '../../redux/database/databaseReducer';
 
 function RegUser() {
+  const dispatch =useDispatch();
+
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -14,13 +18,13 @@ function RegUser() {
       const response = await axios.post('http://localhost:3000/employees', userData,{
         withCredentials: false
       });
-      
-      // successful registration message
-      // redirect or perform other action upon successful registration
-      window.alert('Employee succesfully registered');
-      setName('');
-      setEmail('');
-      setPassword('');
+      if (response.status === 200) {
+        await dispatch(getEmployees());
+        setName('');
+        setEmail('');
+        setPassword('');
+        window.alert('Employee succesfully registered');
+      }
     } catch (error) {
       window.alert('Failed to register Employee');
     }
