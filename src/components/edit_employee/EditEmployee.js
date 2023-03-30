@@ -40,17 +40,15 @@ function EditEmployee() {
           password: password,
           password_confirmation: passwordConfirmation,
         };
-      
-        try {
-          await dispatch(editEmployee(payloadData));
-          await dispatch(getEmployees());
-          navigate(`/home/profile/${id}`);
-        } catch (error) {
-          // Handle the error and show an error message to the user
-          console.error(error);
-          // Show an alert or modal with the error message
-          alert('Error editing employee. Please try again.');
-        }
+          const response = await dispatch(editEmployee(payloadData));
+          console.log('00000000000');
+          console.log(response)
+          if(response.type === 'editEmployee//fulfilled'){
+            await dispatch(getEmployees());
+            navigate(`/home/profile/${id}`);
+          }else {
+            alert('Error editing employee. Please try again.');
+          }
       };
       
     
