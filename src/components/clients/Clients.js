@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { getClients, deleteClient } from '../../redux/database/databaseReducer';
 import isAdmin from '../../helpers/isAdmin';
+import Table from 'react-bootstrap/Table';
 import styles from './styles.module.scss'
 import plusSign from '../../assets/images/plus-circle.svg'
 
@@ -44,7 +45,7 @@ function Clients() {
     },[dispatch]);
     return (
         <div className={styles.container}>
-            <div className='d-flex justify-content-between align-items-center'>
+            <div className='d-flex flex-column flex-sm-row justify-content-between align-items-center'>
                 <h3 className='mx-3'>Users</h3>
                 <div className='d-flex  justify-content-center align-items-center mx-5'>
                     <div className='m-1'>
@@ -63,8 +64,8 @@ function Clients() {
                 </div>
             </div>
            
-           <div className="container d-flex justify-content-center mt-2">
-             <table className="table table-striped">
+           <div className="container d-flex flex-column align-items-stretch mt-2">
+           <Table striped bordered hover responsive>
                <thead className="thead-dark" >
                     <tr>
                         <th scope="col">Name</th>
@@ -106,7 +107,7 @@ function Clients() {
                         </tr>
                     ))}
                 </tbody>
-      </table>
+      </Table>
     </div>
     { isAdmin() && <div className={styles['plus-sign']}>
             <button onClick={()=> navigate('/home/clients/new')} >
