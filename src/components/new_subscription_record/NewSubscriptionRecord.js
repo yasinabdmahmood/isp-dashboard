@@ -56,6 +56,8 @@ function NewSubscriptionRecord() {
   
   
     return (
+      <>
+      <h1 className='text-center text-primary m-4'>Create Subscription Record</h1>
       <Form onSubmit={handleSubmit} className='d-flex flex-column align-items-center' >
         <FormGroup className='d-flex flex-column'>
             <Label for="client">Client</Label>
@@ -82,6 +84,7 @@ function NewSubscriptionRecord() {
         </FormGroup>
         <Button color="primary" type="submit">Create Subscription Record</Button>
       </Form>
+      </>
     );
 }
 
