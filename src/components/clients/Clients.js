@@ -26,10 +26,16 @@ function Clients() {
         }
         return false;
       };
-    const handleClientDeletion = (id) => {
+    const handleClientDeletion = async(id) => {
         const confirm = window.confirm('Are you sure you want to delete this client')
         if(confirm){
-            dispatch(deleteClient(id));
+            const response = await dispatch(deleteClient(id));
+            if(response.type.includes('fulfilled')){
+                window.alert('Item was deleted successfully');
+            }
+            else{
+                window.alert('Failed to delete the item, please try again')
+            }
         }
         else{
             return;
