@@ -18,8 +18,12 @@ function NewClient() {
         username: useName,
         contact_info: contactInfo,
     }
-    await dispatch(createClient(payloadData))
-    navigate('/home/clients')
+    const response = await dispatch(createClient(payloadData))
+    if(response.type.includes('fulfilled')){
+      navigate('/home/clients')
+    }else{
+      window.alert('The action failed, please try again')
+    }
   };
 
 

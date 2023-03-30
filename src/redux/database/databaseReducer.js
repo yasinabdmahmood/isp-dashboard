@@ -575,7 +575,7 @@ export const dataBaseSlice = createSlice({
       client = {...client,client_contact_informations: [{contact_info: [contact_info]}]}
       return {
         ...state,
-        clients: [...state.clients, client],
+        clients: [client, ...state.clients],
       };
     });
 
