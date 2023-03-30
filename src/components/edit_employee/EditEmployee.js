@@ -55,7 +55,9 @@ function EditEmployee() {
     }
   
     return (
-      <Form onSubmit={handleSubmit} className='d-flex flex-column align-items-center' >
+      <div>
+        <h2 className='text-center m-4'>Edit Employee</h2>
+        <Form onSubmit={handleSubmit} className='d-flex flex-column align-items-center' >
         <FormGroup>
           <Label for="name">Name</Label>
           <Input type="text" name="name" className='bg-white' id="category" required value={name} onChange={(e) => setName(e.target.value)} />
@@ -74,6 +76,8 @@ function EditEmployee() {
         </FormGroup>
         <Button color="primary" type="submit">Update Employee information</Button>
       </Form>
+      </div>
+      
     );
 }
 
