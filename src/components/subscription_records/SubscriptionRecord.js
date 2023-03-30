@@ -77,7 +77,7 @@ function SubscriptionRecord(props) {
 
     return (
         <div className={styles.container} ref={elementRef} style={{ height: '900px', overflow: 'auto' }}>
-          <div className='d-flex justify-content-between align-items-center'>
+          <div className='d-flex flex-column flex-sm-row justify-content-between  align-items-center'>
           <h3 className='text-center'>Subscription Records</h3> 
 
             <div className='d-flex  justify-content-center align-items-center mx-5'>
@@ -98,7 +98,7 @@ function SubscriptionRecord(props) {
           </div>
            
            <div className="container d-flex justify-content-center mt-5 pb-5" >
-              <Table responsive="sm">
+              <Table striped bordered hover responsive>
                 <thead className="thead-dark" >
                 <tr>
                     <th scope="col">User</th>
