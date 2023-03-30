@@ -16,8 +16,13 @@ function NewSubscriptionType() {
     const payloadData = {
         category,cost,profit
     }
-    dispatch(createSubscriptionType(payloadData))
-    navigate('/home/subscriptionTypes')
+    const response = await dispatch(createSubscriptionType(payloadData));
+    if(response.type.includes('fulfilled')){
+      navigate('/home/subscriptionTypes');
+    }else {
+      window.alert('The action failed, please try again')
+    }
+    
   };
 
 
