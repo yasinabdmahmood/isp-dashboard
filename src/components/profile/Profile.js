@@ -92,8 +92,8 @@ function Profile() {
                     <div className="">
                         <label htmlFor="inputField" className="m-1">Add contact info</label>
                         <input type="text" className="" id="inputField" placeholder="Enter text" value={inputValue} onChange={(e) => setInputValue(e.target.value)} />
+                        <button type="submit" className="btn btn-sm btn-primary mx-1">Add</button>
                     </div>
-                    <button type="submit" className="btn btn-sm btn-primary mx-1">Add</button>
                     </form>
                     </li>
                 </ul>
