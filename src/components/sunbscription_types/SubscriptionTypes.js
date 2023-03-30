@@ -2,6 +2,7 @@ import React, {useEffect} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import isAdmin from '../../helpers/isAdmin';
+import Table from 'react-bootstrap/Table';
 import { getSubscriptionTypes, deleteSubscriptionType } from '../../redux/database/databaseReducer';
 
 function SubscriptionTypes() {
@@ -24,12 +25,13 @@ function SubscriptionTypes() {
   })
 
   return (
-  <div className='d-flex flex-column justify-content-between align-items-center'>
+  <div className='d-flex flex-column justify-content-between align-items-stretch'>
     <div>
-      <h1>Subscription Types</h1>
+      <h1 className='text-center text-primary h2 m-4'>Subscription Types</h1>
     </div>
-    <div className="container d-flex flex-column justify-content-center mt-5">
-        <table className="table table-striped">
+    <div className="container d-flex flex-column justify-content-center align-items-stretch mt-5">
+      <Table striped bordered hover responsive>
+
         <thead className="thead-dark" >
           <tr>
             <th scope="col">Type</th>
@@ -60,7 +62,7 @@ function SubscriptionTypes() {
             </tr>
           ))}
         </tbody>
-      </table>
+      </Table>
       { isAdmin() && <div>
         <button className='btn btn-primary'
         onClick={() => navigate('/home/subscriptionTypes/new')}>Create new Subscription type</button>
