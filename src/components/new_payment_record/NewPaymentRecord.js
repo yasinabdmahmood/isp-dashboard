@@ -23,7 +23,7 @@ function NewPaymentRecord() {
 
   return (
     <div>
-        <h1>Create payment record</h1>
+        <h1 className='text-center text-primary h2 m-4'>Add payment record</h1>
         <Form onSubmit={handleSubmit} className='d-flex flex-column align-items-center' >
         <FormGroup>
             <Label for="cost">Amount</Label>
