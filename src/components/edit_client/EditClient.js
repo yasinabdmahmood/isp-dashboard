@@ -52,7 +52,7 @@ function EditClient() {
   return (
     <div>
       <div>
-        <h1>Edit Client</h1>
+        <h1 className='text-center m-4'>Edit Client</h1>
       </div>
         <Form onSubmit={handleSubmit} className='d-flex flex-column align-items-center' >
         <FormGroup>
