@@ -45,9 +45,15 @@ function NewSubscriptionRecord() {
           subscriptionTypeId: subscriptionType,
           pay: pay,
       }
-      dispatch(createSubscriptionRecord(payloadData));
-      dispatch(getPaymentRecords());
-      navigate('/home/subscriptionRecords')
+      const response = await dispatch(createSubscriptionRecord(payloadData));
+      if(response.type.includes('fulfilled')){
+        await dispatch(getPaymentRecords());
+        navigate('/home/subscriptionRecords')
+      }else{
+        window.alert('The action failed, please try again')
+      }
+       
+      
     };
 
     if (!subscriptionType) {
