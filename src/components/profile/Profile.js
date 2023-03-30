@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+import isAdmin from '../../helpers/isAdmin';
 import { createEmployeeContactInfo, deleteEmployeeContactInfo, getEmployees } from '../../redux/database/databaseReducer';
 import styles from './styles.module.scss'
 
@@ -8,6 +9,8 @@ function Profile() {
     const [inputValue, setInputValue] = useState('');
 
     const dispatch = useDispatch()
+
+    const navigate = useNavigate();
 
     const {id} = useParams();
 
@@ -94,6 +97,14 @@ function Profile() {
                     </form>
                     </li>
                 </ul>
+            </div>
+            <div>
+                { isAdmin() && <button
+                className='btn btn-secondary'
+                onClick={()=> navigate(`/home/employees/edit/${id}`)}>
+                    Edit
+                </button>
+                }
             </div>
         </div>
     );

@@ -19,6 +19,7 @@ import NewPaymentRecord from '../new_payment_record/NewPaymentRecord';
 import Profile from '../profile/Profile';
 import PaymentHistory from '../payment_history/PaymentHistory';
 import SubscriptionRecord from '../subscription_records/SubscriptionRecord';
+import EditEmployee from '../edit_employee/EditEmployee';
 function Home() {
   return (
     <>
@@ -28,6 +29,7 @@ function Home() {
           <Route path="/home" element={<Template />}>
             <Route index element={<Dashboard/>} />
             <Route path="employees" element={<Employees/>} />
+            <Route path="employees/edit/:id" element={<EditEmployee/>} />
             <Route path="subscriptionTypes" element={<SubscriptionTypes />}/>
             <Route path="subscriptionTypes/new" element={<NewSubscriptionType />} />
             <Route path="subscriptionTypes/edit/:id" element={<EditSubscriptionType />} />
