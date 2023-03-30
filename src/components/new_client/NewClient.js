@@ -24,6 +24,8 @@ function NewClient() {
 
 
   return (
+    <>
+    <h2 className='text-center text-primary m-4'>Create new user</h2>
     <Form onSubmit={handleSubmit} className='d-flex flex-column align-items-center' >
       <FormGroup>
         <Label for="name">Name</Label>
@@ -39,6 +41,7 @@ function NewClient() {
       </FormGroup>
       <Button color="primary" type="submit">Create</Button>
     </Form>
+    </>
   );
 }
 
