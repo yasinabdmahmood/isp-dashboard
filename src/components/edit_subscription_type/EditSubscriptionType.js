@@ -46,6 +46,8 @@ function EditSubscriptionType() {
     }
   
     return (
+      <>
+      <h2 className='text-center m-4'>Edit SubscriptionType</h2>
       <Form onSubmit={handleSubmit} className='d-flex flex-column align-items-center' >
         <FormGroup>
           <Label for="category">Type</Label>
@@ -61,6 +63,7 @@ function EditSubscriptionType() {
         </FormGroup>
         <Button color="primary" type="submit">Update Subscription Type</Button>
       </Form>
+      </>  
     );
 }
 
