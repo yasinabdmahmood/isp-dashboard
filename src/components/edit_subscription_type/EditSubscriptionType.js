@@ -37,8 +37,13 @@ function EditSubscriptionType() {
       const payloadData = {
           id,category,cost,profit
       }
-      dispatch(editSubscriptionType(payloadData))
-      navigate('/home/subscriptionTypes')
+       const response = await dispatch(editSubscriptionType(payloadData))
+       if(response.type.includes('fulfilled')){
+        navigate('/home/subscriptionTypes');
+       }else{
+        window.alert('This action failed, please try again')
+       }
+      
     };
     
     if (!category || !cost || !profit) {
