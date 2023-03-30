@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Form, FormGroup, Label, Input, Button } from 'reactstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { createClient, getClients } from '../../redux/database/databaseReducer';
+import { editClient, getClients } from '../../redux/database/databaseReducer';
 import { useParams } from 'react-router';
 
 function EditClient() {
@@ -40,8 +40,13 @@ function EditClient() {
         username: userName,
         contact_info: contactInfo,
     }
-    dispatch(createClient(payloadData))
-    navigate('/home/clients')
+    const response = await dispatch(editClient(payloadData));
+    if(response.type.includes('fulfilled')){
+      navigate('/home/clients');
+    }
+    else{
+      window.alert('The action Failed, please try again');
+    }
   };
 
   if (!name || !userName || !contactInfo) {
