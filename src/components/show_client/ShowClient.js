@@ -4,6 +4,7 @@ import { clearClientHistory, createClientContactInfo, deleteClient, deleteClient
 import { useNavigate } from 'react-router';
 import { useParams } from 'react-router';
 import { useEffect } from 'react';
+import Table from 'react-bootstrap/Table';
 import isAdmin from '../../helpers/isAdmin';
 
 function ShowClient() {
@@ -82,7 +83,7 @@ function ShowClient() {
     }
     return (
         <div>
-           <h1>Show User {id}</h1>
+           <h1 className='text-primary text-center h2 m-4'>Show User</h1>
            <div>
                 <ul>
                     <li>
@@ -117,15 +118,15 @@ function ShowClient() {
                     <div className="">
                         <label htmlFor="inputField" className="h5 m-1">Add contact info</label>
                         <input type="text" className="" id="inputField" placeholder="Enter text" value={inputValue} onChange={(e) => setInputValue(e.target.value)} />
+                        <button type="submit" className="btn btn-sm btn-primary mx-1">Add</button>
                     </div>
-                    <button type="submit" className="btn btn-sm btn-primary mx-1">Add</button>
                     </form>
                     </li>
                     { isAdmin() && <li className='d-flex my-3'>
                          
                         <div>
                         <span className='h5'>Actions</span>
-                        <button
+                           <button
                             className='btn btn-sm btn-danger m-1'
                             onClick={()=>{handleClientDeletion(client?.id)}}
                             >
@@ -182,7 +183,7 @@ function ShowClient() {
       </table>
     </div>  */}
     <div className="container d-flex justify-content-center mt-5">
-             <table className="table table-striped ">
+             <Table striped bordered hover responsive>
                 <thead className="thead-dark" >
                 <tr>
                     <th scope="col">User</th>
@@ -225,7 +226,7 @@ function ShowClient() {
                     </tr>
                 ))}
                 </tbody>
-              </table>
+                </Table>
             </div>
         </div>
     );
