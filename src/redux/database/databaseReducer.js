@@ -588,15 +588,15 @@ export const dataBaseSlice = createSlice({
     })
 
     builder.addCase(editClient.fulfilled, (state, action) => {
-      const {client, contact_info} = action.payload.data.client
+      const client = action.payload.data.client;
       return {
         ...state,
         clients: state.clients.map( el => {
           if(el.id === parseInt(client.id)){
-            return {...client,client_contact_informations: [{contact_info: [contact_info]}]}
+            return client;
           }
           else{
-            return el
+            return el;
           }
         })
       };
