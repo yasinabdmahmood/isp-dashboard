@@ -15,14 +15,14 @@ function RegUser() {
         withCredentials: false
       });
       
-      console.log(response.data); // successful registration message
+      // successful registration message
       // redirect or perform other action upon successful registration
       window.alert('Employee succesfully registered');
       setName('');
       setEmail('');
       setPassword('');
     } catch (error) {
-      console.log(error.response.data); // error message from server
+      window.alert('Failed to register Employee');
     }
   };
 

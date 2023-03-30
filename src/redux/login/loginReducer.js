@@ -8,8 +8,6 @@ const logoutUrl = baseUrl + '/employees/sign_out';
 export const getLoggedInCredentials = createAsyncThunk(
   'getLoggedInCredentials/',
   async (payloadData) => {
-    console.log('payloadData')
-    console.log(payloadData)
     try {
       return axios.post(loginUrl, {
         employee: {
@@ -47,8 +45,6 @@ export const LoginSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(getLoggedInCredentials.fulfilled, (state, action) => {
-      console.log('payloadData2')
-      console.log(action.payload.data)
       let loggedInEmployee = JSON.stringify(action.payload.data);
       sessionStorage.setItem('user', loggedInEmployee);
       return true;

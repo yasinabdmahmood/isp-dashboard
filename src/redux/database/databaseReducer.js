@@ -444,8 +444,6 @@ export const dataBaseSlice = createSlice({
 
     builder.addCase(editSubscriptionType.fulfilled, (state, action) => {
       const subscriptionType = action.payload.data.subscription_type
-      console.log('subscriptionType')
-      console.log(action.payload.data)
       return {
         ...state,
         subscriptionTypes: state.subscriptionTypes.map( el => {
@@ -490,8 +488,6 @@ export const dataBaseSlice = createSlice({
 
     builder.addCase(deleteSubscriptionRecord.fulfilled, (state, action) => {
       const {id} = action.payload.data
-      console.log('id')
-      console.log(action.payload.data)
       return {
         ...state,
         subscriptionRecords: state.subscriptionRecords.filter( el => el.id !== parseInt(id))

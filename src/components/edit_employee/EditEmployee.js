@@ -41,8 +41,6 @@ function EditEmployee() {
           password_confirmation: passwordConfirmation,
         };
           const response = await dispatch(editEmployee(payloadData));
-          console.log('00000000000');
-          console.log(response)
           if(response.type === 'editEmployee//fulfilled'){
             await dispatch(getEmployees());
             navigate(`/home/profile/${id}`);
