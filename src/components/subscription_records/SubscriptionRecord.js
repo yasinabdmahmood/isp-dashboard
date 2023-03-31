@@ -91,7 +91,7 @@ function SubscriptionRecord() {
           <h3 className='text-center h4'>Subscription Records</h3> 
 
             <div className='d-flex  justify-content-center align-items-center mx-5'>
-            <div className='d-flex align-items-stretch m-1'>
+            <div className='d-flex  justify-content-center align-items-stretch m-1'>
                 <select value={searchType} className={styles['dropdown']} onChange={(e) => setSearchType(e.target.value)}>
                     <option value="Client name">Client name</option>
                     <option value="Employee name">Employee name</option>

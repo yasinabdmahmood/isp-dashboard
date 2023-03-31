@@ -55,20 +55,13 @@ function Clients() {
         <div className={styles.container}>
             <div className='d-flex flex-column flex-sm-row justify-content-between align-items-center'>
                 <h3 className='text-start text-black m-4 h4'>Users</h3>
-                <div className='d-flex  justify-content-center align-items-center mx-5'>
-                    <div className='m-1'>
-                    <span>Search by</span>
-                        <select value={searchType} onChange={(e) => setSearchType(e.target.value)}>
+                <div className='d-flex  justify-content-center align-items-stretch mx-5'>
+                        <select className={styles['dropdown']} value={searchType} onChange={(e) => setSearchType(e.target.value)}>
                             <option value="name">Name</option>
                             <option value="username">Username</option>
                             <option value="phone">Phone Number</option>
                         </select>
-                    </div>
-                    <div className='m-1'>
-                        <span>Search</span>
-                    <input type="text" value={search} onChange={(e) => setSearch(e.target.value)} />
-                    </div>
-                        
+                        <input className={styles['search-field']} placeholder='search' type="text" value={search} onChange={(e) => setSearch(e.target.value)} />        
                 </div>
             </div>
            

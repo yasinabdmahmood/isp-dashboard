@@ -21,7 +21,7 @@ function Employees() {
       <div className='d-flex justify-content-start align-items-center'>
         <h1 className='text-start h4 m-4' >Employees</h1>
       </div>
-      <div className="container d-flex flex-column justify-content-center align-items-stretch mt-3">
+      <div className="p-sm-3 mt-3">
       <Table striped bordered hover responsive>
         <thead class="thead-dark" >
           <tr>
