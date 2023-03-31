@@ -7,8 +7,11 @@ import plusSign from '../../assets/images/plus-circle.svg'
 import Table from 'react-bootstrap/Table';
 import { getSubscriptionRecords, deleteSubscriptionRecord, getPaymentRecords } from '../../redux/database/databaseReducer';
 import isAdmin from '../../helpers/isAdmin';
+import trash from '../../assets/images/trash-fill.svg'
+import add from '../../assets/images/plus-circle-fill.svg'
+import view from '../../assets/images/eye-fill.svg'
 
-function SubscriptionRecord(props) {
+function SubscriptionRecord() {
     const subscriptionRecords = useSelector(state => state.database.subscriptionRecords);
     const [search, setSearch] = useState('');
     const [searchType, setSearchType] = useState('Client name');
@@ -84,27 +87,23 @@ function SubscriptionRecord(props) {
 
     return (
         <div className={styles.container} ref={elementRef} style={{ height: '900px', overflow: 'auto' }}>
-          <div className='d-flex flex-column flex-sm-row justify-content-between  align-items-center'>
-          <h3 className='text-center'>Subscription Records</h3> 
+          <div className='d-flex flex-column flex-sm-row justify-content-between  align-items-center m-3'>
+          <h3 className='text-center h4'>Subscription Records</h3> 
 
             <div className='d-flex  justify-content-center align-items-center mx-5'>
-            <div className='m-1'>
-            <span>Search by</span>
-                <select value={searchType} onChange={(e) => setSearchType(e.target.value)}>
+            <div className='d-flex align-items-stretch m-1'>
+                <select value={searchType} className={styles['dropdown']} onChange={(e) => setSearchType(e.target.value)}>
                     <option value="Client name">Client name</option>
                     <option value="Employee name">Employee name</option>
                     <option value="Subscription type">Subscription type</option>
                 </select>
-            </div>
-            <div className='m-1'>
-                <span>Search</span>
-            <input type="text" value={search} onChange={(e) => setSearch(e.target.value)} />
+            <input type="text" className={styles['search-field']} placeholder='Search' value={search} onChange={(e) => setSearch(e.target.value)} />
             </div>  
 
             </div>
           </div>
            
-           <div className="container d-flex justify-content-center mt-5 pb-5" >
+           <div className="px-sm-3" >
               <Table striped bordered hover responsive>
                 <thead className="thead-dark" >
                 <tr>
@@ -125,27 +124,13 @@ function SubscriptionRecord(props) {
                     <td>{subscriptionRecord.subscription_type.category}</td>
                     <td>{subscriptionRecord.pay}</td>
                     <td>{subscriptionRecord.subscription_type.cost - subscriptionRecord.pay}</td>
-                    <td>{formatDate(subscriptionRecord.created_at)}</td>
-                    <td>
-                        { isAdmin() && <button 
-                        className='btn btn-sm btn-danger m-1'
-                        onClick={() => handleDeletion(subscriptionRecord.id)}
-                        >
-                            Delete
-                        </button>
+                    <td style={{whiteSpace: 'nowrap'}}>{formatDate(subscriptionRecord.created_at)}</td>
+                    <td className='d-flex justify-content-around align-items-stretch flex-nowrap'>
+                        { isAdmin() && 
+                        <img src={trash}  onClick={() => handleDeletion(subscriptionRecord.id)} style={{cursor: 'pointer'}} className='m-1'/>                     
                         }
-                        <button 
-                        className='btn btn-sm btn-secondary m-1'
-                        onClick={()=>navigate(`/home/paymentRecords/new/${subscriptionRecord.id}`)}
-                        >
-                            Add payment
-                        </button>
-                        <button 
-                        className='btn btn-sm btn-info m-1'
-                        onClick={()=>navigate(`/home/subscriptionRecords/history/${subscriptionRecord.id}`)}
-                        >
-                            view
-                        </button>
+                         <img src={add}  onClick={()=>navigate(`/home/paymentRecords/new/${subscriptionRecord.id}`)} style={{cursor: 'pointer'}} className='m-1'/>
+                        <img src={view}  onClick={()=>navigate(`/home/subscriptionRecords/history/${subscriptionRecord.id}`)} style={{cursor: 'pointer'}} className='m-1'/>
                     </td>
                     </tr>
                 ))}
