@@ -4,6 +4,7 @@ import { deletePaymentRecord, getPaymentRecords } from '../../redux/database/dat
 import Table from 'react-bootstrap/Table';
 import formatDate from '../../helpers/formatDate';
 import isAdmin from '../../helpers/isAdmin';
+import trash from '../../assets/images/trash-fill.svg'
 
 function PaymentRecords() {
     const paymentRecords = useSelector(state => state.database.paymentRecords);
@@ -63,8 +64,8 @@ function PaymentRecords() {
 
     return (
         <div ref={elementRef} style={{ height: '900px', overflow: 'auto' }}>
-           <h1 className='text-center text-primary h2 m-4'>Payment History</h1> 
-           <div className="container d-flex flex-column align-items-stretch mt-5">
+           <h1 className='text-start text-black h4 m-4'>Payment History</h1> 
+           <div className="container d-flex flex-column align-items-stretch mt-2">
            <Table striped bordered hover responsive>
                 <thead className="thead-dark" >
                 <tr>
@@ -84,11 +85,7 @@ function PaymentRecords() {
                     <td>{formatDate(paymentRecord.created_at)}</td>
                     { isAdmin() && 
                     <td>
-                      <button className='btn btn-sm btn-danger'
-                      onClick={()=>handleDeletion(paymentRecord.id)}>
-                        Delete
-                      </button>
-                  
+                      <img src={trash} onClick={()=>handleDeletion(paymentRecord.id)}/>
                     </td>
                     }
                     </tr>

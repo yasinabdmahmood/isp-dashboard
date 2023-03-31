@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import styles from './template.module.scss'
-import logo from '../../assets/images/ispicon.png'
 import { Sidebar, Menu, MenuItem, SubMenu } from 'react-pro-sidebar'
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -8,6 +7,7 @@ import { loggout } from '../../redux/login/loginReducer';
 import { Outlet, Link  } from 'react-router-dom';
 import list from '../../assets/images/list.svg'
 import isAdmin from '../../helpers/isAdmin';
+import logoutLogo from '../../assets/images/box-arrow-right.svg'
 
 
 
@@ -26,7 +26,9 @@ function Template() {
     maxHeight:  'calc(100vh - 58px)',
     minHeight:  'calc(100vh - 58px)',
     transition: 'width 0.3s ease-in-out',
+    color: 'white',
   });
+
   
   const collapseSidebar = () => {
     setSidebarStyle((prevState) => ({
@@ -50,27 +52,25 @@ function Template() {
           <div className={styles["hamberger-icon"]}>
             <img src={list} alt="icon" onClick={() => collapseSidebar()} />
           </div>
+          <div className='d-flex align-items-center'>
+          <span className='fw-bold mx-2 my-1'>{`Welcome ${getUserName()}`}</span>
+          <img src={logoutLogo} alt="icon" onClick={handleLogout} className={styles['logout-logo']} /> 
+          </div>
 
-          <h3>{`Welcome ${getUserName()}`}</h3>
-          <button onClick={handleLogout} className="btn btn-secondary">Logout</button>
+          
         </div>
         <div className={styles.body}>
           <div className={styles['sidebar-container']}>
-          <Sidebar  backgroundColor= 'rgb(255, 255, 255)' rootStyles={sidebarStyle}>
+          <Sidebar  backgroundColor= 'rgb(40,40,40)' rootStyles={sidebarStyle}>
             <Menu>
               { isAdmin() && <MenuItem component={<Link to="/home" />}>Dashboard</MenuItem>}
               <MenuItem component={<Link to="/home/paymentRecords" />} > Payment History </MenuItem>
               <MenuItem component={<Link to="/home/subscriptionTypes" />} > Subscription Types </MenuItem>
-              <MenuItem component={<Link to="/home/clients" />} > Users </MenuItem>
-              <SubMenu label="Records">
+              <MenuItem component={<Link to="/home/clients" />} > Users </MenuItem> 
                 <MenuItem component={<Link to="/home/subscriptionRecords" />} > Subscription Records </MenuItem>
-              </SubMenu>
               <MenuItem component={<Link to={`/home/profile/${JSON.parse(sessionStorage.getItem('user')).id}`} />} > Profile </MenuItem>
               { isAdmin() && <MenuItem component={<Link to="/home/employees" />} > Employees </MenuItem>}
             </Menu>
-            <div className={styles['logo-container']}>
-              <img src={logo} alt="icon"/>
-            </div>
           </Sidebar>
           </div>
           

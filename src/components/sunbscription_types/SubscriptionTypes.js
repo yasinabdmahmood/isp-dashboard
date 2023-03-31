@@ -4,6 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import isAdmin from '../../helpers/isAdmin';
 import Table from 'react-bootstrap/Table';
 import { getSubscriptionTypes, deleteSubscriptionType } from '../../redux/database/databaseReducer';
+import edit from '../../assets/images/pencil-square.svg'
+import trash from '../../assets/images/trash-fill.svg'
 
 function SubscriptionTypes() {
   const subscriptionTypes = useSelector(state => state.database.subscriptionTypes);
@@ -32,9 +34,9 @@ function SubscriptionTypes() {
   return (
   <div className='d-flex flex-column justify-content-between align-items-stretch'>
     <div>
-      <h1 className='text-center text-primary h2 m-4'>Subscription Types</h1>
+      <h1 className='text-start text-black h4 m-4'>Subscription Types</h1>
     </div>
-    <div className="container d-flex flex-column justify-content-center align-items-stretch mt-5">
+    <div className="container d-flex flex-column justify-content-center align-items-stretch mt-2">
       <Table striped bordered hover responsive>
 
         <thead className="thead-dark" >
@@ -52,7 +54,9 @@ function SubscriptionTypes() {
               <td>{subscriptionType.cost}</td>
               { isAdmin() && <td>{subscriptionType.profit}</td> }
               { isAdmin() && <td>
-                <button 
+                <img src={trash} alt='delete' onClick={() => handleDeletion(subscriptionType.id)} className='mx-2' />
+                <img src={edit} alt='edit'  onClick={() => navigate(`/home/subscriptionTypes/edit/${subscriptionType.id}`)} className='mx-2' />
+                {/* <button 
                 className='btn btn-sm btn-danger m-1'
                 onClick={() => handleDeletion(subscriptionType.id)}>
                   Delete
@@ -62,7 +66,7 @@ function SubscriptionTypes() {
                 onClick={() => navigate(`/home/subscriptionTypes/edit/${subscriptionType.id}`)}
                 >
                   Edit
-                </button>
+                </button> */}
               </td> }
             </tr>
           ))}

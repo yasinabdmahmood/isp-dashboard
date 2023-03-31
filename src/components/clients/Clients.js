@@ -6,7 +6,9 @@ import isAdmin from '../../helpers/isAdmin';
 import Table from 'react-bootstrap/Table';
 import styles from './styles.module.scss'
 import plusSign from '../../assets/images/plus-circle.svg'
-
+import edit from '../../assets/images/pencil-square.svg'
+import trash from '../../assets/images/trash-fill.svg'
+import view from '../../assets/images/eye-fill.svg'
 
 function Clients() {
     const [search, setSearch] = useState('');
@@ -52,7 +54,7 @@ function Clients() {
     return (
         <div className={styles.container}>
             <div className='d-flex flex-column flex-sm-row justify-content-between align-items-center'>
-                <h3 className='text-primary mx-3'>Users</h3>
+                <h3 className='text-start text-black m-4 h4'>Users</h3>
                 <div className='d-flex  justify-content-center align-items-center mx-5'>
                     <div className='m-1'>
                     <span>Search by</span>
@@ -89,26 +91,12 @@ function Clients() {
                         <td>
                         { isAdmin() &&
                             <>
-                                <button
-                                    className='btn btn-sm btn-danger m-1'
-                                    onClick={()=>{handleClientDeletion(client.id)}}
-                                    >
-                                    Delete
-                                    </button>
-                                    <button
-                                    className='btn btn-sm btn-secondary m-1'
-                                    onClick={()=>{navigate(`/home/clients/edit/${client.id}`)}}
-                                    >
-                                    Edit
-                                    </button>
-                                </>
+                                    <img src={trash} onClick={()=>{handleClientDeletion(client.id)}} className='mx-2'/>
+                                    <img src={edit} onClick={()=>{navigate(`/home/clients/edit/${client.id}`)}} className='mx-2'/>
+                            </>
                         }
-                            <button
-                            className='btn btn-sm btn-info m-1'
-                            onClick={()=>{navigate(`/home/clients/${client.id}`)}}
-                            >
-                             View
-                            </button>
+                          <img src={view} onClick={()=>{navigate(`/home/clients/${client.id}`)}} className='mx-2'/>
+                           
                         </td>
                         </tr>
                     ))}
