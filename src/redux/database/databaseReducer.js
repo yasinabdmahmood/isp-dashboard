@@ -490,7 +490,8 @@ export const dataBaseSlice = createSlice({
       const {id} = action.payload.data
       return {
         ...state,
-        subscriptionRecords: state.subscriptionRecords.filter( el => el.id !== parseInt(id))
+        subscriptionRecords: state.subscriptionRecords.filter( el => el.id !== parseInt(id)),
+        paymentRecords: state.paymentRecords.filter(el => el.subscription_record_id !== parseInt(id)),
       }
     });
 
