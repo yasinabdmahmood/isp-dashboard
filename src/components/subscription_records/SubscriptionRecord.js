@@ -21,8 +21,15 @@ function SubscriptionRecord(props) {
         
         if (confirmed) {
           const payload = {id};
-          await dispatch(deleteSubscriptionRecord(payload));
-          dispatch(getPaymentRecords());
+          const response = await dispatch(deleteSubscriptionRecord(payload));
+          if(response.type.includes('fulfilled')){
+            await dispatch(getPaymentRecords());
+            window.alert('Item deleted successfully')
+          }
+          else{
+            window.alert('Failed to delete the item, please try again')
+          }
+          
         } else {
           // User clicked Cancel, do nothing
           return;

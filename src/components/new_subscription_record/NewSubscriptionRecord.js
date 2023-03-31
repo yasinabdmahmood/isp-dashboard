@@ -37,7 +37,7 @@ function NewSubscriptionRecord() {
       }
     }, [subscriptionTypes]);
   
-    const handleSubmit = async (event) => {
+    const handleSubmit = async(event) => {
       event.preventDefault();
       const payloadData = {
           clientId: clients.find( el => el.name === client).id,
