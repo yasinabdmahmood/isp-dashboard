@@ -9,6 +9,11 @@ function PaymentRecords() {
   const paymentRecords = useSelector(state => state.database.paymentRecords);
   const dispatch = useDispatch();
   const elementRef = useRef(null);
+  const tableStyle = {
+    overflowY: 'scroll',
+    WebkitOverflowScrolling: 'touch',
+  };
+  
 
   useEffect(() => {
     async function fetchData() {
@@ -60,7 +65,7 @@ function PaymentRecords() {
 
 
     return (
-        <div ref={elementRef} style={{ height: '900px', overflow: 'auto' }}>
+        <div>
            <h1 className='text-center text-primary h2 m-4'>Payment History</h1> 
            <div className="container d-flex flex-column align-items-stretch mt-5">
            <Table striped bordered hover responsive ref={elementRef}>
