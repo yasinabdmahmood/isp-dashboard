@@ -18,13 +18,19 @@ function PaymentRecords() {
         fetchData();
     },[paymentRecords.length]);
 
-    const handleDeletion = async (id) => {
+    const handleDeletion = async(id) => {
       // Display alert message and prompt user to continue or cancel
       const confirmed = window.confirm('Are you sure you want to delete this item?');
       
       if (confirmed) {
         const payload = {id};
-        await dispatch(deletePaymentRecord(payload));
+        const response = await dispatch(deletePaymentRecord(payload));
+        if(response.type.includes('fulfilled')){
+          window.alert('Item deleted successfully')
+        }
+        else{
+          window.alert('Failed to delete the item')
+        }
       } else {
         // User clicked Cancel, do nothing
         return;
