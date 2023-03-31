@@ -68,7 +68,7 @@ function PaymentRecords() {
         <div>
            <h1 className='text-center text-primary h2 m-4'>Payment History</h1> 
            <div className="container d-flex flex-column align-items-stretch mt-5">
-           <Table striped bordered hover responsive ref={elementRef}>
+           <Table striped bordered hover responsive ref={elementRef} style={tableStyle}>
                 <thead className="thead-dark" >
                 <tr>
                     <th scope="col">User</th>
