@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getEmployees } from '../../redux/database/databaseReducer';
 import { useNavigate } from 'react-router-dom';
+import Table from 'react-bootstrap/Table';
 
 
 function Employees() {
@@ -20,8 +21,8 @@ function Employees() {
       <div className='d-flex justify-content-center align-items-center'>
         <h1 className='text-center text-primary' >Employees</h1>
       </div>
-      <div className="container d-flex justify-content-center mt-5">
-      <table className="table table-striped">
+      <div className="container d-flex flex-column justify-content-center align-items-stretch mt-5">
+      <Table striped bordered hover responsive>
         <thead class="thead-dark" >
           <tr>
             <th scope="col">ID</th>
@@ -50,12 +51,15 @@ function Employees() {
             </tr>
           ))}
         </tbody>
-      </table>
+      </Table>
     </div>
     <div>
-    <button 
-    className='btn btn-primary'
-    onClick={()=>navigate("/home/reg_user")}>Create new employee</button>
+      <div className='px-3'>
+        <button 
+        className='btn btn-primary'
+        onClick={()=>navigate("/home/reg_user")}>Create new employee
+        </button>
+      </div>
     </div>
     </div>
   );
