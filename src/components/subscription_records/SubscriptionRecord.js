@@ -61,7 +61,7 @@ function SubscriptionRecord(props) {
       function  handleScroll() {
       const element = elementRef.current;
 
-      if (element.scrollTop + element.clientHeight === element.scrollHeight) {
+      if (element.scrollTop + element.clientHeight >= element.scrollHeight - 20) {
         dispatch(getSubscriptionRecords());
       }
     }
