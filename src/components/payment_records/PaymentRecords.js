@@ -6,66 +6,64 @@ import formatDate from '../../helpers/formatDate';
 import isAdmin from '../../helpers/isAdmin';
 
 function PaymentRecords() {
-    const paymentRecords = useSelector(state => state.database.paymentRecords);
-    const dispatch = useDispatch();
-    const elementRef = useRef(null);
-    useEffect(()=>{
-        async function fetchData() {
-            if(paymentRecords.length < 20){
-               await dispatch(getPaymentRecords())
-            }
-        }
-        fetchData();
-    },[paymentRecords.length]);
+  const paymentRecords = useSelector(state => state.database.paymentRecords);
+  const dispatch = useDispatch();
+  const elementRef = useRef(null);
 
-    const handleDeletion = async(id) => {
-      // Display alert message and prompt user to continue or cancel
-      const confirmed = window.confirm('Are you sure you want to delete this item?');
-      
-      if (confirmed) {
-        const payload = {id};
-        const response = await dispatch(deletePaymentRecord(payload));
-        if(response.type.includes('fulfilled')){
-          window.alert('Item deleted successfully')
-        }
-        else{
-          window.alert('Failed to delete the item')
-        }
-      } else {
-        // User clicked Cancel, do nothing
-        return;
+  useEffect(() => {
+    async function fetchData() {
+      if (paymentRecords.length < 20) {
+        await dispatch(getPaymentRecords());
       }
     }
+    fetchData();
+  }, [paymentRecords.length]);
 
-    function  handleScroll() {
-        const element = elementRef.current;
-  
-        if (element.scrollTop + element.clientHeight === element.scrollHeight) {
-          dispatch(getPaymentRecords());
-        }
+  const handleDeletion = async (id) => {
+    // Display alert message and prompt user to continue or cancel
+    const confirmed = window.confirm('Are you sure you want to delete this item?');
+
+    if (confirmed) {
+      const payload = { id };
+      const response = await dispatch(deletePaymentRecord(payload));
+      if (response.type.includes('fulfilled')) {
+        window.alert('Item deleted successfully');
+      } else {
+        window.alert('Failed to delete the item');
       }
-  
-      useEffect(() => {
-        
-    
-        const element = elementRef.current;
-        element.addEventListener('scroll', handleScroll);
-    
-        return () => {
-          element.removeEventListener('scroll', handleScroll);
-        };
-      }, [handleScroll]);
-  
-      if (paymentRecords.length === 0) {
-        return <div ref={elementRef}>Loading...</div>;
-      }
+    } else {
+      // User clicked Cancel, do nothing
+      return;
+    }
+  };
+
+  function handleScroll() {
+    const element = elementRef.current;
+
+    if (element.scrollTop + element.clientHeight === element.scrollHeight) {
+      dispatch(getPaymentRecords());
+    }
+  }
+
+  useEffect(() => {
+    const element = elementRef.current;
+    element?.addEventListener('scroll', handleScroll);
+
+    return () => {
+      element?.removeEventListener('scroll', handleScroll);
+    };
+  }, [handleScroll]);
+
+  if (paymentRecords.length === 0) {
+    return <div>Loading...</div>;
+  }
 
 
     return (
         <div ref={elementRef} style={{ height: '900px', overflow: 'auto' }}>
            <h1 className='text-center text-primary h2 m-4'>Payment History</h1> 
            <div className="container d-flex flex-column align-items-stretch mt-5">
-           <Table striped bordered hover responsive>
+           <Table striped bordered hover responsive ref={elementRef}>
                 <thead className="thead-dark" >
                 <tr>
                     <th scope="col">User</th>
