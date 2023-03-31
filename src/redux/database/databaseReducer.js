@@ -553,11 +553,6 @@ export const dataBaseSlice = createSlice({
       };
     });
 
-    builder.addCase(createPaymentRecord.rejected, (state, action) => {
-      // Code to run if the login fails, e.g. show an error message
-      alert('The payment can not be grater than the cost');
-    });
-
     builder.addCase(getClients.fulfilled, (state, action) => {
       const clients = action.payload.data
       return {...state,clients};

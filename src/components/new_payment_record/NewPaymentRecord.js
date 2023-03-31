@@ -16,8 +16,14 @@ function NewPaymentRecord() {
         amount: amount,
         subscription_record_id: id,
     }
-    await dispatch(createPaymentRecord(payloadData))
-    navigate(-1);
+    const response = await dispatch(createPaymentRecord(payloadData));
+    if(response.type.includes('fulfilled')){
+      navigate(-1);
+    }
+    else{
+      window.alert('The action failed, please try again');
+    }
+    
   };
 
 
