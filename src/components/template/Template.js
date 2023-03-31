@@ -28,6 +28,12 @@ function Template() {
     transition: 'width 0.3s ease-in-out',
     color: 'white',
   });
+  const linkStyle = {
+    backgroundColor: 'rgb(40,40,40)',
+    ':hover': {
+      color: 'black',
+    },
+  }
 
   
   const collapseSidebar = () => {
@@ -63,13 +69,13 @@ function Template() {
           <div className={styles['sidebar-container']}>
           <Sidebar  backgroundColor= 'rgb(40,40,40)' rootStyles={sidebarStyle}>
             <Menu>
-              { isAdmin() && <MenuItem component={<Link to="/home" />}>Dashboard</MenuItem>}
-              <MenuItem component={<Link to="/home/paymentRecords" />} > Payment History </MenuItem>
-              <MenuItem component={<Link to="/home/subscriptionTypes" />} > Subscription Types </MenuItem>
-              <MenuItem component={<Link to="/home/clients" />} > Users </MenuItem> 
-                <MenuItem component={<Link to="/home/subscriptionRecords" />} > Subscription Records </MenuItem>
-              <MenuItem component={<Link to={`/home/profile/${JSON.parse(sessionStorage.getItem('user')).id}`} />} > Profile </MenuItem>
-              { isAdmin() && <MenuItem component={<Link to="/home/employees" />} > Employees </MenuItem>}
+              { isAdmin() && <MenuItem component={<Link to="/home" />} rootStyles={linkStyle}>Dashboard</MenuItem>}
+              <MenuItem component={<Link to="/home/paymentRecords" />} rootStyles={linkStyle}> Payment History </MenuItem>
+              <MenuItem component={<Link to="/home/subscriptionTypes"/>} rootStyles={linkStyle}> Subscription Types </MenuItem>
+              <MenuItem component={<Link to="/home/clients" />} rootStyles={linkStyle}> Users </MenuItem> 
+                <MenuItem component={<Link to="/home/subscriptionRecords" />} rootStyles={linkStyle}> Subscription Records </MenuItem>
+              <MenuItem component={<Link to={`/home/profile/${JSON.parse(sessionStorage.getItem('user')).id}`} />} rootStyles={linkStyle}> Profile </MenuItem>
+              { isAdmin() && <MenuItem component={<Link to="/home/employees" />} rootStyles={linkStyle}> Employees </MenuItem>}
             </Menu>
           </Sidebar>
           </div>
