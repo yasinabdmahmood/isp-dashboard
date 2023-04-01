@@ -43,7 +43,7 @@ function Employees() {
               <td>{employee.role}</td>
               <td>{employee.employee_contact_information?.[0]?.contact_info || 'N/A'}</td>
               <td className='d-flex justify-content-center'>
-                <img src={view} alt='view' onClick={()=> navigate(`/home/profile/${employee.id}`)} />
+                <img src={view} alt='view' style={{cursor: 'pointer'}} onClick={()=> navigate(`/home/profile/${employee.id}`)} />
               </td>
             </tr>
           ))}

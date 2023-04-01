@@ -54,8 +54,8 @@ function SubscriptionTypes() {
               <td>{subscriptionType.cost}</td>
               { isAdmin() && <td>{subscriptionType.profit}</td> }
               { isAdmin() && <td className='d-flex justify-content-around'>
-                <img src={trash} alt='delete' onClick={() => handleDeletion(subscriptionType.id)} className='mx-2' />
-                <img src={edit} alt='edit'  onClick={() => navigate(`/home/subscriptionTypes/edit/${subscriptionType.id}`)} className='mx-2' />
+                <img src={trash} style={{cursor: 'pointer'}} alt='delete' onClick={() => handleDeletion(subscriptionType.id)} className='mx-2' />
+                <img src={edit} style={{cursor: 'pointer'}} alt='edit'  onClick={() => navigate(`/home/subscriptionTypes/edit/${subscriptionType.id}`)} className='mx-2' />
                 {/* <button 
                 className='btn btn-sm btn-danger m-1'
                 onClick={() => handleDeletion(subscriptionType.id)}>

@@ -85,7 +85,7 @@ function PaymentRecords() {
                     <td style={{whiteSpace: 'nowrap'}}>{formatDate(paymentRecord.created_at)}</td>
                     { isAdmin() && 
                     <td className='d-flex justify-content-center'>
-                      <img src={trash} onClick={()=>handleDeletion(paymentRecord.id)}/>
+                      <img src={trash} style={{cursor: 'pointer'}} onClick={()=>handleDeletion(paymentRecord.id)}/>
                     </td>
                     }
                     </tr>

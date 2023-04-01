@@ -9,6 +9,7 @@ import plusSign from '../../assets/images/plus-circle.svg'
 import edit from '../../assets/images/pencil-square.svg'
 import trash from '../../assets/images/trash-fill.svg'
 import view from '../../assets/images/eye-fill.svg'
+import searchLogo from '../../assets/images/search.svg'
 
 function Clients() {
     const [search, setSearch] = useState('');
@@ -61,7 +62,10 @@ function Clients() {
                             <option value="username">Username</option>
                             <option value="phone">Phone Number</option>
                         </select>
-                        <input className={styles['search-field']} placeholder='search' type="text" value={search} onChange={(e) => setSearch(e.target.value)} />        
+                        <div className={styles['search-container']}>
+                            <img src={searchLogo} className={styles['search-icon']} style={{background: 'white'}} alt='search' />
+                            <input className={styles['search-input']} placeholder='search' type="text" value={search} onChange={(e) => setSearch(e.target.value)} />        
+                        </div> 
                 </div>
             </div>
            
@@ -84,11 +88,11 @@ function Clients() {
                         <td className='d-flex justify-content-around align-items-center'>
                         { isAdmin() &&
                             <>
-                                    <img src={trash} onClick={()=>{handleClientDeletion(client.id)}} className='mx-2'/>
-                                    <img src={edit} onClick={()=>{navigate(`/home/clients/edit/${client.id}`)}} className='mx-2'/>
+                                    <img src={trash} style={{cursor: 'pointer'}} onClick={()=>{handleClientDeletion(client.id)}} className='mx-2'/>
+                                    <img src={edit} style={{cursor: 'pointer'}} onClick={()=>{navigate(`/home/clients/edit/${client.id}`)}} className='mx-2'/>
                             </>
                         }
-                          <img src={view} onClick={()=>{navigate(`/home/clients/${client.id}`)}} className='mx-2'/>
+                          <img src={view} style={{cursor: 'pointer'}} onClick={()=>{navigate(`/home/clients/${client.id}`)}} className='mx-2'/>
                            
                         </td>
                         </tr>

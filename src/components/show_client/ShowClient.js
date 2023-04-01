@@ -170,10 +170,10 @@ function ShowClient() {
                     <td>{subscriptionRecord.subscription_type.cost - subscriptionRecord.pay}</td>
                     <td className='d-flex justify-content-around'>
                         { isAdmin() &&
-                        <img src={trash}  onClick={() => handleSubscriptionRecordDeletion(subscriptionRecord.id)} alt='delete' className='m-1'/>
+                        <img src={trash} style={{cursor: 'pointer'}}  onClick={() => handleSubscriptionRecordDeletion(subscriptionRecord.id)} alt='delete' className='m-1'/>
                         }
-                         <img src={add}   onClick={()=>navigate(`/home/paymentRecords/new/${subscriptionRecord.id}`)} alt='Add payment' className='m-1'/>
-                        <img src={view}  onClick={()=>navigate(`/home/subscriptionRecords/history/${subscriptionRecord.id}`)} alt='view' className='m-1'/>
+                         <img src={add} style={{cursor: 'pointer'}}   onClick={()=>navigate(`/home/paymentRecords/new/${subscriptionRecord.id}`)} alt='Add payment' className='m-1'/>
+                        <img src={view} style={{cursor: 'pointer'}}  onClick={()=>navigate(`/home/subscriptionRecords/history/${subscriptionRecord.id}`)} alt='view' className='m-1'/>
                     </td>
                     </tr>
                 ))}

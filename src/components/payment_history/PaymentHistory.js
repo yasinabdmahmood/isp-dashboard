@@ -6,6 +6,7 @@ import formatDate from '../../helpers/formatDate';
 import isAdmin from '../../helpers/isAdmin';
 import Table from 'react-bootstrap/Table';
 import { clearPaymentHistory, getPaymentHistory, deletePaymentRecord, filterPaymentHistory } from '../../redux/database/databaseReducer';
+import trash from '../../assets/images/trash-fill.svg'
 
 function PaymentHistory() {
     const {id} = useParams()
@@ -41,8 +42,8 @@ function PaymentHistory() {
     }
     return (
         <div>
-            <h1 className='text-center text-primary h2 m-4'>Subscription Payment history</h1>
-            <div className="container d-flex flex-column justify-content-stretch mt-5">
+            <h1 className='text-start h4 m-4'>Subscription Payment history</h1>
+            <div className="p-sm-3 mt-5">
             <Table striped bordered hover responsive>
                 <thead className="thead-dark" >
                 <tr>
@@ -61,12 +62,13 @@ function PaymentHistory() {
                     <td>{paymentRecord.amount}</td>
                     <td>{formatDate(paymentRecord.created_at)}</td>
                     { isAdmin() &&
-                    <td>
-                    <button
+                    <td className='d-flex justify-content-center'>
+                      <img src={trash} alt='delete' style={{cursor: 'pointer'}}  onClick={()=>handleDeletion(paymentRecord.id)} />
+                    {/* <button
                       className='btn btn-sm btn-danger'
                       onClick={()=>handleDeletion(paymentRecord.id)}>
                         Delete
-                      </button>
+                      </button> */}
                     
                     </td>
                     }

@@ -10,6 +10,7 @@ import isAdmin from '../../helpers/isAdmin';
 import trash from '../../assets/images/trash-fill.svg'
 import add from '../../assets/images/plus-circle-fill.svg'
 import view from '../../assets/images/eye-fill.svg'
+import searchLogo from '../../assets/images/search.svg'
 
 function SubscriptionRecord() {
     const subscriptionRecords = useSelector(state => state.database.subscriptionRecords);
@@ -97,7 +98,11 @@ function SubscriptionRecord() {
                     <option value="Employee name">Employee name</option>
                     <option value="Subscription type">Subscription type</option>
                 </select>
-            <input type="text" className={styles['search-field']} placeholder='Search' value={search} onChange={(e) => setSearch(e.target.value)} />
+              <div className={styles['search-container']}>
+               <img src={searchLogo} className={styles['search-icon']} style={{background: 'white'}} alt='search' />
+               <input type="text" className={styles['search-input']} placeholder='Search' value={search} onChange={(e) => setSearch(e.target.value)} />
+              </div>   
+            
             </div>  
 
             </div>
