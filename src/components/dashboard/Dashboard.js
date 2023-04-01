@@ -5,7 +5,7 @@ function Dashboard() {
  
   return (
     <div>
-      <h1 className='text-center text-primary'>Under development</h1>
+      <h1 className='text-start h4 m-4'>Under development</h1>
     </div>
   );
 }

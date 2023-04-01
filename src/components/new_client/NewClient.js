@@ -29,7 +29,7 @@ function NewClient() {
 
   return (
     <>
-    <h2 className='text-center text-primary m-4'>Create new user</h2>
+    <h2 className='text-start h4 m-4'>Create new user</h2>
     <Form onSubmit={handleSubmit} className='d-flex flex-column align-items-center' >
       <FormGroup>
         <Label for="name">Name</Label>
@@ -43,7 +43,7 @@ function NewClient() {
         <Label for="contact_info">contact info</Label>
         <Input type="text" name="contact_info" className='bg-white' id="profit" required value={contactInfo} onChange={(e) => setContactInfo(e.target.value)} />
       </FormGroup>
-      <Button color="primary" type="submit">Create</Button>
+      <Button color="primary" className='btn-sm' type="submit">Create</Button>
     </Form>
     </>
   );

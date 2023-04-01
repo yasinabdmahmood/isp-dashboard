@@ -56,24 +56,13 @@ function SubscriptionTypes() {
               { isAdmin() && <td className='d-flex justify-content-around'>
                 <img src={trash} style={{cursor: 'pointer'}} alt='delete' onClick={() => handleDeletion(subscriptionType.id)} className='mx-2' />
                 <img src={edit} style={{cursor: 'pointer'}} alt='edit'  onClick={() => navigate(`/home/subscriptionTypes/edit/${subscriptionType.id}`)} className='mx-2' />
-                {/* <button 
-                className='btn btn-sm btn-danger m-1'
-                onClick={() => handleDeletion(subscriptionType.id)}>
-                  Delete
-                </button>
-                <button 
-                className='btn btn-sm btn-secondary m-1'
-                onClick={() => navigate(`/home/subscriptionTypes/edit/${subscriptionType.id}`)}
-                >
-                  Edit
-                </button> */}
               </td> }
             </tr>
           ))}
         </tbody>
       </Table>
       { isAdmin() && <div>
-        <button className='btn btn-primary'
+        <button className='btn btn-sm btn-primary'
         onClick={() => navigate('/home/subscriptionTypes/new')}>Create new Subscription type</button>
       </div>
       }

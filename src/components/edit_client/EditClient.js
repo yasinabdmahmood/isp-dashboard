@@ -57,7 +57,7 @@ function EditClient() {
   return (
     <div>
       <div>
-        <h1 className='text-center text-primary m-4'>Edit Client</h1>
+        <h1 className='text-start h4 m-4'>Edit Client</h1>
       </div>
         <Form onSubmit={handleSubmit} className='d-flex flex-column align-items-center' >
         <FormGroup>
@@ -72,7 +72,7 @@ function EditClient() {
           <Label for="contact_info">contact info</Label>
           <Input type="text" name="contact_info" className='bg-white' id="profit" required value={contactInfo} onChange={(e) => setContactInfo(e.target.value)} />
         </FormGroup>
-        <Button color="primary" type="submit">Edit</Button>
+        <Button color="primary" className='btn-sm' type="submit">Edit</Button>
       </Form>
     </div>
   );

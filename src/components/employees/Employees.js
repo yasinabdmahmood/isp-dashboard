@@ -53,7 +53,7 @@ function Employees() {
     <div>
       <div className='px-3'>
         <button 
-        className='btn btn-primary'
+        className='btn btn-sm btn-primary'
         onClick={()=>navigate("/home/reg_user")}>Create new employee
         </button>
       </div>
