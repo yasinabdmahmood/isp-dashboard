@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { getEmployees } from '../../redux/database/databaseReducer';
 import { useNavigate } from 'react-router-dom';
 import Table from 'react-bootstrap/Table';
+import view from '../../assets/images/eye-fill.svg'
 
 
 function Employees() {
@@ -41,12 +42,8 @@ function Employees() {
               <td>{employee.email}</td>
               <td>{employee.role}</td>
               <td>{employee.employee_contact_information?.[0]?.contact_info || 'N/A'}</td>
-              <td>
-                <button 
-                className='btn btn-sm btn-info'
-                onClick={()=> navigate(`/home/profile/${employee.id}`)}>
-                  View
-                </button>
+              <td className='d-flex justify-content-center'>
+                <img src={view} alt='view' onClick={()=> navigate(`/home/profile/${employee.id}`)} />
               </td>
             </tr>
           ))}
