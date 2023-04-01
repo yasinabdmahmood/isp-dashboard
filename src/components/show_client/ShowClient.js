@@ -6,6 +6,9 @@ import { useParams } from 'react-router';
 import { useEffect } from 'react';
 import Table from 'react-bootstrap/Table';
 import isAdmin from '../../helpers/isAdmin';
+import trash from '../../assets/images/trash-fill.svg';
+import view from '../../assets/images/eye-fill.svg';
+import add from '../../assets/images/plus-circle-fill.svg';
 
 function ShowClient() {
     const navigate = useNavigate();
@@ -83,7 +86,7 @@ function ShowClient() {
     }
     return (
         <div>
-           <h1 className='text-primary text-center h2 m-4'>Show User</h1>
+           <h1 className='text-start  h4 m-4'>Show User</h1>
            <div>
                 <ul>
                     <li>
@@ -145,44 +148,7 @@ function ShowClient() {
                     }
                 </ul>
         </div>
-           {/* <div className="container d-flex justify-content-center mt-5">
-             <table className="table table-striped w-75">
-               <thead className="thead-dark" >
-                    <tr>
-                        <th scope="col">Name</th>
-                        <th scope="col">User name</th>
-                        <th scope="col">Contact Info</th>
-                        <th scope="col">Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                        <tr key={client?.id}>
-                        <td>{client?.name}</td>
-                        <td>{client?.username}</td>
-                        <td>{client?.client_contact_informations[0]?.contact_info || 'No contact information'}</td>
-                        <td>
-                            { isAdmin() && <>
-                            <button
-                            className='btn btn-sm btn-danger m-1'
-                            onClick={()=>{handleClientDeletion(client?.id)}}
-                            >
-                             Delete
-                            </button>
-                            
-                            <button
-                            className='btn btn-sm btn-secondary m-1'
-                            onClick={()=>{navigate(`/home/clients/edit/${client?.id}`)}}
-                            >
-                             Edit
-                            </button>
-                            </> 
-                            }
-                        </td>
-                        </tr>       
-                </tbody>
-      </table>
-    </div>  */}
-    <div className="container d-flex justify-content-center mt-5">
+    <div className="p-sm-3 mt-5">
              <Table striped bordered hover responsive>
                 <thead className="thead-dark" >
                 <tr>
@@ -202,26 +168,12 @@ function ShowClient() {
                     <td>{subscriptionRecord.subscription_type.category}</td>
                     <td>{subscriptionRecord.pay}</td>
                     <td>{subscriptionRecord.subscription_type.cost - subscriptionRecord.pay}</td>
-                    <td>
-                        { isAdmin() &&<button 
-                        className='btn btn-sm btn-danger m-1'
-                        onClick={() => handleSubscriptionRecordDeletion(subscriptionRecord.id)}
-                        >
-                            Delete
-                        </button>
+                    <td className='d-flex justify-content-around'>
+                        { isAdmin() &&
+                        <img src={trash}  onClick={() => handleSubscriptionRecordDeletion(subscriptionRecord.id)} alt='delete' className='m-1'/>
                         }
-                        <button 
-                        className='btn btn-sm btn-secondary m-1'
-                        onClick={()=>navigate(`/home/paymentRecords/new/${subscriptionRecord.id}`)}
-                        >
-                            Add payment
-                        </button>
-                        <button 
-                        className='btn btn-sm btn-info m-1'
-                        onClick={()=>navigate(`/home/subscriptionRecords/history/${subscriptionRecord.id}`)}
-                        >
-                            view
-                        </button>
+                         <img src={add}   onClick={()=>navigate(`/home/paymentRecords/new/${subscriptionRecord.id}`)} alt='Add payment' className='m-1'/>
+                        <img src={view}  onClick={()=>navigate(`/home/subscriptionRecords/history/${subscriptionRecord.id}`)} alt='view' className='m-1'/>
                     </td>
                     </tr>
                 ))}

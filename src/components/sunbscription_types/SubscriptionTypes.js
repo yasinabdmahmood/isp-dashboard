@@ -36,7 +36,7 @@ function SubscriptionTypes() {
     <div>
       <h1 className='text-start text-black h4 m-4'>Subscription Types</h1>
     </div>
-    <div className="container d-flex flex-column justify-content-center align-items-stretch mt-2">
+    <div className="p-sm-3 mt-2">
       <Table striped bordered hover responsive>
 
         <thead className="thead-dark" >
@@ -53,7 +53,7 @@ function SubscriptionTypes() {
               <td>{subscriptionType.category}</td>
               <td>{subscriptionType.cost}</td>
               { isAdmin() && <td>{subscriptionType.profit}</td> }
-              { isAdmin() && <td>
+              { isAdmin() && <td className='d-flex justify-content-around'>
                 <img src={trash} alt='delete' onClick={() => handleDeletion(subscriptionType.id)} className='mx-2' />
                 <img src={edit} alt='edit'  onClick={() => navigate(`/home/subscriptionTypes/edit/${subscriptionType.id}`)} className='mx-2' />
                 {/* <button 

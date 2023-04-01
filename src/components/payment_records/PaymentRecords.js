@@ -65,7 +65,7 @@ function PaymentRecords() {
     return (
         <div ref={elementRef} style={{ height: '900px', overflow: 'auto' }}>
            <h1 className='text-start text-black h4 m-4'>Payment History</h1> 
-           <div className="container d-flex flex-column align-items-stretch mt-2">
+           <div className="p-sm-3 mt-2">
            <Table striped bordered hover responsive>
                 <thead className="thead-dark" >
                 <tr>
@@ -82,9 +82,9 @@ function PaymentRecords() {
                     <td>{paymentRecord.subscription_record.client.name}</td>
                     <td>{paymentRecord.employee.name}</td>
                     <td>{paymentRecord.amount}</td>
-                    <td>{formatDate(paymentRecord.created_at)}</td>
+                    <td style={{whiteSpace: 'nowrap'}}>{formatDate(paymentRecord.created_at)}</td>
                     { isAdmin() && 
-                    <td>
+                    <td className='d-flex justify-content-center'>
                       <img src={trash} onClick={()=>handleDeletion(paymentRecord.id)}/>
                     </td>
                     }
