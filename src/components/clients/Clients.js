@@ -65,7 +65,7 @@ function Clients() {
                 </div>
             </div>
            
-           <div className="container d-flex flex-column align-items-stretch mt-2">
+           <div className="p-sm-3 mt-2">
            <Table striped bordered hover responsive>
                <thead className="thead-dark" >
                     <tr>
@@ -81,7 +81,7 @@ function Clients() {
                         <td>{client.name}</td>
                         <td>{client.username}</td>
                         <td>{client.client_contact_informations[0]?.contact_info || 'No contact information'}</td>
-                        <td>
+                        <td className='d-flex justify-content-around align-items-center'>
                         { isAdmin() &&
                             <>
                                     <img src={trash} onClick={()=>{handleClientDeletion(client.id)}} className='mx-2'/>
