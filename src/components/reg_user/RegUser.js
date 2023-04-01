@@ -33,7 +33,7 @@ function RegUser() {
 
   return (
     <div>
-      <h1 className='text-center text-primary h2 m-4'>Register User</h1>
+      <h1 className='text-start h4 m-4'>Register User</h1>
       <Container className="d-flex justify-content-center align-items-start vh-100">
       <div className="col-md-6">
       <Form onSubmit={handleSubmit}>
@@ -49,7 +49,7 @@ function RegUser() {
           <Label for="password">Password:</Label>
           <Input type="password" className='bg-white' id="password" value={password} onChange={(e) => setPassword(e.target.value)} />
         </FormGroup>
-        <Button type="submit" color="primary">Sign Up</Button>
+        <Button type="submit" className='btn-sm' color="primary">Sign Up</Button>
       </Form>
     </div>
   </Container>

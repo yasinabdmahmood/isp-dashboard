@@ -29,13 +29,13 @@ function NewPaymentRecord() {
 
   return (
     <div>
-        <h1 className='text-center text-primary h2 m-4'>Add payment record</h1>
+        <h1 className='text-start h4 m-4'>Add payment record</h1>
         <Form onSubmit={handleSubmit} className='d-flex flex-column align-items-center' >
         <FormGroup>
             <Label for="cost">Amount</Label>
             <Input type="number" name="cost" className='bg-white' id="cost" required value={amount} onChange={(e) => setAmount(e.target.value)} />
         </FormGroup>
-        <Button color="primary" type="submit">Create</Button>
+        <Button color="primary" className='btn-sm' type="submit">Create</Button>
         </Form>
     </div>
    
