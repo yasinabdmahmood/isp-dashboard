@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Container, Form, FormGroup, Label, Input, Button } from 'reactstrap';
 import axios from 'axios';
+import baseUrl from '../../redux/baseUrl';
 import { useDispatch } from 'react-redux';
 import { getEmployees } from '../../redux/database/databaseReducer';
 
@@ -15,7 +16,7 @@ function RegUser() {
     e.preventDefault();
     const userData = {new_employee: { name, email, password,role: 'employee' }};
     try {
-      const response = await axios.post('http://localhost:3000/employees', userData,{
+      const response = await axios.post( baseUrl + 'employees', userData,{
         withCredentials: false
       });
       if (response.status === 200) {
