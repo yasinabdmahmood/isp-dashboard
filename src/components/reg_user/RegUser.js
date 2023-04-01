@@ -16,7 +16,7 @@ function RegUser() {
     e.preventDefault();
     const userData = {new_employee: { name, email, password,role: 'employee' }};
     try {
-      const response = await axios.post( baseUrl + 'employees', userData,{
+      const response = await axios.post( baseUrl + '/employees', userData,{
         withCredentials: false
       });
       if (response.status === 200) {
