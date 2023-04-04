@@ -56,7 +56,7 @@ function SubscriptionRecord() {
 
     useEffect(() => {
       async function fetchData() {
-        if(subscriptionRecords.length < 20){
+        if(subscriptionRecords.length === 0){
           const response = await dispatch(getSubscriptionRecords());
           if(response.type.includes('fulfilled')){
             setLoading(false);
