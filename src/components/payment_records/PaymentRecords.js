@@ -1,4 +1,4 @@
-import React, {useEffect, useRef} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { deletePaymentRecord, getPaymentRecords } from '../../redux/database/databaseReducer';
 import Table from 'react-bootstrap/Table';
@@ -10,10 +10,17 @@ function PaymentRecords() {
     const paymentRecords = useSelector(state => state.database.paymentRecords);
     const dispatch = useDispatch();
     const elementRef = useRef(null);
+    const [loading, setLoading] = useState(true);
     useEffect(()=>{
         async function fetchData() {
             if(paymentRecords.length < 20){
-               await dispatch(getPaymentRecords())
+               const response = await dispatch(getPaymentRecords());
+               if(response.type.includes('fulfilled')){
+                setLoading(false);
+               }
+            }
+            else{
+              setLoading(false)
             }
         }
         fetchData();
@@ -57,7 +64,7 @@ function PaymentRecords() {
         };
       }, [handleScroll]);
   
-      if (paymentRecords.length === 0) {
+      if (loading) {
         return <div ref={elementRef}>Loading...</div>;
       }
 
