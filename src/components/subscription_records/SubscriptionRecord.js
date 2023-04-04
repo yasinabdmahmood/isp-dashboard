@@ -16,6 +16,7 @@ function SubscriptionRecord() {
     const subscriptionRecords = useSelector(state => state.database.subscriptionRecords);
     const [search, setSearch] = useState('');
     const [searchType, setSearchType] = useState('Client name');
+    const [loading, setLoading] = useState(true)
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const elementRef = useRef(null);
@@ -55,8 +56,14 @@ function SubscriptionRecord() {
 
     useEffect(() => {
       async function fetchData() {
-        if(subscriptionRecords.length === 0){
-          await dispatch(getSubscriptionRecords())
+        if(subscriptionRecords.length < 20){
+          const response = await dispatch(getSubscriptionRecords());
+          if(response.type.includes('fulfilled')){
+            setLoading(false);
+          }
+      }
+      else{
+        setLoading(false)
       }
       }
       fetchData();
@@ -81,7 +88,7 @@ function SubscriptionRecord() {
       };
     }, []);
 
-    if (subscriptionRecords.length === 0) {
+    if (loading) {
       return <div ref={elementRef}>Loading...</div>;
     }
     
