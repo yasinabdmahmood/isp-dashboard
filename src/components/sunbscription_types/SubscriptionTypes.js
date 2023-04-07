@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import isAdmin from '../../helpers/isAdmin';
@@ -11,6 +11,7 @@ function SubscriptionTypes() {
   const subscriptionTypes = useSelector(state => state.database.subscriptionTypes);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [res, setRes] = useState('');
   const handleDeletion = async(id) => {
     const confirm = window.confirm('Are you sure you want to delete this subscruption type');
     if(confirm){
@@ -26,10 +27,21 @@ function SubscriptionTypes() {
     
   }
   useEffect(()=>{
-    if(subscriptionTypes.length === 0){
-        dispatch(getSubscriptionTypes())
+    const fetchData = async() => {
+      const response = await dispatch(getSubscriptionTypes());
+      if(!response.type.includes('fulfilled')){
+        setRes(JSON.stringify(response))
+      }
     }
+    fetchData();
+    // if(subscriptionTypes.length === 0){
+    //     dispatch(getSubscriptionTypes())
+    // }
   })
+
+  if(res !== ''){
+    return <p>{res}</p>
+  }
 
   return (
   <div className='d-flex flex-column justify-content-between align-items-stretch'>
