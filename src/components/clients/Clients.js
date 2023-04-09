@@ -24,7 +24,7 @@ function Clients() {
         if (searchType === 'username' && client.username.toLowerCase().includes(search.toLowerCase())) {
           return true;
         }
-        if (searchType === 'phone' && client.client_contact_informations[0]?.contact_info?.toLowerCase().includes(search.toLowerCase())) {
+        if (searchType === 'phone' && client.client_contact_informations.some( contact => contact?.contact_info?.toLowerCase().includes(search.toLowerCase()))) {
           return true;
         }
         return false;
