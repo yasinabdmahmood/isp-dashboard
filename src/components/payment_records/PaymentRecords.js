@@ -79,7 +79,7 @@ function PaymentRecords() {
                     <th scope="col">User</th>
                     <th scope="col">Employee</th>
                     <th scope="col">Amount</th>
-                    <th scope="col">Date</th>
+                    <th scope="col">Payment Date</th>
                     { isAdmin() && <th scope="col">Actions</th> }
                 </tr>
                 </thead>

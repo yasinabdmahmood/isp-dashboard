@@ -124,7 +124,7 @@ function SubscriptionRecord() {
                     <th scope="col">Subscription Type</th>
                     <th scope="col">Paid Amount</th>
                     <th scope="col">Remaining Amount</th>
-                    <th scope="col">Date</th>
+                    <th scope="col">Subscription Date</th>
                     <th scope="col">Actions</th>
                 </tr>
                 </thead>
