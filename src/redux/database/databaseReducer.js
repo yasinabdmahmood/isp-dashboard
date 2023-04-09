@@ -112,6 +112,7 @@ export const createSubscriptionRecord = createAsyncThunk(
           client_id: payloadData.clientId,
           subscription_type_id: payloadData.subscriptionTypeId,
           employee_id: payloadData.employeeId,
+          created_at: payloadData.created_at,
         },
       },{
         withCredentials: true
