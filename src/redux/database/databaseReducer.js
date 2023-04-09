@@ -278,7 +278,6 @@ export const editClient = createAsyncThunk(
         updated_client: {
           name: payloadData.name,
           username: payloadData.username,
-          contact_info: payloadData.contact_info,
         },
       },{
         withCredentials: true

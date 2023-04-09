@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Form, FormGroup, Label, Input, Button } from 'reactstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { editClient, getClients } from '../../redux/database/databaseReducer';
+import { editClient, createClientContactInfo, deleteClientContactInfo, getClientHistory, getClients } from '../../redux/database/databaseReducer';
 import { useParams } from 'react-router';
 
 function EditClient() {
@@ -11,6 +11,7 @@ function EditClient() {
     const [name, setName] = useState(null);
     const [userName, setUserName] = useState(null);
     const [contactInfo, setContactInfo] = useState(null);
+    const [inputValue, setInputValue] = useState('');
     
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -38,7 +39,6 @@ function EditClient() {
         id: id,
         name: name,
         username: userName,
-        contact_info: contactInfo,
     }
     const response = await dispatch(editClient(payloadData));
     if(response.type.includes('fulfilled')){
@@ -48,6 +48,33 @@ function EditClient() {
       window.alert('The action Failed, please try again');
     }
   };
+
+  
+  const addContactInfo = async (event) => {
+    event.preventDefault();
+    const payloadData = {
+        client_id: id,
+        contact_info: inputValue,
+    }
+    await dispatch(createClientContactInfo(payloadData));
+    await dispatch(getClients());
+    await dispatch(getClientHistory({id}));
+    setInputValue('');
+  }
+
+  const removeContactInfo = async (id) => {
+    const payloadData = {id}
+    const confirm = window.confirm('Are you sure you want to delete this item')
+    if(confirm){
+    await dispatch(deleteClientContactInfo(payloadData));
+    }
+    else{
+        return;
+    }
+    dispatch(getClients());
+    
+  }
+
 
   if (!name || !userName || !contactInfo) {
     return <div>Loading...</div>;
@@ -68,12 +95,40 @@ function EditClient() {
           <Label for="username">User name</Label>
           <Input type="text" name="username" className='bg-white' id="cost" required value={userName} onChange={(e) => setUserName(e.target.value)} />
         </FormGroup>
-        <FormGroup>
-          <Label for="contact_info">contact info</Label>
-          <Input type="text" name="contact_info" className='bg-white' id="profit" required value={contactInfo} onChange={(e) => setContactInfo(e.target.value)} />
-        </FormGroup>
         <Button color="primary" className='btn-sm' type="submit">Edit</Button>
       </Form>
+      <div>
+            <ul>
+                <li>
+                    <span className='h5'>Contact info: </span>
+                    <ul>
+                        {client.client_contact_informations.map( cl => {
+                            return (
+                                <li key={cl.id} className='my-2'>
+                                    <span >{cl.contact_info}</span>
+                                    <button 
+                                    onClick={()=>removeContactInfo(cl.id)}
+                                    className='btn btn-sm btn-danger mx-2'
+                                    >Remove
+                                    </button>
+                                </li>
+                            )
+                        }
+                            
+                        )}
+                    </ul>
+                </li>
+                <li>
+                <form className="form-inline d-flex flex-md-row flex-column" onSubmit={addContactInfo}>
+                <div className="">
+                    <label htmlFor="inputField" className="h5 m-1">Add contact info</label>
+                    <input type="text" className="" id="inputField" placeholder="Enter text" value={inputValue} onChange={(e) => setInputValue(e.target.value)} />
+                    <button type="submit" className="btn btn-sm btn-primary mx-1">Add</button>
+                </div>
+                </form>
+                </li>
+            </ul>
+      </div>
     </div>
   );
 }

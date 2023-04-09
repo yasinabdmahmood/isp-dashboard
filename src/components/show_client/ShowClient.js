@@ -104,26 +104,12 @@ function ShowClient() {
                                 return (
                                     <li key={cl.id} className='my-2'>
                                         <span >{cl.contact_info}</span>
-                                        <button 
-                                        onClick={()=>removeContactInfo(cl.id)}
-                                        className='btn btn-sm btn-danger mx-2'
-                                        >Remove
-                                        </button>
                                     </li>
                                 )
                             }
                                 
                             )}
                         </ul>
-                    </li>
-                    <li>
-                    <form className="form-inline d-flex flex-md-row flex-column" onSubmit={addContactInfo}>
-                    <div className="">
-                        <label htmlFor="inputField" className="h5 m-1">Add contact info</label>
-                        <input type="text" className="" id="inputField" placeholder="Enter text" value={inputValue} onChange={(e) => setInputValue(e.target.value)} />
-                        <button type="submit" className="btn btn-sm btn-primary mx-1">Add</button>
-                    </div>
-                    </form>
                     </li>
                     { isAdmin() && <li className='d-flex my-3'>
                          
