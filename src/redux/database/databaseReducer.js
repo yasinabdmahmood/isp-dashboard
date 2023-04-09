@@ -180,6 +180,7 @@ export const createPaymentRecord = createAsyncThunk(
         new_payment_record: {
           amount: payloadData.amount,
           subscription_record_id: payloadData.subscription_record_id,
+          created_at: payloadData.created_at,
         },
       },{
         withCredentials: true
