@@ -1,7 +1,7 @@
 import React, {useEffect, useState, useRef} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import formatDate from '../../helpers/formatDate';
+import {formatDate} from '../../helpers/formatDate';
 import styles from './styles.module.scss'
 import plusSign from '../../assets/images/plus-circle.svg'
 import Table from 'react-bootstrap/Table';
