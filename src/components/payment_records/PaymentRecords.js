@@ -2,7 +2,7 @@ import React, {useEffect, useRef, useState} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { deletePaymentRecord, getPaymentRecords } from '../../redux/database/databaseReducer';
 import Table from 'react-bootstrap/Table';
-import formatDate from '../../helpers/formatDate';
+import {formatDate} from '../../helpers/formatDate';
 import isAdmin from '../../helpers/isAdmin';
 import trash from '../../assets/images/trash-fill.svg'
 
