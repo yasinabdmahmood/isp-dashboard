@@ -249,6 +249,7 @@ export const createClient = createAsyncThunk(
           name: payloadData.name,
           username: payloadData.username,
           contact_info: payloadData.contact_info,
+          coordinate: payloadData.coordinate,
         },
       },{
         withCredentials: true

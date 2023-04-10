@@ -76,6 +76,7 @@ function Clients() {
                         <th scope="col">Name</th>
                         <th scope="col">User name</th>
                         <th scope="col">Contact Info</th>
+                        <th scope="col">Coordinate</th>
                         <th scope="col">Actions</th>
                     </tr>
                 </thead>
@@ -85,6 +86,7 @@ function Clients() {
                         <td>{client.name}</td>
                         <td>{client.username}</td>
                         <td>{client.client_contact_informations[0]?.contact_info || 'No contact information'}</td>
+                        <td>{client?.coordinate || 'N/A'}</td>
                         <td className='d-flex justify-content-around align-items-center'>
                         { isAdmin() &&
                             <>
