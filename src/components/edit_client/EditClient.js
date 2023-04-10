@@ -11,6 +11,7 @@ function EditClient() {
     const [name, setName] = useState(null);
     const [userName, setUserName] = useState(null);
     const [contactInfo, setContactInfo] = useState(null);
+    const [coordinates, setCoordinates] = useState(null);
     const [inputValue, setInputValue] = useState('');
     
     const dispatch = useDispatch();
@@ -30,6 +31,7 @@ function EditClient() {
         setName(client?.name);
         setUserName(client?.username);
         setContactInfo(client?.client_contact_informations[0].contact_info);
+        setCoordinates(client?.coordinate);
       }
     }, [client]);
 
@@ -39,6 +41,7 @@ function EditClient() {
         id: id,
         name: name,
         username: userName,
+        coordinate: coordinates,
     }
     const response = await dispatch(editClient(payloadData));
     if(response.type.includes('fulfilled')){
@@ -94,6 +97,10 @@ function EditClient() {
         <FormGroup>
           <Label for="username">User name</Label>
           <Input type="text" name="username" className='bg-white' id="cost" required value={userName} onChange={(e) => setUserName(e.target.value)} />
+        </FormGroup>
+        <FormGroup>
+          <Label for="coordinates">Coordinates</Label>
+          <Input type="text" name="coordinates" className='bg-white' id="coordinates" required pattern="^-?\d+(?:\.\d+)?\s*,\s*-?\d+(?:\.\d+)?$" title="Please enter the coordinates in the format: (latitude, longitude)" value={coordinates} onChange={(e) => setCoordinates(e.target.value)} />
         </FormGroup>
         <Button color="primary" className='btn-sm' type="submit">Edit</Button>
       </Form>
