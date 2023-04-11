@@ -17,7 +17,8 @@ function NewSubscriptionRecord() {
     const [client, setClient] = useState(null);
     const [pay, setPay] = useState(null);
     const [subscriptionType, setSubscriptionType] = useState(null);
-    const [dateTime, setDateTime] = useState('');
+    const [dateTime, setDateTime] = useState(new Date());
+    const [note, setNote] = useState('')
 
     
     const dispatch = useDispatch();
@@ -55,6 +56,7 @@ function NewSubscriptionRecord() {
           employeeId: JSON.parse(sessionStorage.getItem('user')).id ,
           subscriptionTypeId: subscriptionType,
           pay: pay,
+          note: note,
           created_at: convertToRailsDateTime(dateTime),
       }
       const response = await dispatch(createSubscriptionRecord(payloadData));
@@ -107,6 +109,7 @@ function NewSubscriptionRecord() {
             value={dateTime}
             onChange={(value) => setDateTime(value)}
             inputProps={{
+              
               className: `bg-white ${styles.inputfield}`,
               autoComplete: 'off',
               placeholder: 'Enter date and time',
@@ -115,6 +118,9 @@ function NewSubscriptionRecord() {
             timeFormat="h:mm A"
             closeOnSelect
           />
+        </FormGroup>
+        <FormGroup>
+          <textarea name="note" placeholder='Note' className={`bg-white ${styles.inputfield} w-100`} id="note" value={note} onChange={(e) => setNote(e.target.value)} />
         </FormGroup>
         <Button color="primary" className='btn-sm' type="submit">Create Subscription Record</Button>
       </Form>
