@@ -143,6 +143,7 @@ function ShowClient() {
                     <th scope="col">Subscription Type</th>
                     <th scope="col">Paid Amount</th>
                     <th scope="col">Remaining Amount</th>
+                    <th scope="col">Note</th>
                     <th scope="col">Actions</th>
                 </tr>
                 </thead>
@@ -154,6 +155,7 @@ function ShowClient() {
                     <td>{subscriptionRecord.subscription_type.category}</td>
                     <td>{subscriptionRecord.pay}</td>
                     <td>{subscriptionRecord.subscription_type.cost - subscriptionRecord.pay}</td>
+                    <td>{subscriptionRecord?.note || 'N/A'}</td>
                     <td className='d-flex justify-content-around'>
                         { isAdmin() &&
                         <img src={trash} style={{cursor: 'pointer'}}  onClick={() => handleSubscriptionRecordDeletion(subscriptionRecord.id)} alt='delete' className='m-1'/>
