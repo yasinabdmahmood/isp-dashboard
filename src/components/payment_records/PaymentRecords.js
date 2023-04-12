@@ -103,7 +103,7 @@ function PaymentRecords() {
                 ))}
                 </tbody>
               </Table>
-              <div>
+              <div className='my-3'>
                 <button onClick={loadMore} className='btn btn-sm btn-primary'>Load more</button>
               </div>
             </div>
