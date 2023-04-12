@@ -48,7 +48,7 @@ function PaymentRecords() {
     function  handleScroll() {
         const element = elementRef.current;
   
-        if (element.scrollTop + element.clientHeight >= element.scrollHeight - 20) {
+        if (element.scrollTop + element.clientHeight >= element.scrollHeight) {
           dispatch(getPaymentRecords());
         }
       }
