@@ -16,7 +16,8 @@ function SubscriptionRecord() {
     const subscriptionRecords = useSelector(state => state.database.subscriptionRecords);
     const [search, setSearch] = useState('');
     const [searchType, setSearchType] = useState('Client name');
-    const [loading, setLoading] = useState(true)
+    const [loading, setLoading] = useState(true);
+    const [loadMoreButton, setLoadMoreButton] = useState(true);
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const elementRef = useRef(null);
@@ -69,8 +70,12 @@ function SubscriptionRecord() {
       fetchData();
     }, []);
 
-    const loadMore = () => {
-      dispatch(getSubscriptionRecords());
+    const loadMore = async() => {
+      const responce = await dispatch(getSubscriptionRecords());
+      
+      if(responce.payload.data.length < 20){
+        setLoadMoreButton(false);
+      }
     }
 
     // const  handleScroll = async() => {
@@ -158,7 +163,7 @@ function SubscriptionRecord() {
                    <button onClick={loadMore} className='btn btn-sm btn-primary'>Load more</button>
                  </div>
             </div>
-            <div className={styles['plus-sign']}>
+            <div className={styles['plus-sign']} style={{display: loadMoreButton? 'block': 'none'}}>
                 <button onClick={() => navigate('/home/subscriptionRecords/new')} >
                   <img src={plusSign} alt='Add sign' />
                 </button>
