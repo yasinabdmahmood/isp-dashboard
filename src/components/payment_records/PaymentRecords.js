@@ -45,24 +45,28 @@ function PaymentRecords() {
       }
     }
 
-    function  handleScroll() {
-        const element = elementRef.current;
+    const loadMore = () => {
+      dispatch(getPaymentRecords());
+    }
+
+    // function  handleScroll() {
+    //     const element = elementRef.current;
   
-        if (element.scrollTop + element.clientHeight >= element.scrollHeight) {
-          dispatch(getPaymentRecords());
-        }
-      }
+    //     if (element.scrollTop + element.clientHeight >= element.scrollHeight) {
+    //       dispatch(getPaymentRecords());
+    //     }
+    //   }
   
-      useEffect(() => {
+    //   useEffect(() => {
         
     
-        const element = elementRef.current;
-        element.addEventListener('scroll', handleScroll);
+    //     const element = elementRef.current;
+    //     element.addEventListener('scroll', handleScroll);
     
-        return () => {
-          element.removeEventListener('scroll', handleScroll);
-        };
-      }, [handleScroll]);
+    //     return () => {
+    //       element.removeEventListener('scroll', handleScroll);
+    //     };
+    //   }, [handleScroll]);
   
       if (loading) {
         return <div ref={elementRef}>Loading...</div>;
@@ -99,6 +103,9 @@ function PaymentRecords() {
                 ))}
                 </tbody>
               </Table>
+              <div>
+                <button onClick={loadMore} className='btn btn-sm btn-primary'>Load more</button>
+              </div>
             </div>
         </div>
     );
