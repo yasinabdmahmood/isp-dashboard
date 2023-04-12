@@ -69,24 +69,28 @@ function SubscriptionRecord() {
       fetchData();
     }, []);
 
-    const  handleScroll = async() => {
-      const element = elementRef.current;
-      if (element.scrollTop + element.clientHeight >= element.scrollHeight) {
-        console.log('loading')
-         dispatch(getSubscriptionRecords());  
-      }
+    const loadMore = () => {
+      dispatch(getSubscriptionRecords());
     }
 
-    useEffect(() => {
+    // const  handleScroll = async() => {
+    //   const element = elementRef.current;
+    //   if (element.scrollTop + element.clientHeight >= element.scrollHeight) {
+    //     console.log('loading')
+    //      dispatch(getSubscriptionRecords());  
+    //   }
+    // }
+
+    // useEffect(() => {
       
   
-      const element = elementRef.current;
-      element.addEventListener('scroll', handleScroll);
+    //   const element = elementRef.current;
+    //   element.addEventListener('scroll', handleScroll);
   
-      return () => {
-        element.removeEventListener('scroll', handleScroll);
-      };
-    }, []);
+    //   return () => {
+    //     element.removeEventListener('scroll', handleScroll);
+    //   };
+    // }, []);
 
     if (loading) {
       return <div ref={elementRef}>Loading...</div>;
@@ -150,6 +154,9 @@ function SubscriptionRecord() {
                 ))}
                 </tbody>
                 </Table>
+                <div className='my-3'>
+                   <button onClick={loadMore} className='btn btn-sm btn-primary'>Load more</button>
+                 </div>
             </div>
             <div className={styles['plus-sign']}>
                 <button onClick={() => navigate('/home/subscriptionRecords/new')} >
