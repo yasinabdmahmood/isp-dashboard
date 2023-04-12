@@ -69,11 +69,11 @@ function SubscriptionRecord() {
       fetchData();
     }, []);
 
-      function  handleScroll() {
+    const  handleScroll = async() => {
       const element = elementRef.current;
-
-      if (element.scrollTop + element.clientHeight >= element.scrollHeight - 20) {
-        dispatch(getSubscriptionRecords());
+      if (element.scrollTop + element.clientHeight >= element.scrollHeight) {
+        console.log('loading')
+         dispatch(getSubscriptionRecords());  
       }
     }
 
