@@ -159,11 +159,11 @@ function SubscriptionRecord() {
                 ))}
                 </tbody>
                 </Table>
-                <div className='my-3'>
+                <div className='my-3' style={{display: loadMoreButton? 'block': 'none'}}>
                    <button onClick={loadMore} className='btn btn-sm btn-primary'>Load more</button>
                  </div>
             </div>
-            <div className={styles['plus-sign']} style={{display: loadMoreButton? 'block': 'none'}}>
+            <div className={styles['plus-sign']} >
                 <button onClick={() => navigate('/home/subscriptionRecords/new')} >
                   <img src={plusSign} alt='Add sign' />
                 </button>
