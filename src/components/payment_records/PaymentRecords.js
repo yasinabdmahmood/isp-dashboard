@@ -11,6 +11,7 @@ function PaymentRecords() {
     const dispatch = useDispatch();
     const elementRef = useRef(null);
     const [loading, setLoading] = useState(true);
+    const [loadMoreButton, setLoadMoreButton] = useState(true);
     useEffect(()=>{
         async function fetchData() {
             if(paymentRecords.length < 20){
@@ -45,8 +46,11 @@ function PaymentRecords() {
       }
     }
 
-    const loadMore = () => {
-      dispatch(getPaymentRecords());
+    const loadMore = async() => {
+      const response = await dispatch(getPaymentRecords());
+      if(response.payload.data.length < 20){
+        setLoadMoreButton(false);
+      }
     }
 
     // function  handleScroll() {
@@ -103,7 +107,7 @@ function PaymentRecords() {
                 ))}
                 </tbody>
               </Table>
-              <div className='my-3'>
+              <div className='my-3' style={{display: loadMoreButton? 'block': 'none'}}>
                 <button onClick={loadMore} className='btn btn-sm btn-primary'>Load more</button>
               </div>
             </div>
