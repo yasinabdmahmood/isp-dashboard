@@ -47,7 +47,7 @@ function NewClient() {
       </FormGroup>
       <FormGroup>
         <Label for="coordinates">Coordinates</Label>
-        <Input type="text" name="coordinates" className='bg-white' id="coordinates" required pattern="^-?\d+(?:\.\d+)?\s*,\s*-?\d+(?:\.\d+)?$" title="Please enter the coordinates in the format: (latitude, longitude)" value={coordinates} onChange={(e) => setCoordinates(e.target.value)} />
+        <Input type="text" name="coordinates" className='bg-white' id="coordinates"  title="Please enter the coordinates in the format: (latitude, longitude)" value={coordinates} onChange={(e) => setCoordinates(e.target.value)} />
       </FormGroup>
       <Button color="primary" className='btn-sm' type="submit">Create</Button>
     </Form>
