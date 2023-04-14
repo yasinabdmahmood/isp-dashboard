@@ -102,6 +102,27 @@ export const getSubscriptionRecords = createAsyncThunk(
   },
 );
 
+export const getFilteredSubscriptionRecords = createAsyncThunk(
+  'getFilteredSubscriptionRecords/',
+  async (payloadData) => {
+   
+    try {
+      return axios.get(baseUrl + '/filtered_subscription_records', {
+        params: {
+          date: {
+            start: payloadData.start,
+            end: payloadData.end,
+          },
+          filter: payloadData.filter,
+        },
+        withCredentials: true
+      });
+    } catch (error) {
+      return error;
+    }
+  },
+);
+
 export const createSubscriptionRecord = createAsyncThunk(
   'createSubscriptionRecord/',
   async (payloadData) => {
@@ -382,6 +403,7 @@ const initialState = {
   subscriptionTypes: [],
   clients: [],
   subscriptionRecords: [],
+  filteredSubscriptionRecords: [],
   paymentRecords: [],
   subscriptionRecordIndex: 0,
   paymentRecordIndex: 0,
@@ -477,6 +499,14 @@ export const dataBaseSlice = createSlice({
         ...state,
         subscriptionRecords: [...state.subscriptionRecords,...subscriptionRecords],
         subscriptionRecordIndex: newSubscriptionRecordIndex,
+      };
+    });
+
+    builder.addCase(getFilteredSubscriptionRecords.fulfilled, (state, action) => {
+      const subscriptionRecords = action.payload.data;
+      return {
+        ...state,
+        filteredSubscriptionRecords: subscriptionRecords,
       };
     });
 
