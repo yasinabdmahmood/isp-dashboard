@@ -20,6 +20,7 @@ import Profile from '../profile/Profile';
 import PaymentHistory from '../payment_history/PaymentHistory';
 import SubscriptionRecord from '../subscription_records/SubscriptionRecord';
 import EditEmployee from '../edit_employee/EditEmployee';
+import FilteredSubscriptionRecords from '../filtered_subscription_records/FilteredSubscriptionRecords';
 function Home() {
   return (
     <>
@@ -38,6 +39,7 @@ function Home() {
             <Route path="clients/new" element={<NewClient/>} />
             <Route path="clients/edit/:id" element={<EditClient/>} />
             <Route path="subscriptionRecords" element={<SubscriptionRecord/>} />
+            <Route path="filteredSubscriptionRecords" element={<FilteredSubscriptionRecords/>} />
             <Route path="subscriptionRecords/history/:id" element={<PaymentHistory/>} />
             <Route path="subscriptionRecords/new" element={<NewSubscriptionRecord/>} />
             <Route path="paymentRecords" element={<PaymentRecords/>} />
