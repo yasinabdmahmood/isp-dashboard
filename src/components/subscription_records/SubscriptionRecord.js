@@ -15,7 +15,6 @@ import searchLogo from '../../assets/images/search.svg'
 function SubscriptionRecord() {
     const subscriptionRecords = useSelector(state => state.database.subscriptionRecords);
     const [search, setSearch] = useState('');
-    const [searchType, setSearchType] = useState('Client name');
     const [loading, setLoading] = useState(true);
     const [loadMoreButton, setLoadMoreButton] = useState(true);
     const dispatch = useDispatch();
@@ -43,14 +42,12 @@ function SubscriptionRecord() {
       }
 
       const filterItems = (item) => {
-        if (searchType === 'Client name' && item.client.name.toLowerCase().includes(search.toLowerCase())) {
-          return true;
-        }
-        if (searchType === 'Employee name' && item.employee.name.toLowerCase().includes(search.toLowerCase())) {
-          return true;
-        }
-        if (searchType === 'Subscription type' && item.subscription_type.category?.toLowerCase().includes(search.toLowerCase())) {
-          return true;
+        const isClientName = item.client.name.toLowerCase().includes(search.toLowerCase());
+        const isClientUsername = item.client.username.toLowerCase().includes(search.toLowerCase());
+        const isEmployeeName = item.employee.name.toLowerCase().includes(search.toLowerCase());
+        const isSubscriptionType = item.subscription_type.category?.toLowerCase().includes(search.toLowerCase());
+        if(isClientName || isClientUsername || isEmployeeName || isSubscriptionType){
+          return true
         }
         return false;
       };
@@ -78,25 +75,6 @@ function SubscriptionRecord() {
       }
     }
 
-    // const  handleScroll = async() => {
-    //   const element = elementRef.current;
-    //   if (element.scrollTop + element.clientHeight >= element.scrollHeight) {
-    //     console.log('loading')
-    //      dispatch(getSubscriptionRecords());  
-    //   }
-    // }
-
-    // useEffect(() => {
-      
-  
-    //   const element = elementRef.current;
-    //   element.addEventListener('scroll', handleScroll);
-  
-    //   return () => {
-    //     element.removeEventListener('scroll', handleScroll);
-    //   };
-    // }, []);
-
     if (loading) {
       return <div ref={elementRef}>Loading...</div>;
     }
@@ -109,11 +87,6 @@ function SubscriptionRecord() {
 
             <div className='d-flex  justify-content-center align-items-center mx-5'>
             <div className='d-flex  justify-content-center align-items-stretch m-1'>
-                <select value={searchType} className={styles['dropdown']} onChange={(e) => setSearchType(e.target.value)}>
-                    <option value="Client name">Client name</option>
-                    <option value="Employee name">Employee name</option>
-                    <option value="Subscription type">Subscription type</option>
-                </select>
               <div className={styles['search-container']}>
                <img src={searchLogo} className={styles['search-icon']} style={{background: 'white'}} alt='search' />
                <input type="text" className={styles['search-input']} placeholder='Search' value={search} onChange={(e) => setSearch(e.target.value)} />
@@ -129,6 +102,7 @@ function SubscriptionRecord() {
                 <thead className="thead-dark" >
                 <tr>
                     <th scope="col">User</th>
+                    <th scope="col">Username</th>
                     <th scope="col">Employee</th>
                     <th scope="col">Subscription Type</th>
                     <th scope="col">Paid Amount</th>
@@ -142,6 +116,7 @@ function SubscriptionRecord() {
                 {subscriptionRecords?.filter( item => filterItems(item))?.map(subscriptionRecord => (
                     <tr key={subscriptionRecord.id}>
                     <td>{subscriptionRecord.client.name}</td>
+                    <td>{subscriptionRecord.client.username}</td>
                     <td>{subscriptionRecord.employee.name}</td>
                     <td>{subscriptionRecord.subscription_type.category}</td>
                     <td>{subscriptionRecord.pay}</td>
