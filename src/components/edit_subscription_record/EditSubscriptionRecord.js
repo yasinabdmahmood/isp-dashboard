@@ -19,8 +19,10 @@ function EditSubscriptionRecord() {
 
     const subscriptionTypes = useSelector( state => state.database.subscriptionTypes);
     const clients = useSelector( state => state.database.clients);
+    const employees = useSelector( state => state.database.employees);
   
     const [client, setClient] = useState(subscriptionRecord.client.name);
+    const [assignedEmployee, setAssignedEmployee] = useState(subscriptionRecord.assigned_employee);
     const [dateTime, setDateTime] = useState(new Date(subscriptionRecord.created_at));
     const [note, setNote] = useState(subscriptionRecord.note)
 
@@ -54,6 +56,7 @@ function EditSubscriptionRecord() {
           id: JSON.parse(sb).id,
           clientId: clientId,
           employeeId: JSON.parse(sessionStorage.getItem('user')).id ,
+          assignedEmployee: assignedEmployee,
           note: note,
           created_at: convertToRailsDateTime(dateTime),
       }
@@ -82,6 +85,16 @@ function EditSubscriptionRecord() {
             <input type="text" name="client" className={`bg-white ${styles.inputfield}`} id="cleint" placeholder="Type to search" value={client} onChange={(e) => setClient(e.target.value)} list="clients" autocomplete="off"/>
             <datalist id="clients">
                 {clients.filter(el => el.name?.toLowerCase().includes(client?.toLowerCase())).map(el => (
+                <option key={el.id} value={el.name}  />
+                ))}
+            </datalist>
+        </FormGroup>
+
+        <FormGroup className='d-flex flex-column'>
+            <Label for="employee">Employee</Label>
+            <input type="text" name="employee" className={`bg-white ${styles.inputfield}`} id="employee" placeholder="Type to search" value={assignedEmployee} onChange={(e) => setAssignedEmployee(e.target.value)} list="employees" autocomplete="off"/>
+            <datalist id="employees">
+                {employees.filter(el => el.name?.toLowerCase().includes(assignedEmployee?.toLowerCase())).map(el => (
                 <option key={el.id} value={el.name}  />
                 ))}
             </datalist>
