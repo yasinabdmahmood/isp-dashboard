@@ -10,6 +10,7 @@ import isAdmin from '../../helpers/isAdmin';
 import trash from '../../assets/images/trash-fill.svg'
 import add from '../../assets/images/plus-circle-fill.svg'
 import view from '../../assets/images/eye-fill.svg'
+import edit from '../../assets/images/pencil-square.svg'
 import searchLogo from '../../assets/images/search.svg'
 
 function SubscriptionRecord() {
@@ -128,7 +129,8 @@ function SubscriptionRecord() {
                         <img src={trash}  onClick={() => handleDeletion(subscriptionRecord.id)} style={{cursor: 'pointer'}} className='m-1'/>                     
                         }
                          <img src={add}  onClick={()=>navigate(`/home/paymentRecords/new/${subscriptionRecord.id}`)} style={{cursor: 'pointer'}} className='m-1'/>
-                        <img src={view}  onClick={()=>navigate(`/home/subscriptionRecords/history/${subscriptionRecord.id}`)} style={{cursor: 'pointer'}} className='m-1'/>
+                         <img src={view}  onClick={()=>navigate(`/home/subscriptionRecords/history/${subscriptionRecord.id}`)} style={{cursor: 'pointer'}} className='m-1'/>
+                         <img src={edit}  onClick={()=>navigate(`/home/subscriptionRecords/edit/${subscriptionRecord.id}`)} style={{cursor: 'pointer'}} className='m-1'/>
                     </td>
                     </tr>
                 ))}
