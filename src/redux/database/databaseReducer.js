@@ -166,6 +166,7 @@ export const editSubscriptionRecord = createAsyncThunk(
       return  axios.post(baseUrl + '/subscription_record/update/' + payloadData.id, {
         updated_subscription_record: {
           client_id: payloadData.clientId,
+          assigned_employee: payloadData.assignedEmployee,
           note: payloadData.note,
           created_at: payloadData.created_at,
         },
