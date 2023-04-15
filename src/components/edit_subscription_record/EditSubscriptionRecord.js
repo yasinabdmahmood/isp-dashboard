@@ -6,7 +6,7 @@ import DateTimePicker from 'react-datetime';
 import { convertToRailsDateTime, formatDate } from '../../helpers/formatDate';
 import 'react-datetime/css/react-datetime.css';
 import styles from './styles.module.scss'
-import { createSubscriptionRecord, getClients, getSubscriptionTypes } from '../../redux/database/databaseReducer';
+import { editSubscriptionRecord, getClients, getSubscriptionTypes } from '../../redux/database/databaseReducer';
 
 
 
@@ -14,16 +14,15 @@ import { createSubscriptionRecord, getClients, getSubscriptionTypes } from '../.
 
 function EditSubscriptionRecord() {
     const {sb} = useParams();
+    const subscriptionRecord = JSON.parse(sb)
     
 
     const subscriptionTypes = useSelector( state => state.database.subscriptionTypes);
     const clients = useSelector( state => state.database.clients);
   
-    const [client, setClient] = useState(null);
-    const [pay, setPay] = useState(null);
-    const [subscriptionType, setSubscriptionType] = useState(null);
-    const [dateTime, setDateTime] = useState(new Date());
-    const [note, setNote] = useState('')
+    const [client, setClient] = useState(subscriptionRecord.client.name);
+    const [dateTime, setDateTime] = useState(new Date(subscriptionRecord.created_at));
+    const [note, setNote] = useState(subscriptionRecord.note)
 
     
 
@@ -43,17 +42,6 @@ function EditSubscriptionRecord() {
       fetchData();
     }, [clients.length, subscriptionTypes.length]);
     
-
-    useEffect(()=>{
-        if(sb){
-            const subscriptionRecord = JSON.parse(sb);
-            setClient(subscriptionRecord.client.name)
-            // setSubscriptionType(subscriptionRecord.subscription_type_id);
-            // setPay(subscriptionRecord.pay)
-            setDateTime(formatDate(subscriptionRecord.created_at))
-            setNote(subscriptionRecord.note)
-        }
-    },[sb])
   
     const handleSubmit = async(event) => {
       event.preventDefault();
@@ -63,12 +51,13 @@ function EditSubscriptionRecord() {
         return;
       }
       const payloadData = {
+          id: JSON.parse(sb).id,
           clientId: clientId,
           employeeId: JSON.parse(sessionStorage.getItem('user')).id ,
           note: note,
           created_at: convertToRailsDateTime(dateTime),
       }
-      const response = await dispatch(createSubscriptionRecord(payloadData));
+      const response = await dispatch(editSubscriptionRecord(payloadData));
       if(response.type.includes('fulfilled')){
         navigate('/home/subscriptionRecords')
       }else{

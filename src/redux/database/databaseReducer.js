@@ -159,6 +159,25 @@ export const createSubscriptionRecord = createAsyncThunk(
   },
 );
 
+export const editSubscriptionRecord = createAsyncThunk(
+  'editSubscriptionRecord/',
+  async (payloadData) => {
+    try {
+      return  axios.post(baseUrl + '/subscription_record/update/' + payloadData.id, {
+        updated_subscription_record: {
+          client_id: payloadData.clientId,
+          note: payloadData.note,
+          created_at: payloadData.created_at,
+        },
+      },{
+        withCredentials: true
+      });
+    } catch (error) {
+      return error;
+    }
+  },
+);
+
 export const deleteSubscriptionRecord = createAsyncThunk(
   'deleteSubscriptionRecord/',
   async (payloadData) => {
@@ -540,6 +559,21 @@ export const dataBaseSlice = createSlice({
         ...state,
         subscriptionRecords: [subscriptionRecord, ...state.subscriptionRecords],
         paymentRecords: [paymentRecord, ...state.paymentRecords],
+      };
+    });
+
+    builder.addCase(editSubscriptionRecord.fulfilled, (state, action) => {
+      const subscriptionRecord= action.payload.data;
+      const updatedSubscriptionList = state.subscriptionRecords.map((sb)=>{
+        if(sb.id === subscriptionRecord.id){
+          return subscriptionRecord
+        }else {
+          return sb
+        }
+      })
+      return {
+        ...state,
+        subscriptionRecords: updatedSubscriptionList,
       };
     });
 
