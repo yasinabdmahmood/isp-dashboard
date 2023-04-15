@@ -123,6 +123,20 @@ export const getFilteredSubscriptionRecords = createAsyncThunk(
   },
 );
 
+export const getUnpaidSubscriptionRecords = createAsyncThunk(
+  'getUnpaidSubscriptionRecords/',
+  async () => {
+   
+    try {
+      return axios.get(baseUrl + '/unpaid_subscription_records', {
+        withCredentials: true
+      });
+    } catch (error) {
+      return error;
+    }
+  },
+);
+
 export const createSubscriptionRecord = createAsyncThunk(
   'createSubscriptionRecord/',
   async (payloadData) => {
@@ -404,6 +418,7 @@ const initialState = {
   clients: [],
   subscriptionRecords: [],
   filteredSubscriptionRecords: [],
+  unpaidSubscriptionRecords: [],
   paymentRecords: [],
   subscriptionRecordIndex: 0,
   paymentRecordIndex: 0,
@@ -507,6 +522,14 @@ export const dataBaseSlice = createSlice({
       return {
         ...state,
         filteredSubscriptionRecords: subscriptionRecords,
+      };
+    });
+
+    builder.addCase(getUnpaidSubscriptionRecords.fulfilled, (state, action) => {
+      const subscriptionRecords = action.payload.data;
+      return {
+        ...state,
+        unpaidSubscriptionRecords: subscriptionRecords,
       };
     });
 
