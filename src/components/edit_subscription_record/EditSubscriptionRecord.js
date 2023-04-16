@@ -62,7 +62,7 @@ function EditSubscriptionRecord() {
       }
       const response = await dispatch(editSubscriptionRecord(payloadData));
       if(response.type.includes('fulfilled')){
-        navigate('/home/subscriptionRecords')
+        navigate(-1)
       }else{
         window.alert('The action failed, please try again')
       }
