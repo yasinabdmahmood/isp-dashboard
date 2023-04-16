@@ -8,6 +8,7 @@ import Table from 'react-bootstrap/Table';
 import isAdmin from '../../helpers/isAdmin';
 import trash from '../../assets/images/trash-fill.svg';
 import view from '../../assets/images/eye-fill.svg';
+import edit from '../../assets/images/pencil-square.svg'
 import add from '../../assets/images/plus-circle-fill.svg';
 
 function ShowClient() {
@@ -16,30 +17,30 @@ function ShowClient() {
     const {id} = useParams();
     const [inputValue, setInputValue] = useState('');
 
-    const addContactInfo = async (event) => {
-        event.preventDefault();
-        const payloadData = {
-            client_id: id,
-            contact_info: inputValue,
-        }
-        await dispatch(createClientContactInfo(payloadData));
-        await dispatch(getClients());
-        await dispatch(getClientHistory({id}));
-        setInputValue('');
-    }
+    // const addContactInfo = async (event) => {
+    //     event.preventDefault();
+    //     const payloadData = {
+    //         client_id: id,
+    //         contact_info: inputValue,
+    //     }
+    //     await dispatch(createClientContactInfo(payloadData));
+    //     await dispatch(getClients());
+    //     await dispatch(getClientHistory({id}));
+    //     setInputValue('');
+    // }
 
-    const removeContactInfo = async (id) => {
-        const payloadData = {id}
-        const confirm = window.confirm('Are you sure you want to delete this item')
-        if(confirm){
-        await dispatch(deleteClientContactInfo(payloadData));
-        }
-        else{
-            return;
-        }
-        dispatch(getClients());
+    // const removeContactInfo = async (id) => {
+    //     const payloadData = {id}
+    //     const confirm = window.confirm('Are you sure you want to delete this item')
+    //     if(confirm){
+    //     await dispatch(deleteClientContactInfo(payloadData));
+    //     }
+    //     else{
+    //         return;
+    //     }
+    //     dispatch(getClients());
         
-    }
+    // }
 
     
     
@@ -144,6 +145,7 @@ function ShowClient() {
                     <th scope="col">Paid Amount</th>
                     <th scope="col">Remaining Amount</th>
                     <th scope="col">Note</th>
+                    <th scope="col">Assigned Employee</th>
                     <th scope="col">Actions</th>
                 </tr>
                 </thead>
@@ -156,12 +158,14 @@ function ShowClient() {
                     <td>{subscriptionRecord.pay}</td>
                     <td>{subscriptionRecord.subscription_type.cost - subscriptionRecord.pay}</td>
                     <td>{subscriptionRecord?.note || 'N/A'}</td>
+                    <td>{subscriptionRecord?.assigned_employee || 'N/A'}</td>
                     <td className='d-flex justify-content-around'>
                         { isAdmin() &&
                         <img src={trash} style={{cursor: 'pointer'}}  onClick={() => handleSubscriptionRecordDeletion(subscriptionRecord.id)} alt='delete' className='m-1'/>
                         }
                          <img src={add} style={{cursor: 'pointer'}}   onClick={()=>navigate(`/home/paymentRecords/new/${subscriptionRecord.id}`)} alt='Add payment' className='m-1'/>
-                        <img src={view} style={{cursor: 'pointer'}}  onClick={()=>navigate(`/home/subscriptionRecords/history/${subscriptionRecord.id}`)} alt='view' className='m-1'/>
+                         <img src={view} style={{cursor: 'pointer'}}  onClick={()=>navigate(`/home/subscriptionRecords/history/${subscriptionRecord.id}`)} alt='view' className='m-1'/>
+                         <img src={edit}  onClick={()=>navigate(`/home/subscriptionRecords/edit/${JSON.stringify(subscriptionRecord)}`)} style={{cursor: 'pointer'}} className='m-1'/>
                     </td>
                     </tr>
                 ))}

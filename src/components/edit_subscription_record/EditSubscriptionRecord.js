@@ -91,7 +91,7 @@ function EditSubscriptionRecord() {
         </FormGroup>
 
         <FormGroup className='d-flex flex-column'>
-            <Label for="employee">Employee</Label>
+            <Label for="employee">Assigned Employee</Label>
             <input type="text" name="employee" className={`bg-white ${styles.inputfield}`} id="employee" placeholder="Type to search" value={assignedEmployee} onChange={(e) => setAssignedEmployee(e.target.value)} list="employees" autocomplete="off"/>
             <datalist id="employees">
                 {employees.filter(el => el.name?.toLowerCase().includes(assignedEmployee?.toLowerCase())).map(el => (

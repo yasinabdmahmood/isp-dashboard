@@ -9,6 +9,7 @@ import { deleteSubscriptionRecord, getPaymentRecords, getUnpaidSubscriptionRecor
 import isAdmin from '../../helpers/isAdmin';
 import trash from '../../assets/images/trash-fill.svg'
 import add from '../../assets/images/plus-circle-fill.svg'
+import edit from '../../assets/images/pencil-square.svg'
 import view from '../../assets/images/eye-fill.svg'
 import searchLogo from '../../assets/images/search.svg'
 
@@ -100,6 +101,7 @@ function UnpaidSubscriptionRecord() {
                     <th scope="col">Paid Amount</th>
                     <th scope="col">Remaining Amount</th>
                     <th scope="col">Subscription Date</th>
+                    <th scope="col">Note</th>
                     <th scope="col">Assigned Employee</th>
                     <th scope="col">Actions</th>
                 </tr>
@@ -114,13 +116,15 @@ function UnpaidSubscriptionRecord() {
                     <td>{subscriptionRecord.pay}</td>
                     <td>{subscriptionRecord.subscription_type.cost - subscriptionRecord.pay}</td>
                     <td style={{whiteSpace: 'nowrap'}}>{formatDate(subscriptionRecord.created_at)}</td>
+                    <td>{subscriptionRecord?.note || 'N/A'}</td>
                     <td>{subscriptionRecord?.assigned_employee || 'N/A'}</td>
                     <td className='d-flex justify-content-around align-items-stretch flex-nowrap'>
                         { isAdmin() && 
                         <img src={trash}  onClick={() => handleDeletion(subscriptionRecord.id)} style={{cursor: 'pointer'}} className='m-1'/>                     
                         }
                          <img src={add}  onClick={()=>navigate(`/home/paymentRecords/new/${subscriptionRecord.id}`)} style={{cursor: 'pointer'}} className='m-1'/>
-                        <img src={view}  onClick={()=>navigate(`/home/subscriptionRecords/history/${subscriptionRecord.id}`)} style={{cursor: 'pointer'}} className='m-1'/>
+                         <img src={view}  onClick={()=>navigate(`/home/subscriptionRecords/history/${subscriptionRecord.id}`)} style={{cursor: 'pointer'}} className='m-1'/>
+                         <img src={edit}  onClick={()=>navigate(`/home/subscriptionRecords/edit/${JSON.stringify(subscriptionRecord)}`)} style={{cursor: 'pointer'}} className='m-1'/>
                     </td>
                     </tr>
                 ))}
