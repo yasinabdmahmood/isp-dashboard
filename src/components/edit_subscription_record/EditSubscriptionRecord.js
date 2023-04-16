@@ -6,7 +6,7 @@ import DateTimePicker from 'react-datetime';
 import { convertToRailsDateTime, formatDate } from '../../helpers/formatDate';
 import 'react-datetime/css/react-datetime.css';
 import styles from './styles.module.scss'
-import { editSubscriptionRecord, getClients, getSubscriptionTypes } from '../../redux/database/databaseReducer';
+import { editSubscriptionRecord, getClients, getEmployees, getSubscriptionTypes } from '../../redux/database/databaseReducer';
 
 
 
@@ -39,6 +39,9 @@ function EditSubscriptionRecord() {
         }
         if(clients.length === 0){
           await dispatch(getSubscriptionTypes());
+        }
+        if(employees.length === 0){
+          await dispatch(getEmployees());
         }
       }
       fetchData();
