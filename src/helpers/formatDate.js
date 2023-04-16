@@ -25,7 +25,7 @@ export const formatDate = (dateTimeStr) => {
     const hours = padNumber(date.getHours() % 12 || 12);
     const minutes = padNumber(date.getMinutes());
     const seconds = padNumber(date.getSeconds());
-    const ampm = date.getHours() >= 12 ? 'PM' : 'AM';
+    const ampm = date.getHours() >= 12 ? 'AM' : 'PM';
     return `${year}-${month}-${day} ${hours}:${minutes}:${seconds} ${ampm}`;
   }
   
