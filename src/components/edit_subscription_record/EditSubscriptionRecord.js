@@ -23,7 +23,7 @@ function EditSubscriptionRecord() {
   
     const [client, setClient] = useState(subscriptionRecord.client.name);
     const [assignedEmployee, setAssignedEmployee] = useState(subscriptionRecord.assigned_employee);
-    const [dateTime, setDateTime] = useState(new Date(subscriptionRecord.created_at));
+    const [dateTime, setDateTime] = useState(formatDate(new Date(subscriptionRecord.created_at)));
     const [note, setNote] = useState(subscriptionRecord.note)
 
     
