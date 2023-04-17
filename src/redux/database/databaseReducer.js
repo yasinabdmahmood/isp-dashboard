@@ -556,9 +556,19 @@ export const dataBaseSlice = createSlice({
     builder.addCase(createSubscriptionRecord.fulfilled, (state, action) => {
       const subscriptionRecord= action.payload.data.subscriptionRecord;
       const paymentRecord= action.payload.data.paymentRecord;
+      let unpaidSubscriptionRecords = [...state.unpaidSubscriptionRecords];
+
+      // if the newly created subscription record is not fully paid then add the record to 
+      // the unpaid subscription records list inside redux store
+      if(subscriptionRecord.pay < subscriptionRecord.cost){
+        unpaidSubscriptionRecords = [subscriptionRecord, ...unpaidSubscriptionRecords]
+      }
+     
+      
       return {
         ...state,
         subscriptionRecords: [subscriptionRecord, ...state.subscriptionRecords],
+        unpaidSubscriptionRecords: unpaidSubscriptionRecords,
         paymentRecords: [paymentRecord, ...state.paymentRecords],
       };
     });

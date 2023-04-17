@@ -76,7 +76,7 @@ function UnpaidSubscriptionRecord() {
     return (
         <div className={styles.container} ref={elementRef} style={{ height: '900px', overflow: 'auto' }}>
           <div className='d-flex flex-column flex-sm-row justify-content-between  align-items-center m-3'>
-          <h3 className='text-center h4'>Subscription Records</h3> 
+          <h3 className='text-center h4'>Unpaid Subscription Records</h3> 
 
             <div className='d-flex  justify-content-center align-items-center mx-5'>
             <div className='d-flex  justify-content-center align-items-stretch m-1'>
