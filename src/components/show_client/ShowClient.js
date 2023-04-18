@@ -144,7 +144,6 @@ function ShowClient() {
                     <th scope="col">Subscription Type</th>
                     <th scope="col">Paid Amount</th>
                     <th scope="col">Remaining Amount</th>
-                    <th scope="col">Note</th>
                     <th scope="col">Assigned Employee</th>
                     <th scope="col">Actions</th>
                 </tr>
@@ -157,7 +156,6 @@ function ShowClient() {
                     <td>{subscriptionRecord.subscription_type.category}</td>
                     <td>{subscriptionRecord.pay}</td>
                     <td>{subscriptionRecord.subscription_type.cost - subscriptionRecord.pay}</td>
-                    <td>{subscriptionRecord?.note || 'N/A'}</td>
                     <td>{subscriptionRecord?.assigned_employee || 'N/A'}</td>
                     <td className='d-flex justify-content-around'>
                         { isAdmin() &&
