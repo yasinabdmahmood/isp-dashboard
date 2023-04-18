@@ -18,7 +18,8 @@ function NewSubscriptionRecord() {
     const [pay, setPay] = useState(null);
     const [subscriptionType, setSubscriptionType] = useState(null);
     const [dateTime, setDateTime] = useState(new Date());
-    const [note, setNote] = useState('')
+    const [note, setNote] = useState('');
+    const [loading, setLoading] = useState(false);
 
     
     const dispatch = useDispatch();
@@ -46,6 +47,9 @@ function NewSubscriptionRecord() {
   
     const handleSubmit = async(event) => {
       event.preventDefault();
+      if(loading){
+        return;
+      }
       const clientId = clients.find( el => el.name === client)?.id
       if(!clientId){
         window.alert('This user does not exist')
@@ -59,13 +63,14 @@ function NewSubscriptionRecord() {
           note: note,
           created_at: convertToRailsDateTime(dateTime),
       }
+      setLoading(true);
       const response = await dispatch(createSubscriptionRecord(payloadData));
       if(response.type.includes('fulfilled')){
         navigate(-1)
       }else{
         window.alert('The action failed, please try again')
       }
-       
+      setLoading(false); 
       
     };
 
@@ -122,7 +127,7 @@ function NewSubscriptionRecord() {
         <FormGroup>
           <textarea name="note" placeholder='Note' className={`bg-white ${styles.inputfield} w-100`} id="note" value={note} onChange={(e) => setNote(e.target.value)} />
         </FormGroup>
-        <Button color="primary" className='btn-sm' type="submit">Create Subscription Record</Button>
+        <Button color="primary" className='btn-sm' style={{cursor: loading? 'wait':'pointer'}} type="submit">Create Subscription Record</Button>
       </Form>
       </div>
       
