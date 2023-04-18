@@ -1,7 +1,7 @@
 import React, { useState,useEffect } from 'react';
 import { Form, FormGroup, Label, Input, Button } from 'reactstrap';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import DateTimePicker from 'react-datetime';
 import { convertToRailsDateTime, formatDate } from '../../helpers/formatDate';
 import 'react-datetime/css/react-datetime.css';
@@ -13,8 +13,10 @@ import { editSubscriptionRecord, getClients, getEmployees, getSubscriptionTypes 
 
 
 function EditSubscriptionRecord() {
-    const {sb} = useParams();
-    const subscriptionRecord = JSON.parse(sb);
+    const location = useLocation();
+    const subscriptionRecord = location.state?.subscriptionRecord;
+    // const {sb} = useParams();
+    // const subscriptionRecord = JSON.parse(sb);
     
 
     const subscriptionTypes = useSelector( state => state.database.subscriptionTypes);
@@ -56,7 +58,7 @@ function EditSubscriptionRecord() {
         return;
       }
       const payloadData = {
-          id: JSON.parse(sb).id,
+          id: subscriptionRecord.id,
           clientId: clientId,
           employeeId: JSON.parse(sessionStorage.getItem('user')).id ,
           assignedEmployee: assignedEmployee,

@@ -2,7 +2,6 @@ import React from 'react';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
-import { useParams } from 'react-router-dom';
 import {formatDate} from '../../helpers/formatDate';
 import isAdmin from '../../helpers/isAdmin';
 import Table from 'react-bootstrap/Table';
