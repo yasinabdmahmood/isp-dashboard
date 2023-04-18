@@ -14,7 +14,7 @@ import { editSubscriptionRecord, getClients, getEmployees, getSubscriptionTypes 
 
 function EditSubscriptionRecord() {
     const {sb} = useParams();
-    const subscriptionRecord = JSON.parse(sb)
+    const subscriptionRecord = JSON.parse(sb);
     
 
     const subscriptionTypes = useSelector( state => state.database.subscriptionTypes);
