@@ -44,7 +44,7 @@ function Home() {
             <Route path="subscriptionRecords/edit/:sb" element={<EditSubscriptionRecord/>} />
             <Route path="filteredSubscriptionRecords" element={<FilteredSubscriptionRecords/>} />
             <Route path="unpaidSubscriptionRecords" element={<UnpaidSubscriptionRecord/>} />
-            <Route path="subscriptionRecords/history/:id" element={<PaymentHistory/>} />
+            <Route path="subscriptionRecords/history/:sb" element={<PaymentHistory/>} />
             <Route path="subscriptionRecords/new" element={<NewSubscriptionRecord/>} />
             <Route path="paymentRecords" element={<PaymentRecords/>} />
             <Route path="paymentRecords/new/:id" element={<NewPaymentRecord/>} />

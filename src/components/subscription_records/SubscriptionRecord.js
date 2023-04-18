@@ -131,7 +131,7 @@ function SubscriptionRecord() {
                         <img src={trash}  onClick={() => handleDeletion(subscriptionRecord.id)} style={{cursor: 'pointer'}} className='m-1'/>                     
                         }
                          <img src={add}  onClick={()=>navigate(`/home/paymentRecords/new/${subscriptionRecord.id}`)} style={{cursor: 'pointer'}} className='m-1'/>
-                         <img src={view}  onClick={()=>navigate(`/home/subscriptionRecords/history/${subscriptionRecord.id}`)} style={{cursor: 'pointer'}} className='m-1'/>
+                         <img src={view}  onClick={()=>navigate(`/home/subscriptionRecords/history/${JSON.stringify(subscriptionRecord)}`)} style={{cursor: 'pointer'}} className='m-1'/>
                          <img src={edit}  onClick={()=>navigate(`/home/subscriptionRecords/edit/${JSON.stringify(subscriptionRecord)}`)} style={{cursor: 'pointer'}} className='m-1'/>
                     </td>
                     </tr>
