@@ -37,10 +37,10 @@ function EditSubscriptionRecord() {
     useEffect(() => {
       async function fetchData() {
         if(subscriptionTypes.length === 0){
-          await dispatch(getClients());
+          await dispatch(getSubscriptionTypes());
         }
         if(clients.length === 0){
-          await dispatch(getSubscriptionTypes());
+          await dispatch(getClients());
         }
         if(employees.length === 0){
           await dispatch(getEmployees());
