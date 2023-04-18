@@ -9,7 +9,8 @@ import { clearPaymentHistory, getPaymentHistory, deletePaymentRecord, filterPaym
 import trash from '../../assets/images/trash-fill.svg'
 
 function PaymentHistory() {
-    const {id} = useParams()
+  const {sb} = useParams();
+  const subscriptionRecord = JSON.parse(sb);
     const dispatch = useDispatch();
     const paymentRecords = useSelector(state=>state.database?.paymentHistory);
 
@@ -29,13 +30,13 @@ function PaymentHistory() {
 
     useEffect(()=>{
         const fetchData = async() => {
-            await dispatch(getPaymentHistory({id}))
+            await dispatch(getPaymentHistory({id: subscriptionRecord.id}))
         }
         fetchData();
         return () => {
             dispatch(clearPaymentHistory());
         }
-    },[id]);
+    },[subscriptionRecord.id]);
 
     if( paymentRecords === null ){
         return <div>Loading ...</div>
@@ -43,6 +44,9 @@ function PaymentHistory() {
     return (
         <div>
             <h1 className='text-start h4 m-4'>Subscription Payment history</h1>
+            <div className="p-sm-3 mt-5">
+            <textarea rows="5" className='w-100' readonly>{subscriptionRecord.note || 'N/A'}</textarea>
+            </div>
             <div className="p-sm-3 mt-5">
             <Table striped bordered hover responsive>
                 <thead className="thead-dark" >
