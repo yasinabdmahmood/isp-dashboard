@@ -12,17 +12,22 @@ function NewPaymentRecord() {
   const {id} = useParams();
   const [amount, setAmount] = useState('');
   const [dateTime, setDateTime] = useState(new Date());
+  const [loading, setLoading] = useState(false);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    if(loading){
+      return ;
+    }
     const payloadData = {
         amount: amount,
         subscription_record_id: id,
         created_at: convertToRailsDateTime(dateTime),
     }
+    setLoading(true)
     const response = await dispatch(createPaymentRecord(payloadData));
     if(response.type.includes('fulfilled')){
       navigate(-1);
@@ -30,6 +35,7 @@ function NewPaymentRecord() {
     else{
       window.alert('The action failed, please try again');
     }
+    setLoading(false);
     
   };
 
@@ -59,7 +65,7 @@ function NewPaymentRecord() {
           />
         </FormGroup>
 
-        <Button color="primary" className='btn-sm' type="submit">Create</Button>
+        <Button color="primary" style={{cursor: loading? 'wait' : 'pointer'}} className='btn-sm' type="submit">Create</Button>
         </Form>
     </div>
    
