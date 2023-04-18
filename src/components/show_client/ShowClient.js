@@ -162,7 +162,7 @@ function ShowClient() {
                         <img src={trash} style={{cursor: 'pointer'}}  onClick={() => handleSubscriptionRecordDeletion(subscriptionRecord.id)} alt='delete' className='m-1'/>
                         }
                          <img src={add} style={{cursor: 'pointer'}}   onClick={()=>navigate(`/home/paymentRecords/new/${subscriptionRecord.id}`)} alt='Add payment' className='m-1'/>
-                         <img src={view} style={{cursor: 'pointer'}}  onClick={()=>navigate(`/home/subscriptionRecords/history/${JSON.stringify(subscriptionRecord)}`)} alt='view' className='m-1'/>
+                         <img src={view} style={{cursor: 'pointer'}}  onClick={()=>navigate(`/home/subscriptionRecords/history`,{state: {subscriptionRecord}})} alt='view' className='m-1'/>
                          <img src={edit}  onClick={()=>navigate(`/home/subscriptionRecords/edit/${JSON.stringify(subscriptionRecord)}`)} style={{cursor: 'pointer'}} className='m-1'/>
                     </td>
                     </tr>

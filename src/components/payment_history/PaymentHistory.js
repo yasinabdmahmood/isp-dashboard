@@ -1,6 +1,7 @@
 import React from 'react';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useLocation } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import {formatDate} from '../../helpers/formatDate';
 import isAdmin from '../../helpers/isAdmin';
@@ -9,8 +10,8 @@ import { clearPaymentHistory, getPaymentHistory, deletePaymentRecord, filterPaym
 import trash from '../../assets/images/trash-fill.svg'
 
 function PaymentHistory() {
-  const {sb} = useParams();
-  const subscriptionRecord = JSON.parse(sb);
+    const location = useLocation();
+    const subscriptionRecord = location.state?.subscriptionRecord;
     const dispatch = useDispatch();
     const paymentRecords = useSelector(state=>state.database?.paymentHistory);
 
