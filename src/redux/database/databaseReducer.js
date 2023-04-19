@@ -28,6 +28,7 @@ export const editEmployee = createAsyncThunk(
           email: payloadData.email,
           password: payloadData.password,
           password_confirmation: payloadData.password_confirmation,
+          role: payloadData.role,
         }
       },
       {
@@ -558,11 +559,23 @@ export const dataBaseSlice = createSlice({
       const paymentRecord= action.payload.data.paymentRecord;
       let unpaidSubscriptionRecords = [...state.unpaidSubscriptionRecords];
 
+      // subscriptionRecords: [],
+      // unpaidSubscriptionRecords: [],
+      // clientHistory: null,
+
       // if the newly created subscription record is not fully paid then add the record to 
       // the unpaid subscription records list inside redux store
       if(subscriptionRecord.pay < subscriptionRecord.cost){
         unpaidSubscriptionRecords = [subscriptionRecord, ...unpaidSubscriptionRecords]
       }
+
+
+      // let clientHistory = [...state.clientHistory] || [];
+      // // if the newly created subscription record belongs to cleint history then add the record to 
+      // // the client history subscription records list inside redux store
+      // if(subscriptionRecord.client_id === clientHistory[0]?.client_id){
+      //   clientHistory = [subscriptionRecord, ...clientHistory]
+      // }
      
       
       return {
@@ -575,6 +588,12 @@ export const dataBaseSlice = createSlice({
 
     builder.addCase(editSubscriptionRecord.fulfilled, (state, action) => {
       const subscriptionRecord= action.payload.data;
+
+      // subscriptionRecords: [],
+      // unpaidSubscriptionRecords: [],
+      // clientHistory: null,
+
+      //update subscriptionRecords list
       const updatedSubscriptionList = state.subscriptionRecords.map((sb)=>{
         if(sb.id === subscriptionRecord.id){
           return subscriptionRecord
@@ -582,9 +601,20 @@ export const dataBaseSlice = createSlice({
           return sb
         }
       })
+
+      // update unpaidSubscriptionRecords list
+      const updatedUnpaidSubscriptionRecordList = state.unpaidSubscriptionRecords.map((sb)=> {
+        if(sb.id === subscriptionRecord.id){
+          return subscriptionRecord
+        }else {
+          return sb
+        }
+      })
+
       return {
         ...state,
         subscriptionRecords: updatedSubscriptionList,
+        unpaidSubscriptionRecords: updatedUnpaidSubscriptionRecordList,
       };
     });
 
