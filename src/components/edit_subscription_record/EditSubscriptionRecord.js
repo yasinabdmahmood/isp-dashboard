@@ -15,10 +15,7 @@ import { editSubscriptionRecord, getClients, getEmployees, getSubscriptionTypes 
 function EditSubscriptionRecord() {
     const location = useLocation();
     const subscriptionRecord = location.state?.subscriptionRecord;
-    // const {sb} = useParams();
-    // const subscriptionRecord = JSON.parse(sb);
     
-
     const subscriptionTypes = useSelector( state => state.database.subscriptionTypes);
     const clients = useSelector( state => state.database.clients);
     const employees = useSelector( state => state.database.employees);
