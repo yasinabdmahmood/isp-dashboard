@@ -23,6 +23,7 @@ import EditEmployee from '../edit_employee/EditEmployee';
 import FilteredSubscriptionRecords from '../filtered_subscription_records/FilteredSubscriptionRecords';
 import UnpaidSubscriptionRecord from '../unpaid_subscription_records/UnpaidSubscriptionRecord';
 import EditSubscriptionRecord from '../edit_subscription_record/EditSubscriptionRecord';
+import Receipt from '../receipt/Receipt';
 function Home() {
   return (
     <>
@@ -45,6 +46,7 @@ function Home() {
             <Route path="filteredSubscriptionRecords" element={<FilteredSubscriptionRecords/>} />
             <Route path="unpaidSubscriptionRecords" element={<UnpaidSubscriptionRecord/>} />
             <Route path="subscriptionRecords/history" element={<PaymentHistory/>} />
+            <Route path="receipt" element={<Receipt/>} />
             <Route path="subscriptionRecords/new" element={<NewSubscriptionRecord/>} />
             <Route path="paymentRecords" element={<PaymentRecords/>} />
             <Route path="paymentRecords/new/:id" element={<NewPaymentRecord/>} />

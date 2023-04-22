@@ -1,7 +1,7 @@
 import React from 'react';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import {formatDate} from '../../helpers/formatDate';
 import isAdmin from '../../helpers/isAdmin';
 import Table from 'react-bootstrap/Table';
@@ -10,6 +10,7 @@ import trash from '../../assets/images/trash-fill.svg'
 
 function PaymentHistory() {
     const location = useLocation();
+    const navigate = useNavigate();
     const subscriptionRecord = location.state?.subscriptionRecord;
     const dispatch = useDispatch();
     const paymentRecords = useSelector(state=>state.database?.paymentHistory);
@@ -81,6 +82,7 @@ function PaymentHistory() {
                 </tbody>
             </Table>
             </div>
+            <button className='btn btn-sm btn-primary' onClick={()=>navigate('/home/receipt')} >Print</button>
         </div>
     );
 }
