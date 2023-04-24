@@ -30,6 +30,7 @@ function Home() {
         <Routes>
           <Route path="/" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
+          <Route path="/receipt" element={<Receipt/>} />
           <Route path="/home" element={<Template />}>
             <Route index element={<Dashboard/>} />
             <Route path="employees" element={<Employees/>} />
