@@ -28,18 +28,30 @@
   }
   
   .items {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
+   display: flex;
+   padding: 30px;
+   flex-direction: column;
   }
   
   .item {
     display: flex;
+    flex-direction: row-reverse;
+    row-gap: 100px;
+    padding: 15px;
+    border: 1px solid black;
     justify-content: space-between;
   }
   
   .itemName {
     font-weight: bold;
+  }
+  .itemName::before {
+    content: '';
+    border-left: 1px solid black;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    right: 0;
   }
   
   .itemPrice {
