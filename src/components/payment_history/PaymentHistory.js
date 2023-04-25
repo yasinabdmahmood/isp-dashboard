@@ -82,7 +82,7 @@ function PaymentHistory() {
                 </tbody>
             </Table>
             </div>
-            <button className='btn btn-sm btn-primary' onClick={()=>navigate('/home/receipt')} >Print</button>
+            <button className='btn btn-sm btn-primary' onClick={()=>navigate('/receipt')} >Print</button>
         </div>
     );
 }

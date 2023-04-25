@@ -1,31 +1,16 @@
-import React, { useRef } from 'react';
+import React, { useEffect } from 'react';
 import styles from './Receipt.module.css';
+import { useNavigate } from 'react-router-dom';
+
 
 const Receipt = () => {
-  const printRef = useRef();
 
-  const handlePrint = () => {
-    const content = printRef.current.innerHTML;
-    const printWindow = window.open('', 'PRINT', 'height=600,width=800');
+  const navigate = useNavigate()  
   
-    printWindow.document.write(`<html><head><title>Receipt</title>`);
-    printWindow.document.write(`<link rel="stylesheet" href="print.css" type="text/css" media="print" />`);
-    printWindow.document.write(`</head><body>`);
-    printWindow.document.write(content);
-    printWindow.document.write(`</body></html>`);
-  
-    printWindow.document.close(); // necessary for IE >= 10
-    printWindow.focus(); // necessary for IE >= 10*/
-  
-    // Wait for the print dialog to be closed before closing the print window
-    printWindow.addEventListener('afterprint', () => {
-      printWindow.close();
-    });
-  
-    // Trigger the print dialog
-    printWindow.print();
-  };
-  
+  useEffect(()=>{
+    window.print();
+    navigate(-1);
+  })
 
   return (
     <div className={styles.container}>
@@ -33,7 +18,7 @@ const Receipt = () => {
         <h2>Receipt</h2>
         <p>Date: 22/04/2023</p>
       </div>
-      <div className={styles.items} ref={printRef}>
+      <div className={styles.items}>
         <div className={styles.item}>
           <span className={styles.itemName}>Item 1</span>
           <span className={styles.itemPrice}>$10.00</span>
@@ -58,7 +43,6 @@ const Receipt = () => {
       <div className={styles.footer}>
         <span className={styles.total}>Total: $66.75</span>
       </div>
-      <button onClick={handlePrint}>Print Receipt</button>
     </div>
   );
 };
