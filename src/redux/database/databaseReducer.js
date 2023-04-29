@@ -699,8 +699,8 @@ export const dataBaseSlice = createSlice({
     });
 
     builder.addCase(createClient.fulfilled, (state, action) => {
-      let {client, contact_info} = action.payload.data;
-      client = {...client,client_contact_informations: [{contact_info: [contact_info]}]}
+      let client = action.payload.data;
+      
       return {
         ...state,
         clients: [client, ...state.clients],
