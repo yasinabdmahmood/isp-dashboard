@@ -77,6 +77,20 @@ function NewSubscriptionRecord() {
     if (!subscriptionType) {
       return <div>Loading...</div>;
     }
+
+    const filterClient = (cl) => {
+      // check if the client name is within the searched text
+      const con1 = cl.name.toLowerCase().includes(client.toLowerCase());
+
+      // check if the client username is within the searched text
+      const con2 = cl.username.toLowerCase().includes(client.toLowerCase());
+
+      // check if the client phone numbers is within the searched text
+      const con3 = cl.client_contact_informations.some(el => el.contact_info.includes(client.toLowerCase()));
+      if( con1 || con2 || con3 ) return true;
+      return false;
+    }
+
   
   
     return (
@@ -88,8 +102,10 @@ function NewSubscriptionRecord() {
             <Label for="client">Client</Label>
             <input type="text" name="client" className={`bg-white ${styles.inputfield}`} id="cleint" placeholder="Type to search" value={client} onChange={(e) => setClient(e.target.value)} list="clients" autocomplete="off"/>
             <datalist id="clients">
-                {clients.filter(el => el.name.toLowerCase().includes(client.toLowerCase())).map(el => (
-                <option key={el.id} value={el.name}  />
+                {clients.filter(el => filterClient(el)).map(el => (
+                <option key={el.id} value={el.name} >
+                  <p>{el.username +' , '+ el.client_contact_informations.reduce((acc, curr) => acc + ' , ' + curr?.contact_info, '').substring(3)}</p>
+                </option>
                 ))}
             </datalist>
         </FormGroup>
