@@ -1,64 +1,123 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.header {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-around;
+}
+
+.header h1 {
+  font-size: 1.5rem;
+}
+.header div h2 {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #2a65c9;
+  margin: 10px;
+  padding: 0px;
+}
+
+.header div img {
+  width: 100px;
+}
+
+.date {
+  display: flex;
+  justify-content: flex-start;
+  margin-left: 10px;
+  margin-bottom: 3px;
+}
+
+.date span {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #2a65c9;
+}
+
+.fields-container {
+  display: flex;
+  flex-direction: column;
+  
+}
+.field-container {
+  height: 30px;
+  margin: 3px;
+  display: flex;
+  flex-direction: row-reverse;
+  flex-wrap: nowrap;
+  align-items: center;
+  border: 1px solid black;
+  border-radius: 1rem;
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+}
+.lable {
+  flex-grow: 1;
+  width: 100px;
+  height: 30px;
+  border: 1px solid #34bdeb;
+  text-align: center;
+  
+  border-top-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+  z-index: 1;
+  background-color: #34bdeb;
+}
+.value {
+  height: 30px;
+  flex-grow: 4;
+  text-align: center;
+  
+  box-sizing: border-box;
+}
+
+.address {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 3px;
+}
+
+.address span {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #2a65c9;
+}
+
+.signiture {
+  display: flex;
+  justify-content: center;
+  margin-top: 3px;
+}
+
+.signiture span {
+  margin-top: 5px;
+  font-size: 1.1rem;
+  font-weight: bold;
+}
+
+/* Styles for A6 paper in landscape mode */
+
+@media print and (width: 148mm) and (height: 105mm) {
+  body {
+    width: 148mm;
+    height: 105mm;
+    margin: 0;
+    padding: 0;
+  }
+}
+
 @media print {
-    @page {
-      size: A6 landscape;
-    }
-    body {
-        margin: 0;
-        padding: 0;
-        font-size: 12pt;
-      }
+  @page {
+    size: landscape;
+    margin: 0;
   }
-.container {
-    display: grid;
-    padding: 5rem;
-    grid-template-rows: repeat(3, auto);
-    grid-template-columns: 1fr;
-    gap: 10px;
-    border: 1px solid black;
-    padding: 10px;
-    width: 100%;
-    height: 100vh;
-    margin: 0 auto;
+  * {
+    -webkit-print-color-adjust: exact !important;
+    -moz-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
   }
-  
-  .header,
-  .footer {
-    display: flex;
-    justify-content: space-between;
-  }
-  
-  .items {
-   display: flex;
-   padding: 30px;
-   flex-direction: column;
-  }
-  
-  .item {
-    display: flex;
-    flex-direction: row-reverse;
-    row-gap: 100px;
-    padding: 15px;
-    border: 1px solid black;
-    justify-content: space-between;
-  }
-  
-  .itemName {
-    font-weight: bold;
-  }
-  .itemName::before {
-    content: '';
-    border-left: 1px solid black;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    right: 0;
-  }
-  
-  .itemPrice {
-    text-align: right;
-  }
-  
-  .total {
-    font-weight: bold;
-  }
-  
+}
+
