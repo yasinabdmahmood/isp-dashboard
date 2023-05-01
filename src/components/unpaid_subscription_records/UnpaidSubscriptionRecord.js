@@ -95,6 +95,7 @@ function UnpaidSubscriptionRecord() {
         const response = await dispatch(assignedEmployees(payloadData));
         if(response.type.includes('fulfilled')){
           dispatch(getUnpaidSubscriptionRecords());
+          setSelectedSubscriptions([]);
         }else{
           window.alert('The action failed, please try again')
         }
