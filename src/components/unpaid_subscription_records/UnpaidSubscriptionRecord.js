@@ -143,7 +143,7 @@ function UnpaidSubscriptionRecord() {
                         })}
                     </select>
             </FormGroup>
-            <Button color="primary" className='btn-sm' style={{cursor: loading? 'wait':'pointer'}} type="submit">Create Subscription Record</Button>
+            <Button color="primary" className='btn-sm' style={{cursor: loading? 'wait':'pointer'}} type="submit">Apply</Button>
           </Form>
           </div>
           }
