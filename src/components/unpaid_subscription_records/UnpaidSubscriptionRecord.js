@@ -5,7 +5,8 @@ import {formatDate} from '../../helpers/formatDate';
 import styles from './styles.module.scss'
 import plusSign from '../../assets/images/plus-circle.svg'
 import Table from 'react-bootstrap/Table';
-import { deleteSubscriptionRecord, getPaymentRecords, getUnpaidSubscriptionRecords } from '../../redux/database/databaseReducer';
+import { Form, FormGroup, Label, Button } from 'reactstrap';
+import { deleteSubscriptionRecord, getEmployees, getPaymentRecords, getUnpaidSubscriptionRecords } from '../../redux/database/databaseReducer';
 import isAdmin from '../../helpers/isAdmin';
 import trash from '../../assets/images/trash-fill.svg'
 import add from '../../assets/images/plus-circle-fill.svg'
@@ -15,8 +16,11 @@ import searchLogo from '../../assets/images/search.svg'
 
 function UnpaidSubscriptionRecord() {
     const subscriptionRecords = useSelector(state => state.database.unpaidSubscriptionRecords);
+    const employees = useSelector(state => state.database.employees);
     const [search, setSearch] = useState('');
     const [loading, setLoading] = useState(true);
+    const [selectedSubscriptions, setSelectedSubscriptions] = useState([]);
+    const [assignedEmployee, setAssignedEmployee] = useState(employees[0].id);
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const elementRef = useRef(null);
@@ -59,10 +63,16 @@ function UnpaidSubscriptionRecord() {
           if(response.type.includes('fulfilled')){
             setLoading(false);
           }
-      }
-      else{
+        }
+
+        if(employees.length === 0){
+          const response = await dispatch(getEmployees());
+          if(response.type.includes('fulfilled')){
+            setLoading(false);
+          }
+        }
+      
         setLoading(false)
-      }
       }
       fetchData();
     }, []);
@@ -70,6 +80,40 @@ function UnpaidSubscriptionRecord() {
 
     if (loading) {
       return <div ref={elementRef}>Loading...</div>;
+    }
+
+    const handleSubmit = async(event) => {
+      event.preventDefault();
+      
+
+      const payloadData = {
+        employeeId: assignedEmployee ,
+        subscriptionIds: selectedSubscriptions,
+      }
+      console.log(payloadData);
+        // setLoading(true);
+        // const response = await dispatch(createSubscriptionRecord(payloadData));
+        // if(response.type.includes('fulfilled')){
+        //   navigate(-1)
+        // }else{
+        //   window.alert('The action failed, please try again')
+        // }
+        // setLoading(false); 
+      
+    }
+
+    const updateCheckdeList = (number) => {
+      const index = selectedSubscriptions.indexOf(number);
+
+      if (index !== -1) {
+        // Number found in array, remove it
+        const newArray = [...selectedSubscriptions];
+        newArray.splice(index, 1);
+        setSelectedSubscriptions(newArray);
+      } else {
+        // Number not found in array, add it
+        setSelectedSubscriptions(prev => [...prev, number]);
+      }
     }
     
 
@@ -89,6 +133,19 @@ function UnpaidSubscriptionRecord() {
 
             </div>
           </div>
+          <div>
+          <Form onSubmit={handleSubmit}>
+            <FormGroup className='d-flex'>
+                <Label for="employees">Subscription Type</Label>
+                    <select name="employees" className={`bg-white ${styles.inputfield}`} id="employees" value={assignedEmployee} onChange={(e) => setAssignedEmployee(e.target.value)}>
+                        {employees.map( employee => {
+                            return <option value={employee.id}>{employee.name}</option>
+                        })}
+                    </select>
+            </FormGroup>
+            <Button color="primary" className='btn-sm' style={{cursor: loading? 'wait':'pointer'}} type="submit">Create Subscription Record</Button>
+          </Form>
+          </div>
            
            <div className="px-sm-3" >
               <Table striped bordered hover responsive>
@@ -101,6 +158,7 @@ function UnpaidSubscriptionRecord() {
                     <th scope="col">Paid Amount</th>
                     <th scope="col">Remaining Amount</th>
                     <th scope="col">Subscription Date</th>
+                    <th scope="col">Assign</th>
                     <th scope="col">Assigned Employee</th>
                     <th scope="col">Actions</th>
                 </tr>
@@ -115,6 +173,12 @@ function UnpaidSubscriptionRecord() {
                     <td>{subscriptionRecord.pay}</td>
                     <td>{subscriptionRecord.subscription_type.cost - subscriptionRecord.pay}</td>
                     <td style={{whiteSpace: 'nowrap'}}>{formatDate(subscriptionRecord.created_at)}</td>
+                    <td>
+                      <input type="checkbox"
+                          defaultChecked={false}
+                          onChange={() => updateCheckdeList(subscriptionRecord.id)}
+                      />
+                    </td>
                     <td>{subscriptionRecord?.assigned_employee || 'N/A'}</td>
                     <td className='d-flex justify-content-around align-items-stretch flex-nowrap'>
                         { isAdmin() && 
