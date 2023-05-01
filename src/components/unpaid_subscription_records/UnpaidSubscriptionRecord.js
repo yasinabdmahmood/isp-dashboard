@@ -133,19 +133,19 @@ function UnpaidSubscriptionRecord() {
 
             </div>
           </div>
-          { isAdmin() && <div>
-          <Form onSubmit={handleSubmit}>
-            <FormGroup className='d-flex'>
-                <Label for="employees">Subscription Type</Label>
-                    <select name="employees" className={`bg-white ${styles.inputfield}`} id="employees" value={assignedEmployee} onChange={(e) => setAssignedEmployee(e.target.value)}>
+          { isAdmin() &&
+          <Form onSubmit={handleSubmit} className='d-flex align-items-center'>
+            <FormGroup className='d-flex align-items-center'>
+                <Label for="employees">Set employee</Label>
+                    <select name="employees" className={`bg-white p-1 px-2 m-1 ${styles.inputfield}`} id="employees" value={assignedEmployee} onChange={(e) => setAssignedEmployee(e.target.value)}>
                         {employees.map( employee => {
                             return <option value={employee.name}>{employee.name}</option>
                         })}
                     </select>
             </FormGroup>
-            <Button color="primary" className='btn-sm' style={{cursor: loading? 'wait':'pointer'}} type="submit">Apply</Button>
+            <Button color="primary" className='btn-sm mb-3' style={{cursor: loading? 'wait':'pointer'}} type="submit">Apply</Button>
           </Form>
-          </div>
+          
           }
            
            <div className="px-sm-3" >
