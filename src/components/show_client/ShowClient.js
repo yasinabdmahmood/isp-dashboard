@@ -92,19 +92,23 @@ function ShowClient() {
                 <ul>
                     <li>
                         <span className='h5' >Name: </span>
-                        <span className='h5'>{client.name}</span>
+                        <span className='h5'>{client?.name}</span>
                     </li>
                     <li>
                         <span className='h5'>Username: </span>
-                        <span className='h5'>{client.username}</span>
+                        <span className='h5'>{client?.username}</span>
+                    </li>
+                    <li>
+                        <span className='h5'>Coordinates: </span>
+                        <span className='h5'>{client?.coordinate}</span>
                     </li>
                     <li>
                         <span className='h5'>Contact info: </span>
                         <ul>
-                            {client.client_contact_informations.map( cl => {
+                            {client?.client_contact_informations?.map( cl => {
                                 return (
-                                    <li key={cl.id} className='my-2'>
-                                        <span >{cl.contact_info}</span>
+                                    <li key={cl?.id} className='my-2'>
+                                        <span >{cl?.contact_info}</span>
                                     </li>
                                 )
                             }
