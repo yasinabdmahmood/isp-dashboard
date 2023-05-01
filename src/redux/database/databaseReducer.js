@@ -180,6 +180,24 @@ export const editSubscriptionRecord = createAsyncThunk(
   },
 );
 
+export const assignedEmployees = createAsyncThunk(
+  'assignedEmployees/',
+  async (payloadData) => {
+    try {
+      return  axios.post(baseUrl + '/subscription_record/assign_employees', {
+        assign_employees: {
+          employee: payloadData.employee,
+          subscriptionIds: payloadData.subscriptionIds,
+        },
+      },{
+        withCredentials: true
+      });
+    } catch (error) {
+      return error;
+    }
+  },
+);
+
 export const deleteSubscriptionRecord = createAsyncThunk(
   'deleteSubscriptionRecord/',
   async (payloadData) => {
