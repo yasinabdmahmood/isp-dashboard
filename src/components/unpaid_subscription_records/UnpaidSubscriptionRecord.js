@@ -116,6 +116,10 @@ function UnpaidSubscriptionRecord() {
         setSelectedSubscriptions(prev => [...prev, number]);
       }
     }
+
+    const showClientInfo = (id) => {
+      navigate(`/home/clients/${id}`)
+    }
     
 
     return (
@@ -167,8 +171,8 @@ function UnpaidSubscriptionRecord() {
                 </thead>
                 <tbody>
                 {subscriptionRecords?.filter( item => filterItems(item))?.map(subscriptionRecord => (
-                    <tr key={subscriptionRecord.id}>
-                    <td>{subscriptionRecord.client.name}</td>
+                    <tr onClick={()=>showClientInfo(subscriptionRecord.client_id)} key={subscriptionRecord.id}>
+                    <td onClick={() => showClientInfo(subscriptionRecord.client_id)}>{subscriptionRecord.client.name}</td>
                     <td>{subscriptionRecord.client.username}</td>
                     <td>{subscriptionRecord.employee.name}</td>
                     <td>{subscriptionRecord.subscription_type.category}</td>
@@ -185,11 +189,27 @@ function UnpaidSubscriptionRecord() {
                     <td>{subscriptionRecord?.assigned_employee || 'N/A'}</td>
                     <td className='d-flex justify-content-around align-items-stretch flex-nowrap'>
                         { isAdmin() && 
-                        <img src={trash}  onClick={() => handleDeletion(subscriptionRecord.id)} style={{cursor: 'pointer'}} className='m-1'/>                     
+                        <img src={trash}  onClick={(event) => {
+                          event.stopPropagation();
+                          handleDeletion(subscriptionRecord.id);
+                        }}
+                        style={{cursor: 'pointer'}} className='m-1'/>                     
                         }
-                         <img src={add}  onClick={()=>navigate(`/home/paymentRecords/new/${subscriptionRecord.id}`)} style={{cursor: 'pointer'}} className='m-1'/>
-                         <img src={view}  onClick={()=>navigate(`/home/subscriptionRecords/history`,{state: {subscriptionRecord}})} style={{cursor: 'pointer'}} className='m-1'/>
-                         <img src={edit}  onClick={()=>navigate(`/home/subscriptionRecords/edit`,{state: {subscriptionRecord}})} style={{cursor: 'pointer'}} className='m-1'/>
+                         <img src={add}  onClick={(event)=> { 
+                          event.stopPropagation();
+                          navigate(`/home/paymentRecords/new/${subscriptionRecord.id}`);
+                          }}
+                          style={{cursor: 'pointer'}} className='m-1'/>
+                         <img src={view}  onClick={(event)=>{ 
+                          event.stopPropagation();
+                          navigate(`/home/subscriptionRecords/history`,{state: {subscriptionRecord}})
+                          }} 
+                          style={{cursor: 'pointer'}} className='m-1'/>
+                         <img src={edit}  onClick={(event)=> { 
+                          event.stopPropagation();
+                          navigate(`/home/subscriptionRecords/edit`,{state: {subscriptionRecord}})
+                          }}
+                          style={{cursor: 'pointer'}} className='m-1'/>
                     </td>
                     </tr>
                 ))}
