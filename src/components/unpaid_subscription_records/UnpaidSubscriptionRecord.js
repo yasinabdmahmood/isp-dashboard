@@ -133,7 +133,7 @@ function UnpaidSubscriptionRecord() {
 
             </div>
           </div>
-          <div>
+          { isAdmin() && <div>
           <Form onSubmit={handleSubmit}>
             <FormGroup className='d-flex'>
                 <Label for="employees">Subscription Type</Label>
@@ -146,6 +146,7 @@ function UnpaidSubscriptionRecord() {
             <Button color="primary" className='btn-sm' style={{cursor: loading? 'wait':'pointer'}} type="submit">Create Subscription Record</Button>
           </Form>
           </div>
+          }
            
            <div className="px-sm-3" >
               <Table striped bordered hover responsive>
@@ -158,7 +159,7 @@ function UnpaidSubscriptionRecord() {
                     <th scope="col">Paid Amount</th>
                     <th scope="col">Remaining Amount</th>
                     <th scope="col">Subscription Date</th>
-                    <th scope="col">Assign</th>
+                    { isAdmin() && <th scope="col">Assign</th> }
                     <th scope="col">Assigned Employee</th>
                     <th scope="col">Actions</th>
                 </tr>
@@ -173,12 +174,13 @@ function UnpaidSubscriptionRecord() {
                     <td>{subscriptionRecord.pay}</td>
                     <td>{subscriptionRecord.subscription_type.cost - subscriptionRecord.pay}</td>
                     <td style={{whiteSpace: 'nowrap'}}>{formatDate(subscriptionRecord.created_at)}</td>
-                    <td>
+                    { isAdmin() && <td>
                       <input type="checkbox"
                           defaultChecked={false}
                           onChange={() => updateCheckdeList(subscriptionRecord.id)}
                       />
                     </td>
+                    }
                     <td>{subscriptionRecord?.assigned_employee || 'N/A'}</td>
                     <td className='d-flex justify-content-around align-items-stretch flex-nowrap'>
                         { isAdmin() && 
