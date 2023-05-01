@@ -6,7 +6,7 @@ import styles from './styles.module.scss'
 import plusSign from '../../assets/images/plus-circle.svg'
 import Table from 'react-bootstrap/Table';
 import { Form, FormGroup, Label, Button } from 'reactstrap';
-import { deleteSubscriptionRecord, getEmployees, getPaymentRecords, getUnpaidSubscriptionRecords } from '../../redux/database/databaseReducer';
+import { deleteSubscriptionRecord, getEmployees, getPaymentRecords, getUnpaidSubscriptionRecords, assignedEmployees } from '../../redux/database/databaseReducer';
 import isAdmin from '../../helpers/isAdmin';
 import trash from '../../assets/images/trash-fill.svg'
 import add from '../../assets/images/plus-circle-fill.svg'
@@ -20,7 +20,7 @@ function UnpaidSubscriptionRecord() {
     const [search, setSearch] = useState('');
     const [loading, setLoading] = useState(true);
     const [selectedSubscriptions, setSelectedSubscriptions] = useState([]);
-    const [assignedEmployee, setAssignedEmployee] = useState(employees[0].id);
+    const [assignedEmployee, setAssignedEmployee] = useState(employees[0].name);
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const elementRef = useRef(null);
@@ -87,18 +87,18 @@ function UnpaidSubscriptionRecord() {
       
 
       const payloadData = {
-        employeeId: assignedEmployee ,
+        employee: assignedEmployee ,
         subscriptionIds: selectedSubscriptions,
       }
       console.log(payloadData);
-        // setLoading(true);
-        // const response = await dispatch(createSubscriptionRecord(payloadData));
-        // if(response.type.includes('fulfilled')){
-        //   navigate(-1)
-        // }else{
-        //   window.alert('The action failed, please try again')
-        // }
-        // setLoading(false); 
+        setLoading(true);
+        const response = await dispatch(assignedEmployees(payloadData));
+        if(response.type.includes('fulfilled')){
+          dispatch(getUnpaidSubscriptionRecords());
+        }else{
+          window.alert('The action failed, please try again')
+        }
+        setLoading(false); 
       
     }
 
@@ -139,7 +139,7 @@ function UnpaidSubscriptionRecord() {
                 <Label for="employees">Subscription Type</Label>
                     <select name="employees" className={`bg-white ${styles.inputfield}`} id="employees" value={assignedEmployee} onChange={(e) => setAssignedEmployee(e.target.value)}>
                         {employees.map( employee => {
-                            return <option value={employee.id}>{employee.name}</option>
+                            return <option value={employee.name}>{employee.name}</option>
                         })}
                     </select>
             </FormGroup>
