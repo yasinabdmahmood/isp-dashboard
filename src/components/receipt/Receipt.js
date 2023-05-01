@@ -6,6 +6,9 @@ import internetDish from '../../assets/images/powerbeam.png'
 
 
 const Receipt = () => {
+  
+  const date = new Date();
+
   const location = useLocation();
   const subscriptionRecord = location.state?.subscriptionRecord;
 
@@ -18,8 +21,9 @@ const Receipt = () => {
   }
   
   useEffect(()=>{
-    window.print();
-    navigate(-1);
+
+      window.print();
+      navigate(-1);
   })
 
   // return (
@@ -70,7 +74,7 @@ const Receipt = () => {
         </div>
       </div>
       <div className={styles.date}>
-        <span>{convertToRailsDateTime(subscriptionRecord.created_at)}:تاريخ دفع الاشتراك</span>
+        <span>{new Date().toLocaleDateString()}:تاريخ دفع الاشتراك</span>
       </div>
       <div className={styles['fields-container']}>
         <div className={styles['field-container']}>
