@@ -20,7 +20,7 @@ function UnpaidSubscriptionRecord() {
     const [search, setSearch] = useState('');
     const [loading, setLoading] = useState(true);
     const [selectedSubscriptions, setSelectedSubscriptions] = useState([]);
-    const [assignedEmployee, setAssignedEmployee] = useState(employees[0].name);
+    const [assignedEmployee, setAssignedEmployee] = useState(employees[0]?.name);
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const elementRef = useRef(null);
