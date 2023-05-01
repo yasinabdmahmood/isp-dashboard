@@ -26,41 +26,7 @@ const Receipt = () => {
       navigate(-1);
   })
 
-  // return (
-  //   <div className={styles.container}>
-  //     <div className={styles.header}>
-  //       <h2>Receipt</h2>
-  //       <p>{formatDate(new Date())}</p>
-  //     </div>
-  //     <div className={styles.items}>
-  //       <div className={styles.item}>
-  //         <span className={styles.itemName}>:اسم المشترك</span>
-  //         <span className={styles.itemPrice}>{subscriptionRecord.client.name}</span>
-  //       </div>
-  //       <div className={styles.item}>
-  //         <span className={styles.itemName}>:تاريخ والوقت الاشتراك</span>
-  //         <span className={styles.itemPrice}>{convertToRailsDateTime(subscriptionRecord.created_at)}</span>
-  //       </div>
-  //       <div className={styles.item}>
-  //         <span className={styles.itemName}>:تاريخ الدفع</span>
-  //         <span className={styles.itemPrice}>{formatDate(new Date())}</span>
-  //       </div>
-  //       <div className={styles.item}>
-  //         <span className={styles.itemName}>:الموضف</span>
-  //         <span className={styles.itemPrice}>{getUserName()}</span>
-  //       </div>
-  //       <div className={styles.item}>
-  //         <span className={styles.itemName}>:المبلغ</span>
-  //         <span className={styles.itemPrice}>$12.25</span>
-  //       </div>
-  //       <div className={styles.item}>
-  //         <span className={styles.itemName}>:مجموع</span>
-  //         <span className={styles.itemPrice}>{subscriptionRecord.pay} IQD</span>
-  //       </div>
-  //     </div>
-  //   </div>
-  // );
-
+  
   return (
     <>
       <div className={styles.header}>
