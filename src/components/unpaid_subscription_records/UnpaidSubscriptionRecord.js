@@ -171,7 +171,7 @@ function UnpaidSubscriptionRecord() {
                 </thead>
                 <tbody>
                 {subscriptionRecords?.filter( item => filterItems(item))?.map(subscriptionRecord => (
-                    <tr onClick={()=>showClientInfo(subscriptionRecord.client_id)} key={subscriptionRecord.id}>
+                    <tr style={{cursor: 'pointer'}} onClick={()=>showClientInfo(subscriptionRecord.client_id)} key={subscriptionRecord.id}>
                     <td onClick={() => showClientInfo(subscriptionRecord.client_id)}>{subscriptionRecord.client.name}</td>
                     <td>{subscriptionRecord.client.username}</td>
                     <td>{subscriptionRecord.employee.name}</td>
