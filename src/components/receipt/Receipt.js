@@ -74,7 +74,7 @@ const Receipt = () => {
         </div>
       </div>
       <div className={styles.date}>
-        <span>{new Date().toLocaleDateString()}:تاريخ دفع الاشتراك</span>
+      <span>{new Date().toLocaleString('en-US', { timeZone: 'Asia/Baghdad', hour12: true, year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit' })}:تاريخ دفع الاشتراك</span>
       </div>
       <div className={styles['fields-container']}>
         <div className={styles['field-container']}>
