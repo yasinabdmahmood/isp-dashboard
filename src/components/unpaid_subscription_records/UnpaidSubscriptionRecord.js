@@ -59,7 +59,7 @@ function UnpaidSubscriptionRecord() {
         if (searchType === 'Client username' && item.client.username?.toLowerCase().includes(search.toLowerCase())) {
           return true;
         }
-        if (searchType === 'Assigned Employee' && item.assigned_employee?.toLowerCase().includes(search.toLowerCase())) {
+        if ((searchType === 'Assigned Employee' && item.assigned_employee?.toLowerCase().includes(search.toLowerCase())) || (item.assigned_employee === null && search === '')) {
           return true;
         }
         return false;
