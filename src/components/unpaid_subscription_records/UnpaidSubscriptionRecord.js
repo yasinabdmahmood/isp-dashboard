@@ -18,6 +18,7 @@ function UnpaidSubscriptionRecord() {
     const subscriptionRecords = useSelector(state => state.database.unpaidSubscriptionRecords);
     const employees = useSelector(state => state.database.employees);
     const [search, setSearch] = useState('');
+    const [searchType, setSearchType] = useState('Client name');
     const [loading, setLoading] = useState(true);
     const [selectedSubscriptions, setSelectedSubscriptions] = useState([]);
     const [assignedEmployee, setAssignedEmployee] = useState(employees[0]?.name);
@@ -46,12 +47,20 @@ function UnpaidSubscriptionRecord() {
       }
 
       const filterItems = (item) => {
-        const isClientName = item.client.name.toLowerCase().includes(search.toLowerCase());
-        const isClientUsername = item.client.username.toLowerCase().includes(search.toLowerCase());
-        const isEmployeeName = item.employee.name.toLowerCase().includes(search.toLowerCase());
-        const isSubscriptionType = item.subscription_type.category?.toLowerCase().includes(search.toLowerCase());
-        if(isClientName || isClientUsername || isEmployeeName || isSubscriptionType){
-          return true
+        if (searchType === 'Client name' && item.client.name.toLowerCase().includes(search.toLowerCase())) {
+          return true;
+        }
+        if (searchType === 'Employee name' && item.employee.name.toLowerCase().includes(search.toLowerCase())) {
+          return true;
+        }
+        if (searchType === 'Subscription type' && item.subscription_type.category?.toLowerCase().includes(search.toLowerCase())) {
+          return true;
+        }
+        if (searchType === 'Client username' && item.client.username?.toLowerCase().includes(search.toLowerCase())) {
+          return true;
+        }
+        if (searchType === 'Assigned Employee' && item.assigned_employee?.toLowerCase().includes(search.toLowerCase())) {
+          return true;
         }
         return false;
       };
@@ -129,6 +138,13 @@ function UnpaidSubscriptionRecord() {
 
             <div className='d-flex  justify-content-center align-items-center mx-5'>
             <div className='d-flex  justify-content-center align-items-stretch m-1'>
+            <select value={searchType} className={styles['dropdown']} onChange={(e) => setSearchType(e.target.value)}>
+                    <option value="Client name">Client name</option>
+                    <option value="Client username">Client username</option>
+                    <option value="Employee name">Employee name</option>
+                    <option value="Assigned Employee">Assigned Employee</option>
+                    <option value="Subscription type">Subscription type</option>
+                </select>
               <div className={styles['search-container']}>
                <img src={searchLogo} className={styles['search-icon']} style={{background: 'white'}} alt='search' />
                <input type="text" className={styles['search-input']} placeholder='Search' value={search} onChange={(e) => setSearch(e.target.value)} />
