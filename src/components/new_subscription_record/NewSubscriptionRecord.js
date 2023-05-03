@@ -136,7 +136,7 @@ function NewSubscriptionRecord() {
               placeholder: 'Enter date and time',
             }}
             dateFormat="YYYY/MM/DD"
-            timeFormat="h:mm A"
+            timeFormat="HH:mm"
             closeOnSelect
           />
         </FormGroup>
