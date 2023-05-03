@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './Receipt.module.css';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { convertToRailsDateTime, formatDate } from '../../helpers/formatDate';
@@ -8,6 +8,8 @@ import internetDish from '../../assets/images/powerbeam.png'
 const Receipt = () => {
   
   const date = new Date();
+
+  const [imageLoaded, setImageLoaded] = useState(false);
 
   const location = useLocation();
   const subscriptionRecord = location.state?.subscriptionRecord;
@@ -21,9 +23,11 @@ const Receipt = () => {
   }
   
   useEffect(()=>{
-
-      window.print();
-      navigate(-1);
+      if(imageLoaded){
+        window.print();
+        navigate(-1);
+      }
+      
   })
 
   
@@ -36,11 +40,11 @@ const Receipt = () => {
           <h2>0770 161 85 71</h2>
         </div>
         <div>
-          <img src={internetDish} alt="Dish" />
+          <img src={internetDish} alt="Dish"  onLoad={() => setImageLoaded(true)} />
         </div>
       </div>
       <div className={styles.date}>
-      <span>{new Date().toLocaleString('en-US', { timeZone: 'Asia/Baghdad', hour12: true, year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit' })}:تاريخ دفع الاشتراك</span>
+      <span>{new Date().toLocaleString('en-US', { timeZone: 'Asia/Baghdad', hour12: false, year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' })}:تاريخ دفع الاشتراك</span>
       </div>
       <div className={styles['fields-container']}>
         <div className={styles['field-container']}>
@@ -65,7 +69,7 @@ const Receipt = () => {
         </div>
         <div className={styles['field-container']}>
           <div className={styles.lable}>:تاريخ تفعيل الاشتراك</div>
-          <div className={styles.value}>{convertToRailsDateTime(subscriptionRecord.created_at)}</div>
+          <div className={styles.value}>{formatDate(subscriptionRecord.created_at)}</div>
         </div>
       </div>
       <div className={styles.address}>
