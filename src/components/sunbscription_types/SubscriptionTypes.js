@@ -49,13 +49,13 @@ function SubscriptionTypes() {
         </thead>
         <tbody>
           {subscriptionTypes?.map(subscriptionType => (
-            <tr key={subscriptionType.id}>
-              <td>{subscriptionType.category}</td>
-              <td>{subscriptionType.cost}</td>
-              { isAdmin() && <td>{subscriptionType.profit}</td> }
+            <tr key={subscriptionType?.id}>
+              <td>{subscriptionType?.category}</td>
+              <td>{subscriptionType?.cost}</td>
+              { isAdmin() && <td>{subscriptionType?.profit}</td> }
               { isAdmin() && <td className='d-flex justify-content-around'>
-                <img src={trash} style={{cursor: 'pointer'}} alt='delete' onClick={() => handleDeletion(subscriptionType.id)} className='mx-2' />
-                <img src={edit} style={{cursor: 'pointer'}} alt='edit'  onClick={() => navigate(`/home/subscriptionTypes/edit/${subscriptionType.id}`)} className='mx-2' />
+                <img src={trash} style={{cursor: 'pointer'}} alt='delete' onClick={() => handleDeletion(subscriptionType?.id)} className='mx-2' />
+                <img src={edit} style={{cursor: 'pointer'}} alt='edit'  onClick={() => navigate(`/home/subscriptionTypes/edit/${subscriptionType?.id}`)} className='mx-2' />
               </td> }
             </tr>
           ))}

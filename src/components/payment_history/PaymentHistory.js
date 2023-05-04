@@ -1,15 +1,17 @@
 import React from 'react';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
-import formatDate from '../../helpers/formatDate';
+import { useLocation, useNavigate } from 'react-router-dom';
+import {formatDate} from '../../helpers/formatDate';
 import isAdmin from '../../helpers/isAdmin';
 import Table from 'react-bootstrap/Table';
 import { clearPaymentHistory, getPaymentHistory, deletePaymentRecord, filterPaymentHistory } from '../../redux/database/databaseReducer';
 import trash from '../../assets/images/trash-fill.svg'
 
 function PaymentHistory() {
-    const {id} = useParams()
+    const location = useLocation();
+    const navigate = useNavigate();
+    const subscriptionRecord = location.state?.subscriptionRecord;
     const dispatch = useDispatch();
     const paymentRecords = useSelector(state=>state.database?.paymentHistory);
 
@@ -29,13 +31,13 @@ function PaymentHistory() {
 
     useEffect(()=>{
         const fetchData = async() => {
-            await dispatch(getPaymentHistory({id}))
+            await dispatch(getPaymentHistory({id: subscriptionRecord.id}))
         }
         fetchData();
         return () => {
             dispatch(clearPaymentHistory());
         }
-    },[id]);
+    },[subscriptionRecord.id]);
 
     if( paymentRecords === null ){
         return <div>Loading ...</div>
@@ -43,6 +45,9 @@ function PaymentHistory() {
     return (
         <div>
             <h1 className='text-start h4 m-4'>Subscription Payment history</h1>
+            <div className="p-sm-3 mt-5">
+            <textarea rows="5" className='w-100' readonly>{subscriptionRecord.note || 'N/A'}</textarea>
+            </div>
             <div className="p-sm-3 mt-5">
             <Table striped bordered hover responsive>
                 <thead className="thead-dark" >
@@ -77,6 +82,7 @@ function PaymentHistory() {
                 </tbody>
             </Table>
             </div>
+            <button className='btn btn-sm btn-primary mx-5' onClick={()=>navigate('/receipt',{state: {subscriptionRecord}})} >Print</button>
         </div>
     );
 }

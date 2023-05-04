@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { Form, FormGroup, Label, Input, Button } from 'reactstrap';
 import { useSelector,useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { editEmployee, editSubscriptionType, getClients, getEmployees, getSubscriptionTypes} from '../../redux/database/databaseReducer';
+import { editEmployee, getEmployees} from '../../redux/database/databaseReducer';
 import { useParams } from "react-router-dom";
+import styles from './styles.module.scss'
 
 function EditEmployee() {
     const { id } = useParams();
@@ -12,6 +13,7 @@ function EditEmployee() {
     const [email, setEmail] = useState(null);
     const [password, setPassword] = useState('');
     const [passwordConfirmation, setPasswordConfirmation] = useState('');
+    const [role, setRole] = useState(employee.role);
     const dispatch = useDispatch();
     const navigate = useNavigate();
     useEffect(() => {
@@ -39,6 +41,7 @@ function EditEmployee() {
           email: email,
           password: password,
           password_confirmation: passwordConfirmation,
+          role: role,
         };
           const response = await dispatch(editEmployee(payloadData));
           if(response.type === 'editEmployee//fulfilled'){
@@ -73,6 +76,13 @@ function EditEmployee() {
         <FormGroup>
           <Label for="password-confirmation">Password Confirmation</Label>
           <Input type="password" name="password-confirmation" className='bg-white' id="profit" required value={passwordConfirmation} onChange={(e) => setPasswordConfirmation(e.target.value)} />
+        </FormGroup>
+        <FormGroup className='d-flex flex-column'>
+            <Label for="role">Role</Label>
+                <select name="role" className={`bg-white px-5 ${styles.inputfield}`} id="subscription-type" value={role} onChange={(e) => setRole(e.target.value)}>
+                     <option value={'admin'}>Admin</option>
+                     <option value={'employee'}>Employee</option>
+                </select>
         </FormGroup>
         <Button color="primary" type="submit">Update Employee information</Button>
       </Form>

@@ -13,19 +13,15 @@ import searchLogo from '../../assets/images/search.svg'
 
 function Clients() {
     const [search, setSearch] = useState('');
-    const [searchType, setSearchType] = useState('name');
     const navigate = useNavigate();
     const clients = useSelector( state => state.database.clients);
     const dispatch = useDispatch();
     const filterClients = (client) => {
-        if (searchType === 'name' && client.name.toLowerCase().includes(search.toLowerCase())) {
-          return true;
-        }
-        if (searchType === 'username' && client.username.toLowerCase().includes(search.toLowerCase())) {
-          return true;
-        }
-        if (searchType === 'phone' && client.client_contact_informations[0]?.contact_info?.toLowerCase().includes(search.toLowerCase())) {
-          return true;
+        const isClintName = client.name.toLowerCase().includes(search.toLowerCase());
+        const isClintUsername = client.username.toLowerCase().includes(search.toLowerCase());
+        const isClientContactInfo = client.client_contact_informations.some( contact => contact?.contact_info?.toLowerCase().includes(search.toLowerCase()));
+        if(isClientContactInfo || isClintName || isClintUsername){
+            return true
         }
         return false;
       };
@@ -57,11 +53,6 @@ function Clients() {
             <div className='d-flex flex-column flex-sm-row justify-content-between align-items-center'>
                 <h3 className='text-start text-black m-4 h4'>Users</h3>
                 <div className='d-flex  justify-content-center align-items-stretch mx-5'>
-                        <select className={styles['dropdown']} value={searchType} onChange={(e) => setSearchType(e.target.value)}>
-                            <option value="name">Name</option>
-                            <option value="username">Username</option>
-                            <option value="phone">Phone Number</option>
-                        </select>
                         <div className={styles['search-container']}>
                             <img src={searchLogo} className={styles['search-icon']} style={{background: 'white'}} alt='search' />
                             <input className={styles['search-input']} placeholder='search' type="text" value={search} onChange={(e) => setSearch(e.target.value)} />        
@@ -76,6 +67,7 @@ function Clients() {
                         <th scope="col">Name</th>
                         <th scope="col">User name</th>
                         <th scope="col">Contact Info</th>
+                        <th scope="col">Coordinate</th>
                         <th scope="col">Actions</th>
                     </tr>
                 </thead>
@@ -85,6 +77,7 @@ function Clients() {
                         <td>{client.name}</td>
                         <td>{client.username}</td>
                         <td>{client.client_contact_informations[0]?.contact_info || 'No contact information'}</td>
+                        <td>{client?.coordinate || 'N/A'}</td>
                         <td className='d-flex justify-content-around align-items-center'>
                         { isAdmin() &&
                             <>

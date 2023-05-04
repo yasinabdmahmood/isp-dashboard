@@ -8,6 +8,7 @@ function NewClient() {
     const [name, setName] = useState('');
     const [useName, setUserName] = useState('');
     const [contactInfo, setContactInfo] = useState('');
+    const [coordinates, setCoordinates] = useState('');
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -17,6 +18,7 @@ function NewClient() {
         name: name,
         username: useName,
         contact_info: contactInfo,
+        coordinate: coordinates,
     }
     const response = await dispatch(createClient(payloadData))
     if(response.type.includes('fulfilled')){
@@ -42,6 +44,10 @@ function NewClient() {
       <FormGroup>
         <Label for="contact_info">contact info</Label>
         <Input type="text" name="contact_info" className='bg-white' id="profit" required value={contactInfo} onChange={(e) => setContactInfo(e.target.value)} />
+      </FormGroup>
+      <FormGroup>
+        <Label for="coordinates">Coordinates</Label>
+        <Input type="text" name="coordinates" className='bg-white' id="coordinates"  title="Please enter the coordinates in the format: (latitude, longitude)" value={coordinates} onChange={(e) => setCoordinates(e.target.value)} />
       </FormGroup>
       <Button color="primary" className='btn-sm' type="submit">Create</Button>
     </Form>

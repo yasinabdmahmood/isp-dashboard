@@ -1,8 +1,8 @@
-import React, {useEffect, useRef} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { deletePaymentRecord, getPaymentRecords } from '../../redux/database/databaseReducer';
 import Table from 'react-bootstrap/Table';
-import formatDate from '../../helpers/formatDate';
+import {formatDate} from '../../helpers/formatDate';
 import isAdmin from '../../helpers/isAdmin';
 import trash from '../../assets/images/trash-fill.svg'
 
@@ -10,10 +10,18 @@ function PaymentRecords() {
     const paymentRecords = useSelector(state => state.database.paymentRecords);
     const dispatch = useDispatch();
     const elementRef = useRef(null);
+    const [loading, setLoading] = useState(true);
+    const [loadMoreButton, setLoadMoreButton] = useState(true);
     useEffect(()=>{
         async function fetchData() {
             if(paymentRecords.length < 20){
-               await dispatch(getPaymentRecords())
+               const response = await dispatch(getPaymentRecords());
+               if(response.type.includes('fulfilled')){
+                setLoading(false);
+               }
+            }
+            else{
+              setLoading(false)
             }
         }
         fetchData();
@@ -38,26 +46,33 @@ function PaymentRecords() {
       }
     }
 
-    function  handleScroll() {
-        const element = elementRef.current;
-  
-        if (element.scrollTop + element.clientHeight >= element.scrollHeight - 20) {
-          dispatch(getPaymentRecords());
-        }
+    const loadMore = async() => {
+      const response = await dispatch(getPaymentRecords());
+      if(response.payload.data.length < 20){
+        setLoadMoreButton(false);
       }
+    }
+
+    // function  handleScroll() {
+    //     const element = elementRef.current;
   
-      useEffect(() => {
+    //     if (element.scrollTop + element.clientHeight >= element.scrollHeight) {
+    //       dispatch(getPaymentRecords());
+    //     }
+    //   }
+  
+    //   useEffect(() => {
         
     
-        const element = elementRef.current;
-        element.addEventListener('scroll', handleScroll);
+    //     const element = elementRef.current;
+    //     element.addEventListener('scroll', handleScroll);
     
-        return () => {
-          element.removeEventListener('scroll', handleScroll);
-        };
-      }, [handleScroll]);
+    //     return () => {
+    //       element.removeEventListener('scroll', handleScroll);
+    //     };
+    //   }, [handleScroll]);
   
-      if (paymentRecords.length === 0) {
+      if (loading) {
         return <div ref={elementRef}>Loading...</div>;
       }
 
@@ -72,7 +87,7 @@ function PaymentRecords() {
                     <th scope="col">User</th>
                     <th scope="col">Employee</th>
                     <th scope="col">Amount</th>
-                    <th scope="col">Date</th>
+                    <th scope="col">Payment Date</th>
                     { isAdmin() && <th scope="col">Actions</th> }
                 </tr>
                 </thead>
@@ -92,6 +107,9 @@ function PaymentRecords() {
                 ))}
                 </tbody>
               </Table>
+              <div className='my-3' style={{display: loadMoreButton? 'block': 'none'}}>
+                <button onClick={loadMore} className='btn btn-sm btn-primary'>Load more</button>
+              </div>
             </div>
         </div>
     );

@@ -28,6 +28,7 @@ export const editEmployee = createAsyncThunk(
           email: payloadData.email,
           password: payloadData.password,
           password_confirmation: payloadData.password_confirmation,
+          role: payloadData.role,
         }
       },
       {
@@ -102,6 +103,41 @@ export const getSubscriptionRecords = createAsyncThunk(
   },
 );
 
+export const getFilteredSubscriptionRecords = createAsyncThunk(
+  'getFilteredSubscriptionRecords/',
+  async (payloadData) => {
+   
+    try {
+      return axios.get(baseUrl + '/filtered_subscription_records', {
+        params: {
+          date: {
+            start: payloadData.start,
+            end: payloadData.end,
+          },
+          filter: payloadData.filter,
+        },
+        withCredentials: true
+      });
+    } catch (error) {
+      return error;
+    }
+  },
+);
+
+export const getUnpaidSubscriptionRecords = createAsyncThunk(
+  'getUnpaidSubscriptionRecords/',
+  async () => {
+   
+    try {
+      return axios.get(baseUrl + '/unpaid_subscription_records', {
+        withCredentials: true
+      });
+    } catch (error) {
+      return error;
+    }
+  },
+);
+
 export const createSubscriptionRecord = createAsyncThunk(
   'createSubscriptionRecord/',
   async (payloadData) => {
@@ -112,6 +148,46 @@ export const createSubscriptionRecord = createAsyncThunk(
           client_id: payloadData.clientId,
           subscription_type_id: payloadData.subscriptionTypeId,
           employee_id: payloadData.employeeId,
+          note: payloadData.note,
+          created_at: payloadData.created_at,
+        },
+      },{
+        withCredentials: true
+      });
+    } catch (error) {
+      return error;
+    }
+  },
+);
+
+export const editSubscriptionRecord = createAsyncThunk(
+  'editSubscriptionRecord/',
+  async (payloadData) => {
+    try {
+      return  axios.post(baseUrl + '/subscription_record/update/' + payloadData.id, {
+        updated_subscription_record: {
+          client_id: payloadData.clientId,
+          assigned_employee: payloadData.assignedEmployee,
+          note: payloadData.note,
+          created_at: payloadData.created_at,
+        },
+      },{
+        withCredentials: true
+      });
+    } catch (error) {
+      return error;
+    }
+  },
+);
+
+export const assignedEmployees = createAsyncThunk(
+  'assignedEmployees/',
+  async (payloadData) => {
+    try {
+      return  axios.post(baseUrl + '/subscription_record/assign_employees', {
+        assign_employees: {
+          employee: payloadData.employee,
+          subscriptionIds: payloadData.subscriptionIds,
         },
       },{
         withCredentials: true
@@ -179,6 +255,7 @@ export const createPaymentRecord = createAsyncThunk(
         new_payment_record: {
           amount: payloadData.amount,
           subscription_record_id: payloadData.subscription_record_id,
+          created_at: payloadData.created_at,
         },
       },{
         withCredentials: true
@@ -247,6 +324,7 @@ export const createClient = createAsyncThunk(
           name: payloadData.name,
           username: payloadData.username,
           contact_info: payloadData.contact_info,
+          coordinate: payloadData.coordinate,
         },
       },{
         withCredentials: true
@@ -278,7 +356,7 @@ export const editClient = createAsyncThunk(
         updated_client: {
           name: payloadData.name,
           username: payloadData.username,
-          contact_info: payloadData.contact_info,
+          coordinate: payloadData.coordinate,
         },
       },{
         withCredentials: true
@@ -378,6 +456,8 @@ const initialState = {
   subscriptionTypes: [],
   clients: [],
   subscriptionRecords: [],
+  filteredSubscriptionRecords: [],
+  unpaidSubscriptionRecords: [],
   paymentRecords: [],
   subscriptionRecordIndex: 0,
   paymentRecordIndex: 0,
@@ -476,13 +556,83 @@ export const dataBaseSlice = createSlice({
       };
     });
 
+    builder.addCase(getFilteredSubscriptionRecords.fulfilled, (state, action) => {
+      const subscriptionRecords = action.payload.data;
+      return {
+        ...state,
+        filteredSubscriptionRecords: subscriptionRecords,
+      };
+    });
+
+    builder.addCase(getUnpaidSubscriptionRecords.fulfilled, (state, action) => {
+      const subscriptionRecords = action.payload.data;
+      return {
+        ...state,
+        unpaidSubscriptionRecords: subscriptionRecords,
+      };
+    });
+
     builder.addCase(createSubscriptionRecord.fulfilled, (state, action) => {
       const subscriptionRecord= action.payload.data.subscriptionRecord;
       const paymentRecord= action.payload.data.paymentRecord;
+      let unpaidSubscriptionRecords = [...state.unpaidSubscriptionRecords];
+
+      // subscriptionRecords: [],
+      // unpaidSubscriptionRecords: [],
+      // clientHistory: null,
+
+      // if the newly created subscription record is not fully paid then add the record to 
+      // the unpaid subscription records list inside redux store
+      if(subscriptionRecord.pay < subscriptionRecord.cost){
+        unpaidSubscriptionRecords = [subscriptionRecord, ...unpaidSubscriptionRecords]
+      }
+
+
+      // let clientHistory = [...state.clientHistory] || [];
+      // // if the newly created subscription record belongs to cleint history then add the record to 
+      // // the client history subscription records list inside redux store
+      // if(subscriptionRecord.client_id === clientHistory[0]?.client_id){
+      //   clientHistory = [subscriptionRecord, ...clientHistory]
+      // }
+     
+      
       return {
         ...state,
         subscriptionRecords: [subscriptionRecord, ...state.subscriptionRecords],
+        unpaidSubscriptionRecords: unpaidSubscriptionRecords,
         paymentRecords: [paymentRecord, ...state.paymentRecords],
+      };
+    });
+
+    builder.addCase(editSubscriptionRecord.fulfilled, (state, action) => {
+      const subscriptionRecord= action.payload.data;
+
+      // subscriptionRecords: [],
+      // unpaidSubscriptionRecords: [],
+      // clientHistory: null,
+
+      //update subscriptionRecords list
+      const updatedSubscriptionList = state.subscriptionRecords.map((sb)=>{
+        if(sb.id === subscriptionRecord.id){
+          return subscriptionRecord
+        }else {
+          return sb
+        }
+      })
+
+      // update unpaidSubscriptionRecords list
+      const updatedUnpaidSubscriptionRecordList = state.unpaidSubscriptionRecords.map((sb)=> {
+        if(sb.id === subscriptionRecord.id){
+          return subscriptionRecord
+        }else {
+          return sb
+        }
+      })
+
+      return {
+        ...state,
+        subscriptionRecords: updatedSubscriptionList,
+        unpaidSubscriptionRecords: updatedUnpaidSubscriptionRecordList,
       };
     });
 
@@ -567,8 +717,8 @@ export const dataBaseSlice = createSlice({
     });
 
     builder.addCase(createClient.fulfilled, (state, action) => {
-      let {client, contact_info} = action.payload.data;
-      client = {...client,client_contact_informations: [{contact_info: [contact_info]}]}
+      let client = action.payload.data;
+      
       return {
         ...state,
         clients: [client, ...state.clients],

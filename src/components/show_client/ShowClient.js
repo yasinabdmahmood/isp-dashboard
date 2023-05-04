@@ -8,6 +8,7 @@ import Table from 'react-bootstrap/Table';
 import isAdmin from '../../helpers/isAdmin';
 import trash from '../../assets/images/trash-fill.svg';
 import view from '../../assets/images/eye-fill.svg';
+import edit from '../../assets/images/pencil-square.svg'
 import add from '../../assets/images/plus-circle-fill.svg';
 
 function ShowClient() {
@@ -16,30 +17,30 @@ function ShowClient() {
     const {id} = useParams();
     const [inputValue, setInputValue] = useState('');
 
-    const addContactInfo = async (event) => {
-        event.preventDefault();
-        const payloadData = {
-            client_id: id,
-            contact_info: inputValue,
-        }
-        await dispatch(createClientContactInfo(payloadData));
-        await dispatch(getClients());
-        await dispatch(getClientHistory({id}));
-        setInputValue('');
-    }
+    // const addContactInfo = async (event) => {
+    //     event.preventDefault();
+    //     const payloadData = {
+    //         client_id: id,
+    //         contact_info: inputValue,
+    //     }
+    //     await dispatch(createClientContactInfo(payloadData));
+    //     await dispatch(getClients());
+    //     await dispatch(getClientHistory({id}));
+    //     setInputValue('');
+    // }
 
-    const removeContactInfo = async (id) => {
-        const payloadData = {id}
-        const confirm = window.confirm('Are you sure you want to delete this item')
-        if(confirm){
-        await dispatch(deleteClientContactInfo(payloadData));
-        }
-        else{
-            return;
-        }
-        dispatch(getClients());
+    // const removeContactInfo = async (id) => {
+    //     const payloadData = {id}
+    //     const confirm = window.confirm('Are you sure you want to delete this item')
+    //     if(confirm){
+    //     await dispatch(deleteClientContactInfo(payloadData));
+    //     }
+    //     else{
+    //         return;
+    //     }
+    //     dispatch(getClients());
         
-    }
+    // }
 
     
     
@@ -91,39 +92,29 @@ function ShowClient() {
                 <ul>
                     <li>
                         <span className='h5' >Name: </span>
-                        <span className='h5'>{client.name}</span>
+                        <span className='h5'>{client?.name}</span>
                     </li>
                     <li>
                         <span className='h5'>Username: </span>
-                        <span className='h5'>{client.username}</span>
+                        <span className='h5'>{client?.username}</span>
+                    </li>
+                    <li>
+                        <span className='h5'>Coordinates: </span>
+                        <span className='h5'>{client?.coordinate}</span>
                     </li>
                     <li>
                         <span className='h5'>Contact info: </span>
                         <ul>
-                            {client.client_contact_informations.map( cl => {
+                            {client?.client_contact_informations?.map( cl => {
                                 return (
-                                    <li key={cl.id} className='my-2'>
-                                        <span >{cl.contact_info}</span>
-                                        <button 
-                                        onClick={()=>removeContactInfo(cl.id)}
-                                        className='btn btn-sm btn-danger mx-2'
-                                        >Remove
-                                        </button>
+                                    <li key={cl?.id} className='my-2'>
+                                        <span >{cl?.contact_info}</span>
                                     </li>
                                 )
                             }
                                 
                             )}
                         </ul>
-                    </li>
-                    <li>
-                    <form className="form-inline d-flex flex-md-row flex-column" onSubmit={addContactInfo}>
-                    <div className="">
-                        <label htmlFor="inputField" className="h5 m-1">Add contact info</label>
-                        <input type="text" className="" id="inputField" placeholder="Enter text" value={inputValue} onChange={(e) => setInputValue(e.target.value)} />
-                        <button type="submit" className="btn btn-sm btn-primary mx-1">Add</button>
-                    </div>
-                    </form>
                     </li>
                     { isAdmin() && <li className='d-flex my-3'>
                          
@@ -157,6 +148,7 @@ function ShowClient() {
                     <th scope="col">Subscription Type</th>
                     <th scope="col">Paid Amount</th>
                     <th scope="col">Remaining Amount</th>
+                    <th scope="col">Assigned Employee</th>
                     <th scope="col">Actions</th>
                 </tr>
                 </thead>
@@ -168,12 +160,14 @@ function ShowClient() {
                     <td>{subscriptionRecord.subscription_type.category}</td>
                     <td>{subscriptionRecord.pay}</td>
                     <td>{subscriptionRecord.subscription_type.cost - subscriptionRecord.pay}</td>
+                    <td>{subscriptionRecord?.assigned_employee || 'N/A'}</td>
                     <td className='d-flex justify-content-around'>
                         { isAdmin() &&
                         <img src={trash} style={{cursor: 'pointer'}}  onClick={() => handleSubscriptionRecordDeletion(subscriptionRecord.id)} alt='delete' className='m-1'/>
                         }
                          <img src={add} style={{cursor: 'pointer'}}   onClick={()=>navigate(`/home/paymentRecords/new/${subscriptionRecord.id}`)} alt='Add payment' className='m-1'/>
-                        <img src={view} style={{cursor: 'pointer'}}  onClick={()=>navigate(`/home/subscriptionRecords/history/${subscriptionRecord.id}`)} alt='view' className='m-1'/>
+                         <img src={view} style={{cursor: 'pointer'}}  onClick={()=>navigate(`/home/subscriptionRecords/history`,{state: {subscriptionRecord}})} alt='view' className='m-1'/>
+                         <img src={edit}  onClick={()=>navigate(`/home/subscriptionRecords/edit`,{state: {subscriptionRecord}})} style={{cursor: 'pointer'}} className='m-1'/>
                     </td>
                     </tr>
                 ))}
