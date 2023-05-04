@@ -195,7 +195,9 @@ function UnpaidSubscriptionRecord() {
                     <td>{subscriptionRecord.pay}</td>
                     <td>{subscriptionRecord.subscription_type.cost - subscriptionRecord.pay}</td>
                     <td style={{whiteSpace: 'nowrap'}}>{formatDate(subscriptionRecord.created_at)}</td>
-                    { isAdmin() && <td>
+                    { isAdmin() && <td onClick={(event) => {
+                            event.stopPropagation();
+                          }}>
                       <input type="checkbox"
                           defaultChecked={false}
                           onChange={() => updateCheckdeList(subscriptionRecord.id)}
