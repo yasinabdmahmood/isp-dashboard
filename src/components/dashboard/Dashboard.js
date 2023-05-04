@@ -1,5 +1,6 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import styles from './styles.module.scss'
 import {
   Chart as ChartJs,
   BarElement,
@@ -19,9 +20,34 @@ ChartJs.register(
   Legend,
   );
 
+const getOneMonthAgoDate =() => {
+  const oneMonthAgo = new Date();
+  oneMonthAgo.setMonth(oneMonthAgo.getMonth() - 1);
+
+  const year = oneMonthAgo.getFullYear();
+  const month = String(oneMonthAgo.getMonth() + 1).padStart(2, '0');
+  const day = String(oneMonthAgo.getDate()).padStart(2, '0');
+
+  return `${month}/${day}/${year}`;
+}
+
+const getTodayDate = () => {
+  return new Date().toISOString().substr(0, 10); // get today's date in the same format as '2023-05-04'
+}
+
 function Dashboard() {
   const subscriptionRecords = useSelector( state => state.database.subscriptionRecords);
   const dispatch = useDispatch();
+  
+  
+  const [startDate, setStartDate] = useState(getOneMonthAgoDate()); // set default value to '2023-05-04'
+  const [endDate, setEndDate] = useState(getTodayDate()); // set default value to '2023-05-04'
+  const handleStartDateChange = (event) => {
+    setStartDate(event.target.value);
+  };
+  const handleEndDateChange = (event) => {
+    setEndDate(event.target.value);
+  };
 
   useEffect(()=> {
     if(subscriptionRecords.length === 0){
@@ -90,12 +116,35 @@ function Dashboard() {
  
   return (
     <div>
-      <h1 className='text-start h4 m-4'>Under development</h1>
-      <Bar
+      <div className={styles['header-container']}>
+        <h1 className='text-start h4 m-4'>Under development</h1>
+        <div className={styles['form-container']}>
+          <label htmlFor="from" className='bg-white'>From:</label>
+          <input
+            type="date"
+            id="from"
+            name="start"
+            className={styles['date']}
+            value={startDate}
+            onChange={handleStartDateChange}
+          />
+          <label htmlFor="to" className='bg-white'>To:</label>
+          <input
+            type="date"
+            id="to"
+            name="end"
+            className={styles['date']}
+            value={endDate}
+            onChange={handleEndDateChange}
+          />
+        </div>
+      </div>
+      
+      {/* <Bar
       data={data}
       options={options}
       >
-      </Bar>
+      </Bar> */}
     </div>
   );
 }
