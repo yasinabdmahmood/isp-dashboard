@@ -85,6 +85,8 @@ function Dashboard() {
   };
 
   const options = {
+    responsive: true,
+    maintainAspectRatio: false,
     scales: {
       x: {
         title: {
