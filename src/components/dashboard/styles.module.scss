@@ -86,7 +86,7 @@
     
         @media (max-width: 500px) {
           max-width:unset;
-          height: unset;
+          min-height: auto;
         }
       }
 }
