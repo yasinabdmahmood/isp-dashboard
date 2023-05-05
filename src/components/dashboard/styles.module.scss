@@ -22,3 +22,43 @@
     }
     
 }
+.cards-container {
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 1rem;
+    padding: 1rem 2rem;
+    .card {
+        width: 261px;
+        height: 140px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        
+        padding: 1rem;
+        span {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        .card-upper-part {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            p {
+                font-size: 1rem;
+                font-weight: bold;
+            }
+        }
+    }
+    .sky-blue {
+        background: #D3F7FF;
+        box-shadow: 2px 5px 5px 0px rgba(0,0,0,0.75);
+-webkit-box-shadow: 2px 5px 5px 0px rgba(0,0,0,0.75);
+-moz-box-shadow: 2px 5px 5px 0px rgba(0,0,0,0.75);
+    }
+    .pink {
+        background: #FF9696;
+        box-shadow: 2px 5px 5px 0px rgba(0,0,0,0.75);
+-webkit-box-shadow: 2px 5px 5px 0px rgba(0,0,0,0.75);
+-moz-box-shadow: 2px 5px 5px 0px rgba(0,0,0,0.75);
+    }
+}

@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styles from './styles.module.scss'
+import totalusers from '../../assets/images/totaluser.svg'
+import paidusers from '../../assets/images/paiduser.svg'
+import unpaidusers from '../../assets/images/unpaiduser.svg'
 import {
   Chart as ChartJs,
   BarElement,
@@ -21,18 +24,14 @@ ChartJs.register(
   );
 
 const getOneMonthAgoDate =() => {
-  const oneMonthAgo = new Date();
-  oneMonthAgo.setMonth(oneMonthAgo.getMonth() - 1);
-
-  const year = oneMonthAgo.getFullYear();
-  const month = String(oneMonthAgo.getMonth() + 1).padStart(2, '0');
-  const day = String(oneMonthAgo.getDate()).padStart(2, '0');
-
-  return `${month}/${day}/${year}`;
+  const oneMonthAgo = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000);
+  return oneMonthAgo.toISOString().slice(0, 10);
 }
 
+
+
 const getTodayDate = () => {
-  return new Date().toISOString().substr(0, 10); // get today's date in the same format as '2023-05-04'
+  return new Date().toISOString().slice(0, 10) // get today's date in the same format as '2023-05-04'
 }
 
 function Dashboard() {
@@ -117,7 +116,7 @@ function Dashboard() {
   return (
     <div>
       <div className={styles['header-container']}>
-        <h1 className='text-start h4 m-4'>Under development</h1>
+        <h1 className='text-start h4 m-4'>Dashboard</h1>
         <div className={styles['form-container']}>
           <label htmlFor="from" className='bg-white'>From:</label>
           <input
@@ -137,6 +136,29 @@ function Dashboard() {
             value={endDate}
             onChange={handleEndDateChange}
           />
+        </div>
+      </div>
+      <div className={styles['cards-container']}>
+        <div className={`${styles.card} ${styles['sky-blue']}`}>
+          <div className={styles['card-upper-part']}>
+            <p>Total users</p>
+            <img src={totalusers} alt='totalusers' />
+          </div>
+          <span>684</span>
+        </div>
+        <div className={`${styles.card} ${styles['sky-blue']}`}>
+        <div className={styles['card-upper-part']}>
+          <p>Paid users</p>
+          <img src={paidusers} alt='paidusers' />
+        </div>
+        <span>684</span>
+        </div>
+        <div className={`${styles.card} ${styles['pink']}`}>
+        <div className={styles['card-upper-part']}>
+          <p>Unpaid users</p>
+          <img src={unpaidusers} alt='unpaidusers' />
+        </div>
+        <span>684</span>
         </div>
       </div>
       
