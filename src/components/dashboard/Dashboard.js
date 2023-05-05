@@ -52,7 +52,7 @@ function Dashboard() {
     if(subscriptionRecords.length === 0){
       dispatch(getSubscriptionRecords());
     }
-  },[])
+  },[]);
 
   const weekAgo = new Date();
   weekAgo.setDate(weekAgo.getDate() - 7);
@@ -75,13 +75,7 @@ function Dashboard() {
       {
         label: 'Subscription Records',
         data: [
-          filteredRecords.filter((record) => new Date(record.created_at).getDay() === 0).length,
-          filteredRecords.filter((record) => new Date(record.created_at).getDay() === 1).length,
-          filteredRecords.filter((record) => new Date(record.created_at).getDay() === 2).length,
-          filteredRecords.filter((record) => new Date(record.created_at).getDay() === 3).length,
-          filteredRecords.filter((record) => new Date(record.created_at).getDay() === 4).length,
-          filteredRecords.filter((record) => new Date(record.created_at).getDay() === 5).length,
-          filteredRecords.filter((record) => new Date(record.created_at).getDay() === 6).length,
+         27,35,46,12,20,50,40
         ],
         borderColor: 'black',
         backgroundColor: ['aqua', 'red', 'green', 'blue', 'orange', 'purple', 'yellow'],
@@ -161,12 +155,15 @@ function Dashboard() {
         <span>684</span>
         </div>
       </div>
+      <div className={styles['bar-chart-container']}>
+        <Bar
+        data={data}
+        options={options}
+        className={styles['bar-chart']}
+        >
+        </Bar>
+      </div>
       
-      {/* <Bar
-      data={data}
-      options={options}
-      >
-      </Bar> */}
     </div>
   );
 }
