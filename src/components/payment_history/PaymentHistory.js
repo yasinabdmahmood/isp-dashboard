@@ -69,11 +69,6 @@ function PaymentHistory() {
                     { isAdmin() &&
                     <td className='d-flex justify-content-center'>
                       <img src={trash} alt='delete' style={{cursor: 'pointer'}}  onClick={()=>handleDeletion(paymentRecord.id)} />
-                    {/* <button
-                      className='btn btn-sm btn-danger'
-                      onClick={()=>handleDeletion(paymentRecord.id)}>
-                        Delete
-                      </button> */}
                     
                     </td>
                     }
