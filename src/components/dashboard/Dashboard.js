@@ -13,7 +13,7 @@ import {
   Legend
 } from 'chart.js'
 import { Bar } from 'react-chartjs-2';
-import { getSubscriptionRecords } from '../../redux/database/databaseReducer';
+import { getSubscriptionRecords, getUnpaidSubscriptionRecords } from '../../redux/database/databaseReducer';
 
 ChartJs.register(
   BarElement,
@@ -36,6 +36,7 @@ const getTodayDate = () => {
 
 function Dashboard() {
   const subscriptionRecords = useSelector( state => state.database.subscriptionRecords);
+  const unpaidUsers = useSelector( state => state.database.unpaidSubscriptionRecords);
   const dispatch = useDispatch();
   
   
@@ -51,6 +52,9 @@ function Dashboard() {
   useEffect(()=> {
     if(subscriptionRecords.length === 0){
       dispatch(getSubscriptionRecords());
+    }
+    if(unpaidUsers){
+      dispatch(getUnpaidSubscriptionRecords());
     }
   },[]);
 
@@ -154,7 +158,7 @@ function Dashboard() {
           <p>Unpaid users</p>
           <img src={unpaidusers} alt='unpaidusers' />
         </div>
-        <span>684</span>
+        <span>{unpaidUsers?.length}</span>
         </div>
       </div>
       <div className={styles['bar-chart-container']}>
