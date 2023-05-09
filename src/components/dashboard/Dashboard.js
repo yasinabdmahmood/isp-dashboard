@@ -13,7 +13,7 @@ import {
   Legend
 } from 'chart.js'
 import { Bar } from 'react-chartjs-2';
-import { getClients, getSubscriptionRecords, getUnpaidSubscriptionRecords } from '../../redux/database/databaseReducer';
+import { getClients, getSubscriptionRecords, getSubscriptionTypes, getUnpaidSubscriptionRecords } from '../../redux/database/databaseReducer';
 
 ChartJs.register(
   BarElement,
@@ -37,7 +37,8 @@ const getTodayDate = () => {
 function Dashboard() {
   const subscriptionRecords = useSelector( state => state.database.subscriptionRecords);
   const unpaidUsers = useSelector( state => state.database.unpaidSubscriptionRecords);
-  const clients = useSelector( state => state.database.clients )
+  const clients = useSelector( state => state.database.clients );
+  const subscriptionTypes = useSelector(state => state.database.subscriptionTypes );
   const dispatch = useDispatch();
   
   
@@ -57,6 +58,9 @@ function Dashboard() {
     if(clients.length === 0){
       dispatch(getClients());
     }
+    if(subscriptionTypes.length === 0){
+      dispatch(getSubscriptionTypes());
+    }
     if(unpaidUsers){
       dispatch(getUnpaidSubscriptionRecords());
     }
@@ -65,26 +69,24 @@ function Dashboard() {
   const weekAgo = new Date();
   weekAgo.setDate(weekAgo.getDate() - 7);
 
-  const labels = [];
-  for (let i = 0; i < 7; i++) {
-    const date = new Date(weekAgo);
-    date.setDate(date.getDate() + i);
-    labels.push(date.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' }));
-  }
+  
 
   const filteredRecords = subscriptionRecords.filter((record) => {
     const recordDate = new Date(record.created_at);
     return recordDate >= weekAgo && recordDate < new Date();
   });
 
+  const labels = subscriptionTypes.map( sb => sb.category)
+  const chartData = labels.map( el => {
+    return unpaidUsers.filter( sb => sb.category === el).length
+  })
+
   const data = {
     labels,
     datasets: [
       {
         label: 'Subscription Records',
-        data: [
-         27,35,46,12,20,50,40
-        ],
+        data: chartData,
         borderColor: 'black',
         backgroundColor: ['aqua', 'red', 'green', 'blue', 'orange', 'purple', 'yellow'],
         borderWidth: 1,
@@ -99,13 +101,13 @@ function Dashboard() {
       x: {
         title: {
           display: true,
-          text: 'Day',
+          text: 'Subscription Types',
         },
       },
       y: {
         title: {
           display: true,
-          text: 'Number of Subscription Records',
+          text: 'Number of unpaid Subscription Records',
         },
         ticks: {
           beginAtZero: true,
