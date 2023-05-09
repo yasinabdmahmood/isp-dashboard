@@ -150,13 +150,13 @@ function Dashboard() {
           </div>
           <span>{clients.length}</span>
         </div>
-        <div className={`${styles.card} ${styles['sky-blue']}`}>
+        {/* <div className={`${styles.card} ${styles['sky-blue']}`}>
         <div className={styles['card-upper-part']}>
           <p>Paid users</p>
           <img src={paidusers} alt='paidusers' />
         </div>
         <span>684</span>
-        </div>
+        </div> */}
         <div className={`${styles.card} ${styles['pink']}`}>
         <div className={styles['card-upper-part']}>
           <p>Unpaid users</p>
