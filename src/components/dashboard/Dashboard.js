@@ -164,7 +164,10 @@ function Dashboard() {
           <p>Unpaid users</p>
           <img src={unpaidusers} alt='unpaidusers' />
         </div>
-        <span>{unpaidUsers?.length}</span>
+        <div className='d-flex justify-content-between align-items-center'>
+          <span>{unpaidUsers?.length}</span>
+          <span style={{'fontSize': '1rem'}}>{(unpaidUsers.reduce( (ac,cr) => ac + parseFloat(cr.subscription_type.cost) - parseFloat(cr.pay), 0)).toLocaleString()} IQD</span>
+        </div>
         </div>
       </div>
       <div className={styles['bar-chart-container']}>
