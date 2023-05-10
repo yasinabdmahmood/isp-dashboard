@@ -14,6 +14,7 @@ import {
 } from 'chart.js'
 import { Bar } from 'react-chartjs-2';
 import { getClients, getSubscriptionRecords, getSubscriptionTypes, getUnpaidSubscriptionRecords } from '../../redux/database/databaseReducer';
+import { useNavigate } from 'react-router-dom';
 
 ChartJs.register(
   BarElement,
@@ -39,6 +40,8 @@ function Dashboard() {
   const unpaidUsers = useSelector( state => state.database.unpaidSubscriptionRecords);
   const clients = useSelector( state => state.database.clients );
   const subscriptionTypes = useSelector(state => state.database.subscriptionTypes );
+
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   
   
@@ -160,7 +163,10 @@ function Dashboard() {
         <span>684</span>
         </div> */}
         <div className={`${styles.card} ${styles['pink']}`}>
-        <div className={styles['card-upper-part']}>
+        <div 
+        className={styles['card-upper-part']}
+        onClick={() => navigate('/home/unpaidSubscriptionRecords')}
+        style={{'cursor': 'pointer'}}>
           <p>Unpaid users</p>
           <img src={unpaidusers} alt='unpaidusers' />
         </div>
