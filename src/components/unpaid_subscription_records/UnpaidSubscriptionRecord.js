@@ -14,6 +14,12 @@ import edit from '../../assets/images/pencil-square.svg'
 import view from '../../assets/images/eye-fill.svg'
 import searchLogo from '../../assets/images/search.svg'
 
+const getLoggedinUser = () => {
+  let loggedInEmployee = sessionStorage.getItem('user');
+  let retrievedData = JSON.parse(loggedInEmployee);
+  return retrievedData
+}
+
 function UnpaidSubscriptionRecord() {
     const subscriptionRecords = useSelector(state => state.database.unpaidSubscriptionRecords);
     const employees = useSelector(state => state.database.employees);
@@ -47,6 +53,11 @@ function UnpaidSubscriptionRecord() {
       }
 
       const filterItems = (item) => {
+        const {name, role} = getLoggedinUser();
+        console.log(item.assigned_employee)
+        if(name.toLowerCase() !== item.assigned_employee?.toLowerCase() && role !== 'admin'){
+          return false
+        } 
         if (searchType === 'Client name' && item.client.name.toLowerCase().includes(search.toLowerCase())) {
           return true;
         }
