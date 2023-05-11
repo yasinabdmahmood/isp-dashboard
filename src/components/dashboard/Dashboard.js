@@ -43,6 +43,13 @@ function Dashboard() {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  useEffect(()=>{
+    const loggedInEmployeeRole = JSON.parse(sessionStorage.getItem('user')).role;
+    if(loggedInEmployeeRole !== 'admin'){
+      navigate('/home/subscriptionRecords');
+    }
+  })
   
   
   const [startDate, setStartDate] = useState(getOneMonthAgoDate()); // set default value to '2023-05-04'
