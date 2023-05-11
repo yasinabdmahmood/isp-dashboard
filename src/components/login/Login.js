@@ -15,6 +15,11 @@ const LoginForm = () => {
 
   useEffect(() => {
     if (loggedInEmployee) {
+      const loggedInEmployeeRole = JSON.parse(sessionStorage.getItem('user')).role;
+      if(loggedInEmployeeRole !== 'admin'){
+        navigate('/home/subscription_records')
+        return
+      }
       navigate('/home');
     }
   }, [loggedInEmployee, navigate]);
