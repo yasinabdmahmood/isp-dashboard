@@ -81,10 +81,10 @@ function Dashboard() {
 
   
 
-  const filteredRecords = subscriptionRecords.filter((record) => {
-    const recordDate = new Date(record.created_at);
-    return recordDate >= weekAgo && recordDate < new Date();
-  });
+  // const filteredRecords = subscriptionRecords.filter((record) => {
+  //   const recordDate = new Date(record.created_at);
+  //   return recordDate >= weekAgo && recordDate < new Date();
+  // });
 
   const labels = subscriptionTypes.map( sb => sb.category)
   const chartData = labels.map( el => {
