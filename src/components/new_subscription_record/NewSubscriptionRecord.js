@@ -101,14 +101,13 @@ function NewSubscriptionRecord() {
         <FormGroup className='d-flex flex-column'>
             <Label for="client">Client</Label>
             <input type="text" name="client" className={`bg-white ${styles.inputfield}`} id="cleint" placeholder="Type to search" value={client} onChange={(e) => setClient(e.target.value)} list="clients" autocomplete="off"/>
-<datalist id="clients">
-  {clients.filter(el => filterClient(el)).map(el => (
-    <option key={el.id} value={el.name} onClick={(e) => setClient(e.target.value)}>
-      <p>{el.username +' , '+ el.client_contact_informations.reduce((acc, curr) => acc + ' , ' + curr?.contact_info, '').substring(3)}</p>
-    </option>
-  ))}
-</datalist>
-
+            <datalist id="clients">
+                {clients.filter(el => filterClient(el)).map(el => (
+                <option key={el.id} value={el.name} >
+                  <p>{el.username +' , '+ el.client_contact_informations.reduce((acc, curr) => acc + ' , ' + curr?.contact_info, '').substring(3)}</p>
+                </option>
+                ))}
+            </datalist>
         </FormGroup>
         
         <FormGroup className='d-flex flex-column'>
