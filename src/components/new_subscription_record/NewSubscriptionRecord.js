@@ -7,6 +7,7 @@ import DateTimePicker from 'react-datetime';
 import { convertToRailsDateTime } from '../../helpers/formatDate';
 import 'react-datetime/css/react-datetime.css';
 import styles from './styles.module.scss'
+import theme from './theme.module.scss'
 import { createSubscriptionRecord, getClients, getSubscriptionTypes } from '../../redux/database/databaseReducer';
 
 
@@ -29,14 +30,12 @@ const getSuggestions = (value, clients) => {
 const getSuggestionValue = suggestion => suggestion.name;
 
 const renderSuggestion = suggestion => (
-<div>
+<div className={theme["suggestion-custom-container"]}>
   <p>{suggestion.name}</p>
   <p>{suggestion.username}</p>
   {suggestion.client_contact_informations.map( el => (
   <p>{el.contact_info}</p>
   ))}
-  <hr/>
-  
 </div>
 );
 
@@ -165,6 +164,7 @@ function NewSubscriptionRecord() {
               getSuggestionValue={getSuggestionValue}
               renderSuggestion={renderSuggestion}
               inputProps={inputProps}
+              theme={theme}
             />
         </FormGroup>
         
