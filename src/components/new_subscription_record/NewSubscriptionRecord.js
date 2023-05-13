@@ -29,16 +29,6 @@ const getSuggestions = (value, clients) => {
 
 const getSuggestionValue = suggestion => suggestion.name;
 
-// const renderSuggestion = suggestion => (
-// <div className={theme["suggestion-custom-container"]}>
-//   <p>{suggestion.name}</p>
-//   <p>{suggestion.username}</p>
-//   {suggestion.client_contact_informations.map( el => (
-//   <p>{el.contact_info}</p>
-//   ))}
-// </div>
-// );
-
 
 function NewSubscriptionRecord() {
     const subscriptionTypes = useSelector( state => state.database.subscriptionTypes);
