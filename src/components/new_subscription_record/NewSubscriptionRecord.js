@@ -29,15 +29,15 @@ const getSuggestions = (value, clients) => {
 
 const getSuggestionValue = suggestion => suggestion.name;
 
-const renderSuggestion = suggestion => (
-<div className={theme["suggestion-custom-container"]}>
-  <p>{suggestion.name}</p>
-  <p>{suggestion.username}</p>
-  {suggestion.client_contact_informations.map( el => (
-  <p>{el.contact_info}</p>
-  ))}
-</div>
-);
+// const renderSuggestion = suggestion => (
+// <div className={theme["suggestion-custom-container"]}>
+//   <p>{suggestion.name}</p>
+//   <p>{suggestion.username}</p>
+//   {suggestion.client_contact_informations.map( el => (
+//   <p>{el.contact_info}</p>
+//   ))}
+// </div>
+// );
 
 
 function NewSubscriptionRecord() {
@@ -55,6 +55,43 @@ function NewSubscriptionRecord() {
     
     const dispatch = useDispatch();
     const navigate = useNavigate();
+
+    const renderSuggestion = (suggestion) => {
+      const searchStr = client;
+      const searchChars = searchStr.toLowerCase().split("");
+      const suggestionNameChars = suggestion.name.split("");
+      const suggestionUsernameChars = suggestion.username.split("");
+      const suggestionContactChars = suggestion.client_contact_informations.map((el) =>
+        el.contact_info.split("")
+      );
+    
+      const renderCharsWithHighlights = (chars) => {
+        const result = [];
+        let matchIndex = -1;
+        for (let i = 0; i < chars.length; i++) {
+          const char = chars[i];
+          const charToLower = char.toLowerCase();
+          if (charToLower === searchChars[matchIndex + 1]) {
+            matchIndex++;
+            result.push(<span style={{ color: "red" }}>{char}</span>);
+          } else {
+            result.push(<span>{char}</span>);
+          }
+        }
+        return result;
+      };
+    
+      return (
+        <div className={theme["suggestion-custom-container"]}>
+          <p>{renderCharsWithHighlights(suggestionNameChars)}</p>
+          <p>{renderCharsWithHighlights(suggestionUsernameChars)}</p>
+          {suggestionContactChars.map((chars) => (
+            <p>{renderCharsWithHighlights(chars)}</p>
+          ))}
+        </div>
+      );
+    };
+    
 
     const onChange = (event, { newValue }) => {
       setClient(newValue);
