@@ -1,4 +1,5 @@
 import React, { useState,useEffect } from 'react';
+import Autosuggest from 'react-autosuggest';
 import { Form, FormGroup, Label, Input, Button } from 'reactstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -9,12 +10,43 @@ import styles from './styles.module.scss'
 import { createSubscriptionRecord, getClients, getSubscriptionTypes } from '../../redux/database/databaseReducer';
 
 
+const getSuggestions = (value, clients) => {
+  const filterClient = (cl) => {
+    // check if the client name is within the searched text
+    const con1 = cl.name.toLowerCase().includes(value.toLowerCase());
+
+    // check if the client username is within the searched text
+    const con2 = cl.username.toLowerCase().includes(value.toLowerCase());
+
+    // check if the client phone numbers is within the searched text
+    const con3 = cl.client_contact_informations.some(el => el.contact_info.includes(value.toLowerCase()));
+    if( con1 || con2 || con3 ) return true;
+    return false;
+  }
+  return clients.filter(el => filterClient(el))
+};
+
+const getSuggestionValue = suggestion => suggestion.name;
+
+const renderSuggestion = suggestion => (
+<div>
+  <p>{suggestion.name}</p>
+  <p>{suggestion.username}</p>
+  {suggestion.client_contact_informations.map( el => (
+  <p>{el.contact_info}</p>
+  ))}
+  <hr/>
+  
+</div>
+);
+
 
 function NewSubscriptionRecord() {
     const subscriptionTypes = useSelector( state => state.database.subscriptionTypes);
     const clients = useSelector( state => state.database.clients);
   
     const [client, setClient] = useState(null);
+    const [suggestions, setSuggestions] = useState([]);
     const [pay, setPay] = useState(null);
     const [subscriptionType, setSubscriptionType] = useState(null);
     const [dateTime, setDateTime] = useState(new Date());
@@ -24,6 +56,24 @@ function NewSubscriptionRecord() {
     
     const dispatch = useDispatch();
     const navigate = useNavigate();
+
+    const onChange = (event, { newValue }) => {
+      setClient(newValue);
+    };
+  
+    const onSuggestionsFetchRequested = ({ value }) => {
+      setSuggestions(getSuggestions(value, clients));
+    };
+  
+    const onSuggestionsClearRequested = () => {
+      setSuggestions([]);
+    };
+  
+    const inputProps = {
+      placeholder: 'Enter client',
+      value: client,
+      onChange,
+    };
 
     useEffect(() => {
       async function fetchData() {
@@ -100,14 +150,22 @@ function NewSubscriptionRecord() {
       <Form onSubmit={handleSubmit}>
         <FormGroup className='d-flex flex-column'>
             <Label for="client">Client</Label>
-            <input type="text" name="client" className={`bg-white ${styles.inputfield}`} id="cleint" placeholder="Type to search" value={client} onChange={(e) => setClient(e.target.value)} list="clients" autocomplete="off"/>
+            {/* <input type="text" name="client" className={`bg-white ${styles.inputfield}`} id="cleint" placeholder="Type to search" value={client} onChange={(e) => setClient(e.target.value)} list="clients" autocomplete="off"/>
             <datalist id="clients">
                 {clients.filter(el => filterClient(el)).map(el => (
                 <option key={el.id} value={el.name} >
                   <p>{el.username +' , '+ el.client_contact_informations.reduce((acc, curr) => acc + ' , ' + curr?.contact_info, '').substring(3)}</p>
                 </option>
                 ))}
-            </datalist>
+            </datalist> */}
+            <Autosuggest
+              suggestions={suggestions}
+              onSuggestionsFetchRequested={onSuggestionsFetchRequested}
+              onSuggestionsClearRequested={onSuggestionsClearRequested}
+              getSuggestionValue={getSuggestionValue}
+              renderSuggestion={renderSuggestion}
+              inputProps={inputProps}
+            />
         </FormGroup>
         
         <FormGroup className='d-flex flex-column'>
