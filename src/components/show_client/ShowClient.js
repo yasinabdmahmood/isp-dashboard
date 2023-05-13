@@ -108,7 +108,7 @@ function ShowClient() {
                             {client?.client_contact_informations?.map( cl => {
                                 return (
                                     <li key={cl?.id} className='my-2'>
-                                        <span >{cl?.contact_info}</span>
+                                        <a href={`tel:${cl?.contact_info.trim()}`}>{cl?.contact_info}</a>
                                     </li>
                                 )
                             }
