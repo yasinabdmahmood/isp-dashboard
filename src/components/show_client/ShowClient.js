@@ -15,32 +15,7 @@ function ShowClient() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const {id} = useParams();
-    const [inputValue, setInputValue] = useState('');
-
-    // const addContactInfo = async (event) => {
-    //     event.preventDefault();
-    //     const payloadData = {
-    //         client_id: id,
-    //         contact_info: inputValue,
-    //     }
-    //     await dispatch(createClientContactInfo(payloadData));
-    //     await dispatch(getClients());
-    //     await dispatch(getClientHistory({id}));
-    //     setInputValue('');
-    // }
-
-    // const removeContactInfo = async (id) => {
-    //     const payloadData = {id}
-    //     const confirm = window.confirm('Are you sure you want to delete this item')
-    //     if(confirm){
-    //     await dispatch(deleteClientContactInfo(payloadData));
-    //     }
-    //     else{
-    //         return;
-    //     }
-    //     dispatch(getClients());
-        
-    // }
+    
 
     
     
