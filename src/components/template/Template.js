@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { ColorRing } from 'react-loader-spinner'
 import styles from './template.module.scss'
 import { Sidebar, Menu, MenuItem } from 'react-pro-sidebar'
 import { useDispatch } from 'react-redux';
@@ -15,6 +16,7 @@ import logoutLogo from '../../assets/images/box-arrow-right.svg'
 function Template() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [loading, setLoading] = useState(false);
   const getUserName = () => {
     let loggedInEmployee = sessionStorage.getItem('user');
     let retrievedData = JSON.parse(loggedInEmployee);
@@ -45,12 +47,19 @@ function Template() {
   
   
   const handleLogout = async () => {
+    setLoading(true);
     try {
-      await dispatch(loggout());
-      navigate('/');
+      const responce = await dispatch(loggout());
+      if(responce.type.includes('fulfilled')){
+        navigate('/');
+      }
+      else{
+        window.alert('Logout failed, please try again')
+      }
     } catch (error) {
       // console.log(error);
     }
+    setLoading(false);
   }
     return (
         <div className={styles["container"]}>
@@ -81,11 +90,19 @@ function Template() {
             </Menu>
           </Sidebar>
           </div>
-          
           <div className={styles['main-container']} style={{flexGrow: '1'}}>
              <Outlet />
           </div>   
         </div>
+        <ColorRing
+          visible={loading}
+          height="80"
+          width="80"
+          ariaLabel="blocks-loading"
+          wrapperStyle={{position: 'absolute', left:'50%', top:'50%'}}
+          wrapperClass="blocks-wrapper"
+          colors={['#e15b64', '#f47e60', '#f8b26a', '#abbd81', '#849b87']}
+        />
       </div>
     );
 }
