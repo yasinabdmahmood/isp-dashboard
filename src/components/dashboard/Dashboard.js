@@ -169,10 +169,13 @@ function Dashboard() {
         </div>
         <span>684</span>
         </div> */}
-        <div className={`${styles.card} ${styles['pink']}`}>
+        <div 
+        style={{'cursor': 'pointer'}}
+        className={`${styles.card} ${styles['pink']}`}
+        onClick={() => navigate('/home/unpaidSubscriptionRecords')}>
         <div 
         className={styles['card-upper-part']}
-        onClick={() => navigate('/home/unpaidSubscriptionRecords')}
+        
         style={{'cursor': 'pointer'}}>
           <p>Unpaid users</p>
           <img src={unpaidusers} alt='unpaidusers' />
