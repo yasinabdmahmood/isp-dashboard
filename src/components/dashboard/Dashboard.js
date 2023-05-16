@@ -155,7 +155,9 @@ function Dashboard() {
         </div>
       </div>
       <div className={styles['cards-container']}>
-        <div className={`${styles.card} ${styles['sky-blue']}`}>
+        <div 
+        className={`${styles.card} ${styles['sky-blue']}`}
+        onClick={() => navigate('/home/clients')}>
           <div className={styles['card-upper-part']}>
             <p>Total users</p>
             <img src={totalusers} alt='totalusers' />
@@ -170,7 +172,6 @@ function Dashboard() {
         <span>684</span>
         </div> */}
         <div 
-        style={{'cursor': 'pointer'}}
         className={`${styles.card} ${styles['pink']}`}
         onClick={() => navigate('/home/unpaidSubscriptionRecords')}>
         <div 
