@@ -44,8 +44,7 @@ const LoginForm = () => {
         }else{
           console.log('first attempt to log in successed')
         }
-        //user = JSON.parse(sessionStorage.getItem('user'))
-        const loggedInEmployeeRole = user.role;
+        const loggedInEmployeeRole = JSON.parse(sessionStorage.getItem('user')).role;
         if(loggedInEmployeeRole !== 'admin'){
           //console.log('xxxxxxxxxxxxxxxxxxxxxxxxxxxemployee')
           navigate('/home/subscriptionRecords')
