@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getLoggedInCredentials } from '../../redux/login/loginReducer';
+import { getLoggedInCredentials, loggout } from '../../redux/login/loginReducer';
 import { Container, Form, FormGroup, Label, Input, Button } from 'reactstrap';
 import { useNavigate } from 'react-router-dom';
 import styles from './styles.module.scss'
@@ -32,14 +32,25 @@ const LoginForm = () => {
     const payloadData = {email, password};
       const responce = await dispatch(getLoggedInCredentials(payloadData));
       if(responce.type.includes('fulfilled')){
-        console.log('cccccccccccccccc')
-        console.log(JSON.parse(sessionStorage.getItem('user')))
-        const loggedInEmployeeRole = JSON.parse(sessionStorage.getItem('user')).role;
+        const user = JSON.parse(sessionStorage.getItem('user'))
+        console.log('xxxxxxxxxxxxxxxxxxxxxxxxxxxemployee')
+        if(Array.isArray(user)){
+          console.log('first attempt to log in failed, starting the second attemp automtically')
+          const r = await dispatch(loggout());
+          if(r.type.includes('fulfilled')){
+            console.log('Second attempt to log in successed')
+            await dispatch(getLoggedInCredentials(payloadData));
+          }
+        }else{
+          console.log('first attempt to log in successed')
+        }
+        //user = JSON.parse(sessionStorage.getItem('user'))
+        const loggedInEmployeeRole = user.role;
         if(loggedInEmployeeRole !== 'admin'){
-          console.log('xxxxxxxxxxxxxxxxxxxxxxxxxxxemployee')
+          //console.log('xxxxxxxxxxxxxxxxxxxxxxxxxxxemployee')
           navigate('/home/subscriptionRecords')
         }else{
-          console.log('xxxxxxxxxxxxxxxxxxxxxxxxxxxadmin')
+          //console.log('xxxxxxxxxxxxxxxxxxxxxxxxxxxadmin')
           navigate('/home')
         }
       }
