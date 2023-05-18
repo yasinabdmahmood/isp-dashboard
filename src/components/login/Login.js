@@ -46,10 +46,8 @@ const LoginForm = () => {
         }
         const loggedInEmployeeRole = JSON.parse(sessionStorage.getItem('user')).role;
         if(loggedInEmployeeRole !== 'admin'){
-          //console.log('xxxxxxxxxxxxxxxxxxxxxxxxxxxemployee')
           navigate('/home/subscriptionRecords')
         }else{
-          //console.log('xxxxxxxxxxxxxxxxxxxxxxxxxxxadmin')
           navigate('/home')
         }
       }
