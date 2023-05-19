@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import styles from './styles.module.scss'
 import totalusers from '../../assets/images/totaluser.svg'
 import paidusers from '../../assets/images/paiduser.svg'
+import { getSubscriptionCsv } from '../../redux/database/databaseReducer';
+import axios from 'axios';
 import unpaidusers from '../../assets/images/unpaiduser.svg'
 import {
   Chart as ChartJs,
@@ -15,6 +17,8 @@ import {
 import { Bar } from 'react-chartjs-2';
 import { getClients, getSubscriptionRecords, getSubscriptionTypes, getUnpaidSubscriptionRecords } from '../../redux/database/databaseReducer';
 import { useNavigate } from 'react-router-dom';
+import baseUrl from '../../redux/baseUrl';
+import CSVDownloadButton from '../helper_components/csv_download_button/CSVDownloadButton';
 
 ChartJs.register(
   BarElement,
@@ -50,6 +54,28 @@ function Dashboard() {
       navigate('/home/subscriptionRecords');
     }
   })
+
+  // const downloadCSV = async () => {
+  //   try {
+  //     const response = await axios.get(baseUrl + '/download_subscription_records_as_csv', {
+  //       responseType: 'blob',
+  //       withCredentials: true,
+  //     });
+  
+  //     const url = URL.createObjectURL(new Blob([response.data]));
+  
+  //     // Create a link element and click it to initiate the download
+  //     const link = document.createElement('a');
+  //     link.href = url;
+  //     link.download = 'subscription_records.csv';
+  //     link.click();
+  
+  //     // Cleanup by revoking the URL
+  //     URL.revokeObjectURL(url);
+  //   } catch (error) {
+  //     console.error('Error downloading CSV:', error);
+  //   }
+  // };
   
   
   const [startDate, setStartDate] = useState(getOneMonthAgoDate()); // set default value to '2023-05-04'
@@ -195,6 +221,10 @@ function Dashboard() {
         >
         </Bar>
       </div>
+      {/* <button
+      className='btn btn-sm btn-primary'
+      onClick={downloadCSV}>Export CSV file</button> */}
+      <CSVDownloadButton label='export subscriptions' endPoint='download_subscription_records_as_csv' />
       
     </div>
   );
