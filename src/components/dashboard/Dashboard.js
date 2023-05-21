@@ -199,7 +199,11 @@ function Dashboard() {
       {/* <button
       className='btn btn-sm btn-primary'
       onClick={downloadCSV}>Export CSV file</button> */}
+      <div className='d-flex justify-content-around p-3'>
       <CSVDownloadButton label='export subscriptions' endPoint='download_subscription_records_as_csv' />
+      <CSVDownloadButton label='export subscription types' endPoint='download_subscription_types_as_csv' />
+      </div>
+      
       
     </div>
   );
