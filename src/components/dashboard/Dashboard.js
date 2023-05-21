@@ -203,6 +203,7 @@ function Dashboard() {
         <CSVDownloadButton label='Export subscriptions' endPoint='download_subscription_records_as_csv' />
         <CSVDownloadButton label='Export Subscription Types' endPoint='download_subscription_types_as_csv' />
         <CSVDownloadButton label='Export Payment Records' endPoint='download_payment_records_as_csv' />
+        <CSVDownloadButton label='Export Clients' endPoint='download_clients_as_csv' />
       </div>
       
     </div>
