@@ -2,13 +2,14 @@ import React, { useState } from 'react';
 import { ColorRing } from 'react-loader-spinner'
 import styles from './template.module.scss'
 import { Sidebar, Menu, MenuItem } from 'react-pro-sidebar'
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { loggout } from '../../redux/login/loginReducer';
 import { Outlet, Link  } from 'react-router-dom';
 import list from '../../assets/images/list.svg'
 import isAdmin from '../../helpers/isAdmin';
 import logoutLogo from '../../assets/images/box-arrow-right.svg'
+import { setLoading } from '../../redux/app-state/appState';
 
 
 
@@ -16,11 +17,13 @@ import logoutLogo from '../../assets/images/box-arrow-right.svg'
 function Template() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [loading, setLoading] = useState(false);
+
+  const loading = useSelector( state => state.appState.loading)
+  //const [loading, setLoading] = useState(false);
   const getUserName = () => {
     let loggedInEmployee = sessionStorage.getItem('user');
     let retrievedData = JSON.parse(loggedInEmployee);
-    return retrievedData.name
+    return retrievedData?.name
   }
   const [sidebarStyle, setSidebarStyle] = useState({
     minWidth: 'unset',
@@ -47,7 +50,7 @@ function Template() {
   
   
   const handleLogout = async () => {
-    setLoading(true);
+    dispatch(setLoading(true));
     try {
       const responce = await dispatch(loggout());
       if(responce.type.includes('fulfilled')){
@@ -59,7 +62,7 @@ function Template() {
     } catch (error) {
       // console.log(error);
     }
-    setLoading(false);
+    dispatch(setLoading(false));
   }
     return (
         <div className={styles["container"]}>
@@ -85,7 +88,7 @@ function Template() {
               <MenuItem component={<Link to="/home/subscriptionRecords" />} rootStyles={linkStyle}> Subscription Records </MenuItem>
               <MenuItem component={<Link to="/home/unpaidSubscriptionRecords" />} rootStyles={linkStyle}>Unpaid Subscription Records </MenuItem>
               {/* <MenuItem component={<Link to="/home/filteredSubscriptionRecords" />} rootStyles={linkStyle}> Filtered Subscription Records </MenuItem> */}
-              <MenuItem component={<Link to={`/home/profile/${JSON.parse(sessionStorage.getItem('user')).id}`} />} rootStyles={linkStyle}> Profile </MenuItem>
+              <MenuItem component={<Link to={`/home/profile/${JSON.parse(sessionStorage.getItem('user'))?.id}`} />} rootStyles={linkStyle}> Profile </MenuItem>
               { isAdmin() && <MenuItem component={<Link to="/home/employees" />} rootStyles={linkStyle}> Employees </MenuItem>}
             </Menu>
           </Sidebar>
