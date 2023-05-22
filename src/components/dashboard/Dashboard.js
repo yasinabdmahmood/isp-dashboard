@@ -80,13 +80,6 @@ function Dashboard() {
   const weekAgo = new Date();
   weekAgo.setDate(weekAgo.getDate() - 7);
 
-  
-
-  // const filteredRecords = subscriptionRecords.filter((record) => {
-  //   const recordDate = new Date(record.created_at);
-  //   return recordDate >= weekAgo && recordDate < new Date();
-  // });
-
   const labels = subscriptionTypes.map( sb => sb.category)
   const chartData = labels.map( el => {
     return unpaidUsers.filter( sb => sb.category === el).length
