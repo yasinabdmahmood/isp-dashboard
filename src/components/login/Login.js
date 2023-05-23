@@ -57,22 +57,21 @@ const LoginForm = () => {
   return (
     <div className={styles.container}>
       <h1 className='text-center pt-5'>Login</h1>
-      <Container className="d-flex justify-content-center align-items-center vh-100">
-        
-    <div className="col-md-6">
-      <Form onSubmit={handleSubmit}>
-        <FormGroup>
-          <Label for="email" className='text-black h3 font-weight-bold'>Email:</Label>
-          <Input type="text" className='bg-white' id="email" value={email} onChange={(e) => setEmail(e.target.value)} />
-        </FormGroup>
-        <FormGroup>
-          <Label for="password" className='text-black h3 font-weight-bold'>Password:</Label>
-          <Input type="password" className='bg-white' id="password" value={password} onChange={(e) => setPassword(e.target.value)} />
-        </FormGroup>
-        <Button type="submit" color="primary">Login</Button>
-      </Form>
-    </div>
-  </Container>
+        <Container className="d-flex justify-content-center align-items-center vh-100">   
+          <div className="col-md-6">
+            <Form onSubmit={handleSubmit}>
+              <FormGroup>
+                <Label for="email" className='text-black h3 font-weight-bold'>Email:</Label>
+                <Input type="text" className='bg-white' id="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+              </FormGroup>
+              <FormGroup>
+                <Label for="password" className='text-black h3 font-weight-bold'>Password:</Label>
+                <Input type="password" className='bg-white' id="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+              </FormGroup>
+              <Button type="submit" color="primary">Login</Button>
+            </Form>
+          </div>
+        </Container>
     </div>
     
   );
