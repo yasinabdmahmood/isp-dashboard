@@ -10,6 +10,7 @@ import list from '../../assets/images/list.svg'
 import isAdmin from '../../helpers/isAdmin';
 import logoutLogo from '../../assets/images/box-arrow-right.svg'
 import { setLoading } from '../../redux/app-state/appState';
+import LoadingRing from '../helper_components/loading_ring/LoadingRing';
 
 
 
@@ -97,7 +98,7 @@ function Template() {
              <Outlet />
           </div>   
         </div>
-        <ColorRing
+        {/* <ColorRing
           visible={loading}
           height="80"
           width="80"
@@ -105,7 +106,8 @@ function Template() {
           wrapperStyle={{position: 'absolute', left:'50%', top:'50%'}}
           wrapperClass="blocks-wrapper"
           colors={['#e15b64', '#f47e60', '#f8b26a', '#abbd81', '#849b87']}
-        />
+        /> */}
+        <LoadingRing loading={loading} />
       </div>
     );
 }
