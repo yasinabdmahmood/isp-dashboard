@@ -39,14 +39,14 @@ function PaymentHistory() {
         }
     },[subscriptionRecord.id]);
 
-    if( paymentRecords === null ){
-        return <div>Loading ...</div>
-    }
+    // if( paymentRecords === null ){
+    //     return <div>Loading ...</div>
+    // }
     return (
         <div>
             <h1 className='text-start h4 m-4'>Subscription Payment history</h1>
             <div className="p-sm-3 mt-5">
-            <textarea rows="5" className='w-100' readonly>{subscriptionRecord.note || 'N/A'}</textarea>
+            <textarea rows="5" className='w-100' readonly>{subscriptionRecord?.note || 'N/A'}</textarea>
             </div>
             <div className="p-sm-3 mt-5">
             <Table striped bordered hover responsive>
@@ -61,14 +61,14 @@ function PaymentHistory() {
                 </thead>
                 <tbody>
                 {paymentRecords?.map(paymentRecord => (
-                    <tr key={paymentRecord.id}>
-                    <td>{paymentRecord.subscription_record.client.name}</td>
-                    <td>{paymentRecord.employee.name}</td>
-                    <td>{paymentRecord.amount}</td>
-                    <td>{formatDate(paymentRecord.created_at)}</td>
+                    <tr key={paymentRecord?.id}>
+                    <td>{paymentRecord?.subscription_record.client.name}</td>
+                    <td>{paymentRecord?.employee.name}</td>
+                    <td>{paymentRecord?.amount}</td>
+                    <td>{formatDate(paymentRecord?.created_at)}</td>
                     { isAdmin() &&
                     <td className='d-flex justify-content-center'>
-                      <img src={trash} alt='delete' style={{cursor: 'pointer'}}  onClick={()=>handleDeletion(paymentRecord.id)} />
+                      <img src={trash} alt='delete' style={{cursor: 'pointer'}}  onClick={()=>handleDeletion(paymentRecord?.id)} />
                     
                     </td>
                     }
