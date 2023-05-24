@@ -72,9 +72,9 @@ function PaymentRecords() {
     //     };
     //   }, [handleScroll]);
   
-      if (loading) {
-        return <div ref={elementRef}>Loading...</div>;
-      }
+      // if (loading) {
+      //   return <div ref={elementRef}>Loading...</div>;
+      // }
 
 
     return (
@@ -93,14 +93,14 @@ function PaymentRecords() {
                 </thead>
                 <tbody>
                 {paymentRecords?.map(paymentRecord => (
-                    <tr key={paymentRecord.id}>
-                    <td>{paymentRecord.subscription_record.client.name}</td>
-                    <td>{paymentRecord.employee.name}</td>
-                    <td>{paymentRecord.amount}</td>
-                    <td style={{whiteSpace: 'nowrap'}}>{formatDate(paymentRecord.created_at)}</td>
+                    <tr key={paymentRecord?.id}>
+                    <td>{paymentRecord?.subscription_record.client.name}</td>
+                    <td>{paymentRecord?.employee.name}</td>
+                    <td>{paymentRecord?.amount}</td>
+                    <td style={{whiteSpace: 'nowrap'}}>{formatDate(paymentRecord?.created_at)}</td>
                     { isAdmin() && 
                     <td className='d-flex justify-content-center'>
-                      <img src={trash} style={{cursor: 'pointer'}} onClick={()=>handleDeletion(paymentRecord.id)}/>
+                      <img src={trash} style={{cursor: 'pointer'}} onClick={()=>handleDeletion(paymentRecord?.id)}/>
                     </td>
                     }
                     </tr>
