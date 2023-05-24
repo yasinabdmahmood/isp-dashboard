@@ -1,17 +1,21 @@
 import { useEffect, useState } from 'react'
 import './App.scss'
 import Home from './components/home/Home'
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { loggout } from './redux/login/loginReducer';
 import { getClients, getEmployees, getSubscriptionTypes } from './redux/database/databaseReducer';
+import { setLoading } from './redux/app-state/appState';
 
 
 
 
 function App() {
-  const [loading, setLoading] = useState(true);
-  const dispatch = useDispatch()
+  
+  const loading = useSelector( state => state.appState.loading)
+  const dispatch = useDispatch();
+  
   useEffect(()=> {
+        dispatch(setLoading(true));
         const fetchCookies = async() => {
           // if user is not logged in then make logout request 
           // so that the backend send cookie to front-end
@@ -24,12 +28,11 @@ function App() {
             await dispatch(getSubscriptionTypes());
           }
           setLoading(false);
+          dispatch(setLoading(false));
         }
         fetchCookies();
   },[])
-  if(loading){
-    return <div>Loading...</div>
-  }
+  
   return (
     <div className="App">
       <Home />
