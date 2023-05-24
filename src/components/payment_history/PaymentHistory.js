@@ -39,9 +39,7 @@ function PaymentHistory() {
         }
     },[subscriptionRecord.id]);
 
-    // if( paymentRecords === null ){
-    //     return <div>Loading ...</div>
-    // }
+
     return (
         <div>
             <h1 className='text-start h4 m-4'>Subscription Payment history</h1>
