@@ -16,7 +16,6 @@ import searchLogo from '../../assets/images/search.svg'
 function SubscriptionRecord() {
     const subscriptionRecords = useSelector(state => state.database.subscriptionRecords);
     const [search, setSearch] = useState('');
-    const [loading, setLoading] = useState(true);
     const [loadMoreButton, setLoadMoreButton] = useState(true);
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -57,12 +56,12 @@ function SubscriptionRecord() {
       async function fetchData() {
         if(subscriptionRecords.length === 0){
           const response = await dispatch(getSubscriptionRecords());
-          if(response.type.includes('fulfilled')){
-            setLoading(false);
+          if(!response.type.includes('fulfilled')){
+            alert("Something went wrong please try again !!");
           }
       }
       else{
-        setLoading(false)
+        
       }
       }
       fetchData();
@@ -75,11 +74,6 @@ function SubscriptionRecord() {
         setLoadMoreButton(false);
       }
     }
-
-    if (loading) {
-      return <div ref={elementRef}>Loading...</div>;
-    }
-    
 
     return (
         <div className={styles.container} ref={elementRef} style={{ height: '900px', overflow: 'auto' }}>
