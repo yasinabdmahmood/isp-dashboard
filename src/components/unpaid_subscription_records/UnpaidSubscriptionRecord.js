@@ -13,6 +13,7 @@ import add from '../../assets/images/plus-circle-fill.svg'
 import edit from '../../assets/images/pencil-square.svg'
 import view from '../../assets/images/eye-fill.svg'
 import searchLogo from '../../assets/images/search.svg'
+import { setLoading } from '../../redux/app-state/appState';
 
 const getLoggedinUser = () => {
   let loggedInEmployee = sessionStorage.getItem('user');
@@ -23,9 +24,9 @@ const getLoggedinUser = () => {
 function UnpaidSubscriptionRecord() {
     const subscriptionRecords = useSelector(state => state.database.unpaidSubscriptionRecords);
     const employees = useSelector(state => state.database.employees);
+    const loading = useSelector(state => state.appState.loading);
     const [search, setSearch] = useState('');
     const [searchType, setSearchType] = useState('Client name');
-    const [loading, setLoading] = useState(true);
     const [selectedSubscriptions, setSelectedSubscriptions] = useState([]);
     const [assignedEmployee, setAssignedEmployee] = useState(employees[0]?.name);
     const dispatch = useDispatch();
@@ -77,30 +78,29 @@ function UnpaidSubscriptionRecord() {
       };
 
     useEffect(() => {
+      
       async function fetchData() {
+        dispatch(setLoading(true));
         if(subscriptionRecords.length === 0){
           const response = await dispatch(getUnpaidSubscriptionRecords());
           if(response.type.includes('fulfilled')){
-            setLoading(false);
+            dispatch(setLoading(false));
           }
         }
 
         if(employees.length === 0){
           const response = await dispatch(getEmployees());
           if(response.type.includes('fulfilled')){
-            setLoading(false);
+            dispatch(setLoading(false));
           }
         }
-      
-        setLoading(false)
+        dispatch(setLoading(false));
       }
       fetchData();
     }, []);
 
 
-    if (loading) {
-      return <div ref={elementRef}>Loading...</div>;
-    }
+   
 
     const handleSubmit = async(event) => {
       event.preventDefault();
@@ -198,20 +198,20 @@ function UnpaidSubscriptionRecord() {
                 </thead>
                 <tbody>
                 {subscriptionRecords?.filter( item => filterItems(item))?.map(subscriptionRecord => (
-                    <tr style={{cursor: 'pointer'}} onClick={()=>showClientInfo(subscriptionRecord.client_id)} key={subscriptionRecord.id}>
-                    <td onClick={() => showClientInfo(subscriptionRecord.client_id)}>{subscriptionRecord.client.name}</td>
-                    <td>{subscriptionRecord.client.username}</td>
-                    <td>{subscriptionRecord.employee.name}</td>
-                    <td>{subscriptionRecord.subscription_type.category}</td>
-                    <td>{subscriptionRecord.pay}</td>
-                    <td>{subscriptionRecord.subscription_type.cost - subscriptionRecord.pay}</td>
-                    <td style={{whiteSpace: 'nowrap'}}>{formatDate(subscriptionRecord.created_at)}</td>
+                    <tr style={{cursor: 'pointer'}} onClick={()=>showClientInfo(subscriptionRecord?.client_id)} key={subscriptionRecord?.id}>
+                    <td onClick={() => showClientInfo(subscriptionRecord?.client_id)}>{subscriptionRecord?.client.name}</td>
+                    <td>{subscriptionRecord?.client.username}</td>
+                    <td>{subscriptionRecord?.employee.name}</td>
+                    <td>{subscriptionRecord?.subscription_type.category}</td>
+                    <td>{subscriptionRecord?.pay}</td>
+                    <td>{subscriptionRecord?.subscription_type.cost - subscriptionRecord?.pay}</td>
+                    <td style={{whiteSpace: 'nowrap'}}>{formatDate(subscriptionRecord?.created_at)}</td>
                     { isAdmin() && <td onClick={(event) => {
                             event.stopPropagation();
                           }}>
                       <input type="checkbox"
                           defaultChecked={false}
-                          onChange={() => updateCheckdeList(subscriptionRecord.id)}
+                          onChange={() => updateCheckdeList(subscriptionRecord?.id)}
                       />
                     </td>
                     }
@@ -220,13 +220,13 @@ function UnpaidSubscriptionRecord() {
                         { isAdmin() && 
                         <img src={trash}  onClick={(event) => {
                           event.stopPropagation();
-                          handleDeletion(subscriptionRecord.id);
+                          handleDeletion(subscriptionRecord?.id);
                         }}
                         style={{cursor: 'pointer'}} className='m-1'/>                     
                         }
                          <img src={add}  onClick={(event)=> { 
                           event.stopPropagation();
-                          navigate(`/home/paymentRecords/new/${subscriptionRecord.id}`);
+                          navigate(`/home/paymentRecords/new/${subscriptionRecord?.id}`);
                           }}
                           style={{cursor: 'pointer'}} className='m-1'/>
                          <img src={view}  onClick={(event)=>{ 
