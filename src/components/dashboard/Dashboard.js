@@ -47,7 +47,7 @@ function Dashboard() {
   const dispatch = useDispatch();
 
   useEffect(()=>{
-    const loggedInEmployeeRole = JSON.parse(sessionStorage.getItem('user')).role;
+    const loggedInEmployeeRole = JSON.parse(sessionStorage.getItem('user'))?.role;
     if(loggedInEmployeeRole !== 'admin'){
       navigate('/home/subscriptionRecords');
     }
