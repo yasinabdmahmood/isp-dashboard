@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import withAuthRedirect from '../helper_components/withAuthRedirect/withAuthRedirect';
 import { ColorRing } from 'react-loader-spinner'
 import styles from './template.module.scss'
 import { Sidebar, Menu, MenuItem } from 'react-pro-sidebar'
@@ -112,4 +113,4 @@ function Template() {
     );
 }
 
-export default Template;
+export default withAuthRedirect(Template);
