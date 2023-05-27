@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import withAuthRedirect from '../helper_components/withAuthRedirect/withAuthRedirect';
 import { useDispatch, useSelector } from 'react-redux';
 import styles from './styles.module.scss'
 import totalusers from '../../assets/images/totaluser.svg'
@@ -204,4 +203,4 @@ function Dashboard() {
   );
 }
 
-export default withAuthRedirect(Dashboard);
+export default Dashboard;
