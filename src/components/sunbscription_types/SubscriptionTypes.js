@@ -1,4 +1,5 @@
 import React, {useEffect} from 'react';
+import withAuthRedirect from '../helper_components/withAuthRedirect/withAuthRedirect';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import isAdmin from '../../helpers/isAdmin';
@@ -74,4 +75,4 @@ function SubscriptionTypes() {
   );
 }
 
-export default SubscriptionTypes;
+export default withAuthRedirect(SubscriptionTypes);
