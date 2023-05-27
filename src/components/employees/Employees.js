@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import withAuthRedirect from '../helper_components/withAuthRedirect/withAuthRedirect';
 import { useSelector, useDispatch } from 'react-redux';
 import { getEmployees } from '../../redux/database/databaseReducer';
 import { useNavigate } from 'react-router-dom';
@@ -63,4 +62,4 @@ function Employees() {
   );
 }
 
-export default withAuthRedirect(Employees);
+export default Employees;
