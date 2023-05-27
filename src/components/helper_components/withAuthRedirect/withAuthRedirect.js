@@ -1,14 +1,15 @@
 import React from 'react';
-import { Redirect } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const withAuthRedirect = (WrappedComponent) => {
   const WithAuthRedirect = (props) => {
+    const navigate = useNavigate();
     // Check if the user is logged in
-    const isLoggedIn =true;  /* Add your logic to check if the user is logged in */
+    const loggedInEmployeeRole = JSON.parse(sessionStorage.getItem('user'));  /* Add your logic to check if the user is logged in */
 
-    if (!isLoggedIn) {
+    if (!loggedInEmployeeRole) {
       // Redirect to the login page
-      return <Redirect to="/login" />;
+      navigate('/')
     }
 
     // Render the component if the user is logged in
