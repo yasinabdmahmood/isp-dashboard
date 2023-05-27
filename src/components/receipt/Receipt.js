@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import withAuthRedirect from '../helper_components/withAuthRedirect/withAuthRedirect';
 import styles from './Receipt.module.css';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { convertToRailsDateTime, formatDate } from '../../helpers/formatDate';
@@ -82,4 +83,4 @@ const Receipt = () => {
   );
 };
 
-export default Receipt;
+export default withAuthRedirect(Receipt);
