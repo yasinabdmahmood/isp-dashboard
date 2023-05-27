@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react';
+import withAuthRedirect from '../helper_components/withAuthRedirect/withAuthRedirect';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { getClients, deleteClient } from '../../redux/database/databaseReducer';
@@ -103,4 +104,4 @@ function Clients() {
     );
 }
 
-export default Clients;
+export default withAuthRedirect(Clients) ;
