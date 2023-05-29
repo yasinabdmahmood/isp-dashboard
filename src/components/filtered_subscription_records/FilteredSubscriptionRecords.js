@@ -76,47 +76,7 @@ function FilteredSubscriptionRecords() {
         return false;
       };
 
-    // useEffect(() => {
-    //   async function fetchData() {
-    //     if(subscriptionRecords.length === 0){
-    //       const response = await dispatch(getSubscriptionRecords());
-    //       if(response.type.includes('fulfilled')){
-    //         setLoading(false);
-    //       }
-    //   }
-    //   else{
-    //     setLoading(false)
-    //   }
-    //   }
-    //   fetchData();
-    // }, []);
-
-    // const loadMore = async() => {
-    //   const responce = await dispatch(getSubscriptionRecords());
-      
-    //   if(responce.payload.data.length < 20){
-    //     setLoadMoreButton(false);
-    //   }
-    // }
-
-    // const  handleScroll = async() => {
-    //   const element = elementRef.current;
-    //   if (element.scrollTop + element.clientHeight >= element.scrollHeight) {
-    //     console.log('loading')
-    //      dispatch(getSubscriptionRecords());  
-    //   }
-    // }
-
-    // useEffect(() => {
-      
-  
-    //   const element = elementRef.current;
-    //   element.addEventListener('scroll', handleScroll);
-  
-    //   return () => {
-    //     element.removeEventListener('scroll', handleScroll);
-    //   };
-    // }, []);
+    
 
     if (loading) {
       return <div ref={elementRef}>Loading...</div>;
