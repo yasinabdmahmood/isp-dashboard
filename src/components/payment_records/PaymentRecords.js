@@ -8,6 +8,7 @@ import trash from '../../assets/images/trash-fill.svg'
 
 function PaymentRecords() {
     const paymentRecords = useSelector(state => state.database.paymentRecords);
+
     const dispatch = useDispatch();
     const elementRef = useRef(null);
     
@@ -21,12 +22,9 @@ function PaymentRecords() {
                 alert('Some thing went wrong, please try again !!')
                }
             }
-            else{
-              
-            }
         }
         fetchData();
-    },[paymentRecords.length]);
+    },[]);
 
     const handleDeletion = async(id) => {
       // Display alert message and prompt user to continue or cancel
@@ -41,9 +39,6 @@ function PaymentRecords() {
         else{
           window.alert('Failed to delete the item');
         }
-      } else {
-        // User clicked Cancel, do nothing
-        return;
       }
     }
 
