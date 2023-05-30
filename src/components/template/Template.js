@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import withAuthRedirect from '../helper_components/withAuthRedirect/withAuthRedirect';
-import { ColorRing } from 'react-loader-spinner'
 import styles from './template.module.scss'
 import { Sidebar, Menu, MenuItem } from 'react-pro-sidebar'
 import { useDispatch, useSelector } from 'react-redux';
@@ -99,15 +98,6 @@ function Template() {
              <Outlet />
           </div>   
         </div>
-        {/* <ColorRing
-          visible={loading}
-          height="80"
-          width="80"
-          ariaLabel="blocks-loading"
-          wrapperStyle={{position: 'absolute', left:'50%', top:'50%'}}
-          wrapperClass="blocks-wrapper"
-          colors={['#e15b64', '#f47e60', '#f8b26a', '#abbd81', '#849b87']}
-        /> */}
         <LoadingRing loading={loading} />
       </div>
     );
