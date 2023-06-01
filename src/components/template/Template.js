@@ -20,7 +20,7 @@ function Template() {
   const dispatch = useDispatch();
 
   const loading = useSelector( state => state.appState.loading)
-  //const [loading, setLoading] = useState(false);
+  
   const getUserName = () => {
     let loggedInEmployee = sessionStorage.getItem('user');
     let retrievedData = JSON.parse(loggedInEmployee);
