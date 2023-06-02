@@ -451,6 +451,24 @@ export const deleteSubscriptionType = createAsyncThunk(
   },
 );
 
+export const getActivities = createAsyncThunk(
+  'getActivities/',
+  async (_, { getState }) => {
+    const state = getState();
+    const offset = state.database.activityIndex;
+    try {
+      return axios.get(baseUrl + '/activities/index',{
+        params: {
+          offset: offset,
+        },
+        withCredentials: true
+      });
+    } catch (error) {
+      return error;
+    }
+  },
+);
+
 const initialState = {
   employees: [],
   subscriptionTypes: [],
@@ -459,8 +477,10 @@ const initialState = {
   filteredSubscriptionRecords: [],
   unpaidSubscriptionRecords: [],
   paymentRecords: [],
+  activities: [],
   subscriptionRecordIndex: 0,
   paymentRecordIndex: 0,
+  activityIndex: 0,
   clientHistory: null,
   paymentHistory: null,
 };
@@ -745,6 +765,16 @@ export const dataBaseSlice = createSlice({
             return el;
           }
         })
+      };
+    });
+
+    builder.addCase(getActivities.fulfilled, (state, action) => {
+      const activities = action.payload.data;
+      const newActivityIndex = activities.length === 0? state.activityIndex:state.activityIndex+1;
+      return {
+        ...state,
+        activities: [...state.activities,...activities],
+        activityIndex: newActivityIndex,
       };
     });
   }, 
