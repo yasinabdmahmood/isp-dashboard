@@ -3,8 +3,10 @@ import { useSelector, useDispatch } from 'react-redux';
 import { deletePaymentRecord, getActivities, getPaymentRecords } from '../../redux/database/databaseReducer';
 import Table from 'react-bootstrap/Table';
 import {formatDate} from '../../helpers/formatDate';
+import CustomPopup from '../helper_components/popup/Popup';
 import isAdmin from '../../helpers/isAdmin';
 import trash from '../../assets/images/trash-fill.svg'
+
 
 function Activities() {
     const activities = useSelector(state => state.database.activities);
@@ -64,12 +66,14 @@ function Activities() {
                 </thead>
                 <tbody>
                 {activities?.map(activity => (
+                  <CustomPopup data={activity?.json_data}>
                     <tr key={activity?.id}>
                         <td>{activity?.employee_name}</td>
                         <td>{activity?.action_type}</td>
                         <td>{activity?.table_name}</td>
                         <td style={{whiteSpace: 'nowrap'}}>{formatDate(activity?.created_at)}</td>
                     </tr>
+                  </CustomPopup>  
                 ))}
                 </tbody>
               </Table>
