@@ -1,11 +1,10 @@
 import React, {useEffect, useRef, useState} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { deletePaymentRecord, getActivities, getPaymentRecords } from '../../redux/database/databaseReducer';
+import { getActivities } from '../../redux/database/databaseReducer';
 import Table from 'react-bootstrap/Table';
 import {formatDate} from '../../helpers/formatDate';
 import CustomPopup from '../helper_components/popup/Popup';
-import isAdmin from '../../helpers/isAdmin';
-import trash from '../../assets/images/trash-fill.svg'
+
 
 
 function Activities() {
@@ -28,21 +27,7 @@ function Activities() {
         fetchData();
     },[]);
 
-    // const handleDeletion = async(id) => {
-    //   // Display alert message and prompt user to continue or cancel
-    //   const confirmed = window.confirm('Are you sure you want to delete this item?');
-      
-    //   if (confirmed) {
-    //     const payload = {id};
-    //     const response = await dispatch(deletePaymentRecord(payload));
-    //     if(response.type.includes('fulfilled')){
-    //       window.alert('Item deleted successfully');
-    //     }
-    //     else{
-    //       window.alert('Failed to delete the item');
-    //     }
-    //   }
-    // }
+  
 
     const loadMore = async() => {
       const response = await dispatch(getActivities());
