@@ -88,7 +88,7 @@ function Template() {
               <MenuItem component={<Link to="/home/clients" />} rootStyles={linkStyle}> Users </MenuItem> 
               <MenuItem component={<Link to="/home/subscriptionRecords" />} rootStyles={linkStyle}> Subscription Records </MenuItem>
               <MenuItem component={<Link to="/home/unpaidSubscriptionRecords" />} rootStyles={linkStyle}>Unpaid Subscription Records </MenuItem>
-              <MenuItem component={<Link to="/home/activities" />} rootStyles={linkStyle}>Activities </MenuItem>
+              { isAdmin() && <MenuItem component={<Link to="/home/activities" />} rootStyles={linkStyle}>Activities </MenuItem>}
               {/* <MenuItem component={<Link to="/home/filteredSubscriptionRecords" />} rootStyles={linkStyle}> Filtered Subscription Records </MenuItem> */}
               <MenuItem component={<Link to={`/home/profile/${JSON.parse(sessionStorage.getItem('user'))?.id}`} />} rootStyles={linkStyle}> Profile </MenuItem>
               { isAdmin() && <MenuItem component={<Link to="/home/employees" />} rootStyles={linkStyle}> Employees </MenuItem>}
