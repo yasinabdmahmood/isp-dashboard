@@ -6,10 +6,6 @@ import 'reactjs-popup/dist/index.css';
 const destructObject = (obj) => {
     const parsedObject = JSON.parse(obj)
     const keyValueArray = Object.entries(parsedObject);
-    const mappedArray = keyValueArray.map(([key, value]) => {
-    return { key, value };
-    });
-
     return keyValueArray;
 }
 
