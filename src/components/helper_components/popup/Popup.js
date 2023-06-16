@@ -6,7 +6,6 @@ import 'reactjs-popup/dist/index.css';
 const destructObject = (obj) => {
     const parsedObject = JSON.parse(obj)
     const keyValueArray = Object.entries(parsedObject);
-
     const mappedArray = keyValueArray.map(([key, value]) => {
     return { key, value };
     });
@@ -27,8 +26,15 @@ export default ({children, data}) => (
         </button>
         <div className={styles.header}> Activity details </div>
         <div className={styles.content}>
-          {' '}
           {destructObject(data).map(([key, value]) => {
+            if(Array.isArray(value)){
+              return (
+                <>
+                  <p><strong>old {key} : {value[0]}</strong></p>
+                  <p><strong>New {key} : {value[1]}</strong></p>
+                </>
+              )
+            }
             return <p>{key} : {value}</p>
             })
           }
