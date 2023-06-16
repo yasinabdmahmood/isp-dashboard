@@ -3,6 +3,10 @@
     overflow: scroll;
     max-height: 60vh;
     min-height: 60vh;
+    @media (max-width: 600px) {
+        /* CSS styles for screens up to 600px */
+        width: 90vw;
+      }
 }
 .modal > .header {
     width: 100%;
