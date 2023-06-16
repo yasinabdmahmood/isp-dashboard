@@ -3,10 +3,7 @@
     overflow: scroll;
     max-height: 60vh;
     min-height: 60vh;
-    @media (max-width: 600px) {
-        /* CSS styles for screens up to 600px */
-        width: 90vw;
-      }
+   
 }
 .modal > .header {
     width: 100%;
@@ -37,4 +34,10 @@
     background: #ffffff;
     border-radius: 18px;
     border: 1px solid #cfcece;
+}
+
+@media screen and (max-width: 500px) {
+    .modal p { 
+        white-space: nowrap;
+    }
 }
