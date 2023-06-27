@@ -15,7 +15,6 @@ import {
 import { Bar } from 'react-chartjs-2';
 import { getClients, getSubscriptionRecords, getSubscriptionTypes, getUnpaidSubscriptionRecords } from '../../redux/database/databaseReducer';
 import { useNavigate } from 'react-router-dom';
-import baseUrl from '../../redux/baseUrl';
 import CSVDownloadButton from '../helper_components/csv_download_button/CSVDownloadButton';
 
 ChartJs.register(
