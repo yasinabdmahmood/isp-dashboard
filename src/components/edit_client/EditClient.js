@@ -10,27 +10,28 @@ function EditClient() {
     const client = useSelector( state => state.database?.clients?.find( client => client.id === parseInt(id)))
     const [name, setName] = useState(null);
     const [userName, setUserName] = useState(null);
-    const [contactInfo, setContactInfo] = useState(null);
+    // const [contactInfo, setContactInfo] = useState(null); //to be checked
     const [coordinates, setCoordinates] = useState(null);
     const [inputValue, setInputValue] = useState('');
     
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    useEffect(() => {
-      async function fetchData() {
-        if(client.length === 0){
-          await dispatch(getClients());
-        }
-      }
-      fetchData();
-    }, [client.length]);
+    // to be checked
+    // useEffect(() => {
+    //   async function fetchData() {
+    //     if(client?.length === 0){
+    //       await dispatch(getClients());
+    //     }
+    //   }
+    //   fetchData();
+    // }, [client?.length]);
 
     useEffect(() => {
       if (client) {
         setName(client?.name);
         setUserName(client?.username);
-        setContactInfo(client?.client_contact_informations[0].contact_info);
+        // setContactInfo(client?.client_contact_informations[0]?.contact_info);
         setCoordinates(client?.coordinate);
       }
     }, [client]);
@@ -79,7 +80,7 @@ function EditClient() {
   }
 
 
-  if (!name || !userName || !contactInfo) {
+  if (!name || !userName) {
     return <div>Loading...</div>;
   }
   
