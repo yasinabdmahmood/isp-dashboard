@@ -37,7 +37,7 @@ const Receipt = () => {
         <h1>بابان نيت لخدمات الانترنيت</h1>
         <div>
           <h2>0770 359 88 00</h2>
-          <h2>0770 161 85 71</h2>
+          <h2>0751 161 85 71</h2>
         </div>
         <div>
           <img src={internetDish} alt="Dish"  onLoad={() => setImageLoaded(true)} />
