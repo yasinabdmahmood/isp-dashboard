@@ -4,6 +4,7 @@ import { clearClientHistory, createClientContactInfo, deleteClient, deleteClient
 import { useNavigate } from 'react-router';
 import { useParams } from 'react-router';
 import { useEffect } from 'react';
+import { formatDate } from '../../helpers/formatDate';
 import Table from 'react-bootstrap/Table';
 import isAdmin from '../../helpers/isAdmin';
 import trash from '../../assets/images/trash-fill.svg';
@@ -123,6 +124,7 @@ function ShowClient() {
                     <th scope="col">Subscription Type</th>
                     <th scope="col">Paid Amount</th>
                     <th scope="col">Remaining Amount</th>
+                    <th scope="col">Subscription date</th>
                     <th scope="col">Assigned Employee</th>
                     <th scope="col">Actions</th>
                 </tr>
@@ -135,6 +137,7 @@ function ShowClient() {
                     <td>{subscriptionRecord.subscription_type.category}</td>
                     <td>{subscriptionRecord.pay}</td>
                     <td>{subscriptionRecord.subscription_type.cost - subscriptionRecord.pay}</td>
+                    <td>{formatDate(subscriptionRecord.created_at)}</td>
                     <td>{subscriptionRecord?.assigned_employee || 'N/A'}</td>
                     <td className='d-flex justify-content-around'>
                         { isAdmin() &&
