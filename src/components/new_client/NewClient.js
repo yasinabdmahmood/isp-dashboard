@@ -8,6 +8,7 @@ function NewClient() {
     const [name, setName] = useState('');
     const [useName, setUserName] = useState('');
     const [contactInfo, setContactInfo] = useState('');
+    const [info, setInfo] = useState('');
     const [coordinates, setCoordinates] = useState('');
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -18,6 +19,7 @@ function NewClient() {
         name: name,
         username: useName,
         contact_info: contactInfo,
+        info: info,
         coordinate: coordinates,
     }
     const response = await dispatch(createClient(payloadData))
@@ -44,6 +46,10 @@ function NewClient() {
       <FormGroup>
         <Label for="contact_info">contact info</Label>
         <Input type="text" name="contact_info" className='bg-white' id="profit" required value={contactInfo} onChange={(e) => setContactInfo(e.target.value)} />
+      </FormGroup>
+      <FormGroup>
+        <Label for="Info">Info</Label>
+        <Input type="textarea" name="info" className='bg-white' id="profit" required value={info} onChange={(e) => setInfo(e.target.value)} />
       </FormGroup>
       <FormGroup>
         <Label for="coordinates">Coordinates</Label>
