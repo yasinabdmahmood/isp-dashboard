@@ -324,6 +324,7 @@ export const createClient = createAsyncThunk(
           name: payloadData.name,
           username: payloadData.username,
           contact_info: payloadData.contact_info,
+          info: payloadData.info,
           coordinate: payloadData.coordinate,
         },
       },{
