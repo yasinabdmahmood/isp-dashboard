@@ -92,6 +92,11 @@ function ShowClient() {
                             )}
                         </ul>
                     </li>
+                    <li>
+                        <span className='h5'>Info:  </span>
+                        <span>{client?.info || 'N/A'}</span>
+                        
+                    </li>
                     { isAdmin() && <li className='d-flex my-3'>
                          
                         <div>
