@@ -9,10 +9,11 @@ import {
   BarElement,
   CategoryScale,
   LinearScale,
+  ArcElement,
   Tooltip,
   Legend
 } from 'chart.js'
-import { Bar } from 'react-chartjs-2';
+import { Bar, Pie  } from 'react-chartjs-2';
 import { getClients, getDailyReport, getSubscriptionRecords, getSubscriptionTypes, getUnpaidSubscriptionRecords } from '../../redux/database/databaseReducer';
 import { useNavigate } from 'react-router-dom';
 import CSVDownloadButton from '../helper_components/csv_download_button/CSVDownloadButton';
@@ -21,6 +22,7 @@ ChartJs.register(
   BarElement,
   CategoryScale,
   LinearScale,
+  ArcElement,
   Tooltip,
   Legend,
   );
@@ -123,6 +125,17 @@ function Dashboard() {
     },
   };
 
+  const pieChardData = {
+    labels: ['Label 1', 'Label 2', 'Label 3'],
+    datasets: [
+      {
+        data: [30, 40, 30], // Values corresponding to the labels
+        backgroundColor: ['red', 'blue', 'green'], // Colors for each segment
+      },
+    ],
+  };
+  
+
 
   
  
@@ -191,6 +204,9 @@ function Dashboard() {
         className={styles['bar-chart']}
         >
         </Bar>
+        <Pie
+        data={pieChardData}></Pie>
+        
       </div>
       {/* <button
       className='btn btn-sm btn-primary'
