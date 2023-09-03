@@ -471,6 +471,20 @@ export const getActivities = createAsyncThunk(
   },
 );
 
+export const getDailyReport = createAsyncThunk(
+  'getDailyReport/',
+  async (payloadData) => {
+    try {
+      return  axios.get(baseUrl + '/reports/get_daily_report',
+      {
+        withCredentials: true
+      });
+    } catch (error) {
+      return error;
+    }
+  },
+);
+
 const initialState = {
   employees: [],
   subscriptionTypes: [],
@@ -485,6 +499,7 @@ const initialState = {
   activityIndex: 0,
   clientHistory: null,
   paymentHistory: null,
+  dailyReport: null,
 };
 
 export const dataBaseSlice = createSlice({
@@ -777,6 +792,14 @@ export const dataBaseSlice = createSlice({
         ...state,
         activities: [...state.activities,...activities],
         activityIndex: newActivityIndex,
+      };
+    });
+
+    builder.addCase(getDailyReport.fulfilled, (state, action) => {
+      const dailyReport = action.payload.data;
+      return {
+        ...state,
+        dailyReport,
       };
     });
   }, 
