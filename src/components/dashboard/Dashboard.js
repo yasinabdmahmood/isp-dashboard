@@ -13,7 +13,7 @@ import {
   Legend
 } from 'chart.js'
 import { Bar } from 'react-chartjs-2';
-import { getClients, getSubscriptionRecords, getSubscriptionTypes, getUnpaidSubscriptionRecords } from '../../redux/database/databaseReducer';
+import { getClients, getDailyReport, getSubscriptionRecords, getSubscriptionTypes, getUnpaidSubscriptionRecords } from '../../redux/database/databaseReducer';
 import { useNavigate } from 'react-router-dom';
 import CSVDownloadButton from '../helper_components/csv_download_button/CSVDownloadButton';
 
@@ -41,6 +41,7 @@ function Dashboard() {
   const unpaidUsers = useSelector( state => state.database.unpaidSubscriptionRecords);
   const clients = useSelector( state => state.database.clients );
   const subscriptionTypes = useSelector(state => state.database.subscriptionTypes );
+  const dailyReport = useSelector(state => state.database.dailyReport);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -73,7 +74,10 @@ function Dashboard() {
     }
     if(unpaidUsers){
       dispatch(getUnpaidSubscriptionRecords());
-    }
+    };
+    if(!dailyReport){
+      dispatch(getDailyReport());
+    };
   },[]);
 
   const weekAgo = new Date();
