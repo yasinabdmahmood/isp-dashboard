@@ -126,10 +126,10 @@ function Dashboard() {
   };
 
   const pieChardData = {
-    labels: ['Label 1', 'Label 2', 'Label 3'],
+    labels: Object.keys(dailyReport?.data.report.payment_statistics.sum_of_category_payment || {}),
     datasets: [
       {
-        data: [30, 40, 30], // Values corresponding to the labels
+        data: Object.values(dailyReport?.data.report.payment_statistics.sum_of_category_payment || {}), // Values corresponding to the labels
         backgroundColor: ['red', 'blue', 'green'], // Colors for each segment
       },
     ],
@@ -198,14 +198,17 @@ function Dashboard() {
         </div>
       </div>
       <div className={styles['bar-chart-container']}>
-        <Bar
+        {/* <Bar
         data={data}
         options={options}
         className={styles['bar-chart']}
         >
-        </Bar>
+        </Bar> */}
         <Pie
-        data={pieChardData}></Pie>
+          data={pieChardData}
+          className={styles['bar-chart']}
+        >
+        </Pie>
         
       </div>
       {/* <button
