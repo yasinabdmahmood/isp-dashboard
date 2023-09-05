@@ -130,7 +130,7 @@ function Dashboard() {
     datasets: [
       {
         data: Object.values(dailyReport?.data.report.payment_statistics.sum_of_category_payment || {}), // Values corresponding to the labels
-        backgroundColor: ['red', 'blue', 'green'], // Colors for each segment
+        backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"], // Colors for each segment
       },
     ],
   };
@@ -197,18 +197,27 @@ function Dashboard() {
         </div>
         </div>
       </div>
-      <div className={styles['bar-chart-container']}>
-        {/* <Bar
+      <div className={styles['pie-chart-container']}>
+        <Bar
         data={data}
         options={options}
         className={styles['bar-chart']}
         >
-        </Bar> */}
-        <Pie
-          data={pieChardData}
-          className={styles['bar-chart']}
-        >
-        </Pie>
+        </Bar>
+        {/* <div className={styles['bar-chart']}>
+          <Pie
+            data={pieChardData}
+            
+          >
+          </Pie>
+        </div>
+        <div className={styles['bar-chart']}>
+          <Pie
+            data={pieChardData}
+          >
+          </Pie>
+        </div> */}
+        
         
       </div>
       {/* <button
