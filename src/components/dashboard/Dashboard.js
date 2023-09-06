@@ -45,6 +45,9 @@ function Dashboard() {
   const subscriptionTypes = useSelector(state => state.database.subscriptionTypes );
   const dailyReport = useSelector(state => state.database.dailyReport);
 
+  const [displaydailyPaymentChart, setDisplaydailyPaymentChart] = useState(true);
+  const [displaydailyProfitChart, setDisplaydailyProfitChart] = useState(false);
+  
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -87,9 +90,11 @@ function Dashboard() {
 
   const dailyPaymentChartlables = Object.keys(dailyReport?.data.report.payment_statistics.sum_of_category_payment || {});
   const dailyPaymentChartValues = Object.values(dailyReport?.data.report.payment_statistics.sum_of_category_payment || {});
+  const totalDailyPayment = dailyReport?.data.report.payment_statistics.sum_of_total_payment;
 
   const dailyProfitChartlables = Object.keys(dailyReport?.data.report.profit_statistics.sum_of_category_profit || {});
   const dailyProfitChartValues = Object.values(dailyReport?.data.report.profit_statistics.sum_of_category_profit || {});
+  const totalDailyProfit = dailyReport?.data.report.profit_statistics.sum_of_total_profit;
 
   const dailyPaymentChartData = {
     labels: dailyPaymentChartlables,
@@ -120,7 +125,7 @@ function Dashboard() {
 
   const options = {
     responsive: true,
-    maintainAspectRatio: false,
+    maintainAspectRatio: true,
     scales: {
       x: {
         title: {
@@ -140,20 +145,6 @@ function Dashboard() {
     },
   };
 
-  const pieChardData = {
-    labels: Object.keys(dailyReport?.data.report.payment_statistics.sum_of_category_payment || {}),
-    datasets: [
-      {
-        data: Object.values(dailyReport?.data.report.payment_statistics.sum_of_category_payment || {}), // Values corresponding to the labels
-        backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"], // Colors for each segment
-      },
-    ],
-  };
-  
-
-
-  
- 
   return (
     <div>
       <div className={styles['header-container']}>
@@ -189,13 +180,6 @@ function Dashboard() {
           </div>
           <span>{clients.length}</span>
         </div>
-        {/* <div className={`${styles.card} ${styles['sky-blue']}`}>
-        <div className={styles['card-upper-part']}>
-          <p>Paid users</p>
-          <img src={paidusers} alt='paidusers' />
-        </div>
-        <span>684</span>
-        </div> */}
         <div 
         className={`${styles.card} ${styles['pink']}`}
         onClick={() => navigate('/home/unpaidSubscriptionRecords')}>
@@ -211,39 +195,42 @@ function Dashboard() {
           <span style={{'fontSize': '1rem'}}>{(unpaidUsers.reduce( (ac,cr) => ac + parseFloat(cr.subscription_type.cost) - parseFloat(cr.pay), 0)).toLocaleString()} IQD</span>
         </div>
         </div>
+        <div className={`${styles.card} ${styles['teal']}`}
+        onClick={()=>{setDisplaydailyProfitChart(false);setDisplaydailyPaymentChart(true);}}
+        >
+        <div className={styles['card-upper-part']}>
+          <p>Total Daily payment</p>
+          <img src={paidusers} alt='paidusers' />
+        </div>
+        <span>{totalDailyPayment}</span>
+        </div>
+        <div 
+          className={`${styles.card} ${styles['sky-blue']}`}
+          onClick={()=>{setDisplaydailyProfitChart(true);setDisplaydailyPaymentChart(false);}}
+        >
+        <div className={styles['card-upper-part']}>
+          <p>Total Daily profit</p>
+          <img src={paidusers} alt='paidusers' />
+        </div>
+        <span>{totalDailyProfit}</span>
+        </div>
       </div>
       <div className={styles['bar-chart-container']}>
         <Bar
         data={dailyPaymentChartData}
         options={options}
         className={styles['bar-chart']}
+        style={{display: displaydailyPaymentChart? 'block': 'none'}}
         >
         </Bar>
         <Bar
         data={dailyProfitChartData}
         options={options}
         className={styles['bar-chart']}
+        style={{display: displaydailyProfitChart? 'block': 'none'}}
         >
-        </Bar>
-        {/* <div className={styles['bar-chart']}>
-          <Pie
-            data={pieChardData}
-            
-          >
-          </Pie>
-        </div>
-        <div className={styles['bar-chart']}>
-          <Pie
-            data={pieChardData}
-          >
-          </Pie>
-        </div> */}
-        
-        
+        </Bar> 
       </div>
-      {/* <button
-      className='btn btn-sm btn-primary'
-      onClick={downloadCSV}>Export CSV file</button> */}
       <div className='d-flex justify-content-around p-3'>
         <CSVDownloadButton label='Export subscriptions' endPoint='download_subscription_records_as_csv' />
         <CSVDownloadButton label='Export Subscription Types' endPoint='download_subscription_types_as_csv' />
