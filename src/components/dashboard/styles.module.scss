@@ -68,12 +68,18 @@
         background: #FF9696;
         box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.05);
     }
+    .teal {
+        background: #FFFFFF;
+        box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.05);
+    }
 }
 
 .bar-chart-container {
     margin-top: 2rem;
+    padding: 1rem 1rem;
     display: flex;
     justify-content: center;
+    column-gap: 3rem;
     .bar-chart {
         background-color: white;
         overflow: scroll;
