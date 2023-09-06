@@ -85,23 +85,38 @@ function Dashboard() {
   const weekAgo = new Date();
   weekAgo.setDate(weekAgo.getDate() - 7);
 
-  const labels = subscriptionTypes.map( sb => sb.category)
-  const chartData = labels.map( el => {
-    return unpaidUsers.filter( sb => sb.category === el).length
-  })
+  const dailyPaymentChartlables = Object.keys(dailyReport?.data.report.payment_statistics.sum_of_category_payment || {});
+  const dailyPaymentChartValues = Object.values(dailyReport?.data.report.payment_statistics.sum_of_category_payment || {});
 
-  const data = {
-    labels,
+  const dailyProfitChartlables = Object.keys(dailyReport?.data.report.profit_statistics.sum_of_category_profit || {});
+  const dailyProfitChartValues = Object.values(dailyReport?.data.report.profit_statistics.sum_of_category_profit || {});
+
+  const dailyPaymentChartData = {
+    labels: dailyPaymentChartlables,
     datasets: [
       {
-        label: 'Subscription Records',
-        data: chartData,
+        label: 'Daily Payment report',
+        data: dailyPaymentChartValues,
         borderColor: 'black',
         backgroundColor: ['aqua', 'red', 'green', 'blue', 'orange', 'purple', 'yellow'],
         borderWidth: 1,
       },
     ],
   };
+
+  const dailyProfitChartData = {
+    labels: dailyProfitChartlables,
+    datasets: [
+      {
+        label: 'Daily Profit report',
+        data: dailyProfitChartValues,
+        borderColor: 'black',
+        backgroundColor: ['aqua', 'red', 'green', 'blue', 'orange', 'purple', 'yellow'],
+        borderWidth: 1,
+      },
+    ],
+  };
+
 
   const options = {
     responsive: true,
@@ -116,7 +131,7 @@ function Dashboard() {
       y: {
         title: {
           display: true,
-          text: 'Number of unpaid Subscription Records',
+          text: 'Payment in IQD',
         },
         ticks: {
           beginAtZero: true,
@@ -197,9 +212,15 @@ function Dashboard() {
         </div>
         </div>
       </div>
-      <div className={styles['pie-chart-container']}>
+      <div className={styles['bar-chart-container']}>
         <Bar
-        data={data}
+        data={dailyPaymentChartData}
+        options={options}
+        className={styles['bar-chart']}
+        >
+        </Bar>
+        <Bar
+        data={dailyProfitChartData}
         options={options}
         className={styles['bar-chart']}
         >
