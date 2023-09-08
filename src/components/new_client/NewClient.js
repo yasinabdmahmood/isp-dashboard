@@ -49,7 +49,7 @@ function NewClient() {
       </FormGroup>
       <FormGroup>
         <Label for="Info">Info</Label>
-        <Input type="textarea" name="info" className='bg-white' id="profit" required value={info} onChange={(e) => setInfo(e.target.value)} />
+        <Input type="textarea" name="info" className='bg-white' id="profit"  value={info} onChange={(e) => setInfo(e.target.value)} />
       </FormGroup>
       <FormGroup>
         <Label for="coordinates">Coordinates</Label>
