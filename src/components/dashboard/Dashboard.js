@@ -10,10 +10,8 @@ import {
   CategoryScale,
   LinearScale,
   ArcElement,
-  Tooltip,
-  Legend
 } from 'chart.js'
-import { Bar, Pie  } from 'react-chartjs-2';
+import { Bar } from 'react-chartjs-2';
 import { getClients, getDailyReport, getSubscriptionRecords, getSubscriptionTypes, getUnpaidSubscriptionRecords } from '../../redux/database/databaseReducer';
 import { useNavigate } from 'react-router-dom';
 import CSVDownloadButton from '../helper_components/csv_download_button/CSVDownloadButton';
@@ -23,8 +21,6 @@ ChartJs.register(
   CategoryScale,
   LinearScale,
   ArcElement,
-  Tooltip,
-  Legend,
   );
 
 const getOneMonthAgoDate =() => {
