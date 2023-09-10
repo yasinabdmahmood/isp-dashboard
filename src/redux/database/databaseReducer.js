@@ -476,7 +476,13 @@ export const getDailyReport = createAsyncThunk(
   async (payloadData) => {
     try {
       return  axios.get(baseUrl + '/reports/get_daily_report',
-      {
+      { params: {
+          date: {
+            day: payloadData.day,
+            month: payloadData.month,
+            year: payloadData.year,
+          }
+        },
         withCredentials: true
       });
     } catch (error) {
