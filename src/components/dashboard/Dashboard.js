@@ -54,29 +54,24 @@ function Dashboard() {
     }
   })
 
-  const [startDate, setStartDate] = useState(getOneMonthAgoDate()); // set default value to '2023-05-04'
+  // const [startDate, setStartDate] = useState(getOneMonthAgoDate()); // set default value to '2023-05-04'
   const [dailyReportDate, setDailyReportDate] = useState(getTodayDate()); // set default value to '2023-05-04'
-  const handleStartDateChange = (event) => {
-    setStartDate(event.target.value);
-  };
   const handleEndDateChange = (event) => {
     setDailyReportDate(event.target.value);
   };
-  // useEffect(()=>{
-  //   const date = new Date(dailyReportDate);
-  //   const year = date.getFullYear();
-  //   const month = date.getMonth() + 1;
-  //   const day = date.getDate();
-  //   const payload = {
-  //     date: {
-  //       year,
-  //       month,
-  //       day,
-  //     },
-  //   }
-  //   dispatch(getDailyReport(payload))
+  useEffect(()=>{
+    const date = new Date(dailyReportDate);
+    const year = date.getFullYear();
+    const month = date.getMonth() + 1;
+    const day = date.getDate();
+    const payload = {
+        year,
+        month,
+        day,
+    }
+    dispatch(getDailyReport(payload))
     
-  // },[dailyReportDate])
+  },[dailyReportDate])
 
   
 
@@ -172,16 +167,7 @@ function Dashboard() {
       <div className={styles['header-container']}>
         <h1 className='text-start h4 m-4'>Dashboard</h1>
         <div className={styles['form-container']}>
-          <label htmlFor="from" className='bg-white'>From:</label>
-          <input
-            type="date"
-            id="from"
-            name="start"
-            className={styles['date']}
-            value={startDate}
-            onChange={handleStartDateChange}
-          />
-          <label htmlFor="to" className='bg-white'>To:</label>
+          <label htmlFor="from" className='bg-white'>Daily report:</label>
           <input
             type="date"
             id="to"
