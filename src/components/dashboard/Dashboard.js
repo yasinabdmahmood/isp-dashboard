@@ -23,11 +23,6 @@ ChartJs.register(
   ArcElement,
   );
 
-const getOneMonthAgoDate =() => {
-  const oneMonthAgo = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000);
-  return oneMonthAgo.toISOString().slice(0, 10);
-}
-
 
 
 const getTodayDate = () => {
