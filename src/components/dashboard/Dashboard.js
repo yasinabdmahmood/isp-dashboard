@@ -55,13 +55,30 @@ function Dashboard() {
   })
 
   const [startDate, setStartDate] = useState(getOneMonthAgoDate()); // set default value to '2023-05-04'
-  const [endDate, setEndDate] = useState(getTodayDate()); // set default value to '2023-05-04'
+  const [dailyReportDate, setDailyReportDate] = useState(getTodayDate()); // set default value to '2023-05-04'
   const handleStartDateChange = (event) => {
     setStartDate(event.target.value);
   };
   const handleEndDateChange = (event) => {
-    setEndDate(event.target.value);
+    setDailyReportDate(event.target.value);
   };
+  // useEffect(()=>{
+  //   const date = new Date(dailyReportDate);
+  //   const year = date.getFullYear();
+  //   const month = date.getMonth() + 1;
+  //   const day = date.getDate();
+  //   const payload = {
+  //     date: {
+  //       year,
+  //       month,
+  //       day,
+  //     },
+  //   }
+  //   dispatch(getDailyReport(payload))
+    
+  // },[dailyReportDate])
+
+  
 
   useEffect(()=> {
     if(subscriptionRecords.length === 0){
@@ -77,7 +94,16 @@ function Dashboard() {
       dispatch(getUnpaidSubscriptionRecords());
     };
     if(!dailyReport){
-      dispatch(getDailyReport());
+      const date = new Date(dailyReportDate);
+      const year = date.getFullYear();
+      const month = date.getMonth() + 1;
+      const day = date.getDate();
+      const payload = {
+          year,
+          month,
+          day,
+      }
+      dispatch(getDailyReport(payload))
     };
   },[]);
 
@@ -161,7 +187,7 @@ function Dashboard() {
             id="to"
             name="end"
             className={styles['date']}
-            value={endDate}
+            value={dailyReportDate}
             onChange={handleEndDateChange}
           />
         </div>
