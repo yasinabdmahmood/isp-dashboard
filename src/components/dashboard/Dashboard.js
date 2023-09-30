@@ -58,13 +58,15 @@ function Dashboard() {
     const date = new Date(dailyReportDate);
     const year = date.getFullYear();
     const month = date.getMonth() + 1;
-    const day = date.getDate() - 1;
+    const day = date.getDate();
     const payload = {
         year,
         month,
         day,
     }
     dispatch(getDailyReport(payload))
+    console.log("ooooooooooo");
+    console.log(`${year} - ${month} - ${day}`)
     
   },[dailyReportDate])
 
@@ -87,7 +89,7 @@ function Dashboard() {
       const date = new Date(dailyReportDate);
       const year = date.getFullYear();
       const month = date.getMonth() + 1;
-      const day = date.getDate() - 1;
+      const day = date.getDate();
       const payload = {
           year,
           month,
