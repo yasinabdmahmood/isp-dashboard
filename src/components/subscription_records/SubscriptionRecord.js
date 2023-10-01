@@ -43,7 +43,7 @@ function SubscriptionRecord() {
 
       const filterItems = (item) => {
         const isClientName = item.client.name.toLowerCase().includes(search.toLowerCase());
-        const isClientUsername = item.client.username.toLowerCase().includes(search.toLowerCase());
+        const isClientUsername = item.client.username?.toLowerCase().includes(search.toLowerCase());
         const isEmployeeName = item.employee.name.toLowerCase().includes(search.toLowerCase());
         const isSubscriptionType = item.subscription_type.category?.toLowerCase().includes(search.toLowerCase());
         if(isClientName || isClientUsername || isEmployeeName || isSubscriptionType){
