@@ -65,9 +65,6 @@ function Dashboard() {
         day,
     }
     dispatch(getDailyReport(payload))
-    console.log("ooooooooooo");
-    console.log(`${year} - ${month} - ${day}`)
-    
   },[dailyReportDate])
 
   
