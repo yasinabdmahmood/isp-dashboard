@@ -55,7 +55,6 @@ function UnpaidSubscriptionRecord() {
 
       const filterItems = (item) => {
         const {name, role} = getLoggedinUser();
-        console.log(item.assigned_employee)
         if(name.toLowerCase() !== item.assigned_employee?.toLowerCase() && role !== 'admin'){
           return false
         } 
