@@ -12,7 +12,7 @@ import {
   ArcElement,
 } from 'chart.js'
 import { Bar } from 'react-chartjs-2';
-import { getClients, getDailyReport, getSubscriptionRecords, getSubscriptionTypes, getUnpaidSubscriptionRecords } from '../../redux/database/databaseReducer';
+import { getClients, getDailyReport, getMonthlyReport, getSubscriptionRecords, getSubscriptionTypes, getUnpaidSubscriptionRecords } from '../../redux/database/databaseReducer';
 import { useNavigate } from 'react-router-dom';
 import CSVDownloadButton from '../helper_components/csv_download_button/CSVDownloadButton';
 
@@ -35,9 +35,11 @@ function Dashboard() {
   const clients = useSelector( state => state.database.clients );
   const subscriptionTypes = useSelector(state => state.database.subscriptionTypes );
   const dailyReport = useSelector(state => state.database.dailyReport);
+  const monthlyReport = useSelector(state => state.database.monthlyReport);
 
   const [displaydailyPaymentChart, setDisplaydailyPaymentChart] = useState(true);
   const [displaydailyProfitChart, setDisplaydailyProfitChart] = useState(false);
+  const [displayChart, setDisplayChart] = useState("dailyPayment")
   
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -58,13 +60,18 @@ function Dashboard() {
     const date = new Date(dailyReportDate);
     const year = date.getFullYear();
     const month = date.getMonth() + 1;
+    const monthlyReportPayload = {
+      year,
+      month,
+    };
     const day = date.getDate();
     const payload = {
         year,
         month,
         day,
     }
-    dispatch(getDailyReport(payload))
+    dispatch(getDailyReport(payload));
+    dispatch(getMonthlyReport(monthlyReportPayload));
   },[dailyReportDate])
 
   
@@ -87,12 +94,17 @@ function Dashboard() {
       const year = date.getFullYear();
       const month = date.getMonth() + 1;
       const day = date.getDate();
+      const monthlyReportPayload = {
+        year,
+        month,
+      }
       const payload = {
           year,
           month,
           day,
       }
-      dispatch(getDailyReport(payload))
+      dispatch(getDailyReport(payload));
+      dispatch(getMonthlyReport(monthlyReportPayload));
     };
   },[]);
 
@@ -106,6 +118,14 @@ function Dashboard() {
   const dailyProfitChartlables = Object.keys(dailyReport?.data.report.profit_statistics.sum_of_category_profit || {});
   const dailyProfitChartValues = Object.values(dailyReport?.data.report.profit_statistics.sum_of_category_profit || {});
   const totalDailyProfit = dailyReport?.data.report.profit_statistics.sum_of_total_profit;
+
+  const monthlyPaymentChartlables = Object.keys(monthlyReport?.data.report.payment_statistics.sum_of_category_payment || {});
+  const monthlyPaymentChartValues = Object.values(monthlyReport?.data.report.payment_statistics.sum_of_category_payment || {});
+  const totalMonthlyPayment = monthlyReport?.data.report.payment_statistics.sum_of_total_payment;
+
+  const monthlyProfitChartlables = Object.keys(monthlyReport?.data.report.profit_statistics.sum_of_category_profit || {});
+  const monthlyProfitChartValues = Object.values(monthlyReport?.data.report.profit_statistics.sum_of_category_profit || {});
+  const totalMonthlyProfit = monthlyReport?.data.report.profit_statistics.sum_of_total_profit;
 
   const dailyPaymentChartData = {
     labels: dailyPaymentChartlables,
@@ -126,6 +146,32 @@ function Dashboard() {
       {
         label: 'Daily Profit report',
         data: dailyProfitChartValues,
+        borderColor: 'black',
+        backgroundColor: ['aqua', 'red', 'green', 'blue', 'orange', 'purple', 'yellow'],
+        borderWidth: 1,
+      },
+    ],
+  };
+
+  const monthlyPaymentChartData = {
+    labels: monthlyPaymentChartlables,
+    datasets: [
+      {
+        label: 'Monthly Profit report',
+        data: monthlyPaymentChartValues,
+        borderColor: 'black',
+        backgroundColor: ['aqua', 'red', 'green', 'blue', 'orange', 'purple', 'yellow'],
+        borderWidth: 1,
+      },
+    ],
+  };
+
+  const monthlyProfitChartData = {
+    labels: monthlyProfitChartlables,
+    datasets: [
+      {
+        label: 'Monthly Profit report',
+        data: monthlyProfitChartValues,
         borderColor: 'black',
         backgroundColor: ['aqua', 'red', 'green', 'blue', 'orange', 'purple', 'yellow'],
         borderWidth: 1,
@@ -198,7 +244,7 @@ function Dashboard() {
         </div>
         </div>
         <div className={`${styles.card} ${styles['teal']}`}
-        onClick={()=>{setDisplaydailyProfitChart(false);setDisplaydailyPaymentChart(true);}}
+        onClick={()=> setDisplayChart("dailyPayment")}
         >
         <div className={styles['card-upper-part']}>
           <p>Total Daily payment</p>
@@ -208,7 +254,7 @@ function Dashboard() {
         </div>
         <div 
           className={`${styles.card} ${styles['sky-blue']}`}
-          onClick={()=>{setDisplaydailyProfitChart(true);setDisplaydailyPaymentChart(false);}}
+          onClick={()=> setDisplayChart("dailyProfit")}
         >
         <div className={styles['card-upper-part']}>
           <p>Total Daily profit</p>
@@ -216,22 +262,60 @@ function Dashboard() {
         </div>
         <span>{totalDailyProfit}</span>
         </div>
+
+        <div className={`${styles.card} ${styles['teal']}`}
+        onClick={()=> setDisplayChart("monthlyPayment")}
+        >
+        <div className={styles['card-upper-part']}>
+          <p>Total Monthly pay</p>
+          <img src={paidusers} alt='paidusers' />
+        </div>
+        <span>{totalMonthlyPayment}</span>
+        </div>
+
+        <div className={`${styles.card} ${styles['sky-blue']}`}
+        onClick={()=> setDisplayChart("monthlyProfit")}
+        >
+        <div className={styles['card-upper-part']}>
+          <p>Total Monthly Profit</p>
+          <img src={paidusers} alt='paidusers' />
+        </div>
+        <span>{totalMonthlyProfit}</span>
+        </div>
+
       </div>
       <div className={styles['bar-chart-container']}>
         <Bar
         data={dailyPaymentChartData}
         options={options}
         className={styles['bar-chart']}
-        style={{display: displaydailyPaymentChart? 'block': 'none'}}
+        style={{display: displayChart === "dailyPayment"? 'block': 'none'}}
         >
         </Bar>
         <Bar
         data={dailyProfitChartData}
         options={options}
         className={styles['bar-chart']}
-        style={{display: displaydailyProfitChart? 'block': 'none'}}
+        style={{display: displayChart === "dailyProfit"? 'block': 'none'}}
         >
         </Bar> 
+
+        <Bar
+        data={monthlyPaymentChartData}
+        options={options}
+        className={styles['bar-chart']}
+        style={{display: displayChart === "monthlyPayment"? 'block': 'none'}}
+        >
+        </Bar>
+
+        <Bar
+        data={monthlyProfitChartData}
+        options={options}
+        className={styles['bar-chart']}
+        style={{display: displayChart === "monthlyProfit"? 'block': 'none'}}
+        >
+        </Bar>
+
       </div>
       <div className='d-flex justify-content-around p-3'>
         <CSVDownloadButton label='Export subscriptions' endPoint='download_subscription_records_as_csv' />
