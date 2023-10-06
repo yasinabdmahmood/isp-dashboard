@@ -192,6 +192,7 @@ function UnpaidSubscriptionRecord() {
                     <th scope="col">Subscription Date</th>
                     { isAdmin() && <th scope="col">Assign</th> }
                     <th scope="col">Assigned Employee</th>
+                    <th scope="col">Note</th>
                     <th scope="col">Actions</th>
                 </tr>
                 </thead>
@@ -215,6 +216,7 @@ function UnpaidSubscriptionRecord() {
                     </td>
                     }
                     <td>{subscriptionRecord?.assigned_employee || 'N/A'}</td>
+                    <td>{subscriptionRecord?.note || 'N/A'}</td>
                     <td className='d-flex justify-content-around align-items-stretch flex-nowrap'>
                         { isAdmin() && 
                         <img src={trash}  onClick={(event) => {
