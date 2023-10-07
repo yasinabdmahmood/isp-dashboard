@@ -13,19 +13,6 @@ const LoginForm = () => {
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   if (loggedInEmployee) {
-  //     const loggedInEmployeeRole = JSON.parse(sessionStorage.getItem('user')).role;
-  //     console.log(loggedInEmployeeRole)
-  //     if(loggedInEmployeeRole !== 'admin'){
-  //       console.log('xxxxxxxxxxxxxxxxxxxxxxxxxxxemployee')
-  //       navigate('/home/subscriptionRecords')
-  //     }else{
-  //       console.log('xxxxxxxxxxxxxxxxxxxxxxxxxxxadmin')
-  //       navigate('/home')
-  //     }
-  //   }
-  // }, [loggedInEmployee]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
