@@ -556,13 +556,6 @@ export const dataBaseSlice = createSlice({
         paymentHistory: state.paymentHistory.filter( el => parseInt(el.id) !== parseInt(action.payload.id) )
       }
     },
-    
-    // toggleReservation(state, action) {
-    //   const newState = state.map((el) => (
-    //     el.id === action.payload
-    //       ? { ...el, reserved: !el.reserved } : el));
-    //   return newState;
-    // },
 
   },
   extraReducers: (builder) => {
