@@ -510,6 +510,20 @@ export const getMonthlyReport = createAsyncThunk(
   },
 );
 
+export const getTestData = createAsyncThunk(
+  'getTestData/',
+  async (payloadData) => {
+    try {
+      return  axios.get(baseUrl + '/test',
+      { params: payloadData,
+        withCredentials: true
+      });
+    } catch (error) {
+      return error;
+    }
+  },
+);
+
 const initialState = {
   employees: [],
   subscriptionTypes: [],
@@ -526,6 +540,7 @@ const initialState = {
   paymentHistory: null,
   dailyReport: null,
   monthlyReport: null,
+  test: null,
 };
 
 export const dataBaseSlice = createSlice({
@@ -827,6 +842,14 @@ export const dataBaseSlice = createSlice({
       return {
         ...state,
         monthlyReport,
+      };
+    });
+
+    builder.addCase(getTestData.fulfilled, (state, action) => {
+      const test = action.payload.data;
+      return {
+        ...state,
+        test,
       };
     });
   }, 
