@@ -92,6 +92,7 @@ function Template() {
               {/* <MenuItem component={<Link to="/home/filteredSubscriptionRecords" />} rootStyles={linkStyle}> Filtered Subscription Records </MenuItem> */}
               <MenuItem component={<Link to={`/home/profile/${JSON.parse(sessionStorage.getItem('user'))?.id}`} />} rootStyles={linkStyle}> Profile </MenuItem>
               { isAdmin() && <MenuItem component={<Link to="/home/employees" />} rootStyles={linkStyle}> Employees </MenuItem>}
+              { isAdmin() && <MenuItem component={<Link to="/home/test" />} rootStyles={linkStyle}> Test </MenuItem>}
             </Menu>
           </Sidebar>
           </div>
