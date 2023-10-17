@@ -524,6 +524,22 @@ export const getTestData = createAsyncThunk(
   },
 );
 
+// Agent related thunks
+export const getAgents = createAsyncThunk(
+  'getAgents/',
+  async () => {
+    try {
+      return  axios.get(baseUrl + '/agents/get_agents',
+      { 
+        withCredentials: true
+      });
+    } catch (error) {
+      return error;
+    }
+  },
+);
+
+
 const initialState = {
   employees: [],
   subscriptionTypes: [],
@@ -540,6 +556,7 @@ const initialState = {
   paymentHistory: null,
   dailyReport: null,
   monthlyReport: null,
+  agents: [],
   test: null,
 };
 
@@ -850,6 +867,16 @@ export const dataBaseSlice = createSlice({
       return {
         ...state,
         test,
+      };
+    });
+
+    
+    // agents realed cases
+    builder.addCase(getAgents.fulfilled, (state, action) => {
+      const agents = action.payload.data;
+      return {
+        ...state,
+        agents,
       };
     });
   }, 

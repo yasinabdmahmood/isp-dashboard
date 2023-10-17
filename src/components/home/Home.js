@@ -26,6 +26,7 @@ import EditSubscriptionRecord from '../edit_subscription_record/EditSubscription
 import Receipt from '../receipt/Receipt';
 import Activities from '../activities/Activities';
 import Test from '../test/Test';
+import Agents from '../agents/Agents';
 function Home() {
   return (
     <>
@@ -57,6 +58,7 @@ function Home() {
             <Route path="paymentRecords/new/:id" element={<NewPaymentRecord/>} />
             <Route path="reg_user" element={<RegUser/>} />
             <Route path="profile/:id" element={<Profile/>} />
+            <Route path="agents" element={<Agents/>} />
           </Route>
         </Routes>
     </>
