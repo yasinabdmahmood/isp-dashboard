@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { getClients, deleteClient, getAgents } from '../../redux/database/databaseReducer';
+import { getClients, deleteClient } from '../../redux/database/databaseReducer';
 import isAdmin from '../../helpers/isAdmin';
 import Table from 'react-bootstrap/Table';
 import styles from './styles.module.scss'
@@ -10,6 +10,11 @@ import edit from '../../assets/images/pencil-square.svg'
 import trash from '../../assets/images/trash-fill.svg'
 import view from '../../assets/images/eye-fill.svg'
 import searchLogo from '../../assets/images/search.svg'
+
+import Reducer from '../../redux/helpers/reducer';
+const {getAgents} = Reducer.asyncThunks
+
+
 
 function Agents() {
     const [search, setSearch] = useState('');
@@ -40,6 +45,7 @@ function Agents() {
     }
     useEffect(() => {
         if(agents.length === 0){
+            console.log(getAgents)
             dispatch(getAgents())
         }
     },[dispatch]);

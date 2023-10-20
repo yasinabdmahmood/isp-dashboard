@@ -1,7 +1,10 @@
 import React from 'react';
 import styles from './styles.module.scss';
 import { useSelector, useDispatch } from 'react-redux';
-import { getAgents, getTestData } from '../../redux/database/databaseReducer';
+import { getTestData } from '../../redux/database/databaseReducer';
+
+import Reducer from '../../redux/helpers/reducer';
+const {getAgents} = Reducer.asyncThunks
 
 function Test() {
 
