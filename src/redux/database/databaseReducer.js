@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import baseUrl from '../baseUrl';
+import reducers from './agentReducers';
 
 
 
@@ -524,21 +525,6 @@ export const getTestData = createAsyncThunk(
   },
 );
 
-// Agent related thunks
-export const getAgents = createAsyncThunk(
-  'getAgents/',
-  async () => {
-    try {
-      return  axios.get(baseUrl + '/agents/get_agents',
-      { 
-        withCredentials: true
-      });
-    } catch (error) {
-      return error;
-    }
-  },
-);
-
 
 const initialState = {
   employees: [],
@@ -591,6 +577,10 @@ export const dataBaseSlice = createSlice({
 
   },
   extraReducers: (builder) => {
+
+    reducers.forEach((item)=>{
+      builder.addCase(item.asyncThunk.fulfilled,item.reducer)
+    })
     builder.addCase(getEmployees.fulfilled, (state, action) => {
       const employees = action.payload.data
       return {...state,employees};
@@ -867,16 +857,6 @@ export const dataBaseSlice = createSlice({
       return {
         ...state,
         test,
-      };
-    });
-
-    
-    // agents realed cases
-    builder.addCase(getAgents.fulfilled, (state, action) => {
-      const agents = action.payload.data;
-      return {
-        ...state,
-        agents,
       };
     });
   }, 
