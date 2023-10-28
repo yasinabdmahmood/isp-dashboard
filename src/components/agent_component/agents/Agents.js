@@ -1,18 +1,17 @@
 import React, {useEffect, useState} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { getClients, deleteClient } from '../../redux/database/databaseReducer';
-import isAdmin from '../../helpers/isAdmin';
+import isAdmin from '../../../helpers/isAdmin';
 import Table from 'react-bootstrap/Table';
 import styles from './styles.module.scss'
-import plusSign from '../../assets/images/plus-circle.svg'
-import edit from '../../assets/images/pencil-square.svg'
-import trash from '../../assets/images/trash-fill.svg'
-import view from '../../assets/images/eye-fill.svg'
-import searchLogo from '../../assets/images/search.svg'
+import plusSign from '../../../assets/images/plus-circle.svg'
+import edit from '../../../assets/images/pencil-square.svg'
+import trash from '../../../assets/images/trash-fill.svg'
+import view from '../../../assets/images/eye-fill.svg'
+import searchLogo from '../../../assets/images/search.svg'
 
-import Reducer from '../../redux/helpers/reducer';
-const {getAgents} = Reducer.asyncThunks
+import Reducer from '../../../redux/helpers/reducer';
+const {getAgents, deleteAgent} = Reducer.asyncThunks
 
 
 
@@ -30,7 +29,7 @@ function Agents() {
     const handleAgentDeletion = async(id) => {
         const confirm = window.confirm('Are you sure you want to delete this client')
         if(confirm){
-            const response = await dispatch(deleteClient(id));
+            const response = await dispatch(deleteAgent({id}));
             if(response.type.includes('fulfilled')){
                 window.alert('Item was deleted successfully');
             }

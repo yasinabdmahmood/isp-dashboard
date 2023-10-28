@@ -27,7 +27,7 @@ export default [
   },
 
   {
-    name: 'destroyAgent',
+    name: 'deleteAgent',
     url: '/agents/destroy_agent',
     method: 'get',
     reducer: (state, action) => {

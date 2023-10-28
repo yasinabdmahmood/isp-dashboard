@@ -26,7 +26,7 @@ import EditSubscriptionRecord from '../edit_subscription_record/EditSubscription
 import Receipt from '../receipt/Receipt';
 import Activities from '../activities/Activities';
 import Test from '../test/Test';
-import Agents from '../agents/Agents';
+import Agents from '../agent_component/agents/Agents';
 function Home() {
   return (
     <>
