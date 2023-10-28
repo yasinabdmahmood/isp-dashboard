@@ -1,10 +1,10 @@
-import React from 'react';
+import React, {useState} from 'react';
 import styles from './styles.module.scss';
 import { useSelector, useDispatch } from 'react-redux';
 import { getTestData } from '../../redux/database/databaseReducer';
 import Reducer from '../../redux/helpers/reducer';
 import { Table } from 'react-bootstrap';
-const {getAgents} = Reducer.asyncThunks
+const {getAgents, createAgent, destroyAgent, updateAgent} = Reducer.asyncThunks
 
 function Test() {
 
@@ -30,6 +30,28 @@ function Test() {
         const payload = {requested_data: 'ledger'};
         dispatch(getTestData(payload))
     }
+
+
+    const createAgentForm = {
+      name: 'text',
+      info: 'text',
+    };
+    const createNewAgent = (data) => {
+      dispatch(createAgent(data))
+    }
+
+    const deleteAgentForm = {id: 'number'}
+    const deleteAgentAction = (data) => {
+      dispatch(destroyAgent(data))
+    }
+
+    const updateAfentForm = { id: 'number', name: 'text', info: 'text'}
+    const updateAfentAction = (data) => {
+      dispatch(updateAgent(data))
+    }
+
+    
+
     return (
         <div>
             <h1>This is test page</h1>
@@ -40,6 +62,9 @@ function Test() {
             <div className='mt-5'>
                 
                <MyTable data={ testData} />
+               <DynamicForm fieldDefinitions={createAgentForm} onSubmit={createNewAgent} discription={'Create new Agent'} />
+               <DynamicForm fieldDefinitions={deleteAgentForm} onSubmit={deleteAgentAction} discription={'delete Agent'} />
+               <DynamicForm fieldDefinitions={updateAfentForm} onSubmit={updateAfentAction} discription={'update Agent'} />
             </div>
         </div>
     );
@@ -83,6 +108,57 @@ function MyTable({ data }) {
   );
 }
 
+
+function DynamicForm({ fieldDefinitions, onSubmit, discription }) {
+  const [formData, setFormData] = useState({});
+  
+  const handleFieldChange = (fieldName, value) => {
+    setFormData({
+      ...formData,
+      [fieldName]: value,
+    });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    onSubmit(formData);
+  };
+
+  return (
+    <div>
+      <h4>{discription}</h4>
+      <form onSubmit={handleSubmit}>
+      {Object.keys(fieldDefinitions).map((fieldName) => {
+        const fieldType = fieldDefinitions[fieldName];
+        return (
+          <div key={fieldName}>
+            <label htmlFor={fieldName}>{fieldName}</label>
+            {fieldType === 'text' ? (
+              <input
+                type="text"
+                id={fieldName}
+                name={fieldName}
+                value={formData[fieldName] || ''}
+                onChange={(e) => handleFieldChange(fieldName, e.target.value)}
+              />
+            ) : fieldType === 'number' ? (
+              <input
+                type="number"
+                id={fieldName}
+                name={fieldName}
+                value={formData[fieldName] || ''}
+                onChange={(e) => handleFieldChange(fieldName, e.target.value)}
+              />
+            ) : null}
+          </div>
+        );
+      })}
+      <button type="submit">Submit</button>
+    </form>
+    </div>
+    
+  );
+}
 
 
 
