@@ -77,10 +77,10 @@ function Agents() {
                         { isAdmin() &&
                             <>
                                     <img src={trash} style={{cursor: 'pointer'}} onClick={()=>{handleAgentDeletion(agent.id)}} className='mx-2'/>
-                                    <img src={edit} style={{cursor: 'pointer'}} onClick={()=>{navigate(`/home/clients/edit/${agent.id}`)}} className='mx-2'/>
+                                    <img src={edit} style={{cursor: 'pointer'}} onClick={()=>{navigate(`/home/agents/edit/${agent.id}`)}} className='mx-2'/>
                             </>
                         }
-                          <img src={view} style={{cursor: 'pointer'}} onClick={()=>{navigate(`/home/clients/${agent.id}`)}} className='mx-2'/>
+                          <img src={view} style={{cursor: 'pointer'}} onClick={()=>{navigate(`/home/agents/${agent.id}`)}} className='mx-2'/>
                            
                         </td>
                         </tr>

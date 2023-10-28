@@ -40,7 +40,7 @@ export default [
   },
 
   {
-   name: 'updateAgent',
+   name: 'editAgent',
    url: '/agents/update_agent',
    method: 'get',
    reducer: (state, action) => {
