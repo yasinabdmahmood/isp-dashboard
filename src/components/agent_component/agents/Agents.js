@@ -89,7 +89,7 @@ function Agents() {
       </Table>
     </div>
     { isAdmin() && <div className={styles['plus-sign']}>
-            <button onClick={()=> navigate('/home/clients/new')} >
+            <button onClick={()=> navigate('/home/agents/new')} >
                 <img src={plusSign} alt='Add sign' />
             </button>
         </div>

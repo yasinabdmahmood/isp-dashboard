@@ -27,6 +27,7 @@ import Receipt from '../receipt/Receipt';
 import Activities from '../activities/Activities';
 import Test from '../test/Test';
 import Agents from '../agent_component/agents/Agents';
+import CreateAgent from '../agent_component/create_agent/CreateAgent';
 function Home() {
   return (
     <>
@@ -59,6 +60,7 @@ function Home() {
             <Route path="reg_user" element={<RegUser/>} />
             <Route path="profile/:id" element={<Profile/>} />
             <Route path="agents" element={<Agents/>} />
+            <Route path="agents/new" element={<CreateAgent/>} />
           </Route>
         </Routes>
     </>
