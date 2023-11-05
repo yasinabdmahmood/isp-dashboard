@@ -4,11 +4,11 @@ import { useSelector, useDispatch } from 'react-redux';
 import { getTestData } from '../../redux/database/databaseReducer';
 import Reducer from '../../redux/helpers/reducer';
 import { Table } from 'react-bootstrap';
-const {getAgents, createAgent, destroyAgent, updateAgent} = Reducer.asyncThunks
+const {getAgents,getCompanies, createCompany, deleteCompany, editCompany} = Reducer.asyncThunks
 
 function Test() {
 
-    const testData = useSelector( state => state.database?.test);
+    const testData = useSelector( state => state.database?.companies);
     const dispatch = useDispatch();
     const data = [
         { id: 1, name: 'John', age: 30 },
@@ -18,7 +18,7 @@ function Test() {
 
     const fetchCompanies = () => {
         const payload = {requested_data: 'company'};
-        dispatch(getTestData(payload))
+        dispatch(getCompanies())
     }
 
     const fetchAgents = () => {
@@ -32,22 +32,21 @@ function Test() {
     }
 
 
-    const createAgentForm = {
+    const createCompanyForm = {
       name: 'text',
-      info: 'text',
     };
-    const createNewAgent = (data) => {
-      dispatch(createAgent(data))
+    const createNewCompany = (data) => {
+      dispatch(createCompany(data))
     }
 
-    const deleteAgentForm = {id: 'number'}
-    const deleteAgentAction = (data) => {
-      dispatch(destroyAgent(data))
+    const deleteCompanyForm = {id: 'number'}
+    const deletecompanyAction = (data) => {
+      dispatch(deleteCompany(data))
     }
 
-    const updateAfentForm = { id: 'number', name: 'text', info: 'text'}
-    const updateAfentAction = (data) => {
-      dispatch(updateAgent(data))
+    const updateCompanyForm = { id: 'number', name: 'text'}
+    const updateCompanyAction = (data) => {
+      dispatch(editCompany(data))
     }
 
     
@@ -62,9 +61,9 @@ function Test() {
             <div className='mt-5'>
                 
                <MyTable data={ testData} />
-               <DynamicForm fieldDefinitions={createAgentForm} onSubmit={createNewAgent} discription={'Create new Agent'} />
-               <DynamicForm fieldDefinitions={deleteAgentForm} onSubmit={deleteAgentAction} discription={'delete Agent'} />
-               <DynamicForm fieldDefinitions={updateAfentForm} onSubmit={updateAfentAction} discription={'update Agent'} />
+               <DynamicForm fieldDefinitions={createCompanyForm} onSubmit={createNewCompany} discription={'Create new Company'} />
+               <DynamicForm fieldDefinitions={deleteCompanyForm} onSubmit={deletecompanyAction} discription={'delete Company'} />
+               <DynamicForm fieldDefinitions={updateCompanyForm} onSubmit={updateCompanyAction} discription={'update Agent'} />
             </div>
         </div>
     );

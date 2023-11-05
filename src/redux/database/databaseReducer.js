@@ -1,7 +1,8 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import baseUrl from '../baseUrl';
-import reducers from './agentReducers';
+import companyReducers from './companyReducers';
+import agentReducers from './agentReducers';
 
 
 
@@ -543,6 +544,7 @@ const initialState = {
   dailyReport: null,
   monthlyReport: null,
   agents: [],
+  companies: [],
   test: null,
 };
 
@@ -578,9 +580,15 @@ export const dataBaseSlice = createSlice({
   },
   extraReducers: (builder) => {
 
-    reducers.forEach((item)=>{
+    agentReducers.forEach((item)=>{
       builder.addCase(item.asyncThunk.fulfilled,item.reducer)
     })
+
+    companyReducers.forEach((item)=>{
+      builder.addCase(item.asyncThunk.fulfilled,item.reducer)
+    })
+
+
     builder.addCase(getEmployees.fulfilled, (state, action) => {
       const employees = action.payload.data
       return {...state,employees};
