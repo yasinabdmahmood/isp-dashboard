@@ -29,6 +29,9 @@ import Test from '../test/Test';
 import Agents from '../agent_component/agents/Agents';
 import CreateAgent from '../agent_component/create_agent/CreateAgent';
 import EditAgent from '../agent_component/edit_agent/EditAgent';
+import Companies from '../company_components/companies/Companies';
+import CreateCompany from '../company_components/create_company/CreateCompany';
+import EditCompany from '../company_components/edit_company/EditCompany';
 function Home() {
   return (
     <>
@@ -60,9 +63,14 @@ function Home() {
             <Route path="paymentRecords/new/:id" element={<NewPaymentRecord/>} />
             <Route path="reg_user" element={<RegUser/>} />
             <Route path="profile/:id" element={<Profile/>} />
+
             <Route path="agents" element={<Agents/>} />
             <Route path="agents/new" element={<CreateAgent/>} />
             <Route path="agents/edit/:id" element={<EditAgent/>} />
+
+            <Route path="companies" element={<Companies/>} />
+            <Route path="companies/new" element={<CreateCompany/>} />
+            <Route path="companies/edit/:id" element={<EditCompany/>} />
           </Route>
         </Routes>
     </>
