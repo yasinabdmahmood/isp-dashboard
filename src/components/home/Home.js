@@ -32,6 +32,8 @@ import EditAgent from '../agent_component/edit_agent/EditAgent';
 import Companies from '../company_components/companies/Companies';
 import CreateCompany from '../company_components/create_company/CreateCompany';
 import EditCompany from '../company_components/edit_company/EditCompany';
+import Ledgers from '../ledger_components/ledgers/Ledgers';
+import CreateLedger from '../ledger_components/create_ledger/CreateLedger';
 function Home() {
   return (
     <>
@@ -71,6 +73,9 @@ function Home() {
             <Route path="companies" element={<Companies/>} />
             <Route path="companies/new" element={<CreateCompany/>} />
             <Route path="companies/edit/:id" element={<EditCompany/>} />
+
+            <Route path="ledgers" element={<Ledgers/>} />
+            <Route path="ledgers/new" element={<CreateLedger/>} />
           </Route>
         </Routes>
     </>
