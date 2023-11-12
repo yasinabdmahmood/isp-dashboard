@@ -11,7 +11,7 @@ import trash from '../../../assets/images/trash-fill.svg';
 import view from '../../../assets/images/eye-fill.svg';
 import searchLogo from '../../../assets/images/search.svg';
 import Reducer from '../../../redux/helpers/reducer';
-const {getLedgers} = Reducer.asyncThunks
+const {getLedgers, deleteLedger} = Reducer.asyncThunks
 
 function Ledgers() {
     const [search, setSearch] = useState('');
@@ -27,10 +27,10 @@ function Ledgers() {
         }
         return false;
       };
-    const handleClientDeletion = async(id) => {
+    const handleLedgerDeletion = async(id) => {
         const confirm = window.confirm('Are you sure you want to delete this client')
         if(confirm){
-            const response = await dispatch(deleteClient(id));
+            const response = await dispatch(deleteLedger({id}));
             if(response.type.includes('fulfilled')){
                 window.alert('Item was deleted successfully');
             }
@@ -86,7 +86,7 @@ function Ledgers() {
                         <td className='d-flex justify-content-around align-items-center'>
                         { isAdmin() &&
                             <>
-                                    <img src={trash} style={{cursor: 'pointer'}} onClick={()=>{handleClientDeletion(ledger.id)}} className='mx-2'/>
+                                    <img src={trash} style={{cursor: 'pointer'}} onClick={()=>{handleLedgerDeletion(ledger.id)}} className='mx-2'/>
                                     <img src={edit} style={{cursor: 'pointer'}} onClick={()=>{navigate(`/home/clients/edit/${ledger.id}`)}} className='mx-2'/>
                             </>
                         }

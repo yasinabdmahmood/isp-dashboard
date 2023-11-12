@@ -26,18 +26,18 @@ export default [
     }
   },
 
-//   {
-//     name: 'deleteAgent',
-//     url: '/agents/destroy_agent',
-//     method: 'get',
-//     reducer: (state, action) => {
-//        const {agent_id} = action.payload.data;
-//        return {
-//           ...state,
-//           agents: state.agents.filter( (agent) => agent.id !== parseInt(agent_id))
-//        };
-//     }
-//   },
+  {
+    name: 'deleteLedger',
+    url: '/ledgers/destroy_ledger',
+    method: 'get',
+    reducer: (state, action) => {
+       const {ledger_id} = action.payload.data;
+       return {
+          ...state,
+          ledgers: state.ledgers.filter( (ledger) => ledger.id !== parseInt(ledger_id))
+       };
+    }
+  },
 
 //   {
 //    name: 'editAgent',
