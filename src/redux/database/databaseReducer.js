@@ -3,6 +3,7 @@ import axios from 'axios';
 import baseUrl from '../baseUrl';
 import companyReducers from './companyReducers';
 import agentReducers from './agentReducers';
+import ledgerReducers from './ledgerReducers';
 
 
 
@@ -545,6 +546,7 @@ const initialState = {
   monthlyReport: null,
   agents: [],
   companies: [],
+  ledgers: [],
   test: null,
 };
 
@@ -585,6 +587,10 @@ export const dataBaseSlice = createSlice({
     })
 
     companyReducers.forEach((item)=>{
+      builder.addCase(item.asyncThunk.fulfilled,item.reducer)
+    })
+
+    ledgerReducers.forEach((item)=>{
       builder.addCase(item.asyncThunk.fulfilled,item.reducer)
     })
 
