@@ -20,7 +20,6 @@ function Ledgers() {
     const ledgers = useSelector( state => state.database.ledgers);
     const dispatch = useDispatch();
     const filterAgents = (ledger) => {
-        console.log(ledger)
         const isAgentName = ledger?.agent?.name.toLowerCase().includes(search.toLowerCase());
         if(isAgentName){
             return true
@@ -90,7 +89,7 @@ function Ledgers() {
                                     <img src={edit} style={{cursor: 'pointer'}} onClick={()=>{navigate(`/home/clients/edit/${ledger.id}`)}} className='mx-2'/>
                             </>
                         }
-                          <img src={view} style={{cursor: 'pointer'}} onClick={()=>{navigate(`/home/clients/${ledger.id}`)}} className='mx-2'/>
+                          <img src={view} style={{cursor: 'pointer'}} onClick={()=>{navigate(`/home/ledgers/display`,{state: {ledger}})}} className='mx-2'/>
                            
                         </td>
                         </tr>
