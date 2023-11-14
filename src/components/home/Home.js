@@ -35,6 +35,7 @@ import EditCompany from '../company_components/edit_company/EditCompany';
 import Ledgers from '../ledger_components/ledgers/Ledgers';
 import CreateLedger from '../ledger_components/create_ledger/CreateLedger';
 import LedgerDetail from '../ledger_components/ledger_detail/LedgerDetail';
+import AddDeposit from '../ledger_components/add_deposit/AddDeposit';
 function Home() {
   return (
     <>
@@ -78,6 +79,7 @@ function Home() {
             <Route path="ledgers" element={<Ledgers/>} />
             <Route path="ledgers/new" element={<CreateLedger/>} />
             <Route path="ledgers/display" element={<LedgerDetail/>} />
+            <Route path="ledgers/add_deposit" element={<AddDeposit/>} />
           </Route>
         </Routes>
     </>

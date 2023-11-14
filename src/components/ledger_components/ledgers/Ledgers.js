@@ -9,6 +9,7 @@ import plusSign from '../../../assets/images/plus-circle.svg';
 import edit from '../../../assets/images/pencil-square.svg';
 import trash from '../../../assets/images/trash-fill.svg';
 import view from '../../../assets/images/eye-fill.svg';
+import plus from '../../../assets/images/plus-circle-fill.svg';
 import searchLogo from '../../../assets/images/search.svg';
 import Reducer from '../../../redux/helpers/reducer';
 const {getLedgers, deleteLedger} = Reducer.asyncThunks
@@ -90,6 +91,7 @@ function Ledgers() {
                             </>
                         }
                           <img src={view} style={{cursor: 'pointer'}} onClick={()=>{navigate(`/home/ledgers/display`,{state: {ledger}})}} className='mx-2'/>
+                          <img src={plus} style={{cursor: 'pointer'}} onClick={()=>{navigate(`/home/ledgers/add_deposit`,{state: {ledger}})}} className='mx-2'/>
                            
                         </td>
                         </tr>

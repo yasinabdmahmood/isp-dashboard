@@ -38,6 +38,20 @@ export default [
        };
     }
   },
+  {
+   name: 'addToDeposit',
+   url: '/ledgers/add_to_deposit',
+   method: 'get',
+   reducer: (state, action) => {
+      const updatedLedger = action.payload.data;
+      return {
+         ...state,
+         ledgers: state.ledgers.map( (ledger) => {
+              return ledger.id === updatedLedger.id? updatedLedger : ledger;
+         })
+      };
+   }
+ },
 
 //   {
 //    name: 'editAgent',
