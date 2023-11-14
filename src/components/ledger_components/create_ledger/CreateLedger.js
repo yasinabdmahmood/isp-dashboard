@@ -51,6 +51,7 @@ function slectedCompaniesReducer(state, action) {
 
 function CreateLedger() {
     const [agentId, setAgentId] = useState(null);
+    const [deposit, setDeposit] = useState(0);
     const [selectedCompanies, customDispatch] = useReducer(slectedCompaniesReducer, {});
     const [selectedCompany, setSelectedCompany] = useState(null);
     const [date, setDate] = useState(new Date());
@@ -93,6 +94,7 @@ function CreateLedger() {
        agent_id: parseInt(agentId),
        detail: selectedCompanies,
        date: parseDate(date),
+       deposit,
     }
     console.log(payloadData)
     const response = await dispatch(createLedger(payloadData))
@@ -115,6 +117,11 @@ function CreateLedger() {
                         return <option value={agent.id}>{agent.name}</option>
                     })}
                 </select>
+    </FormGroup>
+
+    <FormGroup>
+      <Label for="deposit">deposit</Label>
+      <Input type="number" name="deposit" className='bg-white' id="profit"  value={deposit} onChange={(e) => setDeposit(e.target.value)} />
     </FormGroup>
 
     <FormGroup>
