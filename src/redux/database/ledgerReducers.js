@@ -52,6 +52,18 @@ export default [
       };
    }
  },
+ {
+   name: 'getAgentHistory',
+   url: '/ledgers/agent_history',
+   method: 'get',
+   reducer: (state, action) => {
+      const agentHistory = action.payload.data;
+      return {
+         ...state,
+         agentHistory,
+      };
+   }
+  },
 
 //   {
 //    name: 'editAgent',

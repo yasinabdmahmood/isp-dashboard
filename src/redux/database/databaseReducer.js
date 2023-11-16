@@ -547,6 +547,7 @@ const initialState = {
   agents: [],
   companies: [],
   ledgers: [],
+  agentHistory: null,
   test: null,
 };
 
@@ -558,6 +559,12 @@ export const dataBaseSlice = createSlice({
       return {
         ...state,
         clientHistory: null,
+      }
+    },
+    clearAgentHistory(state,action) {
+      return {
+        ...state,
+        agentHistory: null,
       }
     },
     filterClientHistory(state,action) {
@@ -877,5 +884,5 @@ export const dataBaseSlice = createSlice({
   
 });
 
-export const { clearClientHistory, clearPaymentHistory, filterClientHistory, filterPaymentHistory } = dataBaseSlice.actions;
+export const { clearClientHistory, clearPaymentHistory, clearAgentHistory, filterClientHistory, filterPaymentHistory } = dataBaseSlice.actions;
 export default dataBaseSlice.reducer;

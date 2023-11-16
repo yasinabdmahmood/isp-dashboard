@@ -80,7 +80,7 @@ function Agents() {
                                     <img src={edit} style={{cursor: 'pointer'}} onClick={()=>{navigate(`/home/agents/edit/${agent.id}`)}} className='mx-2'/>
                             </>
                         }
-                          <img src={view} style={{cursor: 'pointer'}} onClick={()=>{navigate(`/home/agents/${agent.id}`)}} className='mx-2'/>
+                          <img src={view} style={{cursor: 'pointer'}} onClick={()=>{navigate(`/home/ledgers/agent_history`,{state: {agent}})}} className='mx-2'/>
                            
                         </td>
                         </tr>
