@@ -82,7 +82,7 @@ function AgentHistory() {
                         { isAdmin() &&
                             <>
                                     <img src={trash} style={{cursor: 'pointer'}} onClick={()=>{handleLedgerDeletion(ledger.id)}} className='mx-2'/>
-                                    <img src={edit} style={{cursor: 'pointer'}} onClick={()=>{navigate(`/home/clients/edit/${ledger.id}`)}} className='mx-2'/>
+                                    {/* <img src={edit} style={{cursor: 'pointer'}} onClick={()=>{navigate(`/home/clients/edit/${ledger.id}`)}} className='mx-2'/> */}
                             </>
                         }
                           <img src={view} style={{cursor: 'pointer'}} onClick={()=>{navigate(`/home/ledgers/display`,{state: {ledger}})}} className='mx-2'/>
