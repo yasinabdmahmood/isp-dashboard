@@ -4,11 +4,11 @@ import { useSelector, useDispatch } from 'react-redux';
 import { getTestData } from '../../redux/database/databaseReducer';
 import Reducer from '../../redux/helpers/reducer';
 import { Table } from 'react-bootstrap';
-const {getAgents,getCompanies, createCompany, deleteCompany, editCompany} = Reducer.asyncThunks
+const {getAgents,getCompanies, createCompany, deleteCompany, editCompany, getLedgers} = Reducer.asyncThunks
 
 function Test() {
 
-    const testData = useSelector( state => state.database?.companies);
+    const ledgers = useSelector( state => state.database?.ledgers);
     const dispatch = useDispatch();
     const data = [
         { id: 1, name: 'John', age: 30 },
@@ -28,7 +28,7 @@ function Test() {
 
     const fetchLedgers = () => {
         const payload = {requested_data: 'ledger'};
-        dispatch(getTestData(payload))
+        dispatch(getLedgers())
     }
 
 
@@ -60,7 +60,7 @@ function Test() {
 
             <div className='mt-5'>
                 
-               <MyTable data={ testData} />
+               <MyTable data={ ledgers} />
                <DynamicForm fieldDefinitions={createCompanyForm} onSubmit={createNewCompany} discription={'Create new Company'} />
                <DynamicForm fieldDefinitions={deleteCompanyForm} onSubmit={deletecompanyAction} discription={'delete Company'} />
                <DynamicForm fieldDefinitions={updateCompanyForm} onSubmit={updateCompanyAction} discription={'update Agent'} />

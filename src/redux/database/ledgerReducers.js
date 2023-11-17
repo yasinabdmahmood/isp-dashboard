@@ -9,7 +9,7 @@ export default [
        const ledgers = action.payload.data;
        return {
           ...state,
-          ledgers,
+          ledgers: [...state.ledgers, ...ledgers],
        };
     }
   },
@@ -21,7 +21,7 @@ export default [
        const newLedger = action.payload.data;
        return {
           ...state,
-          ledgers: [...state.ledgers, newLedger]
+          ledgers: [newLedger, ...state.ledgers]
        };
     }
   },
