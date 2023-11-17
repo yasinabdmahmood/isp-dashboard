@@ -183,7 +183,7 @@ function CreateLedger() {
 
         <FormGroup>
           <Label for="deposit">deposit</Label>
-          <Input type="number" name="deposit" className='bg-white' id="profit" value={deposit} onChange={(e) => setDeposit(e.target.value)} />
+          <Input type="number" name="deposit" className={`${theme["suggestion-custom-container"]} bg-white p-1 text-center`} id="profit" value={deposit} onChange={(e) => setDeposit(e.target.value)} />
         </FormGroup>
 
         <FormGroup>
@@ -195,7 +195,7 @@ function CreateLedger() {
             inputProps={{
 
 
-              className: `bg-white ${styles.inputfield}`,
+              className: `bg-white ${styles.inputfield} text-center`,
               autoComplete: 'off',
               placeholder: 'Enter date',
             }}
@@ -216,12 +216,13 @@ function CreateLedger() {
 
         <Button color="primary" className='btn-sm' type="submit">Create</Button>
       </Form>
+      <hr/>
       <Form onSubmit={(e) => { e.preventDefault(); customDispatch({ type: "addKey", key: e.target.companyType.value }) }} className='d-flex flex-column align-items-center' >
         <FormGroup className='d-flex flex-column'>
-          <Label for="subscription-type">Add type</Label>
-          <select name="companyType" className={`bg-white`} id="subscription-type" value={selectedCompany} onChange={(e) => setSelectedCompany(e.target.value)}>
+          <Label for="subscription-type" className='h3'>Add type ...</Label>
+          <select name="companyType" className={`bg-white h6`} id="subscription-type" value={selectedCompany} onChange={(e) => setSelectedCompany(e.target.value)}>
             {companies.map(company => {
-              return <option value={company.name}>{company.name}</option>
+              return <option value={company.name} className='h6'>{company.name}</option>
             })}
           </select>
         </FormGroup>
