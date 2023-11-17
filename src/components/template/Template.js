@@ -95,7 +95,7 @@ function Template() {
               { isAdmin() && <MenuItem component={<Link to="/home/agents" />} rootStyles={linkStyle}> Agents </MenuItem>}
               { isAdmin() && <MenuItem component={<Link to="/home/companies" />} rootStyles={linkStyle}> Companies </MenuItem>}
               { isAdmin() && <MenuItem component={<Link to="/home/ledgers" />} rootStyles={linkStyle}> Ledgers </MenuItem>}
-              { isAdmin() && <MenuItem component={<Link to="/home/test" />} rootStyles={linkStyle}> Test </MenuItem>}
+              {/* { isAdmin() && <MenuItem component={<Link to="/home/test" />} rootStyles={linkStyle}> Test </MenuItem>} */}
             </Menu>
           </Sidebar>
           </div>
