@@ -1,2 +1,2 @@
-const baseUrl = !process.env.NODE_ENV || process.env.NODE_ENV === 'development'? 'http://localhost:3000':'https://baban-net.herokuapp.com';
+const baseUrl = !process.env.NODE_ENV || process.env.NODE_ENV === 'development'? 'http://localhost:3000':'https://isp-system-rails.onrender.com';
 export default baseUrl;
