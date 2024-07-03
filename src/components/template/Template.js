@@ -8,6 +8,7 @@ import { loggout } from '../../redux/login/loginReducer';
 import { Outlet, Link  } from 'react-router-dom';
 import list from '../../assets/images/list.svg'
 import isAdmin from '../../helpers/isAdmin';
+import isAdminPlus from '../../helpers/isAdminPlus';
 import logoutLogo from '../../assets/images/box-arrow-right.svg'
 import { setLoading } from '../../redux/app-state/appState';
 import LoadingRing from '../helper_components/loading_ring/LoadingRing';
@@ -82,19 +83,19 @@ function Template() {
           <div className={styles['sidebar-container']}>
           <Sidebar  backgroundColor= 'rgb(40,40,40)' rootStyles={sidebarStyle}>
             <Menu>
-              { isAdmin() && <MenuItem component={<Link to="/home" />} rootStyles={linkStyle}>Dashboard</MenuItem>}
+              { (isAdmin() || isAdminPlus()) && <MenuItem component={<Link to="/home" />} rootStyles={linkStyle}>Dashboard</MenuItem>}
               <MenuItem component={<Link to="/home/paymentRecords" />} rootStyles={linkStyle}> Payment History </MenuItem>
               <MenuItem component={<Link to="/home/subscriptionTypes"/>} rootStyles={linkStyle}> Subscription Types </MenuItem>
               <MenuItem component={<Link to="/home/clients" />} rootStyles={linkStyle}> Users </MenuItem> 
               <MenuItem component={<Link to="/home/subscriptionRecords" />} rootStyles={linkStyle}> Subscription Records </MenuItem>
               <MenuItem component={<Link to="/home/unpaidSubscriptionRecords" />} rootStyles={linkStyle}>Unpaid Subscription Records </MenuItem>
-              { isAdmin() && <MenuItem component={<Link to="/home/activities" />} rootStyles={linkStyle}>Activities </MenuItem>}
+              { (isAdmin() || isAdminPlus()) && <MenuItem component={<Link to="/home/activities" />} rootStyles={linkStyle}>Activities </MenuItem>}
               {/* <MenuItem component={<Link to="/home/filteredSubscriptionRecords" />} rootStyles={linkStyle}> Filtered Subscription Records </MenuItem> */}
               <MenuItem component={<Link to={`/home/profile/${JSON.parse(sessionStorage.getItem('user'))?.id}`} />} rootStyles={linkStyle}> Profile </MenuItem>
-              { isAdmin() && <MenuItem component={<Link to="/home/employees" />} rootStyles={linkStyle}> Employees </MenuItem>}
-              { isAdmin() && <MenuItem component={<Link to="/home/agents" />} rootStyles={linkStyle}> Agents </MenuItem>}
-              { isAdmin() && <MenuItem component={<Link to="/home/companies" />} rootStyles={linkStyle}> Companies </MenuItem>}
-              { isAdmin() && <MenuItem component={<Link to="/home/ledgers" />} rootStyles={linkStyle}> Ledgers </MenuItem>}
+              { isAdminPlus() && <MenuItem component={<Link to="/home/employees" />} rootStyles={linkStyle}> Employees </MenuItem>}
+              { (isAdmin() || isAdminPlus()) && <MenuItem component={<Link to="/home/agents" />} rootStyles={linkStyle}> Agents </MenuItem>}
+              { (isAdmin() || isAdminPlus()) && <MenuItem component={<Link to="/home/companies" />} rootStyles={linkStyle}> Companies </MenuItem>}
+              { (isAdmin() || isAdminPlus()) && <MenuItem component={<Link to="/home/ledgers" />} rootStyles={linkStyle}> Ledgers </MenuItem>}
               {/* { isAdmin() && <MenuItem component={<Link to="/home/test" />} rootStyles={linkStyle}> Test </MenuItem>} */}
             </Menu>
           </Sidebar>
