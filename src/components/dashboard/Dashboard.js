@@ -47,7 +47,7 @@ function Dashboard() {
   const dispatch = useDispatch();
 
   useEffect(()=>{
-    if(!isAdmin() && !isAdminPlus()){
+    if(!isAdmin()){
       navigate('/home/subscriptionRecords');
     }
   })
