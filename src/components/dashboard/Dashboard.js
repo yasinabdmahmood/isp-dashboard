@@ -15,6 +15,8 @@ import { Bar } from 'react-chartjs-2';
 import { getClients, getDailyReport, getMonthlyReport, getSubscriptionRecords, getSubscriptionTypes, getUnpaidSubscriptionRecords } from '../../redux/database/databaseReducer';
 import { useNavigate } from 'react-router-dom';
 import CSVDownloadButton from '../helper_components/csv_download_button/CSVDownloadButton';
+import isAdmin from '../../helpers/isAdmin';
+import isAdminPlus from '../../helpers/isAdminPlus';
 
 ChartJs.register(
   BarElement,
@@ -45,8 +47,7 @@ function Dashboard() {
   const dispatch = useDispatch();
 
   useEffect(()=>{
-    const loggedInEmployeeRole = JSON.parse(sessionStorage.getItem('user'))?.role;
-    if(loggedInEmployeeRole !== 'admin'){
+    if(!isAdmin() && !isAdminPlus()){
       navigate('/home/subscriptionRecords');
     }
   })
