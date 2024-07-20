@@ -4,6 +4,7 @@ import baseUrl from '../baseUrl';
 import companyReducers from './companyReducers';
 import agentReducers from './agentReducers';
 import ledgerReducers from './ledgerReducers';
+import expenseReducers from './expenseReducers';
 
 
 
@@ -547,6 +548,7 @@ const initialState = {
   agents: [],
   companies: [],
   ledgers: [],
+  expenses: [],
   agentHistory: null,
   test: null,
 };
@@ -598,6 +600,10 @@ export const dataBaseSlice = createSlice({
     })
 
     ledgerReducers.forEach((item)=>{
+      builder.addCase(item.asyncThunk.fulfilled,item.reducer)
+    })
+
+    expenseReducers.forEach((item)=>{
       builder.addCase(item.asyncThunk.fulfilled,item.reducer)
     })
 
