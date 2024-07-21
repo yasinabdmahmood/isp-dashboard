@@ -9,7 +9,8 @@ export default [
        const expenses = action.payload.data;
        return {
           ...state,
-          expenses,
+          expenses: [...state.expenses,...expenses],
+          expenseIndex: state.expenseIndex + 1
        };
     }
   },
