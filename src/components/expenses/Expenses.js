@@ -18,6 +18,7 @@ const {getExpenses} = Reducer.asyncThunks
 function Expenses() {
    
     const expenses = useSelector(state => state.database.expenses);
+    const page = useSelector(state => state.database.expenseIndex);
     //   expense = {
     //   id: 'number',
     //   amount: 'number',
@@ -71,7 +72,8 @@ function Expenses() {
     useEffect(() => {
       async function fetchData() {
         if(expenses.length === 0){
-          const response = await dispatch(getExpenses());
+          const payload = {page}
+          const response = await dispatch(getExpenses(payload));
           if(!response.type.includes('fulfilled')){
             alert("Something went wrong please try again !!");
           }
@@ -84,7 +86,8 @@ function Expenses() {
     }, []);
 
     const loadMore = async() => {
-      const responce = await dispatch(getSubscriptionRecords());
+      const payload = {page};
+      const responce = await dispatch(getExpenses(payload));
       
       if(responce.payload.data.length < 20){
         setLoadMoreButton(false);
@@ -112,22 +115,25 @@ function Expenses() {
               <Table striped bordered hover responsive>
                 <thead className="thead-dark" >
                 <tr>
+                    <th scope="col">Id</th>
                     <th scope="col">Amount</th>
                     <th scope="col">Remark</th>
                     <th scope="col">Date</th>
                     <th scope="col">Status</th>
                     <th scope="col">Account option</th>
+                    <th scope="col">actions</th>
                 </tr>
                 </thead>
                 <tbody>
                 {expenses?.map(expense => (
                     <tr key={expense.id}>
+                    <td>{expense.id}</td>
                     <td>{expense.amount}</td>
                     <td>{expense.remark}</td>
                     <td>{expense.date}</td>
                     <td>{expense.status}</td>
-                    <td>{expense.account_option.options}</td>
-                    <td style={{whiteSpace: 'nowrap'}}>{formatDate(expense?.created_at)}</td>
+                    <td>{expense.account_option?.options}</td>
+                    {/* <td style={{whiteSpace: 'nowrap'}}>{formatDate(expense?.created_at)}</td> */}
                     { isAdmin() && 
                     <td className='d-flex justify-content-center'>
                       <img src={trash} style={{cursor: 'pointer'}} onClick={()=>handleDeletion(expense?.id)}/>
