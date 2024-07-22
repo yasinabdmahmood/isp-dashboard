@@ -148,7 +148,7 @@ function Expenses() {
                  </div>
             </div>
             <div className={styles['plus-sign']} >
-                <button onClick={() => navigate('/home/subscriptionRecords/new')} >
+                <button onClick={() => navigate('/home/expenses/new')} >
                   <img src={plusSign} alt='Add sign' />
                 </button>
             </div>
