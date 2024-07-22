@@ -14,6 +14,18 @@ export default [
        };
     }
   },
+  {
+    name: 'getAccountOptions',
+    url: '/expenses/get_account_options',
+    method: 'get',
+    reducer: (state, action) => {
+       const accountOptions = action.payload.data;
+       return {
+          ...state,
+          accountOptions,
+       };
+    }
+  },
  
 ].map( (item) =>  new Reducer(item) )
 

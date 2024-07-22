@@ -542,6 +542,7 @@ const initialState = {
   paymentRecordIndex: 0,
   activityIndex: 0,
   expenseIndex: 1,
+  accountOptions: [],
   clientHistory: null,
   paymentHistory: null,
   dailyReport: null,
