@@ -121,6 +121,7 @@ function Expenses() {
                     <th scope="col">Date</th>
                     <th scope="col">Status</th>
                     <th scope="col">Account option</th>
+                    <th scope="col">Employee</th>
                     <th scope="col">actions</th>
                 </tr>
                 </thead>
@@ -133,6 +134,7 @@ function Expenses() {
                     <td>{expense.date}</td>
                     <td>{expense.status}</td>
                     <td>{expense.account_option?.options}</td>
+                    <td>{expense.employee?.name}</td>
                     {/* <td style={{whiteSpace: 'nowrap'}}>{formatDate(expense?.created_at)}</td> */}
                     { isAdmin() && 
                     <td className='d-flex justify-content-center'>
