@@ -26,6 +26,18 @@ export default [
        };
     }
   },
+  {
+   name: 'createExpense',
+   url: '/expenses/create_expense',
+   method: 'get',
+   reducer: (state, action) => {
+      const newExpense = action.payload.data;
+      return {
+         ...state,
+         expenses: [newExpense, ...state.expenses]
+      };
+   }
+ },
  
 ].map( (item) =>  new Reducer(item) )
 
