@@ -97,6 +97,7 @@ function Template() {
               { (isAdmin() || isAdminPlus()) && <MenuItem component={<Link to="/home/companies" />} rootStyles={linkStyle}> Companies </MenuItem>}
               { (isAdmin() || isAdminPlus()) && <MenuItem component={<Link to="/home/ledgers" />} rootStyles={linkStyle}> Ledgers </MenuItem>}
               { (isAdmin() || isAdminPlus()) && <MenuItem component={<Link to="expenses" />} rootStyles={linkStyle}> Expenses </MenuItem>}
+              { isAdminPlus() && <MenuItem component={<Link to="expenses/pending_expenses" />} rootStyles={linkStyle}> Pending Expenses </MenuItem>}
               { process.env.NODE_ENV === 'development' && <MenuItem component={<Link to="/home/test" />} rootStyles={linkStyle}> Test </MenuItem>}
             </Menu>
           </Sidebar>

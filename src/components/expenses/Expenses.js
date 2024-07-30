@@ -159,7 +159,7 @@ function Expenses() {
                 <td>{expense.employee?.name}</td>
                 <td style={{ color: statusColor(expense.status) }}>{expense.status}</td>
                 <td>
-                  { expense.status === 'pending'||1 && <>
+                  { expense.status === 'pending' && <>
                     <button
                       className='btn btn-sm btn-primary mx-1'
                       onClick={() => handleExpenseUpdate(expense.id, 'approved')} >

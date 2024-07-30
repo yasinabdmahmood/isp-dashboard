@@ -542,6 +542,7 @@ const initialState = {
   paymentRecordIndex: 0,
   activityIndex: 0,
   expenseIndex: 1,
+  pendingExpenseIndex: 1,
   accountOptions: [],
   clientHistory: null,
   paymentHistory: null,
@@ -551,6 +552,7 @@ const initialState = {
   companies: [],
   ledgers: [],
   expenses: [],
+  pendingExpenses: [],
   agentHistory: null,
   test: null,
 };

@@ -15,6 +15,19 @@ export default [
       }
    },
    {
+      name: 'getPendingExpenses',
+      url: '/expenses/get_pending_expenses',
+      method: 'get',
+      reducer: (state, action) => {
+         const expenses = action.payload.data;
+         return {
+            ...state,
+            pendingExpenses: [...state.pendingExpenses, ...expenses],
+            pendingExpenseIndex: state.pendingExpenseIndex + 1
+         };
+      }
+   },
+   {
       name: 'getAccountOptions',
       url: '/expenses/get_account_options',
       method: 'get',
@@ -34,7 +47,8 @@ export default [
          const newExpense = action.payload.data;
          return {
             ...state,
-            expenses: [newExpense, ...state.expenses]
+            expenses: [newExpense, ...state.expenses],
+            pendingExpenses: [newExpense, ...state.pendingExpenses]
          };
       }
    },
@@ -52,6 +66,9 @@ export default [
                } else {
                   return el
                }
+            }),
+            pendingExpenses: state.pendingExpenses.filter((el) => {
+                return el.id != updatedExpense.id
             })
          };
       }
