@@ -115,8 +115,8 @@ function Dashboard() {
   const dailyPaymentChartlables = Object.keys(dailyReport?.data.report.payment_statistics.sum_of_category_payment || {});
   const dailyPaymentChartValues = Object.values(dailyReport?.data.report.payment_statistics.sum_of_category_payment || {});
   const totalDailyPayment = dailyReport?.data.report.payment_statistics.sum_of_total_payment;
-  const sumOfExpenses = dailyReport?.data.report.payment_statistics.sum_of_expenses;
-  const trialBalance = dailyReport?.data.report.payment_statistics.trial_balance
+  const dailySumOfExpenses = dailyReport?.data.report.payment_statistics.sum_of_expenses;
+  const dailyTrialBalance = dailyReport?.data.report.payment_statistics.trial_balance
   ;
 
   const dailyProfitChartlables = Object.keys(dailyReport?.data.report.profit_statistics.sum_of_category_profit || {});
@@ -126,6 +126,8 @@ function Dashboard() {
   const monthlyPaymentChartlables = Object.keys(monthlyReport?.data.report.payment_statistics.sum_of_category_payment || {});
   const monthlyPaymentChartValues = Object.values(monthlyReport?.data.report.payment_statistics.sum_of_category_payment || {});
   const totalMonthlyPayment = monthlyReport?.data.report.payment_statistics.sum_of_total_payment;
+  const monthlySumOfExpenses = monthlyReport?.data.report.payment_statistics.sum_of_expenses;
+  const monthlyTrialBalance = monthlyReport?.data.report.payment_statistics.trial_balance
 
   const monthlyProfitChartlables = Object.keys(monthlyReport?.data.report.profit_statistics.sum_of_category_profit || {});
   const monthlyProfitChartValues = Object.values(monthlyReport?.data.report.profit_statistics.sum_of_category_profit || {});
@@ -288,24 +290,45 @@ function Dashboard() {
         </div>
 
         <div className={`${styles.card} ${styles['sky-blue']}`}
-        onClick={()=> setDisplayChart("monthlyProfit")}
+        onClick={()=> null}
         >
         <div className={styles['card-upper-part']}>
-          <p>Expenses</p>
+          <p>Daily Expenses</p>
           <img src={paidusers} alt='paidusers' />
         </div>
-        <span>{sumOfExpenses}</span>
+        <span>{dailySumOfExpenses}</span>
         </div>
 
         <div className={`${styles.card} ${styles['sky-blue']}`}
-        onClick={()=> setDisplayChart("monthlyProfit")}
+        onClick={()=> null}
         >
         <div className={styles['card-upper-part']}>
-          <p>Trial balance</p>
+          <p>Daily Trial balance</p>
           <img src={paidusers} alt='paidusers' />
         </div>
-        <span>{trialBalance}</span>
+        <span>{dailyTrialBalance}</span>
         </div>
+
+        <div className={`${styles.card} ${styles['sky-blue']}`}
+        onClick={()=> null}
+        >
+        <div className={styles['card-upper-part']}>
+          <p>Monthly Expenses</p>
+          <img src={paidusers} alt='paidusers' />
+        </div>
+        <span>{monthlySumOfExpenses}</span>
+        </div>
+
+        <div className={`${styles.card} ${styles['sky-blue']}`}
+        onClick={()=> null}
+        >
+        <div className={styles['card-upper-part']}>
+          <p>Monthly Trial balance</p>
+          <img src={paidusers} alt='paidusers' />
+        </div>
+        <span>{monthlyTrialBalance}</span>
+        </div>
+        
         
 
       </div>
