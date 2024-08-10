@@ -83,7 +83,7 @@ function NewExpense() {
     setLoading(false);
   }
 
-  if (!accountOption) {
+  if (!accountOptions) {
     return <div>Loading...</div>;
   }
 
