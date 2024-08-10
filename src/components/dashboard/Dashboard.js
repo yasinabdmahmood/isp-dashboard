@@ -115,6 +115,9 @@ function Dashboard() {
   const dailyPaymentChartlables = Object.keys(dailyReport?.data.report.payment_statistics.sum_of_category_payment || {});
   const dailyPaymentChartValues = Object.values(dailyReport?.data.report.payment_statistics.sum_of_category_payment || {});
   const totalDailyPayment = dailyReport?.data.report.payment_statistics.sum_of_total_payment;
+  const sumOfExpenses = dailyReport?.data.report.payment_statistics.sum_of_expenses;
+  const trialBalance = dailyReport?.data.report.payment_statistics.trial_balance
+  ;
 
   const dailyProfitChartlables = Object.keys(dailyReport?.data.report.profit_statistics.sum_of_category_profit || {});
   const dailyProfitChartValues = Object.values(dailyReport?.data.report.profit_statistics.sum_of_category_profit || {});
@@ -283,6 +286,27 @@ function Dashboard() {
         </div>
         <span>{totalMonthlyProfit}</span>
         </div>
+
+        <div className={`${styles.card} ${styles['sky-blue']}`}
+        onClick={()=> setDisplayChart("monthlyProfit")}
+        >
+        <div className={styles['card-upper-part']}>
+          <p>Expenses</p>
+          <img src={paidusers} alt='paidusers' />
+        </div>
+        <span>{sumOfExpenses}</span>
+        </div>
+
+        <div className={`${styles.card} ${styles['sky-blue']}`}
+        onClick={()=> setDisplayChart("monthlyProfit")}
+        >
+        <div className={styles['card-upper-part']}>
+          <p>Trial balance</p>
+          <img src={paidusers} alt='paidusers' />
+        </div>
+        <span>{trialBalance}</span>
+        </div>
+        
 
       </div>
       <div className={styles['bar-chart-container']}>
