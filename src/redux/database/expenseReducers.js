@@ -40,6 +40,18 @@ export default [
       }
    },
    {
+      name: 'createAccountOptions',
+      url: '/expenses/create_account_options',
+      method: 'get',
+      reducer: (state, action) => {
+         const accountOption = action.payload.data;
+         return {
+            ...state,
+            accountOptions: [...state.accountOptions,accountOption],
+         };
+      }
+   },
+   {
       name: 'createExpense',
       url: '/expenses/create_expense',
       method: 'get',
