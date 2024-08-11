@@ -84,13 +84,13 @@ function Template() {
           <div className={styles['sidebar-container']}>
           <Sidebar  backgroundColor= 'rgb(40,40,40)' rootStyles={sidebarStyle}>
             <Menu>
-              { (!isEmployee()) && <MenuItem component={<Link to="/home" />} rootStyles={linkStyle}>Dashboard</MenuItem>}
-              <MenuItem component={<Link to="/home/paymentRecords" />} rootStyles={linkStyle}> Payment History </MenuItem>
+              { (isAdmin() || isAdminPlus()) && <MenuItem component={<Link to="/home" />} rootStyles={linkStyle}>Dashboard</MenuItem>}
+              { (isAdmin() || isAdminPlus()) && <MenuItem component={<Link to="/home/paymentRecords" />} rootStyles={linkStyle}> Payment History </MenuItem>}
               <MenuItem component={<Link to="/home/subscriptionTypes"/>} rootStyles={linkStyle}> Subscription Types </MenuItem>
               <MenuItem component={<Link to="/home/clients" />} rootStyles={linkStyle}> Users </MenuItem> 
               <MenuItem component={<Link to="/home/subscriptionRecords" />} rootStyles={linkStyle}> Subscription Records </MenuItem>
               <MenuItem component={<Link to="/home/unpaidSubscriptionRecords" />} rootStyles={linkStyle}>Unpaid Subscription Records </MenuItem>
-              { (!isEmployee()) && <MenuItem component={<Link to="/home/activities" />} rootStyles={linkStyle}>Activities </MenuItem>}
+              { (isAdmin() || isAdminPlus()) && <MenuItem component={<Link to="/home/activities" />} rootStyles={linkStyle}>Activities </MenuItem>}
               {/* <MenuItem component={<Link to="/home/filteredSubscriptionRecords" />} rootStyles={linkStyle}> Filtered Subscription Records </MenuItem> */}
               <MenuItem component={<Link to={`/home/profile/${JSON.parse(sessionStorage.getItem('user'))?.id}`} />} rootStyles={linkStyle}> Profile </MenuItem>
               { isAdminPlus() && <MenuItem component={<Link to="/home/employees" />} rootStyles={linkStyle}> Employees </MenuItem>}
@@ -98,7 +98,7 @@ function Template() {
               { (isAdmin() || isAdminPlus()) && <MenuItem component={<Link to="/home/companies" />} rootStyles={linkStyle}> Companies </MenuItem>}
               { (isAdmin() || isAdminPlus()) && <MenuItem component={<Link to="/home/ledgers" />} rootStyles={linkStyle}> Ledgers </MenuItem>}
               { (isAdmin() || isAdminPlus()) && <MenuItem component={<Link to="expenses" />} rootStyles={linkStyle}> Expenses </MenuItem>}
-              { isAdminPlus() && <MenuItem component={<Link to="expenses/pending_expenses" />} rootStyles={linkStyle}> Pending Expenses </MenuItem>}
+              { (isAdmin() || isAdminPlus()) && <MenuItem component={<Link to="expenses/pending_expenses" />} rootStyles={linkStyle}> Pending Expenses </MenuItem>}
               { process.env.NODE_ENV === 'development' && <MenuItem component={<Link to="/home/test" />} rootStyles={linkStyle}> Test </MenuItem>}
             </Menu>
           </Sidebar>
