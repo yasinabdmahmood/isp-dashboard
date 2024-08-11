@@ -2,6 +2,7 @@ import React, {useEffect} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import isAdmin from '../../helpers/isAdmin';
+import isEmployee from '../../helpers/isEmployee';
 import Table from 'react-bootstrap/Table';
 import { getSubscriptionTypes, deleteSubscriptionType } from '../../redux/database/databaseReducer';
 import edit from '../../assets/images/pencil-square.svg'
@@ -43,8 +44,8 @@ function SubscriptionTypes() {
           <tr>
             <th scope="col">Type</th>
             <th scope="col">Price</th>
-           { isAdmin() && <th scope="col">Profit</th> }
-           { isAdmin() && <th scope="col">Actions</th> }
+           { !isEmployee() && <th scope="col">Profit</th> }
+           { !isEmployee() && <th scope="col">Actions</th> }
           </tr>
         </thead>
         <tbody>
@@ -52,8 +53,8 @@ function SubscriptionTypes() {
             <tr key={subscriptionType?.id}>
               <td>{subscriptionType?.category}</td>
               <td>{subscriptionType?.cost}</td>
-              { isAdmin() && <td>{subscriptionType?.profit}</td> }
-              { isAdmin() && <td className='d-flex justify-content-around'>
+              { !isEmployee() && <td>{subscriptionType?.profit}</td> }
+              { !isEmployee() && <td className='d-flex justify-content-around'>
                 <img src={trash} style={{cursor: 'pointer'}} alt='delete' onClick={() => handleDeletion(subscriptionType?.id)} className='mx-2' />
                 <img src={edit} style={{cursor: 'pointer'}} alt='edit'  onClick={() => navigate(`/home/subscriptionTypes/edit/${subscriptionType?.id}`)} className='mx-2' />
               </td> }
