@@ -1,7 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getActivities } from '../../redux/database/databaseReducer';
+import { useNavigate } from 'react-router-dom';
 import Table from 'react-bootstrap/Table';
+import isEmployee from '../../helpers/isEmployee';
 import { formatDate } from '../../helpers/formatDate';
 import CustomPopup from '../helper_components/popup/Popup';
 
@@ -12,6 +14,7 @@ function Activities() {
 
   const dispatch = useDispatch();
   const elementRef = useRef(null);
+  const navigate = useNavigate();
 
   const [loadMoreButton, setLoadMoreButton] = useState(true);
 
@@ -26,6 +29,12 @@ function Activities() {
     }
     fetchData();
   }, []);
+
+  useEffect(()=>{
+    if(isEmployee()){
+      navigate('/home/clients');
+    }
+  })
 
 
 
