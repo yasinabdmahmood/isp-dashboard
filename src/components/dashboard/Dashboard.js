@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import isEmployee from '../../helpers/isEmployee'
 import { useDispatch, useSelector } from 'react-redux';
 import styles from './styles.module.scss'
 import totalusers from '../../assets/images/totaluser.svg'
@@ -47,8 +48,8 @@ function Dashboard() {
   const dispatch = useDispatch();
 
   useEffect(()=>{
-    if(!isAdmin()){
-      navigate('/home/subscriptionRecords');
+    if(isEmployee()){
+      navigate('/home/clients');
     }
   })
 
