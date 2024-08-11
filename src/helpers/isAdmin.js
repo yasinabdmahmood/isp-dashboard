@@ -1,6 +1,6 @@
 const isAdmin = () => {
     const role = JSON.parse(sessionStorage.getItem('user'))?.role;
-    return role === 'admin' || 'admin_plus'
+    return role === 'admin'
 }
 
 export default isAdmin;
