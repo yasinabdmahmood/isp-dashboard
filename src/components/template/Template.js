@@ -12,6 +12,7 @@ import isAdminPlus from '../../helpers/isAdminPlus';
 import logoutLogo from '../../assets/images/box-arrow-right.svg'
 import { setLoading } from '../../redux/app-state/appState';
 import LoadingRing from '../helper_components/loading_ring/LoadingRing';
+import isEmployee from '../../helpers/isEmployee';
 
 
 
@@ -83,7 +84,7 @@ function Template() {
           <div className={styles['sidebar-container']}>
           <Sidebar  backgroundColor= 'rgb(40,40,40)' rootStyles={sidebarStyle}>
             <Menu>
-              { (isAdmin() || isAdminPlus()) && <MenuItem component={<Link to="/home" />} rootStyles={linkStyle}>Dashboard</MenuItem>}
+              { (!isEmployee()) && <MenuItem component={<Link to="/home" />} rootStyles={linkStyle}>Dashboard</MenuItem>}
               <MenuItem component={<Link to="/home/paymentRecords" />} rootStyles={linkStyle}> Payment History </MenuItem>
               <MenuItem component={<Link to="/home/subscriptionTypes"/>} rootStyles={linkStyle}> Subscription Types </MenuItem>
               <MenuItem component={<Link to="/home/clients" />} rootStyles={linkStyle}> Users </MenuItem> 
