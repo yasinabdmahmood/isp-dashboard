@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { getClients, deleteClient } from '../../redux/database/databaseReducer';
 import isAdmin from '../../helpers/isAdmin';
+import isAdminPlus from '../../helpers/isAdminPlus';
 import Table from 'react-bootstrap/Table';
 import styles from './styles.module.scss'
 import plusSign from '../../assets/images/plus-circle.svg'
@@ -79,7 +80,7 @@ function Clients() {
                         <td>{client.client_contact_informations[0]?.contact_info || 'No contact information'}</td>
                         <td>{client?.coordinate || 'N/A'}</td>
                         <td className='d-flex justify-content-around align-items-center'>
-                        { isAdmin() &&
+                        { (isAdmin() || isAdminPlus() ) &&
                             <>
                                     <img src={trash} style={{cursor: 'pointer'}} onClick={()=>{handleClientDeletion(client.id)}} className='mx-2'/>
                                     <img src={edit} style={{cursor: 'pointer'}} onClick={()=>{navigate(`/home/clients/edit/${client.id}`)}} className='mx-2'/>
