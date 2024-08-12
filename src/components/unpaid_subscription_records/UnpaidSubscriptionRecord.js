@@ -55,7 +55,7 @@ function UnpaidSubscriptionRecord() {
 
       const filterItems = (item) => {
         const {name, role} = getLoggedinUser();
-        if(name.toLowerCase() !== item.assigned_employee?.toLowerCase() && role !== 'admin'){
+        if(name.toLowerCase() !== item.assigned_employee?.toLowerCase() && role === 'employee'){
           return false
         } 
         if (searchType === 'Client name' && item.client.name.toLowerCase().includes(search.toLowerCase())) {
