@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { editClient, createClientContactInfo, deleteClientContactInfo, getClientHistory, getClients } from '../../redux/database/databaseReducer';
 import { useParams } from 'react-router';
+import isEmployee from '../../helpers/isEmployee';
 
 function EditClient() {
     const {id} = useParams();
@@ -82,7 +83,7 @@ function EditClient() {
   }
 
 
-  if (!name || !userName) {
+  if (name === null || userName == null) {
     return <div>Loading...</div>;
   }
   
@@ -95,11 +96,11 @@ function EditClient() {
         <Form onSubmit={handleSubmit} className='d-flex flex-column align-items-center' >
         <FormGroup>
           <Label for="name">Name</Label>
-          <Input type="text" name="name" className='bg-white' id="category" required value={name} onChange={(e) => setName(e.target.value)} />
+          <Input type="text" name="name" className='bg-white' id="category" required value={name} onChange={(e) => setName(e.target.value)} disabled={isEmployee()} />
         </FormGroup>
         <FormGroup>
           <Label for="username">User name</Label>
-          <Input type="text" name="username" className='bg-white' id="cost" required value={userName} onChange={(e) => setUserName(e.target.value)} />
+          <Input type="text" name="username" className='bg-white' id="cost" required value={userName} onChange={(e) => setUserName(e.target.value)} disabled={isEmployee()} />
         </FormGroup>
         <FormGroup>
           <Label for="coordinates">Coordinates</Label>
@@ -107,7 +108,7 @@ function EditClient() {
         </FormGroup>
         <FormGroup>
           <Label for="info">Info</Label>
-          <Input type="textarea" name="info" className='bg-white' id="info"  value={info} onChange={(e) => setInfo(e.target.value)} />
+          <Input type="textarea" name="info" className='bg-white' id="info"  value={info} onChange={(e) => setInfo(e.target.value)} disabled={isEmployee()} />
         </FormGroup>
         <Button color="primary" className='btn-sm' type="submit">Edit</Button>
       </Form>
