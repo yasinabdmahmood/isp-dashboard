@@ -80,12 +80,10 @@ function Clients() {
                         <td>{client.client_contact_informations[0]?.contact_info || 'No contact information'}</td>
                         <td>{client?.coordinate || 'N/A'}</td>
                         <td className='d-flex justify-content-around align-items-center'>
-                        { (isAdmin() || isAdminPlus() ) &&
                             <>
-                                    <img src={trash} style={{cursor: 'pointer'}} onClick={()=>{handleClientDeletion(client.id)}} className='mx-2'/>
+                                    { (isAdmin() || isAdminPlus()) && <img src={trash} style={{cursor: 'pointer'}} onClick={()=>{handleClientDeletion(client.id)}} className='mx-2'/> }
                                     <img src={edit} style={{cursor: 'pointer'}} onClick={()=>{navigate(`/home/clients/edit/${client.id}`)}} className='mx-2'/>
                             </>
-                        }
                           <img src={view} style={{cursor: 'pointer'}} onClick={()=>{navigate(`/home/clients/${client.id}`)}} className='mx-2'/>
                            
                         </td>
