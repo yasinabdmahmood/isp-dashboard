@@ -12,6 +12,7 @@ import add from '../../assets/images/plus-circle-fill.svg'
 import view from '../../assets/images/eye-fill.svg'
 import edit from '../../assets/images/pencil-square.svg'
 import searchLogo from '../../assets/images/search.svg'
+import isAdminPlus from '../../helpers/isAdminPlus';
 
 function SubscriptionRecord() {
     const subscriptionRecords = useSelector(state => state.database.subscriptionRecords);
@@ -121,7 +122,7 @@ function SubscriptionRecord() {
                     <td>{subscriptionRecord?.assigned_employee || 'N/A'}</td>
                     <td>{subscriptionRecord?.note || 'N/A'}</td>
                     <td className='d-flex justify-content-around align-items-stretch flex-nowrap'>
-                        { isAdmin() && 
+                        { (isAdmin() || isAdminPlus()) && 
                         <img src={trash}  onClick={() => handleDeletion(subscriptionRecord.id)} style={{cursor: 'pointer'}} className='m-1'/>                     
                         }
                          <img src={add}  onClick={()=>navigate(`/home/paymentRecords/new/${subscriptionRecord.id}`)} style={{cursor: 'pointer'}} className='m-1'/>
