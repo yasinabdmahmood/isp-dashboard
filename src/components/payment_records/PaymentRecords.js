@@ -4,6 +4,7 @@ import { deletePaymentRecord, getPaymentRecords } from '../../redux/database/dat
 import Table from 'react-bootstrap/Table';
 import {formatDate} from '../../helpers/formatDate';
 import isAdmin from '../../helpers/isAdmin';
+import isAdminPlus from '../../helpers/isAdminPlus';
 import trash from '../../assets/images/trash-fill.svg'
 
 function PaymentRecords() {
@@ -60,7 +61,7 @@ function PaymentRecords() {
                     <th scope="col">Employee</th>
                     <th scope="col">Amount</th>
                     <th scope="col">Payment Date</th>
-                    { isAdmin() && <th scope="col">Actions</th> }
+                    { (isAdmin() || isAdminPlus()) && <th scope="col">Actions</th> }
                 </tr>
                 </thead>
                 <tbody>
@@ -70,7 +71,7 @@ function PaymentRecords() {
                     <td>{paymentRecord?.employee.name}</td>
                     <td>{paymentRecord?.amount}</td>
                     <td style={{whiteSpace: 'nowrap'}}>{formatDate(paymentRecord?.created_at)}</td>
-                    { isAdmin() && 
+                    { (isAdmin() || isAdminPlus()) && 
                     <td className='d-flex justify-content-center'>
                       <img src={trash} style={{cursor: 'pointer'}} onClick={()=>handleDeletion(paymentRecord?.id)}/>
                     </td>

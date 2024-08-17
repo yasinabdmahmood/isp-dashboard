@@ -7,6 +7,7 @@ import isAdmin from '../../helpers/isAdmin';
 import Table from 'react-bootstrap/Table';
 import { clearPaymentHistory, getPaymentHistory, deletePaymentRecord, filterPaymentHistory } from '../../redux/database/databaseReducer';
 import trash from '../../assets/images/trash-fill.svg'
+import isAdminPlus from '../../helpers/isAdminPlus';
 
 function PaymentHistory() {
     const location = useLocation();
@@ -54,7 +55,7 @@ function PaymentHistory() {
                     <th scope="col">Employee</th>
                     <th scope="col">Amount</th>
                     <th scope="col">Date</th>
-                    { isAdmin() && <th scope="col">Action</th> }
+                    { (isAdmin() || isAdminPlus()) && <th scope="col">Action</th> }
                 </tr>
                 </thead>
                 <tbody>
@@ -64,7 +65,7 @@ function PaymentHistory() {
                     <td>{paymentRecord?.employee.name}</td>
                     <td>{paymentRecord?.amount}</td>
                     <td>{formatDate(paymentRecord?.created_at)}</td>
-                    { isAdmin() &&
+                    { (isAdmin() || isAdminPlus()) &&
                     <td className='d-flex justify-content-center'>
                       <img src={trash} alt='delete' style={{cursor: 'pointer'}}  onClick={()=>handleDeletion(paymentRecord?.id)} />
                     
