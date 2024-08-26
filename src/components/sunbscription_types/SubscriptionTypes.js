@@ -7,6 +7,7 @@ import Table from 'react-bootstrap/Table';
 import { getSubscriptionTypes, deleteSubscriptionType } from '../../redux/database/databaseReducer';
 import edit from '../../assets/images/pencil-square.svg'
 import trash from '../../assets/images/trash-fill.svg'
+import isAdminPlus from '../../helpers/isAdminPlus';
 
 function SubscriptionTypes() {
   const subscriptionTypes = useSelector(state => state.database.subscriptionTypes);
@@ -62,7 +63,7 @@ function SubscriptionTypes() {
           ))}
         </tbody>
       </Table>
-      { isAdmin() && <div>
+      { (isAdmin() || isAdminPlus()) && <div>
         <button className='btn btn-sm btn-primary'
         onClick={() => navigate('/home/subscriptionTypes/new')}>Create new Subscription type</button>
       </div>
