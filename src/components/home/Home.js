@@ -40,6 +40,7 @@ import AgentHistory from '../ledger_components/agent_history/AgentHistory';
 import Expenses from '../expenses/Expenses';
 import NewExpense from '../new_expense/NewExpense';
 import PendingExpenses from '../pending_expenses/PendingExpenses';
+import SearchedExpenses from '../searched_expenses/SearchedExpenses';
 function Home() {
   return (
     <>
@@ -87,6 +88,7 @@ function Home() {
             <Route path="ledgers/agent_history" element={<AgentHistory/>} />
 
             <Route path="expenses" element={<Expenses/>} />
+            <Route path="expenses/searched_expenses" element={<SearchedExpenses/>} />
             <Route path="expenses/pending_expenses" element={<PendingExpenses/>} />
             <Route path="expenses/new" element={<NewExpense/>} />
           </Route>
