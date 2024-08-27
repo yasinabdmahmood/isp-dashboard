@@ -28,6 +28,18 @@ export default [
       }
    },
    {
+      name: 'getSearchedExpenses',
+      url: '/expenses/get_searched_expenses',
+      method: 'get',
+      reducer: (state, action) => {
+         const expenses = action.payload.data;
+         return {
+            ...state,
+            searchedExpenses: [...state.searchedExpenses, ...expenses],
+         };
+      }
+   },
+   {
       name: 'getAccountOptions',
       url: '/expenses/get_account_options',
       method: 'get',

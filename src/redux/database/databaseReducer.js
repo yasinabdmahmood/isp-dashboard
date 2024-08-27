@@ -552,6 +552,7 @@ const initialState = {
   companies: [],
   ledgers: [],
   expenses: [],
+  searchedExpenses: [],
   pendingExpenses: [],
   agentHistory: null,
   test: null,
