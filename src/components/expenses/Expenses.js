@@ -15,10 +15,10 @@ import edit from '../../assets/images/pencil-square.svg'
 import searchLogo from '../../assets/images/search.svg'
 const { getExpenses, updateExpenseStatus } = Reducer.asyncThunks
 
-const statusColor = (expenseStatus)=> {
-  if(expenseStatus === 'pending') return 'black';
-  if(expenseStatus === 'approved') return 'green';
-  if(expenseStatus === 'rejected') return 'red';
+const statusColor = (expenseStatus) => {
+  if (expenseStatus === 'pending') return 'black';
+  if (expenseStatus === 'approved') return 'green';
+  if (expenseStatus === 'rejected') return 'red';
 }
 
 function Expenses() {
@@ -43,12 +43,12 @@ function Expenses() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const elementRef = useRef(null);
-  const handleExpenseUpdate = async (id,newStatus) => {
+  const handleExpenseUpdate = async (id, newStatus) => {
     // Display alert message and prompt user to continue or cancel
     const confirmed = window.confirm('This action is Irreversible');
 
-    if(confirmed){
-      const payload = {id,newStatus};
+    if (confirmed) {
+      const payload = { id, newStatus };
       const response = await dispatch(updateExpenseStatus(payload));
       if (response.type.includes('fulfilled')) {
         //await dispatch(getNonApprovedExpense());
@@ -122,6 +122,11 @@ function Expenses() {
       <div className='d-flex flex-column flex-sm-row justify-content-between  align-items-center m-3'>
         <h3 className='text-center h4'>Expenses</h3>
 
+        <div>
+          <button className='btn btn-sm btn-primary'
+            onClick={() => navigate('/home/expenses/searched_expenses')}>Search by date</button>
+        </div>
+
         <div className='d-flex  justify-content-center align-items-center mx-5'>
           <div className='d-flex  justify-content-center align-items-stretch m-1'>
             <div className={styles['search-container']}>
@@ -159,7 +164,7 @@ function Expenses() {
                 <td>{expense.employee?.name}</td>
                 <td style={{ color: statusColor(expense.status) }}>{expense.status}</td>
                 <td>
-                  { expense.status === 'pending' && <>
+                  {expense.status === 'pending' && <>
                     <button
                       className='btn btn-sm btn-primary mx-1'
                       onClick={() => handleExpenseUpdate(expense.id, 'approved')} >
@@ -171,7 +176,7 @@ function Expenses() {
                     >Reject
                     </button>
                   </>}
-                  
+
                 </td>
                 {/* <td style={{whiteSpace: 'nowrap'}}>{formatDate(expense?.created_at)}</td> */}
                 {/* { isAdmin() && 
