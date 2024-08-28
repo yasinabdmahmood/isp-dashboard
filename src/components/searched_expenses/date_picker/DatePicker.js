@@ -11,7 +11,7 @@ const DatePicker = forwardRef((props, ref) => {
 
   return (
     <div className={styles['form-container']}>
-    <label htmlFor="from" className='bg-white'>Daily report:</label>
+    <label htmlFor="from" className='bg-white'>{props.text}</label>
     <input
       type="date"
       value={selectedDate}

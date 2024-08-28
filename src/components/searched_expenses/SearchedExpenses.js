@@ -23,8 +23,7 @@ const statusColor = (expenseStatus)=> {
 }
 
 function SearchedExpenses() {
-
-  const expenses = useSelector(state => state.database.expenses);
+  const searchedExpenses = useSelector(state => state.database.searchedExpenses);
   const page = useSelector(state => state.database.expenseIndex);
   //   expense = {
   //   id: 'number',
@@ -39,18 +38,24 @@ function SearchedExpenses() {
   //   }
   // }
 
-  const datePickerRef = useRef();
-
-  const handleGetDate = () => {
-    if (datePickerRef.current) {
-      alert(`Selected Date: ${datePickerRef.current.getDate()}`);
+  const startDatePickerRef = useRef();
+  const endDatePickerRef = useRef();
+  const handleGetDates = async () => {
+    const [start_year,start_month,start_day] = startDatePickerRef.current.getDate().split('-');
+    const [end_year,end_month,end_day] = endDatePickerRef.current.getDate().split('-');
+    const payload = {start_day,start_month,start_year,end_day,end_month,end_year}
+    const response = await dispatch(getSearchedExpenses(payload));
+    if (response.type.includes('fulfilled')) {
+      //await dispatch(getNonApprovedExpense());
+      window.alert('Item updated successfully')
+    }
+    else {
+      window.alert('Failed to updated the item, please try again')
     }
   };
 
-  const [search, setSearch] = useState('');
   const [loadMoreButton, setLoadMoreButton] = useState(true);
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const elementRef = useRef(null);
   const handleExpenseUpdate = async (id,newStatus) => {
     // Display alert message and prompt user to continue or cancel
@@ -61,88 +66,33 @@ function SearchedExpenses() {
       const response = await dispatch(updateExpenseStatus(payload));
       if (response.type.includes('fulfilled')) {
         //await dispatch(getNonApprovedExpense());
-        window.alert('Item updated successfully')
+        window.alert('search was successful')
       }
       else {
-        window.alert('Failed to updated the item, please try again')
+        window.alert('Failed to fetch data, please try again')
       }
     }
 
   }
-  const handleDeletion = async (id) => {
-    // Display alert message and prompt user to continue or cancel
-    const confirmed = window.confirm('Are you sure you want to delete this item?');
-
-    if (confirmed) {
-      const payload = { id };
-      const response = await dispatch(deleteSubscriptionRecord(payload));
-      if (response.type.includes('fulfilled')) {
-        await dispatch(getPaymentRecords());
-        window.alert('Item deleted successfully')
-      }
-      else {
-        window.alert('Failed to delete the item, please try again')
-      }
-
-    } else {
-      // User clicked Cancel, do nothing
-      return;
-    }
-  }
-
-  const filterItems = (item) => {
-    const isClientName = item.client.name.toLowerCase().includes(search.toLowerCase());
-    const isClientUsername = item.client.username?.toLowerCase().includes(search.toLowerCase());
-    const isEmployeeName = item.employee.name.toLowerCase().includes(search.toLowerCase());
-    const isSubscriptionType = item.subscription_type.category?.toLowerCase().includes(search.toLowerCase());
-    if (isClientName || isClientUsername || isEmployeeName || isSubscriptionType) {
-      return true
-    }
-    return false;
-  };
-
-  useEffect(() => {
-    async function fetchData() {
-      if (expenses.length === 0) {
-        const payload = { page }
-        const response = await dispatch(getExpenses(payload));
-        if (!response.type.includes('fulfilled')) {
-          alert("Something went wrong please try again !!");
-        }
-      }
-      else {
-
-      }
-    }
-    fetchData();
-  }, []);
-
+  
   const loadMore = async () => {
-    const payload = { page };
-    const responce = await dispatch(getExpenses(payload));
+    // const payload = { page };
+    // const responce = await dispatch(getExpenses(payload));
 
-    if (responce.payload.data.length < 20) {
-      setLoadMoreButton(false);
-    }
+    // if (responce.payload.data.length < 20) {
+    //   setLoadMoreButton(false);
+    // }
   }
 
   return (
     <div className={styles.container} ref={elementRef} style={{ height: '900px', overflow: 'auto' }}>
       <div className='d-flex flex-column flex-sm-row justify-content-between  align-items-center m-3'>
         <h3 className='text-center h4'>Searched Expenses</h3>
-        <DatePicker ref={datePickerRef} />
-        <button onClick={handleGetDate}>Get Selected Date</button>
+        <DatePicker ref={startDatePickerRef} text={'Start date'}/>
+        <DatePicker ref={endDatePickerRef} text={'End date'}/>
+        <button onClick={handleGetDates}>Get Selected Date</button>
 
-        <div className='d-flex  justify-content-center align-items-center mx-5'>
-          <div className='d-flex  justify-content-center align-items-stretch m-1'>
-            <div className={styles['search-container']}>
-              <img src={searchLogo} className={styles['search-icon']} style={{ background: 'white' }} alt='search' />
-              <input type="text" className={styles['search-input']} placeholder='Search' value={search} onChange={(e) => setSearch(e.target.value)} />
-            </div>
-
-          </div>
-
-        </div>
+        
       </div>
 
       <div className="px-sm-3" >
@@ -160,7 +110,7 @@ function SearchedExpenses() {
             </tr>
           </thead>
           <tbody>
-            {expenses?.map(expense => (
+            {searchedExpenses?.map(expense => (
               <tr key={expense.id}>
                 <td>{expense.id}</td>
                 <td>{expense.amount}</td>
@@ -194,14 +144,9 @@ function SearchedExpenses() {
             ))}
           </tbody>
         </Table>
-        <div className='my-3' style={{ display: loadMoreButton ? 'block' : 'none' }}>
+        {/* <div className='my-3' style={{ display: loadMoreButton ? 'block' : 'none' }}>
           <button onClick={loadMore} className='btn btn-sm btn-primary'>Load more</button>
-        </div>
-      </div>
-      <div className={styles['plus-sign']} >
-        <button onClick={() => navigate('/home/expenses/new')} >
-          <img src={plusSign} alt='Add sign' />
-        </button>
+        </div> */}
       </div>
     </div>
   );

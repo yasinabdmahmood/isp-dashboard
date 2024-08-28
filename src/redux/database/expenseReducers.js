@@ -35,7 +35,7 @@ export default [
          const expenses = action.payload.data;
          return {
             ...state,
-            searchedExpenses: [...state.searchedExpenses, ...expenses],
+            searchedExpenses: expenses,
          };
       }
    },
