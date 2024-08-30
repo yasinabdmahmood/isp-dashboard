@@ -1,30 +1,43 @@
 import React, { useEffect, useState, useRef } from 'react';
+import CSVDownloadButton from '../helper_components/csv_download_button/CSVDownloadButton';
 import DatePicker from './date_picker/DatePicker';
 import { useSelector, useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { formatDate } from '../../helpers/formatDate';
 import styles from './styles.module.scss'
-import plusSign from '../../assets/images/plus-circle.svg'
 import Table from 'react-bootstrap/Table';
-import { getSubscriptionRecords, deleteSubscriptionRecord, getPaymentRecords } from '../../redux/database/databaseReducer';
 import Reducer from '../../redux/helpers/reducer';
-import isAdmin from '../../helpers/isAdmin';
-import trash from '../../assets/images/trash-fill.svg'
-import add from '../../assets/images/plus-circle-fill.svg'
-import view from '../../assets/images/eye-fill.svg'
-import edit from '../../assets/images/pencil-square.svg'
-import searchLogo from '../../assets/images/search.svg'
-const { getSearchedExpenses, getExpenses, updateExpenseStatus } = Reducer.asyncThunks
 
-const statusColor = (expenseStatus)=> {
-  if(expenseStatus === 'pending') return 'black';
-  if(expenseStatus === 'approved') return 'green';
-  if(expenseStatus === 'rejected') return 'red';
+const { getSearchedExpenses, updateExpenseStatus } = Reducer.asyncThunks
+
+const statusColor = (expenseStatus) => {
+  if (expenseStatus === 'pending') return 'black';
+  if (expenseStatus === 'approved') return 'green';
+  if (expenseStatus === 'rejected') return 'red';
+}
+
+const parseDateRange = (startDate, endDate) => {
+  // This function takes two string parameters representing a start date
+  // and an end date in the format 'YYYY-MM-DD'. It parses these dates 
+  // and returns an object containing the individual day, month, and year
+  //  components of both the start and end dates.
+  // input example ('2024-05-16', '2024-06-18')
+  // output 
+  // {
+  //   start_day: 16,
+  //   start_month: 5,
+  //   start_year: 2024,
+  //   end_day: 18,
+  //   end_month: 6,
+  //   end_year: 2024,
+  // }
+  const [start_year, start_month, start_day] = startDate.split('-');
+  const [end_year, end_month, end_day] = endDate.split('-');
+  return { start_year, start_month, start_day, end_year, end_month, end_day }
 }
 
 function SearchedExpenses() {
   const searchedExpenses = useSelector(state => state.database.searchedExpenses);
-  const page = useSelector(state => state.database.expenseIndex);
+  const [startDate, setStartDate] = useState('');
+  const [endDate, setEndDate] = useState('');
   //   expense = {
   //   id: 'number',
   //   amount: 'number',
@@ -38,12 +51,16 @@ function SearchedExpenses() {
   //   }
   // }
 
-  const startDatePickerRef = useRef();
-  const endDatePickerRef = useRef();
+  const getStartDate = (date) => {
+    setStartDate(date);
+  }
+  const getEndDate = (date) => {
+    setEndDate(date);
+  }
   const handleGetDates = async () => {
-    const [start_year,start_month,start_day] = startDatePickerRef.current.getDate().split('-');
-    const [end_year,end_month,end_day] = endDatePickerRef.current.getDate().split('-');
-    const payload = {start_day,start_month,start_year,end_day,end_month,end_year}
+    const [start_year, start_month, start_day] = startDate.split('-');
+    const [end_year, end_month, end_day] = endDate.split('-');
+    const payload = { start_day, start_month, start_year, end_day, end_month, end_year }
     const response = await dispatch(getSearchedExpenses(payload));
     if (response.type.includes('fulfilled')) {
       //await dispatch(getNonApprovedExpense());
@@ -54,15 +71,14 @@ function SearchedExpenses() {
     }
   };
 
-  const [loadMoreButton, setLoadMoreButton] = useState(true);
   const dispatch = useDispatch();
   const elementRef = useRef(null);
-  const handleExpenseUpdate = async (id,newStatus) => {
+  const handleExpenseUpdate = async (id, newStatus) => {
     // Display alert message and prompt user to continue or cancel
     const confirmed = window.confirm('This action is Irreversible');
 
-    if(confirmed){
-      const payload = {id,newStatus};
+    if (confirmed) {
+      const payload = { id, newStatus };
       const response = await dispatch(updateExpenseStatus(payload));
       if (response.type.includes('fulfilled')) {
         //await dispatch(getNonApprovedExpense());
@@ -74,25 +90,17 @@ function SearchedExpenses() {
     }
 
   }
-  
-  const loadMore = async () => {
-    // const payload = { page };
-    // const responce = await dispatch(getExpenses(payload));
 
-    // if (responce.payload.data.length < 20) {
-    //   setLoadMoreButton(false);
-    // }
-  }
 
   return (
     <div className={styles.container} ref={elementRef} style={{ height: '900px', overflow: 'auto' }}>
       <div className='d-flex flex-column flex-sm-row justify-content-between  align-items-center m-3'>
         <h3 className='text-center h4'>Searched Expenses</h3>
-        <DatePicker ref={startDatePickerRef} text={'Start date'}/>
-        <DatePicker ref={endDatePickerRef} text={'End date'}/>
+        <DatePicker text={'Start date'} getDate={getStartDate} />
+        <DatePicker text={'End date'} getDate={getEndDate} />
         <button onClick={handleGetDates}>Get Selected Date</button>
 
-        
+
       </div>
 
       <div className="px-sm-3" >
@@ -120,7 +128,7 @@ function SearchedExpenses() {
                 <td>{expense.employee?.name}</td>
                 <td style={{ color: statusColor(expense.status) }}>{expense.status}</td>
                 <td>
-                  { expense.status === 'pending' && <>
+                  {expense.status === 'pending' && <>
                     <button
                       className='btn btn-sm btn-primary mx-1'
                       onClick={() => handleExpenseUpdate(expense.id, 'approved')} >
@@ -132,7 +140,7 @@ function SearchedExpenses() {
                     >Reject
                     </button>
                   </>}
-                  
+
                 </td>
                 {/* <td style={{whiteSpace: 'nowrap'}}>{formatDate(expense?.created_at)}</td> */}
                 {/* { isAdmin() && 
@@ -148,6 +156,10 @@ function SearchedExpenses() {
           <button onClick={loadMore} className='btn btn-sm btn-primary'>Load more</button>
         </div> */}
       </div>
+      <CSVDownloadButton
+        label='Export expenses'
+        endPoint='download_searched_expenses_as_csv'
+        params={parseDateRange(startDate, endDate)} />
     </div>
   );
 }
