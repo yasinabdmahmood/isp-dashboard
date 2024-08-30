@@ -2,12 +2,14 @@ import React from 'react';
 import axios from 'axios';
 import baseUrl from '../../../redux/baseUrl';
 
-const CSVDownloadButton = ({endPoint,label}) => {
+const CSVDownloadButton = ({endPoint,label,params}) => {
   const downloadCSV = async () => {
     try {
       const response = await axios.get(`${baseUrl}/${endPoint}`, {
         responseType: 'blob',
         withCredentials: true,
+        params: params,
+        ...(params && { params }),
       });
 
       const url = URL.createObjectURL(new Blob([response.data]));
