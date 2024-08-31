@@ -24,7 +24,7 @@ ChartJs.register(
   CategoryScale,
   LinearScale,
   ArcElement,
-  );
+);
 
 
 
@@ -33,22 +33,22 @@ const getTodayDate = () => {
 }
 
 function Dashboard() {
-  const subscriptionRecords = useSelector( state => state.database.subscriptionRecords);
-  const unpaidUsers = useSelector( state => state.database.unpaidSubscriptionRecords);
-  const clients = useSelector( state => state.database.clients );
-  const subscriptionTypes = useSelector(state => state.database.subscriptionTypes );
+  const subscriptionRecords = useSelector(state => state.database.subscriptionRecords);
+  const unpaidUsers = useSelector(state => state.database.unpaidSubscriptionRecords);
+  const clients = useSelector(state => state.database.clients);
+  const subscriptionTypes = useSelector(state => state.database.subscriptionTypes);
   const dailyReport = useSelector(state => state.database.dailyReport);
   const monthlyReport = useSelector(state => state.database.monthlyReport);
 
   const [displaydailyPaymentChart, setDisplaydailyPaymentChart] = useState(true);
   const [displaydailyProfitChart, setDisplaydailyProfitChart] = useState(false);
   const [displayChart, setDisplayChart] = useState("dailyPayment")
-  
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  useEffect(()=>{
-    if(isEmployee()){
+  useEffect(() => {
+    if (isEmployee()) {
       navigate('/home/clients');
     }
   })
@@ -58,7 +58,7 @@ function Dashboard() {
   const handleEndDateChange = (event) => {
     setDailyReportDate(event.target.value);
   };
-  useEffect(()=>{
+  useEffect(() => {
     const date = new Date(dailyReportDate);
     const year = date.getFullYear();
     const month = date.getMonth() + 1;
@@ -68,30 +68,30 @@ function Dashboard() {
     };
     const day = date.getDate();
     const payload = {
-        year,
-        month,
-        day,
+      year,
+      month,
+      day,
     }
     dispatch(getDailyReport(payload));
     dispatch(getMonthlyReport(monthlyReportPayload));
-  },[dailyReportDate])
+  }, [dailyReportDate])
 
-  
 
-  useEffect(()=> {
-    if(subscriptionRecords.length === 0){
+
+  useEffect(() => {
+    if (subscriptionRecords.length === 0) {
       dispatch(getSubscriptionRecords());
     }
-    if(clients.length === 0){
+    if (clients.length === 0) {
       dispatch(getClients());
     }
-    if(subscriptionTypes.length === 0){
+    if (subscriptionTypes.length === 0) {
       dispatch(getSubscriptionTypes());
     }
-    if(unpaidUsers){
+    if (unpaidUsers) {
       dispatch(getUnpaidSubscriptionRecords());
     };
-    if(!dailyReport){
+    if (!dailyReport) {
       const date = new Date(dailyReportDate);
       const year = date.getFullYear();
       const month = date.getMonth() + 1;
@@ -101,24 +101,26 @@ function Dashboard() {
         month,
       }
       const payload = {
-          year,
-          month,
-          day,
+        year,
+        month,
+        day,
       }
       dispatch(getDailyReport(payload));
       dispatch(getMonthlyReport(monthlyReportPayload));
     };
-  },[]);
+  }, []);
 
   const weekAgo = new Date();
   weekAgo.setDate(weekAgo.getDate() - 7);
 
   const dailyPaymentChartlables = Object.keys(dailyReport?.data.report.payment_statistics.sum_of_category_payment || {});
   const dailyPaymentChartValues = Object.values(dailyReport?.data.report.payment_statistics.sum_of_category_payment || {});
+  const dailySubTypeCounterChartlables = Object.keys(dailyReport?.data.report.sub_type_counter || {});
+  const dailySubTypeCounterValues = Object.values(dailyReport?.data.report.sub_type_counter || {});
   const totalDailyPayment = dailyReport?.data.report.payment_statistics.sum_of_total_payment;
   const dailySumOfExpenses = dailyReport?.data.report.payment_statistics.sum_of_expenses;
   const dailyTrialBalance = dailyReport?.data.report.payment_statistics.trial_balance
-  ;
+    ;
 
   const dailyProfitChartlables = Object.keys(dailyReport?.data.report.profit_statistics.sum_of_category_profit || {});
   const dailyProfitChartValues = Object.values(dailyReport?.data.report.profit_statistics.sum_of_category_profit || {});
@@ -126,6 +128,8 @@ function Dashboard() {
 
   const monthlyPaymentChartlables = Object.keys(monthlyReport?.data.report.payment_statistics.sum_of_category_payment || {});
   const monthlyPaymentChartValues = Object.values(monthlyReport?.data.report.payment_statistics.sum_of_category_payment || {});
+  const monthlySubTypeCounterChartlables = Object.keys(monthlyReport?.data.sub_type_counter || {});
+  const monthlySubTypeCounterChartValues = Object.values(monthlyReport?.data.sub_type_counter || {});
   const totalMonthlyPayment = monthlyReport?.data.report.payment_statistics.sum_of_total_payment;
   const monthlySumOfExpenses = monthlyReport?.data.report.payment_statistics.sum_of_expenses;
   const monthlyTrialBalance = monthlyReport?.data.report.payment_statistics.trial_balance
@@ -140,6 +144,32 @@ function Dashboard() {
       {
         label: 'Daily Payment report',
         data: dailyPaymentChartValues,
+        borderColor: 'black',
+        backgroundColor: ['aqua', 'red', 'green', 'blue', 'orange', 'purple', 'yellow'],
+        borderWidth: 1,
+      },
+    ],
+  };
+
+  const dailySubTypeCounterChartData = {
+    labels: dailySubTypeCounterChartlables,
+    datasets: [
+      {
+        label: 'Daily counter',
+        data: dailySubTypeCounterValues,
+        borderColor: 'black',
+        backgroundColor: ['aqua', 'red', 'green', 'blue', 'orange', 'purple', 'yellow'],
+        borderWidth: 1,
+      },
+    ],
+  };
+
+  const monthlySubTypeCounterChartData = {
+    labels: monthlySubTypeCounterChartlables,
+    datasets: [
+      {
+        label: 'Monthly counter',
+        data: monthlySubTypeCounterChartValues,
         borderColor: 'black',
         backgroundColor: ['aqua', 'red', 'green', 'blue', 'orange', 'purple', 'yellow'],
         borderWidth: 1,
@@ -226,142 +256,180 @@ function Dashboard() {
         </div>
       </div>
       <div className={styles['cards-container']}>
-        <div 
-        className={`${styles.card} ${styles['sky-blue']}`}
-        onClick={() => navigate('/home/clients')}>
+        <div
+          className={`${styles.card} ${styles['sky-blue']}`}
+          onClick={() => navigate('/home/clients')}>
           <div className={styles['card-upper-part']}>
             <p>Total users</p>
             <img src={totalusers} alt='totalusers' />
           </div>
           <span>{clients.length}</span>
         </div>
-        <div 
-        className={`${styles.card} ${styles['pink']}`}
-        onClick={() => navigate('/home/unpaidSubscriptionRecords')}>
-        <div 
-        className={styles['card-upper-part']}
-        
-        style={{'cursor': 'pointer'}}>
-          <p>Unpaid users</p>
-          <img src={unpaidusers} alt='unpaidusers' />
-        </div>
-        <div className='d-flex justify-content-between align-items-center'>
-          <span>{unpaidUsers?.length}</span>
-          <span style={{'fontSize': '1rem'}}>{(unpaidUsers.reduce( (ac,cr) => ac + parseFloat(cr.subscription_type.cost) - parseFloat(cr.pay), 0)).toLocaleString()} IQD</span>
-        </div>
+        <div
+          className={`${styles.card} ${styles['pink']}`}
+          onClick={() => navigate('/home/unpaidSubscriptionRecords')}>
+          <div
+            className={styles['card-upper-part']}
+
+            style={{ 'cursor': 'pointer' }}>
+            <p>Unpaid users</p>
+            <img src={unpaidusers} alt='unpaidusers' />
+          </div>
+          <div className='d-flex justify-content-between align-items-center'>
+            <span>{unpaidUsers?.length}</span>
+            <span style={{ 'fontSize': '1rem' }}>{(unpaidUsers.reduce((ac, cr) => ac + parseFloat(cr.subscription_type.cost) - parseFloat(cr.pay), 0)).toLocaleString()} IQD</span>
+          </div>
         </div>
         <div className={`${styles.card} ${styles['teal']}`}
-        onClick={()=> setDisplayChart("dailyPayment")}
+          onClick={() => setDisplayChart("dailyPayment")}
         >
-        <div className={styles['card-upper-part']}>
-          <p>Total Daily payment</p>
-          <img src={paidusers} alt='paidusers' />
+          <div className={styles['card-upper-part']}>
+            <p>Total Daily payment</p>
+            <img src={paidusers} alt='paidusers' />
+          </div>
+          <span>{totalDailyPayment}</span>
         </div>
-        <span>{totalDailyPayment}</span>
-        </div>
-        <div 
+        <div
           className={`${styles.card} ${styles['sky-blue']}`}
-          onClick={()=> setDisplayChart("dailyProfit")}
+          onClick={() => setDisplayChart("dailyProfit")}
         >
-        <div className={styles['card-upper-part']}>
-          <p>Total Daily profit</p>
-          <img src={paidusers} alt='paidusers' />
+          <div className={styles['card-upper-part']}>
+            <p>Total Daily profit</p>
+            <img src={paidusers} alt='paidusers' />
+          </div>
+          <span>{totalDailyProfit}</span>
         </div>
-        <span>{totalDailyProfit}</span>
+
+        <div
+          className={`${styles.card} ${styles['sky-blue']}`}
+          onClick={() => setDisplayChart("dailyCounter")}
+        >
+          <div className={styles['card-upper-part']}>
+            <p>Daily counter</p>
+            <img src={paidusers} alt='paidusers' />
+          </div>
+          <span></span>
+        </div>
+
+        <div
+          className={`${styles.card} ${styles['sky-blue']}`}
+          onClick={() => setDisplayChart("monthlyCounter")}
+        >
+          <div className={styles['card-upper-part']}>
+            <p>Monthly counter</p>
+            <img src={paidusers} alt='paidusers' />
+          </div>
+          <span></span>
         </div>
 
         <div className={`${styles.card} ${styles['teal']}`}
-        onClick={()=> setDisplayChart("monthlyPayment")}
+          onClick={() => setDisplayChart("monthlyPayment")}
         >
-        <div className={styles['card-upper-part']}>
-          <p>Total Monthly pay</p>
-          <img src={paidusers} alt='paidusers' />
-        </div>
-        <span>{totalMonthlyPayment}</span>
+          <div className={styles['card-upper-part']}>
+            <p>Total Monthly pay</p>
+            <img src={paidusers} alt='paidusers' />
+          </div>
+          <span>{totalMonthlyPayment}</span>
         </div>
 
         <div className={`${styles.card} ${styles['sky-blue']}`}
-        onClick={()=> setDisplayChart("monthlyProfit")}
+          onClick={() => setDisplayChart("monthlyProfit")}
         >
-        <div className={styles['card-upper-part']}>
-          <p>Total Monthly Profit</p>
-          <img src={paidusers} alt='paidusers' />
-        </div>
-        <span>{totalMonthlyProfit}</span>
+          <div className={styles['card-upper-part']}>
+            <p>Total Monthly Profit</p>
+            <img src={paidusers} alt='paidusers' />
+          </div>
+          <span>{totalMonthlyProfit}</span>
         </div>
 
         <div className={`${styles.card} ${styles['sky-blue']}`}
-        onClick={()=> null}
+          onClick={() => null}
         >
-        <div className={styles['card-upper-part']}>
-          <p>Daily Expenses</p>
-          <img src={paidusers} alt='paidusers' />
-        </div>
-        <span>{dailySumOfExpenses}</span>
+          <div className={styles['card-upper-part']}>
+            <p>Daily Expenses</p>
+            <img src={paidusers} alt='paidusers' />
+          </div>
+          <span>{dailySumOfExpenses}</span>
         </div>
 
         <div className={`${styles.card} ${styles['sky-blue']}`}
-        onClick={()=> null}
+          onClick={() => null}
         >
-        <div className={styles['card-upper-part']}>
-          <p>Daily Trial balance</p>
-          <img src={paidusers} alt='paidusers' />
-        </div>
-        <span>{dailyTrialBalance}</span>
+          <div className={styles['card-upper-part']}>
+            <p>Daily Trial balance</p>
+            <img src={paidusers} alt='paidusers' />
+          </div>
+          <span>{dailyTrialBalance}</span>
         </div>
 
         <div className={`${styles.card} ${styles['sky-blue']}`}
-        onClick={()=> null}
+          onClick={() => null}
         >
-        <div className={styles['card-upper-part']}>
-          <p>Monthly Expenses</p>
-          <img src={paidusers} alt='paidusers' />
-        </div>
-        <span>{monthlySumOfExpenses}</span>
+          <div className={styles['card-upper-part']}>
+            <p>Monthly Expenses</p>
+            <img src={paidusers} alt='paidusers' />
+          </div>
+          <span>{monthlySumOfExpenses}</span>
         </div>
 
         <div className={`${styles.card} ${styles['sky-blue']}`}
-        onClick={()=> null}
+          onClick={() => null}
         >
-        <div className={styles['card-upper-part']}>
-          <p>Monthly Trial balance</p>
-          <img src={paidusers} alt='paidusers' />
+          <div className={styles['card-upper-part']}>
+            <p>Monthly Trial balance</p>
+            <img src={paidusers} alt='paidusers' />
+          </div>
+          <span>{monthlyTrialBalance}</span>
         </div>
-        <span>{monthlyTrialBalance}</span>
-        </div>
-        
-        
+
+
 
       </div>
       <div className={styles['bar-chart-container']}>
         <Bar
-        data={dailyPaymentChartData}
-        options={options}
-        className={styles['bar-chart']}
-        style={{display: displayChart === "dailyPayment"? 'block': 'none'}}
+          data={dailyPaymentChartData}
+          options={options}
+          className={styles['bar-chart']}
+          style={{ display: displayChart === "dailyPayment" ? 'block' : 'none' }}
         >
         </Bar>
         <Bar
-        data={dailyProfitChartData}
-        options={options}
-        className={styles['bar-chart']}
-        style={{display: displayChart === "dailyProfit"? 'block': 'none'}}
-        >
-        </Bar> 
-
-        <Bar
-        data={monthlyPaymentChartData}
-        options={options}
-        className={styles['bar-chart']}
-        style={{display: displayChart === "monthlyPayment"? 'block': 'none'}}
+          data={dailyProfitChartData}
+          options={options}
+          className={styles['bar-chart']}
+          style={{ display: displayChart === "dailyProfit" ? 'block' : 'none' }}
         >
         </Bar>
 
         <Bar
-        data={monthlyProfitChartData}
-        options={options}
-        className={styles['bar-chart']}
-        style={{display: displayChart === "monthlyProfit"? 'block': 'none'}}
+          data={monthlyPaymentChartData}
+          options={options}
+          className={styles['bar-chart']}
+          style={{ display: displayChart === "monthlyPayment" ? 'block' : 'none' }}
+        >
+        </Bar>
+
+        <Bar
+          data={monthlyProfitChartData}
+          options={options}
+          className={styles['bar-chart']}
+          style={{ display: displayChart === "monthlyProfit" ? 'block' : 'none' }}
+        >
+        </Bar>
+
+        <Bar
+          data={dailySubTypeCounterChartData}
+          options={options}
+          className={styles['bar-chart']}
+          style={{ display: displayChart === "dailyCounter" ? 'block' : 'none' }}
+        >
+        </Bar>
+
+        <Bar
+          data={monthlySubTypeCounterChartData}
+          options={options}
+          className={styles['bar-chart']}
+          style={{ display: displayChart === "monthlyCounter" ? 'block' : 'none' }}
         >
         </Bar>
 
@@ -372,7 +440,7 @@ function Dashboard() {
         <CSVDownloadButton label='Export Payment Records' endPoint='download_payment_records_as_csv' />
         <CSVDownloadButton label='Export Clients' endPoint='download_clients_as_csv' />
       </div>
-      
+
     </div>
   );
 }
