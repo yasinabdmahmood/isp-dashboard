@@ -121,11 +121,11 @@ function EditClient() {
                             return (
                                 <li key={cl.id} className='my-2'>
                                     <span >{cl.contact_info}</span>
-                                    <button 
+                                    { !isEmployee() && <button 
                                     onClick={()=>removeContactInfo(cl.id)}
                                     className='btn btn-sm btn-danger mx-2'
                                     >Remove
-                                    </button>
+                                    </button>}
                                 </li>
                             )
                         }
