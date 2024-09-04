@@ -128,8 +128,8 @@ function Dashboard() {
 
   const monthlyPaymentChartlables = Object.keys(monthlyReport?.data.report.payment_statistics.sum_of_category_payment || {});
   const monthlyPaymentChartValues = Object.values(monthlyReport?.data.report.payment_statistics.sum_of_category_payment || {});
-  const monthlySubTypeCounterChartlables = Object.keys(monthlyReport?.data.sub_type_counter || {});
-  const monthlySubTypeCounterChartValues = Object.values(monthlyReport?.data.sub_type_counter || {});
+  const monthlySubTypeCounterChartlables = Object.keys(monthlyReport?.data.report.sub_type_counter || {});
+  const monthlySubTypeCounterChartValues = Object.values(monthlyReport?.data.report.sub_type_counter || {});
   const totalMonthlyPayment = monthlyReport?.data.report.payment_statistics.sum_of_total_payment;
   const monthlySumOfExpenses = monthlyReport?.data.report.payment_statistics.sum_of_expenses;
   const monthlyTrialBalance = monthlyReport?.data.report.payment_statistics.trial_balance
