@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import styles from './styles.module.scss'
 import Table from 'react-bootstrap/Table';
 import Reducer from '../../redux/helpers/reducer';
+import isAdminPlus from '../../helpers/isAdminPlus';
 
 const { getSearchedExpenses, updateExpenseStatus } = Reducer.asyncThunks
 
@@ -114,7 +115,7 @@ function SearchedExpenses() {
               <th scope="col">Account option</th>
               <th scope="col">Employee</th>
               <th scope="col">Status</th>
-              <th scope="col">actions</th>
+              {isAdminPlus() && <th scope="col">actions</th>}
             </tr>
           </thead>
           <tbody>
@@ -127,7 +128,7 @@ function SearchedExpenses() {
                 <td>{expense.account_option?.options}</td>
                 <td>{expense.employee?.name}</td>
                 <td style={{ color: statusColor(expense.status) }}>{expense.status}</td>
-                <td>
+                {isAdminPlus() && <td>
                   {expense.status === 'pending' && <>
                     <button
                       className='btn btn-sm btn-primary mx-1'
@@ -141,7 +142,7 @@ function SearchedExpenses() {
                     </button>
                   </>}
 
-                </td>
+                </td>}
                 {/* <td style={{whiteSpace: 'nowrap'}}>{formatDate(expense?.created_at)}</td> */}
                 {/* { isAdmin() && 
                     <td className='d-flex justify-content-center'>

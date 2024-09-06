@@ -7,7 +7,7 @@ import plusSign from '../../assets/images/plus-circle.svg'
 import Table from 'react-bootstrap/Table';
 import { getSubscriptionRecords, deleteSubscriptionRecord, getPaymentRecords } from '../../redux/database/databaseReducer';
 import Reducer from '../../redux/helpers/reducer';
-import isAdmin from '../../helpers/isAdmin';
+import isAdminPlus from '../../helpers/isAdminPlus';
 import trash from '../../assets/images/trash-fill.svg'
 import add from '../../assets/images/plus-circle-fill.svg'
 import view from '../../assets/images/eye-fill.svg'
@@ -150,7 +150,7 @@ function Expenses() {
               <th scope="col">Account option</th>
               <th scope="col">Employee</th>
               <th scope="col">Status</th>
-              <th scope="col">actions</th>
+              { isAdminPlus() && <th scope="col">actions</th>}
             </tr>
           </thead>
           <tbody>
@@ -163,7 +163,7 @@ function Expenses() {
                 <td>{expense.account_option?.options}</td>
                 <td>{expense.employee?.name}</td>
                 <td style={{ color: statusColor(expense.status) }}>{expense.status}</td>
-                <td>
+                { isAdminPlus() &&<td>
                   {expense.status === 'pending' && <>
                     <button
                       className='btn btn-sm btn-primary mx-1'
@@ -177,7 +177,7 @@ function Expenses() {
                     </button>
                   </>}
 
-                </td>
+                </td>}
                 {/* <td style={{whiteSpace: 'nowrap'}}>{formatDate(expense?.created_at)}</td> */}
                 {/* { isAdmin() && 
                     <td className='d-flex justify-content-center'>
