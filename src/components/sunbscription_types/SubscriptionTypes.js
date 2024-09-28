@@ -39,7 +39,7 @@ function SubscriptionTypes() {
       <h1 className='text-start text-black h4 m-4'>Subscription Types</h1>
     </div>
     <div className="p-sm-3 mt-2">
-      <Table striped bordered hover responsive>
+      <Table table-light striped bordered hover responsive>
 
         <thead className="thead-dark" >
           <tr>
@@ -47,6 +47,7 @@ function SubscriptionTypes() {
             <th scope="col">Price</th>
            { !isEmployee() && <th scope="col">Profit</th> }
            { !isEmployee() && <th scope="col">Actions</th> }
+           { !isEmployee() && <th scope="col">Enable</th> }
           </tr>
         </thead>
         <tbody>
@@ -59,6 +60,7 @@ function SubscriptionTypes() {
                 <img src={trash} style={{cursor: 'pointer'}} alt='delete' onClick={() => handleDeletion(subscriptionType?.id)} className='mx-2' />
                 <img src={edit} style={{cursor: 'pointer'}} alt='edit'  onClick={() => navigate(`/home/subscriptionTypes/edit/${subscriptionType?.id}`)} className='mx-2' />
               </td> }
+              { !isEmployee() && <td>{subscriptionType?.enable? 'Yes':'No'}</td> }
             </tr>
           ))}
         </tbody>

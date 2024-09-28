@@ -198,7 +198,7 @@ function NewSubscriptionRecord() {
         <FormGroup className='d-flex flex-column'>
             <Label for="subscription-type">Subscription Type</Label>
                 <select name="subscription-type" className={`bg-white ${styles.inputfield}`} id="subscription-type" value={subscriptionType} onChange={(e) => setSubscriptionType(e.target.value)}>
-                    {subscriptionTypes.map( subscriptionType => {
+                    {subscriptionTypes.filter(subscriptionType=> subscriptionType.enable).map( subscriptionType => {
                         return <option value={subscriptionType.id}>{subscriptionType.category}</option>
                     })}
                 </select>

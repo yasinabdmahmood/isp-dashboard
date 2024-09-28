@@ -1,57 +1,59 @@
 import React, { useState, useEffect } from 'react';
 import { Form, FormGroup, Label, Input, Button } from 'reactstrap';
-import { useSelector,useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { editSubscriptionType, getClients, getSubscriptionTypes} from '../../redux/database/databaseReducer';
+import { editSubscriptionType, getClients, getSubscriptionTypes } from '../../redux/database/databaseReducer';
 import { useParams } from "react-router-dom";
 
 function EditSubscriptionType() {
-    const { id } = useParams();
-    const subscriptionType = useSelector(state => state.database.subscriptionTypes.find(subscriptionType => subscriptionType.id === parseInt(id)));
-    const [category, setCategory] = useState(null);
-    const [cost, setCost] = useState(null);
-    const [profit, setProfit] = useState(null);
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
-    useEffect(() => {
-      async function fetchData() {
-        if(subscriptionType.length === 0){
-          await dispatch(getClients());
-          await dispatch(getSubscriptionTypes());
-        }
+  const { id } = useParams();
+  const subscriptionType = useSelector(state => state.database.subscriptionTypes.find(subscriptionType => subscriptionType.id === parseInt(id)));
+  const [category, setCategory] = useState(null);
+  const [cost, setCost] = useState(null);
+  const [profit, setProfit] = useState(null);
+  const [enable, setEnable] = useState(null);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  useEffect(() => {
+    async function fetchData() {
+      if (subscriptionType.length === 0) {
+        await dispatch(getClients());
+        await dispatch(getSubscriptionTypes());
       }
-      fetchData();
-    }, [subscriptionType.length]);
-  
-    useEffect(() => {
-      if (subscriptionType) {
-        setCategory(subscriptionType.category);
-        setCost(subscriptionType.cost);
-        setProfit(subscriptionType.profit);
-      }
-    }, [subscriptionType]);
-  
-  
-    const handleSubmit = async (event) => {
-      event.preventDefault();
-      const payloadData = {
-          id,category,cost,profit
-      }
-       const response = await dispatch(editSubscriptionType(payloadData))
-       if(response.type.includes('fulfilled')){
-        navigate('/home/subscriptionTypes');
-       }else{
-        window.alert('This action failed, please try again')
-       }
-      
-    };
-    
-    if (!category || !cost || !profit) {
-      return <div>Loading...</div>;
     }
-  
-    return (
-      <>
+    fetchData();
+  }, [subscriptionType.length]);
+
+  useEffect(() => {
+    if (subscriptionType) {
+      setCategory(subscriptionType.category);
+      setCost(subscriptionType.cost);
+      setProfit(subscriptionType.profit);
+      setEnable(subscriptionType.enable);
+    }
+  }, [subscriptionType]);
+
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const payloadData = {
+      id, category, cost, profit, enable
+    }
+    const response = await dispatch(editSubscriptionType(payloadData))
+    if (response.type.includes('fulfilled')) {
+      navigate('/home/subscriptionTypes');
+    } else {
+      window.alert('This action failed, please try again')
+    }
+
+  };
+
+  if (!category || !cost || !profit) {
+    return <div>Loading...</div>;
+  }
+
+  return (
+    <>
       <h2 className='text-start h4 m-4'>Edit SubscriptionType</h2>
       <Form onSubmit={handleSubmit} className='d-flex flex-column align-items-center' >
         <FormGroup>
@@ -66,10 +68,14 @@ function EditSubscriptionType() {
           <Label for="profit">Profit</Label>
           <Input type="number" name="profit" className='bg-white' id="profit" required value={profit} onChange={(e) => setProfit(e.target.value)} />
         </FormGroup>
+        <FormGroup check>
+          <Input type="checkbox"  id="enable" checked={enable} onChange={(e) => setEnable(e.target.checked)} />
+          <Label check>Enable</Label>
+        </FormGroup>
         <Button color="primary" type="submit">Update Subscription Type</Button>
       </Form>
-      </>  
-    );
+    </>
+  );
 }
 
 export default EditSubscriptionType;

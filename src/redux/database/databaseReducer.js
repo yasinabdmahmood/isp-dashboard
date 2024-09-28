@@ -433,6 +433,7 @@ export const editSubscriptionType = createAsyncThunk(
           category: payloadData.category,
           cost: payloadData.cost,
           profit: payloadData.profit,
+          enable: payloadData.enable,
         },
       },{
         withCredentials: true
