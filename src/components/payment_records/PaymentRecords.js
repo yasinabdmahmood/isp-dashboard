@@ -61,6 +61,7 @@ function PaymentRecords() {
                     <th scope="col">Employee</th>
                     <th scope="col">Amount</th>
                     <th scope="col">Payment Date</th>
+                    <th scope="col">Actual Date</th>
                     { (isAdmin() || isAdminPlus()) && <th scope="col">Actions</th> }
                 </tr>
                 </thead>
@@ -71,6 +72,7 @@ function PaymentRecords() {
                     <td>{paymentRecord?.employee.name}</td>
                     <td>{paymentRecord?.amount}</td>
                     <td style={{whiteSpace: 'nowrap'}}>{formatDate(paymentRecord?.created_at)}</td>
+                    <td style={{whiteSpace: 'nowrap'}}>{formatDate(paymentRecord?.actual_creation_time)}</td>
                     { (isAdmin() || isAdminPlus()) && 
                     <td className='d-flex justify-content-center'>
                       <img src={trash} style={{cursor: 'pointer'}} onClick={()=>handleDeletion(paymentRecord?.id)}/>
