@@ -9,17 +9,22 @@ import styles from './styles.module.scss'
 import { editSubscriptionRecord, getClients, getEmployees, getSubscriptionTypes } from '../../redux/database/databaseReducer';
 
 
-
+const getLoggedinUser = () => {
+  let loggedInEmployee = sessionStorage.getItem('user');
+  let retrievedData = JSON.parse(loggedInEmployee);
+  return retrievedData
+}
 
 
 function EditSubscriptionRecord() {
+    const user = getLoggedinUser();
     const location = useLocation();
     const subscriptionRecord = location.state?.subscriptionRecord;
     
     const subscriptionTypes = useSelector( state => state.database.subscriptionTypes);
     const clients = useSelector( state => state.database.clients);
     const employees = useSelector( state => state.database.employees);
-  
+    
     const [client, setClient] = useState(subscriptionRecord.client.name);
     const [assignedEmployee, setAssignedEmployee] = useState(subscriptionRecord.assigned_employee);
     const [dateTime, setDateTime] = useState(formatDate(new Date(subscriptionRecord.created_at)));
@@ -92,7 +97,7 @@ function EditSubscriptionRecord() {
             </datalist>
         </FormGroup>
 
-        <FormGroup className='d-flex flex-column'>
+        { !(user.role === "employee") &&<FormGroup className='d-flex flex-column'>
             <Label for="employee">Assigned Employee</Label>
             <input type="text" name="employee" className={`bg-white ${styles.inputfield}`} id="employee" placeholder="Type to search" value={assignedEmployee} onChange={(e) => setAssignedEmployee(e.target.value)} list="employees" autocomplete="off"/>
             <datalist id="employees">
@@ -100,7 +105,7 @@ function EditSubscriptionRecord() {
                 <option key={el.id} value={el.name}  />
                 ))}
             </datalist>
-        </FormGroup>
+        </FormGroup>}
         
         {/* <FormGroup className='d-flex flex-column'>
             <Label for="subscription-type">Subscription Type</Label>
@@ -115,7 +120,7 @@ function EditSubscriptionRecord() {
             <Label for="paid-amount">Paid amount</Label>
             <Input type="number" name="paid-amount" className={`bg-white ${styles.inputfield}`} id="pay" required value={pay} onChange={(e) => setPay(e.target.value)} />
         </FormGroup> */}
-        <FormGroup>
+        {!(user.role === "employee") && <FormGroup>
           <Label for="datetime">Date and Time</Label>
           <DateTimePicker
             id="datetime"
@@ -131,7 +136,7 @@ function EditSubscriptionRecord() {
             timeFormat="HH:mm"
             closeOnSelect
           />
-        </FormGroup>
+        </FormGroup>}
         <FormGroup>
           <textarea name="note" placeholder='Note' className={`bg-white ${styles.inputfield} w-100`} id="note" value={note} onChange={(e) => setNote(e.target.value)} />
         </FormGroup>
