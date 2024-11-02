@@ -11,6 +11,10 @@ import {
   CategoryScale,
   LinearScale,
   ArcElement,
+  Title,
+  Tooltip,
+  Legend,
+  plugins,
 } from 'chart.js'
 import { Bar } from 'react-chartjs-2';
 import { getClients, getDailyReport, getMonthlyReport, getSubscriptionRecords, getSubscriptionTypes, getUnpaidSubscriptionRecords } from '../../redux/database/databaseReducer';
@@ -24,6 +28,9 @@ ChartJs.register(
   CategoryScale,
   LinearScale,
   ArcElement,
+  Title,
+  Tooltip,
+  Legend,
 );
 
 
@@ -218,22 +225,27 @@ function Dashboard() {
 
 
   const options = {
-    responsive: true,
-    maintainAspectRatio: true,
-    scales: {
-      x: {
-        title: {
-          display: true,
-          text: 'Subscription Types',
+    plugins: {
+      legend: {
+        display: false,
+      },
+      tooltip: {
+        callbacks: {
+          label: function (data) {
+            return data.formattedValue;
+          },
         },
       },
-      y: {
-        title: {
-          display: true,
-          text: 'Payment in IQD',
+      datalabels: {
+        formatter: function (value) {
+           //custom money icon
+          return "₺" + new Intl.NumberFormat("tr-TR").format(value);
         },
-        ticks: {
-          beginAtZero: true,
+        color: "white",
+        font: {
+          weight: 'bold' ,
+          size:14,
+          family: 'poppins'
         },
       },
     },
