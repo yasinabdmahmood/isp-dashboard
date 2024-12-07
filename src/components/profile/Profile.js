@@ -4,6 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import isAdmin from '../../helpers/isAdmin';
 import { createEmployeeContactInfo, deleteEmployeeContactInfo, getEmployees } from '../../redux/database/databaseReducer';
 import styles from './styles.module.scss'
+import isAdminPlus from '../../helpers/isAdminPlus';
 
 function Profile() {
     const [inputValue, setInputValue] = useState('');
@@ -99,7 +100,7 @@ function Profile() {
                 </ul>
             </div>
             <div>
-                { isAdmin() && <button
+                { isAdmin() || isAdminPlus() && <button
                 className='btn btn-secondary'
                 onClick={()=> navigate(`/home/employees/edit/${id}`)}>
                     Edit
