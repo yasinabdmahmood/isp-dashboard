@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import isAdmin from '../../../helpers/isAdmin';
+import isAdminPlus from '../../../helpers/isAdminPlus';
 import Table from 'react-bootstrap/Table';
 import styles from './styles.module.scss'
 import plusSign from '../../../assets/images/plus-circle.svg'
@@ -71,7 +72,7 @@ function Companies() {
                         <tr key={company.id}>
                         <td>{company.name}</td>
                         <td className='d-flex justify-content-around align-items-center'>
-                        { isAdmin() &&
+                        { (isAdmin() || isAdminPlus()) &&
                             <>
                                     <img src={trash} style={{cursor: 'pointer'}} onClick={()=>{handleCompanyDeletion(company.id)}} className='mx-2'/>
                                     <img src={edit} style={{cursor: 'pointer'}} onClick={()=>{navigate(`/home/companies/edit/${company.id}`)}} className='mx-2'/>
@@ -83,7 +84,7 @@ function Companies() {
                 </tbody>
       </Table>
     </div>
-    { isAdmin() && <div className={styles['plus-sign']}>
+    { (isAdmin() || isAdminPlus()) && <div className={styles['plus-sign']}>
             <button onClick={()=> navigate('/home/companies/new')} >
                 <img src={plusSign} alt='Add sign' />
             </button>

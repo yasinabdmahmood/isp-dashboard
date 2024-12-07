@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { getClients, deleteClient } from '../../../redux/database/databaseReducer';
 import isAdmin from '../../../helpers/isAdmin';
+import isAdminPlus from '../../../helpers/isAdminPlus';
 import Table from 'react-bootstrap/Table';
 import styles from './styles.module.scss';
 import plusSign from '../../../assets/images/plus-circle.svg';
@@ -94,7 +95,7 @@ function Ledgers() {
                                 <td>{ledger.deposit}</td>
                                 <td>{ledger.date}</td>
                                 <td className='d-flex justify-content-around align-items-center'>
-                                    {isAdmin() &&
+                                    {(isAdmin() || isAdminPlus()) &&
                                         <>
                                             <img src={trash} style={{ cursor: 'pointer' }} onClick={() => { handleLedgerDeletion(ledger.id) }} className='mx-2' />
                                             {/* <img src={edit} style={{ cursor: 'pointer' }} onClick={() => { navigate(`/home/clients/edit/${ledger.id}`) }} className='mx-2' /> */}
@@ -112,7 +113,7 @@ function Ledgers() {
             <div className='my-3' style={{ display: loadMoreButton ? 'block' : 'none' }}>
                 <button onClick={loadMore} className='btn btn-sm btn-primary'>Load more</button>
             </div>
-            {isAdmin() && <div className={styles['plus-sign']}>
+            {(isAdmin() || isAdminPlus()) && <div className={styles['plus-sign']}>
                 <button onClick={() => navigate('/home/ledgers/new')} >
                     <img src={plusSign} alt='Add sign' />
                 </button>

@@ -14,6 +14,7 @@ import edit from '../../assets/images/pencil-square.svg'
 import view from '../../assets/images/eye-fill.svg'
 import searchLogo from '../../assets/images/search.svg'
 import { setLoading } from '../../redux/app-state/appState';
+import isAdminPlus from '../../helpers/isAdminPlus';
 
 const getLoggedinUser = () => {
   let loggedInEmployee = sessionStorage.getItem('user');
@@ -164,7 +165,7 @@ function UnpaidSubscriptionRecord() {
 
             </div>
           </div>
-          { isAdmin() &&
+          { (isAdmin() || isAdminPlus()) &&
           <Form onSubmit={handleSubmit} className='d-flex align-items-center'>
             <FormGroup className='d-flex align-items-center'>
                 <Label for="employees">Set employee</Label>
@@ -190,7 +191,7 @@ function UnpaidSubscriptionRecord() {
                     <th scope="col">Paid Amount</th>
                     <th scope="col">Remaining Amount</th>
                     <th scope="col">Subscription Date</th>
-                    { isAdmin() && <th scope="col">Assign</th> }
+                    { (isAdmin() || isAdminPlus()) && <th scope="col">Assign</th> }
                     <th scope="col">Assigned Employee</th>
                     <th scope="col">Note</th>
                     <th scope="col">Actions</th>
@@ -206,7 +207,7 @@ function UnpaidSubscriptionRecord() {
                     <td>{subscriptionRecord?.pay}</td>
                     <td>{subscriptionRecord?.subscription_type.cost - subscriptionRecord?.pay}</td>
                     <td style={{whiteSpace: 'nowrap'}}>{formatDate(subscriptionRecord?.created_at)}</td>
-                    { isAdmin() && <td onClick={(event) => {
+                    { (isAdmin() || isAdminPlus()) && <td onClick={(event) => {
                             event.stopPropagation();
                           }}>
                       <input type="checkbox"
@@ -218,7 +219,7 @@ function UnpaidSubscriptionRecord() {
                     <td>{subscriptionRecord?.assigned_employee || 'N/A'}</td>
                     <td>{subscriptionRecord?.note || 'N/A'}</td>
                     <td className='d-flex justify-content-around align-items-stretch flex-nowrap'>
-                        { isAdmin() && 
+                        { (isAdmin() || isAdminPlus()) && 
                         <img src={trash}  onClick={(event) => {
                           event.stopPropagation();
                           handleDeletion(subscriptionRecord?.id);

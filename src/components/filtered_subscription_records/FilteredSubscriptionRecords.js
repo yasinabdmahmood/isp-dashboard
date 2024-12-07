@@ -7,6 +7,7 @@ import plusSign from '../../assets/images/plus-circle.svg'
 import Table from 'react-bootstrap/Table';
 import { getFilteredSubscriptionRecords, deleteSubscriptionRecord, getPaymentRecords } from '../../redux/database/databaseReducer';
 import isAdmin from '../../helpers/isAdmin';
+import isAdminPlus from '../../helpers/isAdminPlus';
 import { convertToRailsDateTime } from '../../helpers/formatDate';
 import trash from '../../assets/images/trash-fill.svg'
 import add from '../../assets/images/plus-circle-fill.svg'
@@ -167,7 +168,7 @@ function FilteredSubscriptionRecords() {
                     <td style={{whiteSpace: 'nowrap'}}>{formatDate(subscriptionRecord.created_at)}</td>
                     <td>{subscriptionRecord?.note || 'N/A'}</td>
                     <td className='d-flex justify-content-around align-items-stretch flex-nowrap'>
-                        { isAdmin() && 
+                        { (isAdmin() || isAdminPlus()) && 
                         <img src={trash}  onClick={() => handleDeletion(subscriptionRecord.id)} style={{cursor: 'pointer'}} className='m-1'/>                     
                         }
                          <img src={add}  onClick={()=>navigate(`/home/paymentRecords/new/${subscriptionRecord.id}`)} style={{cursor: 'pointer'}} className='m-1'/>

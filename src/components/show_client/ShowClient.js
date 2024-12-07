@@ -7,6 +7,7 @@ import { useEffect } from 'react';
 import { formatDate } from '../../helpers/formatDate';
 import Table from 'react-bootstrap/Table';
 import isAdmin from '../../helpers/isAdmin';
+import isAdminPlus from '../../helpers/isAdminPlus';
 import trash from '../../assets/images/trash-fill.svg';
 import view from '../../assets/images/eye-fill.svg';
 import edit from '../../assets/images/pencil-square.svg'
@@ -97,7 +98,7 @@ function ShowClient() {
                         <span>{client?.info || 'N/A'}</span>
                         
                     </li>
-                    { isAdmin() && <li className='d-flex my-3'>
+                    { (isAdmin() || isAdminPlus()) && <li className='d-flex my-3'>
                          
                         <div>
                         <span className='h5'>Actions</span>
@@ -145,7 +146,7 @@ function ShowClient() {
                     <td>{formatDate(subscriptionRecord.created_at)}</td>
                     <td>{subscriptionRecord?.assigned_employee || 'N/A'}</td>
                     <td className='d-flex justify-content-around'>
-                        { isAdmin() &&
+                        { (isAdmin() || isAdminPlus()) &&
                         <img src={trash} style={{cursor: 'pointer'}}  onClick={() => handleSubscriptionRecordDeletion(subscriptionRecord.id)} alt='delete' className='m-1'/>
                         }
                          <img src={add} style={{cursor: 'pointer'}}   onClick={()=>navigate(`/home/paymentRecords/new/${subscriptionRecord.id}`)} alt='Add payment' className='m-1'/>
