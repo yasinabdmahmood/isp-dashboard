@@ -92,7 +92,7 @@ function Clients() {
                 </tbody>
       </Table>
     </div>
-    { isAdmin() && <div className={styles['plus-sign']}>
+    { (isAdmin() || isAdminPlus()) && <div className={styles['plus-sign']}>
             <button onClick={()=> navigate('/home/clients/new')} >
                 <img src={plusSign} alt='Add sign' />
             </button>
