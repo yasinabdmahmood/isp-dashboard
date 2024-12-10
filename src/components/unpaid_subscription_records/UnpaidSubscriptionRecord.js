@@ -123,17 +123,19 @@ function UnpaidSubscriptionRecord() {
       
     }
 
-    const updateCheckdeList = (number) => {
-      const index = selectedSubscriptions.indexOf(number);
+    const updateCheckdeList = (number,e) => {
+      console.log(e.target.checked);
 
-      if (index !== -1) {
-        // Number found in array, remove it
-        const newArray = [...selectedSubscriptions];
-        newArray.splice(index, 1);
-        setSelectedSubscriptions(newArray);
-      } else {
-        // Number not found in array, add it
+      if (e.target.checked) {
+        // Add number to array
         setSelectedSubscriptions(prev => [...prev, number]);
+       
+      } else {
+         // Remove number from array
+         const index = selectedSubscriptions.indexOf(number);
+         const newArray = [...selectedSubscriptions];
+         newArray.splice(index, 1);
+         setSelectedSubscriptions(newArray);
       }
     }
 
@@ -212,7 +214,7 @@ function UnpaidSubscriptionRecord() {
                           }}>
                       <input type="checkbox"
                           defaultChecked={false}
-                          onChange={() => updateCheckdeList(subscriptionRecord?.id)}
+                          onChange={(e) => updateCheckdeList(subscriptionRecord?.id,e)}
                       />
                     </td>
                     }
