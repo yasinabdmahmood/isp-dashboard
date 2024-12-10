@@ -29,10 +29,16 @@ function UnpaidSubscriptionRecord() {
     const [search, setSearch] = useState('');
     const [searchType, setSearchType] = useState('Client name');
     const [selectedSubscriptions, setSelectedSubscriptions] = useState([]);
-    const [assignedEmployee, setAssignedEmployee] = useState(employees[0]?.name);
+    const [assignedEmployee, setAssignedEmployee] = useState("");
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const elementRef = useRef(null);
+
+    useEffect(() => {
+      if (employees.length > 0 && !assignedEmployee) {
+          setAssignedEmployee(employees[0].name); // Set to the first employee when employees are loaded
+      }
+  }, [employees]); 
     const handleDeletion = async (id) => {
         // Display alert message and prompt user to continue or cancel
         const confirmed = window.confirm('Are you sure you want to delete this item?');
@@ -104,27 +110,25 @@ function UnpaidSubscriptionRecord() {
 
     const handleSubmit = async(event) => {
       event.preventDefault();
+      dispatch(setLoading(true));
       
 
       const payloadData = {
         employee: assignedEmployee ,
         subscriptionIds: selectedSubscriptions,
       }
-      console.log(payloadData);
-        setLoading(true);
         const response = await dispatch(assignedEmployees(payloadData));
         if(response.type.includes('fulfilled')){
           dispatch(getUnpaidSubscriptionRecords());
-          setSelectedSubscriptions([]);
+          // setSelectedSubscriptions([]);
         }else{
           window.alert('The action failed, please try again')
         }
-        setLoading(false); 
+        dispatch(setLoading(false));
       
     }
 
     const updateCheckdeList = (number,e) => {
-      console.log(e.target.checked);
 
       if (e.target.checked) {
         // Add number to array
