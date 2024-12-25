@@ -33,51 +33,58 @@ const Receipt = () => {
   
   return (
     <>
-      <div className={styles.header}>
-        <h1>بابان نيت لخدمات الانترنيت</h1>
-        <div>
-          <h2>0770 359 88 00</h2>
-          <h2>0751 161 85 71</h2>
+    <div className='d-flex justify-content-center bg-light mt-3'>
+    <div className="d-inline-flex justify-content-center flex-column">
+        <div className={styles.header}>
+          <h1>بابان نيت لخدمات الانترنيت</h1>
+          <div className='d-flex'>
+          <div >
+            <h2>0770 359 88 00</h2>
+            <h2>0751 161 85 71</h2>
+          </div>
+          <div>
+            <img src={internetDish} alt="Dish"  onLoad={() => setImageLoaded(true)} />
+          </div>
+          </div>
+
         </div>
-        <div>
-          <img src={internetDish} alt="Dish"  onLoad={() => setImageLoaded(true)} />
+        <div className={styles.date}>
+        <span>{new Date().toLocaleString('en-US', { timeZone: 'Asia/Baghdad', hour12: false, year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' })}:تاريخ دفع الاشتراك</span>
+        </div>
+        <div className={styles['fields-container']}>
+          <div className={styles['field-container']}>
+            <div className={styles.lable}>:اسم الموضف</div>
+            <div className={styles.value}>{getUserName()}</div>
+          </div>
+          <div className={styles['field-container']}>
+            <div className={styles.lable}>:استلمت من السيد</div>
+            <div className={styles.value}>{subscriptionRecord.client.name}</div>
+          </div>
+          <div className={styles['field-container']}>
+            <div className={styles.lable}>:مبلغ و قدره</div>
+            <div className={styles.value}>{subscriptionRecord.pay} IQD</div>
+          </div>
+          <div className={styles['field-container']}>
+            <div className={styles.lable}>:الملاحضة</div>
+            <div className={styles.value}></div>
+          </div>
+          <div className={styles['field-container']}>
+            <div className={styles.lable}>:رقم الموبايل</div>
+            <div className={styles.value}></div>
+          </div>
+          <div className={styles['field-container']}>
+            <div className={styles.lable}>:تاريخ تفعيل الاشتراك</div>
+            <div className={styles.value}>{formatDate(subscriptionRecord.created_at)}</div>
+          </div>
+        </div>
+        <div className={styles.address}>
+          <span>شورجة - قرب جسر شورجة - مقابل غسل كامران</span>
+        </div>
+        <div className={`${styles.signiture} d-flex justify-content-end`}>
+          <span>توقيع المستلم</span>
         </div>
       </div>
-      <div className={styles.date}>
-      <span>{new Date().toLocaleString('en-US', { timeZone: 'Asia/Baghdad', hour12: false, year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' })}:تاريخ دفع الاشتراك</span>
-      </div>
-      <div className={styles['fields-container']}>
-        <div className={styles['field-container']}>
-          <div className={styles.lable}>:اسم الموضف</div>
-          <div className={styles.value}>{getUserName()}</div>
-        </div>
-        <div className={styles['field-container']}>
-          <div className={styles.lable}>:استلمت من السيد</div>
-          <div className={styles.value}>{subscriptionRecord.client.name}</div>
-        </div>
-        <div className={styles['field-container']}>
-          <div className={styles.lable}>:مبلغ و قدره</div>
-          <div className={styles.value}>{subscriptionRecord.pay} IQD</div>
-        </div>
-        <div className={styles['field-container']}>
-          <div className={styles.lable}>:الملاحضة</div>
-          <div className={styles.value}></div>
-        </div>
-        <div className={styles['field-container']}>
-          <div className={styles.lable}>:رقم الموبايل</div>
-          <div className={styles.value}></div>
-        </div>
-        <div className={styles['field-container']}>
-          <div className={styles.lable}>:تاريخ تفعيل الاشتراك</div>
-          <div className={styles.value}>{formatDate(subscriptionRecord.created_at)}</div>
-        </div>
-      </div>
-      <div className={styles.address}>
-        <span>شورجة - قرب جسر شورجة - مقابل غسل كامران</span>
-      </div>
-      <div className={styles.signiture}>
-        <span>توقيع المستلم</span>
-      </div>
+    </div>
     </>
   );
 };
