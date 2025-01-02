@@ -1,4 +1,5 @@
 import React from 'react';
+import ReceiptPrinter from '../receipt_printer/ReceiptPrinter';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -75,6 +76,10 @@ function PaymentHistory() {
                 ))}
                 </tbody>
             </Table>
+            </div>
+            <div>
+               <h1>Receipt Printer App</h1>
+               <ReceiptPrinter />
             </div>
             <button className='btn btn-sm btn-primary mx-5' onClick={()=>navigate('/receipt',{state: {subscriptionRecord}})} >Print</button>
         </div>
