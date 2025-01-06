@@ -5,6 +5,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { loggout } from './redux/login/loginReducer';
 import { getClients, getEmployees, getSubscriptionTypes } from './redux/database/databaseReducer';
 import { setLoading } from './redux/app-state/appState';
+import LoadingRing from './components/helper_components/loading_ring/LoadingRing';
+
 
 
 
@@ -36,6 +38,7 @@ function App() {
   return (
     <div className="App">
       <Home />
+      <LoadingRing loading={loading} />
     </div>
   )
 }

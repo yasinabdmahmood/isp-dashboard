@@ -3,11 +3,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getLoggedInCredentials, loggout } from '../../redux/login/loginReducer';
 import { Container, Form, FormGroup, Label, Input, Button } from 'reactstrap';
 import { useNavigate } from 'react-router-dom';
+import { setLoading } from '../../redux/app-state/appState';
 import styles from './styles.module.scss'
 // import axios from 'axios';
 
 const LoginForm = () => {
   const loggedInEmployee = useSelector(state => state.login);
+  const loading = useSelector( state => state.appState.loading)
   const dispatch = useDispatch();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -16,6 +18,7 @@ const LoginForm = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    dispatch(setLoading(true))
     const payloadData = {email, password};
       const responce = await dispatch(getLoggedInCredentials(payloadData));
       if(responce.type.includes('fulfilled')){
@@ -31,6 +34,7 @@ const LoginForm = () => {
         }else{
           console.log('first attempt to log in successed')
         }
+        dispatch(setLoading(false))
         const loggedInEmployeeRole = JSON.parse(sessionStorage.getItem('user')).role;
         if(loggedInEmployeeRole !== 'admin'){
           navigate('/home/subscriptionRecords')
@@ -55,7 +59,7 @@ const LoginForm = () => {
                 <Label for="password" className='text-black h3 font-weight-bold'>Password:</Label>
                 <Input type="password" className='bg-white' id="password" value={password} onChange={(e) => setPassword(e.target.value)} />
               </FormGroup>
-              <Button type="submit" color="primary">Login</Button>
+              <Button type="submit" color="primary" disabled={loading}>Login</Button>
             </Form>
           </div>
         </Container>

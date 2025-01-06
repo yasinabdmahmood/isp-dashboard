@@ -11,8 +11,8 @@ import isAdmin from '../../helpers/isAdmin';
 import isAdminPlus from '../../helpers/isAdminPlus';
 import logoutLogo from '../../assets/images/box-arrow-right.svg'
 import { setLoading } from '../../redux/app-state/appState';
-import LoadingRing from '../helper_components/loading_ring/LoadingRing';
-import isEmployee from '../../helpers/isEmployee';
+// import LoadingRing from '../helper_components/loading_ring/LoadingRing';
+// import isEmployee from '../../helpers/isEmployee';
 
 
 
@@ -107,7 +107,7 @@ function Template() {
              <Outlet />
           </div>   
         </div>
-        <LoadingRing loading={loading} />
+        {/* <LoadingRing loading={loading} /> */}
       </div>
     );
 }
