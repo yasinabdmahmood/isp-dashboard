@@ -144,8 +144,8 @@ function PaymentHistory() {
                 </tbody>
             </Table>
             </div>
-            <button className='btn btn-sm btn-primary mx-5' onClick={()=>navigate('/receipt',{state: {subscriptionRecord}})} >Print Receipt</button>
-            <button className='btn btn-sm btn-primary mx-5' onClick={()=>dawnloadRecipt(subscriptionRecord)} >Download Receipt</button>
+            <button className='btn btn-sm btn-primary mx-5 my-2' onClick={()=>navigate('/receipt',{state: {subscriptionRecord}})} >Print Receipt</button>
+            <button className='btn btn-sm btn-primary mx-5 my-2' onClick={()=>dawnloadRecipt(subscriptionRecord)} >Download Receipt</button>
         </div>
     );
 }
