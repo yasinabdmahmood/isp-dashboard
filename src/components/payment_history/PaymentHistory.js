@@ -1,6 +1,7 @@
 import React from 'react';
 import jsPDF from 'jspdf';
 import ReceiptPrinter from '../receipt_printer/ReceiptPrinter';
+import { v4 as uuidv4 } from 'uuid';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -104,8 +105,10 @@ function PaymentHistory() {
         printText(': توقيع المستلم', 74, 80, pdf, 10)
     
         pdf.text('-------------------------------------------------------------',4,90);
+
+        const generateShortId = () => uuidv4().slice(0, 8);
     
-        pdf.save('filename');
+        pdf.save('receipt_'+generateShortId());
     }
 
 
