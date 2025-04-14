@@ -1,18 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getLoggedInCredentials, loggout } from '../../redux/login/loginReducer';
 import { Container, Form, FormGroup, Label, Input, Button } from 'reactstrap';
 import { useNavigate } from 'react-router-dom';
 import { setLoading } from '../../redux/app-state/appState';
 import styles from './styles.module.scss'
-// import axios from 'axios';
+
 
 const LoginForm = () => {
-  const loggedInEmployee = useSelector(state => state.login);
   const loading = useSelector( state => state.appState.loading)
   const dispatch = useDispatch();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('testuser@gmail.com');
+  const [password, setPassword] = useState('123456');
   const navigate = useNavigate();
 
 
@@ -23,16 +22,14 @@ const LoginForm = () => {
       const responce = await dispatch(getLoggedInCredentials(payloadData));
       if(responce.type.includes('fulfilled')){
         const user = JSON.parse(sessionStorage.getItem('user'))
-        console.log('xxxxxxxxxxxxxxxxxxxxxxxxxxxemployee')
         if(Array.isArray(user)){
           console.log('first attempt to log in failed, starting the second attemp automtically')
           const r = await dispatch(loggout());
           if(r.type.includes('fulfilled')){
-            console.log('Second attempt to log in successed')
             await dispatch(getLoggedInCredentials(payloadData));
           }
         }else{
-          console.log('first attempt to log in successed')
+          // console.log('user is not an array, so no need to log out')
         }
         dispatch(setLoading(false))
         const loggedInEmployeeRole = JSON.parse(sessionStorage.getItem('user')).role;
@@ -42,7 +39,7 @@ const LoginForm = () => {
           navigate('/home')
         }
       }
-   
+      dispatch(setLoading(false))
   }
 
   return (
